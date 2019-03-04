@@ -24,6 +24,8 @@ Small mobile optimized progressive web app to add and quickly edit chords for so
 
 ## Setup
 
+You need to enter you firebase keys to environment.ts
+
 ```
 git clone <this-repo>
 npm i
