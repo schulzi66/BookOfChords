@@ -43,8 +43,7 @@ export class UploadTaskComponent implements OnInit {
     //Progress monitoring
     this.percentage = this.task.percentageChanges();
 
-    this.snapshot = this.task.snapshotChanges().pipe(
-      tap(console.log),
+    this.snapshot = this.task.snapshotChanges().pipe(      
       finalize( async() => {
         this.downloadUrl = await ref.getDownloadURL().toPromise();
         this._angularFirestore.collection('files').add( {
