@@ -1,0 +1,49 @@
+.gig-name {
+    margin: 0 10px 0 10px;
+}
+
+.edit-icon {
+    margin-bottom: 2px;
+}
+
+.song-panel-body {
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+}
+
+.section-name {
+    width: 25%;
+    margin-right: 5px;
+}
+
+.section-value {
+    align-self: center;
+    font-size: 18px;
+    margin: 4px;
+}
+
+.picture {
+    height: 100%;
+    width: 100%;
+}
+
+.placeholder {
+    background: #ccc;
+    border: dotted 3px #999;
+    min-height: 60px;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.panel-description {
+    align-items: center;    
+    flex-direction: row-reverse;
+}
+
+.panel-header {
+    padding: 0 0 0 24px;
+}
+
+mat-divider {
+    margin: 5px;
+}

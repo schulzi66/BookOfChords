@@ -1,0 +1,29 @@
+.song-panel-body {
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+}
+.section-name {
+    margin-right: 10px;
+    margin-block-end: 10px;
+    margin-block-start: 0px;    
+    text-align: left;
+}
+.section-value-flex-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.section-value {
+    align-self: center;
+    font-size: 18px;
+    margin: 4px;
+}
+
+mat-divider {
+    margin: 5px;
+}
+
+.picture {
+    height: 100%;
+    width: 100%;
+}

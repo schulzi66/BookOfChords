@@ -1,0 +1,27 @@
+<div class="flex-container">
+  <shared-fab-btn [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
+
+  <mat-form-field>
+    <mat-label>Font header size</mat-label>
+    <mat-select [value]="configuration?.fontSizeHeader" (selectionChange)="fontSizeHeaderChanged($event)">
+      <mat-option value="14px">14px</mat-option>
+      <mat-option value="16px">16px</mat-option>
+      <mat-option value="18px">18px</mat-option>
+      <mat-option value="20px">20px</mat-option>
+      <mat-option value="24px">24px</mat-option>
+      <mat-option value="28px">28px</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Font section size</mat-label>
+    <mat-select [value]="configuration?.fontSizeSection" (selectionChange)="fontSizeSectionChanged($event)">
+      <mat-option value="14px">14px</mat-option>
+      <mat-option value="16px">16px</mat-option>
+      <mat-option value="18px">18px</mat-option>
+      <mat-option value="20px">20px</mat-option>
+      <mat-option value="24px">24px</mat-option>
+      <mat-option value="28px">28px</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

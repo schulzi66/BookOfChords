@@ -1,0 +1,13 @@
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  flex-grow: 9;
+  margin-left: 40px;
+}
+.menu {
+  flex-grow: 1;
+}

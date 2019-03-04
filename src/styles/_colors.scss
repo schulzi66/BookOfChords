@@ -1,0 +1,10 @@
+$accent-color: #F08A3F;
+$middle-color: #BC5D89;
+$base-color: #2F4858;
+
+$accent-middle-linear-gradient-color: linear-gradient($accent-color, $middle-color);
+$middle-base-linear-gradient-color: linear-gradient($middle-color, $base-color);
+$accent-base-linear-gradient-color: linear-gradient($accent-color, $base-color);
+
+$divider-color: #333;
+$background-color: #FFFFFF;

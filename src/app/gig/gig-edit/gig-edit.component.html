@@ -1,0 +1,11 @@
+<shared-fab-btn [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
+<mat-form-field appearance="outline" class="gig-name">
+  <mat-label>Gig Name</mat-label>
+  <input matInput required [(ngModel)]="gig.name" name="gigName">
+</mat-form-field>
+
+<mat-selection-list #songs (selectionChange)="onSelectionChange($event)">
+    <mat-list-option *ngFor="let song of allSongs" [selected]="checkSelected(song)" [value]="song">
+        {{song.name}}
+    </mat-list-option>    
+</mat-selection-list>
