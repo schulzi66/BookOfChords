@@ -1,3 +1,15 @@
 .gig-name {
     margin: 0 10px 0 10px;
 }
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-input {
+    flex-grow: 9;
+    height: 75px;
+}
+.back-btn {
+    flex-grow: 1;
+}

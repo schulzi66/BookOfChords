@@ -1,7 +1,16 @@
-<shared-fab-btn [icon]="'add'" (onClick)="createNewSong()"></shared-fab-btn>
+<div class="flex-container">
+  <mat-form-field appearance="outline" class="search-input">
+    <mat-label>Search</mat-label>
+    <input matInput [(ngModel)]="searchString" name="search" (keyup)="searchForSong()">
+    <button mat-button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+  </mat-form-field>
 
+  <shared-fab-btn class="new-song-btn" [icon]="'add'" (onClick)="createNewSong()"></shared-fab-btn>
+</div>
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let song of songs; index as i" (opened)="setSelectedSong(song)" (closed)="removeSelectedSong()">
+    <mat-expansion-panel *ngFor="let song of filteredSongs; index as i" (opened)="setSelectedSong(song)" (closed)="removeSelectedSong()">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <h3>{{song.name}}</h3>

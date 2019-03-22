@@ -27,3 +27,17 @@ mat-divider {
     height: 100%;
     width: 100%;
 }
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-input {
+    flex-grow: 9;
+    height: 75px;
+}
+
+.new-song-btn{
+    flex-grow: 1;
+}

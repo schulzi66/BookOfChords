@@ -20,6 +20,9 @@ export class GigEditComponent implements OnInit {
   public allSongs: Song[];  
   public selectedSongs: Song[];
 
+  public searchString: string;
+  public filteredSongs: Song[];
+
   @ViewChild(MatSelectionList) selection: MatSelectionList;
 
   private _gigService: GigService;
@@ -45,6 +48,7 @@ export class GigEditComponent implements OnInit {
       this._songService.getSongsForUser(user.uid)
                        .subscribe((songs: Song[]) => {
                          this.allSongs = songs;                                
+                         this.filteredSongs = songs;                         
                        });
     })    
   }  
@@ -67,5 +71,21 @@ export class GigEditComponent implements OnInit {
       this._gigService.saveGig(this.gig);
     }
     this._location.back();
+  }
+
+  public searchForSong(): void {
+    if(this.searchString.length > 0) {
+      this.filteredSongs = this.allSongs.filter(
+          song => song.name.toLowerCase()
+                           .includes(this.searchString.toLowerCase())
+        );
+    } else {
+      this.clearSearch();
+    }    
+  }  
+  
+  public clearSearch(): void {
+    this.filteredSongs = this.allSongs;
+    this.searchString = '';
   }
 }

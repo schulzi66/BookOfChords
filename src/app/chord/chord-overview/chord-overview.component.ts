@@ -17,11 +17,14 @@ export class ChordOverviewComponent implements OnInit {
   private _songService: SongService;
   private _router: Router;
   private _authService: AuthService;
-  private _configurationService: ConfigurationService;
+  private _configurationService: ConfigurationService;  
 
   public configuration: Configuration;
+  public searchString: string;
 
   public songs: Song[];
+  public filteredSongs: Song[];
+
   constructor(songService: SongService, router: Router, authService: AuthService, configurationService: ConfigurationService) {
     this._songService = songService;
     this._router = router;
@@ -35,6 +38,7 @@ export class ChordOverviewComponent implements OnInit {
         this._songService.getSongsForUser(user.uid)
                          .subscribe((songs: Song[]) => {
                             this.songs = songs;
+                            this.filteredSongs = songs;
                          });
         this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {
           this.configuration = configuration;
@@ -60,4 +64,20 @@ export class ChordOverviewComponent implements OnInit {
     this._router.navigate(['/edit-song']);
   }
 
+  public searchForSong(): void {
+    if(this.searchString.length > 0) {
+      this.filteredSongs = this.songs.filter(
+          song => song.name.toLowerCase()
+                           .includes(this.searchString.toLowerCase())
+        );
+    } else {
+      this.clearSearch();
+    }    
+  }  
+  
+  public clearSearch(): void {
+    this.filteredSongs = this.songs;
+    this.searchString = '';
+  }
 }
+
