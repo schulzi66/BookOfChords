@@ -1,3 +1,4 @@
+import { SongService } from './../../chord/services/song.service';
 import { User } from './../../models/user.model';
 import { AuthService } from './../../services/auth.service';
 import {Location} from '@angular/common';
@@ -15,7 +16,7 @@ import { Configuration } from 'src/app/models/configuration.model';
   templateUrl: './gig-detail.component.html',
   styleUrls: ['./gig-detail.component.scss']
 })
-export class GigDetailComponent implements OnInit {
+export class GigDetailComponent implements OnInit { 
 
   private _router: Router;
   private _gigService: GigService;  
@@ -23,17 +24,19 @@ export class GigDetailComponent implements OnInit {
   private _orderChanged: boolean;
   private _authService: AuthService;
   private _configurationService: ConfigurationService;
+  private _songService: SongService
 
   public configuration: Configuration;
   public gig: Gig;
   public songs: Song[];
 
-  constructor(router: Router, gigService: GigService, location: Location, authService: AuthService, configurationServcie: ConfigurationService) { 
+  constructor(router: Router, gigService: GigService, location: Location, authService: AuthService, configurationServcie: ConfigurationService, songService: SongService) { 
     this._router = router;
     this._gigService = gigService;
     this._location = location;
     this._configurationService = configurationServcie;
     this._authService = authService;
+    this._songService = songService;
   }
   
   ngOnInit() {
@@ -59,5 +62,16 @@ export class GigDetailComponent implements OnInit {
   public drop(event: CdkDragDrop<Song>) {    
     this._orderChanged = true;
     moveItemInArray(this.gig.songs, event.previousIndex, event.currentIndex);
+  }
+  public setSelectedSong(song: Song): void {
+    this._songService.storeSelectedSong(song);
+  }
+
+  public removeSelectedSong(): void {
+    this._songService.removeSelectedSong();
+  }
+
+  public editSelectedSong(): void {
+    this._router.navigate(['/edit-song']);
   }
 }
