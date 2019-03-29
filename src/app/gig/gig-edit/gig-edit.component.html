@@ -1,12 +1,13 @@
 <div class="flex-container">
     <shared-fab-btn class="back-btn" [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
-    <mat-form-field appearance="outline" class="search-input">
+    <app-search (onSearch)="searchForSong($event)" (onClear)="clearSearch()" class="search-input"></app-search>
+    <!-- <mat-form-field appearance="outline" class="search-input">
         <mat-label>Search</mat-label>
         <input matInput [(ngModel)]="searchString" name="search" (keyup)="searchForSong()">
         <button mat-button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
             <mat-icon>close</mat-icon>
         </button>
-    </mat-form-field>
+    </mat-form-field> -->
 </div>
 
 <mat-selection-list #songs (selectionChange)="onSelectionChange($event)">

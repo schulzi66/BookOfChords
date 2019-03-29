@@ -20,7 +20,6 @@ export class GigEditComponent implements OnInit {
   public allSongs: Song[];  
   public selectedSongs: Song[];
 
-  public searchString: string;
   public filteredSongs: Song[];
 
   @ViewChild(MatSelectionList) selection: MatSelectionList;
@@ -73,19 +72,14 @@ export class GigEditComponent implements OnInit {
     this._location.back();
   }
 
-  public searchForSong(): void {
-    if(this.searchString.length > 0) {
-      this.filteredSongs = this.allSongs.filter(
-          song => song.name.toLowerCase()
-                           .includes(this.searchString.toLowerCase())
-        );
-    } else {
-      this.clearSearch();
-    }    
+  public searchForSong(searchString: string): void {
+    this.filteredSongs = this.allSongs.filter(
+      song => song.name.toLowerCase()
+                       .includes(searchString.toLowerCase())
+    );    
   }  
   
   public clearSearch(): void {
     this.filteredSongs = this.allSongs;
-    this.searchString = '';
   }
 }

@@ -2,7 +2,6 @@ import { ChordEditComponent } from './chord/chord-edit/chord-edit.component';
 import { ChordOverviewComponent } from './chord/chord-overview/chord-overview.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-
 const routes: Routes = [
   {
     path: '',   

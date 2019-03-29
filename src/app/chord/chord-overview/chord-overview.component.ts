@@ -20,7 +20,6 @@ export class ChordOverviewComponent implements OnInit {
   private _configurationService: ConfigurationService;  
 
   public configuration: Configuration;
-  public searchString: string;
 
   public songs: Song[];
   public filteredSongs: Song[];
@@ -64,20 +63,15 @@ export class ChordOverviewComponent implements OnInit {
     this._router.navigate(['/edit-song']);
   }
 
-  public searchForSong(): void {
-    if(this.searchString.length > 0) {
-      this.filteredSongs = this.songs.filter(
-          song => song.name.toLowerCase()
-                           .includes(this.searchString.toLowerCase())
-        );
-    } else {
-      this.clearSearch();
-    }    
+  public searchForSong(searchString: string): void {
+    this.filteredSongs = this.songs.filter (
+      song => song.name.toLowerCase()
+                       .includes(searchString.toLowerCase())
+    );    
   }  
   
   public clearSearch(): void {
     this.filteredSongs = this.songs;
-    this.searchString = '';
   }
 }
 
