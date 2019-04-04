@@ -40,7 +40,7 @@ export class GigEditComponent implements OnInit {
   ngOnInit() {        
     this.gig = this._gigService.retrieveSelectedGig();
     if(!this.gig) {
-      this.gig = new Gig('');
+      this.gig = new Gig('New Gig');
     }
     this._authService.user$.subscribe((user: User) => {
       this._currentUser = user;
@@ -65,7 +65,7 @@ export class GigEditComponent implements OnInit {
   }
 
   public goBack(): void {
-    if(this.gig.name && this._currentUser) {      
+    if(this.gig.name && this.gig.songs.length > 0 && this._currentUser) {      
       this.gig.uid = this._currentUser.uid;
       this._gigService.saveGig(this.gig);
     }
