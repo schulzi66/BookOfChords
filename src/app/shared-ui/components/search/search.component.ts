@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -15,7 +15,7 @@ export class SearchComponent {
   constructor() { }
 
   public search(): void {
-    if(this.searchString.length > 0) {
+    if (this.searchString.length > 0) {
       this.onSearch.emit(this.searchString);
     } else {
       this.clearSearch();

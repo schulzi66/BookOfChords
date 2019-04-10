@@ -1,10 +1,10 @@
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ChordEditComponent } from './chord/chord-edit/chord-edit.component';
 import { ChordOverviewComponent } from './chord/chord-overview/chord-overview.component';
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 const routes: Routes = [
   {
-    path: '',   
+    path: '',
     redirectTo: 'songs',
     pathMatch: 'full'
   },
@@ -17,7 +17,7 @@ const routes: Routes = [
     component: ChordEditComponent
   },
   {
-    path: 'gigs',    
+    path: 'gigs',
     loadChildren: './gig/gig.module#GigModule'
   },
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true})
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true })
   ],
   exports: [RouterModule]
 })

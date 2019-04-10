@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UploaderComponent } from './uploader.component';
+
 
 describe('UploaderComponent', () => {
   let component: UploaderComponent;
@@ -8,9 +8,9 @@ describe('UploaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UploaderComponent ]
+      declarations: [UploaderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

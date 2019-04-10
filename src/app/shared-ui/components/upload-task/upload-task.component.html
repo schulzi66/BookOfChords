@@ -1,9 +1,10 @@
 <div *ngIf="percentage | async as pct">
-  <mat-progress-bar mode="determinate" [value]="pct"></mat-progress-bar>    
+  <mat-progress-bar mode="determinate" [value]="pct"></mat-progress-bar>
 </div>
 
-<div *ngIf="(snapshot | async) as snap">  
+<div *ngIf="(snapshot | async) as snap">
   <button mat-button (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">Pause</button>
   <button mat-button (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">Cancel</button>
-  <button mat-button (click)="task.resume()" class="button is-info"   [disabled]="!(snap?.state === 'paused')">Resume</button>
+  <button mat-button (click)="task.resume()" class="button is-info"
+    [disabled]="!(snap?.state === 'paused')">Resume</button>
 </div>

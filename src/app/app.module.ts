@@ -1,22 +1,22 @@
-import { SharedUiModule } from './shared-ui/shared-ui.module';
-import { AllMaterialModule } from './material-module';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { firebaseConfig } from 'src/environments/environment';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { firebaseConfig } from 'src/environments/environment';
+import { environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { ChordModule } from './chord/chord.module';
+import { AllMaterialModule } from './material-module';
+import { SharedUiModule } from './shared-ui/shared-ui.module';
+
+
 
 @NgModule({
    declarations: [
@@ -35,10 +35,10 @@ import { ChordModule } from './chord/chord.module';
       AngularFireAuthModule,
       AngularFireStorageModule,
       HttpClientModule,
-      ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),   
-      AllMaterialModule      
+      ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+      AllMaterialModule
    ],
-  providers: [{provide: FirestoreSettingsToken, useValue: {}}],
-  bootstrap: [AppComponent]
+   providers: [{ provide: FirestoreSettingsToken, useValue: {} }],
+   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

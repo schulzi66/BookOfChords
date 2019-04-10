@@ -1,43 +1,46 @@
 .song-panel-body {
-    display: flex;
-    margin: 5px;
-    flex-direction: column;
+  display: flex;
+  margin: 5px;
+  flex-direction: column;
 }
+
 .section-name {
-    margin-right: 10px;
-    margin-block-end: 10px;
-    margin-block-start: 0px;    
-    text-align: left;
+  width: 25%;
+  margin: 5px;
+  text-align: left;
 }
+
 .section-value-flex-wrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
+
 .section-value {
-    align-self: center;
-    font-size: 18px;
-    margin: 4px;
+  align-self: center;
+  font-size: 18px;
+  margin: 4px;
 }
 
 mat-divider {
-    margin: 5px;
+  margin: 5px;
 }
 
 .picture {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .flex-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.search-input {
-    flex-grow: 9;
-    height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.new-song-btn{
-    flex-grow: 1;
+.search-input {
+  flex-grow: 9;
+  height: 75px;
+}
+
+.new-song-btn {
+  flex-grow: 1;
 }

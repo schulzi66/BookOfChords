@@ -1,11 +1,10 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration.model';
-import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
-import { MatSelectChange } from '@angular/material';
-import { Location } from '@angular/common';
-import { switchMap } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-styles',
@@ -27,9 +26,9 @@ export class StylesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._authService.user$.subscribe((user: User) => {             
+    this._authService.user$.subscribe((user: User) => {
       this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {
-        if(configuration === undefined) {
+        if (configuration === undefined) {
           this.configuration = new Configuration(user.uid);
         } else {
           this.configuration = configuration;

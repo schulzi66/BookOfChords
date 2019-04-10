@@ -1,5 +1,5 @@
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Gig } from '../../models/gig';
 
@@ -17,12 +17,12 @@ export class GigService {
   }
 
   public saveGig(gig: Gig): void {
-    if(!gig.id) {
+    if (!gig.id) {
       gig.id = this._angularFirestore.createId();
     }
     this._angularFirestore.collection<Gig>('gigs')
-                          .doc(gig.id)
-                          .set(Object.assign({}, JSON.parse(JSON.stringify(gig))));
+      .doc(gig.id)
+      .set(Object.assign({}, JSON.parse(JSON.stringify(gig))));
   }
 
   public getGigsForUser(uid: string): Observable<Gig[]> {
@@ -30,7 +30,7 @@ export class GigService {
       return ref.where('uid', '==', uid);
     }).valueChanges();
   }
-  
+
   public storeSelectedGig(gig: Gig): void {
     this.selectedGig = gig;
   }

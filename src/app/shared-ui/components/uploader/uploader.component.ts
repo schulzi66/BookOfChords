@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'uploader',
@@ -6,10 +6,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./uploader.component.scss']
 })
 export class UploaderComponent implements OnInit {
-  
-  @Input('storageBucketPrefix') storageBucketPrefix: string;  
+
+  @Input('storageBucketPrefix') storageBucketPrefix: string;
   @Output('onUploadComplete') onUploadComplete: EventEmitter<string> = new EventEmitter<string>();
-  
+
   public isHovering: boolean;
   public files: File[] = [];
 
@@ -24,7 +24,7 @@ export class UploaderComponent implements OnInit {
 
   public onDrop(files: FileList): void {
     for (let i = 0; i < files.length; i++) {
-      this.files.push(files.item(i));      
+      this.files.push(files.item(i));
     }
   }
 

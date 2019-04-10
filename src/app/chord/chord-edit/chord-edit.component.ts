@@ -1,10 +1,10 @@
-import { AuthService } from './../../services/auth.service';
-import { Song } from './../../models/song.model';
-import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { SongSection } from '../../models/song-section.model';
-import { SongService } from '../services/song.service';
 import { User } from '../../models/user.model';
+import { SongService } from '../services/song.service';
+import { Song } from './../../models/song.model';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'app-chord-edit',
@@ -20,7 +20,7 @@ export class ChordEditComponent implements OnInit {
   private _authService: AuthService;
   private _currentUser: User;
 
-  constructor(location: Location, songService: SongService, authService: AuthService) {     
+  constructor(location: Location, songService: SongService, authService: AuthService) {
     this._location = location;
     this._songService = songService;
     this._authService = authService;
@@ -31,17 +31,17 @@ export class ChordEditComponent implements OnInit {
       this._currentUser = user;
     });
     this.song = this._songService.retrieveSelectedSong();
-    if(!this.song) {
+    if (!this.song) {
       this.song = new Song('');
     }
   }
 
-  public addNewSection(): void {  
-    this.song.sections.push(new SongSection())  
+  public addNewSection(): void {
+    this.song.sections.push(new SongSection())
   }
 
   public goBack(): void {
-    if(this.song.name && this._currentUser) {      
+    if (this.song.name && this._currentUser) {
       this.song.uid = this._currentUser.uid;
       this._songService.saveSong(this.song);
     }
@@ -53,14 +53,14 @@ export class ChordEditComponent implements OnInit {
   }
 
   public onTextAreaValueChanged(index: number, value: string): void {
-    this.song.sections[index].value = value.split(/\r|\r\n|\n/);    
+    this.song.sections[index].value = value.split(/\r|\r\n|\n/);
   }
 
   public onImageUploadCompleted($event: string): void {
-    if(this.song.pictures == undefined) {
+    if (this.song.pictures == undefined) {
       this.song.pictures = [];
     }
-    this.song.pictures.push($event);    
+    this.song.pictures.push($event);
   }
 
   public removePicture(index: number): void {

@@ -1,9 +1,9 @@
-import { AuthService } from '../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GigService } from '../services/gig.service';
 import { Gig } from '../../models/gig';
 import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
+import { GigService } from '../services/gig.service';
 
 @Component({
   selector: 'app-gig-overview',
@@ -22,7 +22,7 @@ export class GigOverviewComponent implements OnInit {
     this._router = router;
     this._gigService = gigService;
     this._authService = authService;
-   }
+  }
 
   ngOnInit() {
     this._authService.user$.subscribe((user: User) => {
@@ -34,7 +34,7 @@ export class GigOverviewComponent implements OnInit {
 
   public createNewGig(): void {
     this._gigService.removeSelectedGig();
-  }  
+  }
 
   public editGig(gig: Gig): void {
     this._gigService.storeSelectedGig(gig);

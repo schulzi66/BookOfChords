@@ -1,7 +1,7 @@
-import { Routes, RouterModule } from '@angular/router';
-import { GigOverviewComponent } from './gig-overview/gig-overview.component';
-import { GigEditComponent } from './gig-edit/gig-edit.component';
+import { RouterModule, Routes } from '@angular/router';
 import { GigDetailComponent } from './gig-detail/gig-detail.component';
+import { GigEditComponent } from './gig-edit/gig-edit.component';
+import { GigOverviewComponent } from './gig-overview/gig-overview.component';
 
 const routes: Routes = [
   {

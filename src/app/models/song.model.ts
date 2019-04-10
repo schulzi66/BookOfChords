@@ -4,12 +4,12 @@ export class Song {
     id: string;
     uid: string;
     name: string;
-    sections: SongSection[];    
+    sections: SongSection[];
     pictures: string[];
 
     constructor(name: string) {
         this.name = name;
-        this.sections = [];        
+        this.sections = [];
         this.pictures = [];
     }
 }

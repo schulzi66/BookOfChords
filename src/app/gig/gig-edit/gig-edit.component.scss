@@ -1,15 +1,24 @@
 .gig-name {
-    margin: 0 10px 0 10px;
+  //   margin: 0 10px 0 10px;
+  height: 75px;
+  flex-grow: 8;
 }
+
 .flex-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .search-input {
-    flex-grow: 9;
-    height: 75px;
+  flex-grow: 8;
+  height: 75px;
 }
+
 .back-btn {
-    flex-grow: 1;
+  flex-grow: 1;
+}
+
+.filter-btn {
+  flex-grow: 1;
 }

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Song } from '../../models/song.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Song } from '../../models/song.model';
 
 @Injectable({ providedIn: 'root' })
 export class SongService {
@@ -15,18 +14,18 @@ export class SongService {
   }
 
   public saveSong(song: Song): void {
-    if(!song.id) {
+    if (!song.id) {
       song.id = this._angularFirestore.createId();
     }
     this._angularFirestore.collection('songs')
-                          .doc(song.id)
-                          .set(Object.assign({}, JSON.parse(JSON.stringify(song))));    
+      .doc(song.id)
+      .set(Object.assign({}, JSON.parse(JSON.stringify(song))));
   }
 
-  public getSongsForUser(uid: string): Observable<Song[]> {            
+  public getSongsForUser(uid: string): Observable<Song[]> {
     return this._angularFirestore.collection<Song>('songs', ref => {
       return ref.where('uid', '==', uid).orderBy('name', 'asc');
-    }).valueChanges();    
+    }).valueChanges();
   }
 
   private updateAllSongDocs() {
@@ -49,7 +48,7 @@ export class SongService {
     //                       });
   }
 
-  public storeSelectedSong(song: Song): void {     
+  public storeSelectedSong(song: Song): void {
     this.selectedSong = song;
   }
   public removeSelectedSong(): void {
