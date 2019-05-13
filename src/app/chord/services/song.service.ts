@@ -28,6 +28,13 @@ export class SongService {
     }).valueChanges();
   }
 
+  public deleteSong(songId: string): Promise<void> {
+    return this._angularFirestore
+      .collection<Song>('songs')
+      .doc(songId)
+      .delete();
+  }
+
   private updateAllSongDocs() {
     // this._angularFirestore.collection<Song>('songs')
     //                       .snapshotChanges()

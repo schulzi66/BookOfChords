@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AllMaterialModule } from './../material-module';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
+import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.component';
 import { SearchComponent } from './components/search/search.component';
 import { UploadTaskComponent } from './components/upload-task/upload-task.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
@@ -16,18 +17,28 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     DropzoneDirective,
     UploaderComponent,
     UploadTaskComponent,
-    SearchComponent
+    SearchComponent,
+    PopupDialogComponent
   ],
   imports: [
     CommonModule,
     AllMaterialModule,
     FormsModule
   ],
+  // providers: [
+  //   {
+  //     provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
+  //       restoreFocus: false
+  //     }
+  //   }
+  // ],
+  entryComponents: [PopupDialogComponent],
   exports: [
     FabBtnMatIcoComponent,
     StringArrayLinesPipe,
     UploaderComponent,
-    SearchComponent
+    SearchComponent,
+    PopupDialogComponent
   ]
 })
 export class SharedUiModule { }

@@ -16,6 +16,9 @@
       <button mat-button (click)="editSelectedSong()">
         <mat-icon>edit</mat-icon>
       </button>
+      <button mat-button (click)="deleteSelectedSong(song)">
+        <mat-icon>delete</mat-icon>
+      </button>
       <div class="song-panel-body" *ngFor="let section of song.sections">
         <h5 class="section-name" [style.fontSize]="configuration?.fontSizeHeader">{{section.name}}</h5>
         <div class="section-value-flex-wrapper">
