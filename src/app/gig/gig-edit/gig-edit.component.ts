@@ -1,6 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSelectionList, MatSelectionListChange } from '@angular/material';
+import { MatDialog, MatSelectionList, MatSelectionListChange } from '@angular/material';
+import { Router } from '@angular/router';
+import { PopupDialogData } from 'src/app/shared-ui/components/popup-dialog/popup-dialog-data';
+import { PopupDialogComponent } from 'src/app/shared-ui/components/popup-dialog/popup-dialog.component';
 import { SongService } from '../../chord/services/song.service';
 import { Gig } from '../../models/gig';
 import { Song } from '../../models/song.model';
@@ -22,6 +25,11 @@ export class GigEditComponent implements OnInit {
   public filteredSongs: Song[];
   public filterToggle: boolean = false;
   public filterIcon: string = 'search';
+  public isNewGig: boolean;
+
+  public get isValidGig(): boolean {
+    return this.gig.name && this.gig.songs.length > 0 && this._currentUser != undefined;
+  }
 
   @ViewChild(MatSelectionList) selection: MatSelectionList;
 
@@ -29,17 +37,25 @@ export class GigEditComponent implements OnInit {
   private _songService: SongService;
   private _authService: AuthService;
   private _location: Location;
+  private _router: Router;
   private _currentUser: User;
+  private _matDialog: MatDialog;
+  private _popupDialogData: PopupDialogData;
 
-  constructor(gigService: GigService, songService: SongService, authService: AuthService, location: Location) {
+  constructor(gigService: GigService, songService: SongService, authService: AuthService, location: Location, matDialog: MatDialog, router: Router) {
     this._gigService = gigService;
     this._songService = songService;
     this._authService = authService;
     this._location = location;
+    this._matDialog = matDialog;
+    this._router = router;
   }
 
   ngOnInit() {
     this.gig = this._gigService.retrieveSelectedGig();
+    if (this.gig === null || this.gig === undefined) {
+      this.isNewGig = true;
+    }
     if (!this.gig) {
       this.gig = new Gig('New Gig');
     }
@@ -66,7 +82,7 @@ export class GigEditComponent implements OnInit {
   }
 
   public goBack(): void {
-    if (this.gig.name && this.gig.songs.length > 0 && this._currentUser) {
+    if (this.isValidGig) {
       this.gig.uid = this._currentUser.uid;
       this._gigService.saveGig(this.gig);
     }
@@ -88,5 +104,23 @@ export class GigEditComponent implements OnInit {
     this.filterToggle ? this.filterIcon = 'search' : this.filterIcon = 'text_fields';
     this.filterToggle = !this.filterToggle;
     this.clearSearch();
+  }
+
+  public deleteGig(): void {
+    this._popupDialogData = {
+      title: 'Delete Gig?',
+      content: `Do you really want to delete the Gig: ${this.gig.name} ?`
+    };
+    const dialogRef = this._matDialog.open(PopupDialogComponent, {
+      data: this._popupDialogData
+    });
+
+    dialogRef.afterClosed().subscribe((result: Boolean) => {
+      if (result) {
+        this._gigService.deleteGig(this.gig.id).then(() => {
+          this._router.navigate(['/gigs']);
+        });
+      }
+    });
   }
 }

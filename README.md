@@ -5,7 +5,8 @@ Small mobile optimized progressive web app to add and quickly edit chords for so
 - Login/Logout using your Google account
 - Create/delete/modify Songs, add different sections with chords
 - Upload pictures to songs from your filesystem or directly from the camera. (Opt. on pc: drag and drop multiple files at the same time)
-- Create Gigs, select from all your songs
+- Create Gigs, select from all your songs or filter by name
+- Delete gigs
 - Reorder the songs for your gig
 - See the chords and pictures from each song in your gig
 - Configure the font size for your chords for the best view on stage

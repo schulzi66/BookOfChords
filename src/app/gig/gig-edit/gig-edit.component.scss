@@ -11,14 +11,21 @@
 }
 
 .search-input {
-  flex-grow: 8;
+  flex-grow: 7;
   height: 75px;
 }
 
 .back-btn {
   flex-grow: 1;
+  padding: 0 10px 0 0;
+}
+
+.delete-btn {
+  flex-grow: 1;
+  padding: 0 0 0 10px;
 }
 
 .filter-btn {
   flex-grow: 1;
+  padding: 0 0 0 10px;
 }
