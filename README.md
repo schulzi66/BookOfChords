@@ -8,7 +8,7 @@ Small mobile optimized progressive web app to add and quickly edit chords for so
 - Create Gigs, select from all your songs or filter by name
 - Delete gigs
 - Reorder the songs for your gig
-- See the chords and pictures from each song in your gig
+- See and modify the chords and pictures from each song in your gig
 - Configure the font size for your chords for the best view on stage
 - Install the PWA to have a native app experience
 - Search for Songs by name

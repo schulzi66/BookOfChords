@@ -18,9 +18,9 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
-            <!-- <button mat-button (click)="editSelectedSong()">
+            <button mat-button (click)="editSelectedSong()">
                 <mat-icon>edit</mat-icon>
-            </button> -->
+            </button>
             <div class="song-panel-body" *ngFor="let section of song.sections">
                 <h5 class="section-name" [style.fontSize]="configuration?.fontSizeHeader">{{section.name}}</h5>
                 <div class="section-value-flex-wrapper">
