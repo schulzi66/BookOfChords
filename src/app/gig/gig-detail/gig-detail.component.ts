@@ -1,7 +1,8 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatAccordion } from '@angular/material';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration.model';
 import { Gig } from '../../models/gig';
@@ -28,6 +29,10 @@ export class GigDetailComponent implements OnInit {
     public configuration: Configuration;
     public gig: Gig;
     public songs: Song[];
+    public isPlayMode: boolean;
+    public playModeIcon: string = 'play_arrow';
+
+    @ViewChild('songAccordion') songPanels: MatAccordion;
 
     constructor(router: Router, gigService: GigService, location: Location, authService: AuthService, configurationServcie: ConfigurationService, songService: SongService) {
         this._router = router;
@@ -36,6 +41,7 @@ export class GigDetailComponent implements OnInit {
         this._configurationService = configurationServcie;
         this._authService = authService;
         this._songService = songService;
+        this.isPlayMode = false;
     }
 
     ngOnInit() {
@@ -69,5 +75,16 @@ export class GigDetailComponent implements OnInit {
 
     public editSelectedSong(): void {
         this._router.navigate(['/edit-song']);
+    }
+
+    public togglePlayMode(): void {        
+        this.isPlayMode = !this.isPlayMode;
+        if (this.isPlayMode) {
+            this.songPanels.openAll();
+            this.playModeIcon = 'pause';
+        } else {
+            this.songPanels.closeAll();
+            this.playModeIcon = 'play_arrow';
+        };
     }
 }

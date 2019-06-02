@@ -12,6 +12,7 @@ Small mobile optimized progressive web app to add and quickly edit chords for so
 - Configure the font size for your chords for the best view on stage
 - Install the PWA to have a native app experience
 - Search for Songs by name
+- Play Mode for Gigs: See your chords or lyrics all at once, without toggling the songs to open
 
 ## Open/potential features
 ```

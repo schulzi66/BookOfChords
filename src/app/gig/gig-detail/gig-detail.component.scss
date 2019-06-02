@@ -1,11 +1,30 @@
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .gig-name {
-  margin: 0 10px 0 10px;
+  height: 75px;
+  flex-grow: 7;
 }
 
-.edit-icon {
-  margin-bottom: 2px;
+.back-btn {
+  flex-grow: 1;
+  padding: 0 10px 0 0;
 }
 
+.edit-btn {
+  flex-grow: 1;
+  padding: 0 0 0 10px;
+}
+
+.play-btn {
+  flex-grow: 1;
+  padding: 0 0 0 10px;
+}
+
+//Song section
 .song-panel-body {
   display: flex;
   margin: 5px;

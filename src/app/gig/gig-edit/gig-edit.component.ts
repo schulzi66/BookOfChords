@@ -31,8 +31,6 @@ export class GigEditComponent implements OnInit {
     return this.gig.name && this.gig.songs.length > 0 && this._currentUser != undefined;
   }
 
-  @ViewChild(MatSelectionList) selection: MatSelectionList;
-
   private _gigService: GigService;
   private _songService: SongService;
   private _authService: AuthService;
@@ -72,6 +70,7 @@ export class GigEditComponent implements OnInit {
   public checkSelected(song: Song) {
     return this.gig.songs.find(x => x.id === song.id) != undefined;
   }
+
   public onSelectionChange(event: MatSelectionListChange) {
     //song was added
     if (event.option.selected) {
