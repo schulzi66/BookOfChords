@@ -6,63 +6,63 @@ import { Song } from '../../models/song.model';
 @Injectable({ providedIn: 'root' })
 export class SongService {
 
-  public selectedSong: Song;
+    public selectedSong: Song;
 
-  private _angularFirestore: AngularFirestore;
-  constructor(angularFirestore: AngularFirestore) {
-    this._angularFirestore = angularFirestore;
-  }
-
-  public saveSong(song: Song): void {
-    if (!song.id) {
-      song.id = this._angularFirestore.createId();
+    private _angularFirestore: AngularFirestore;
+    constructor(angularFirestore: AngularFirestore) {
+        this._angularFirestore = angularFirestore;
     }
-    this._angularFirestore.collection('songs')
-      .doc(song.id)
-      .set(Object.assign({}, JSON.parse(JSON.stringify(song))));
-  }
 
-  public getSongsForUser(uid: string): Observable<Song[]> {
-    return this._angularFirestore.collection<Song>('songs', ref => {
-      return ref.where('uid', '==', uid).orderBy('name', 'asc');
-    }).valueChanges();
-  }
+    public saveSong(song: Song): void {
+        if (!song.id) {
+            song.id = this._angularFirestore.createId();
+        }
+        this._angularFirestore.collection('songs')
+            .doc(song.id)
+            .set(Object.assign({}, JSON.parse(JSON.stringify(song))));
+    }
 
-  public deleteSong(songId: string): Promise<void> {
-    return this._angularFirestore
-      .collection<Song>('songs')
-      .doc(songId)
-      .delete();
-  }
+    public getSongsForUser(uid: string): Observable<Song[]> {
+        return this._angularFirestore.collection<Song>('songs', ref => {
+            return ref.where('uid', '==', uid).orderBy('name', 'asc');
+        }).valueChanges();
+    }
 
-  private updateAllSongDocs() {
-    // this._angularFirestore.collection<Song>('songs')
-    //                       .snapshotChanges()
-    //                       .pipe(
-    //                         map(changes => {
-    //                           return changes.map( action => {
-    //                             const data = action.payload.doc.data();
-    //                             const id = action.payload.doc.id;
-    //                             return {id, ...data};
-    //                           })
-    //                         }
-    //                       )).subscribe(items => {
-    //                         items.forEach(song => {
-    //                           console.log(song);
-    //                           // this._angularFirestore.doc(`songs/${song.id}`)
-    //                           //                       .update({uid: 'e6Us6fvl2ZTPqJ3tFz4lP1IYVAo1'});
-    //                         })
-    //                       });
-  }
+    public deleteSong(songId: string): Promise<void> {
+        return this._angularFirestore
+            .collection<Song>('songs')
+            .doc(songId)
+            .delete();
+    }
 
-  public storeSelectedSong(song: Song): void {
-    this.selectedSong = song;
-  }
-  public removeSelectedSong(): void {
-    this.selectedSong = null;
-  }
+    private updateAllSongDocs() {
+        // this._angularFirestore.collection<Song>('songs')
+        //                       .snapshotChanges()
+        //                       .pipe(
+        //                         map(changes => {
+        //                           return changes.map( action => {
+        //                             const data = action.payload.doc.data();
+        //                             const id = action.payload.doc.id;
+        //                             return {id, ...data};
+        //                           })
+        //                         }
+        //                       )).subscribe(items => {
+        //                         items.forEach(song => {
+        //                           console.log(song);
+        //                           // this._angularFirestore.doc(`songs/${song.id}`)
+        //                           //                       .update({uid: 'e6Us6fvl2ZTPqJ3tFz4lP1IYVAo1'});
+        //                         })
+        //                       });
+    }
 
-  public retrieveSelectedSong(): Song {
-    return this.selectedSong;
-  }
+    public storeSelectedSong(song: Song): void {
+        this.selectedSong = song;
+    }
+    public removeSelectedSong(): void {
+        this.selectedSong = null;
+    }
+
+    public retrieveSelectedSong(): Song {
+        return this.selectedSong;
+    }
 }

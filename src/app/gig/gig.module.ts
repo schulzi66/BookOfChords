@@ -9,22 +9,22 @@ import { GigOverviewComponent } from './gig-overview/gig-overview.component';
 import { GigRoutes } from './gig.routing';
 
 @NgModule({
-  declarations: [
-    GigOverviewComponent,
-    GigEditComponent,
-    GigDetailComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedUiModule,
-    AllMaterialModule,
-    FormsModule,
-    GigRoutes
-  ],
-  exports: [
-    GigOverviewComponent,
-    GigEditComponent,
-    GigDetailComponent
-  ]
+    declarations: [
+        GigOverviewComponent,
+        GigEditComponent,
+        GigDetailComponent
+    ],
+    imports: [
+        CommonModule,
+        SharedUiModule,
+        AllMaterialModule,
+        FormsModule,
+        GigRoutes
+    ],
+    exports: [
+        GigOverviewComponent,
+        GigEditComponent,
+        GigDetailComponent
+    ]
 })
 export class GigModule { }

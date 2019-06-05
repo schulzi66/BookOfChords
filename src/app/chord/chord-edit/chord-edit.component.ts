@@ -40,7 +40,7 @@ export class ChordEditComponent implements OnInit {
     }
 
     public addNewSection(): void {
-        this.song.sections.push(new SongSection())
+        this.song.sections.push(new SongSection());
     }
 
     public goBack(): void {
@@ -61,7 +61,7 @@ export class ChordEditComponent implements OnInit {
     }
 
     public onImageUploadCompleted($event: string): void {
-        if (this.song.pictures == undefined) {
+        if (this.song.pictures === undefined) {
             this.song.pictures = [];
         }
         this.song.pictures.push($event);

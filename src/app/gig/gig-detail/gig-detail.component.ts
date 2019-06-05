@@ -24,7 +24,7 @@ export class GigDetailComponent implements OnInit {
     private _location: Location;
     private _authService: AuthService;
     private _configurationService: ConfigurationService;
-    private _songService: SongService
+    private _songService: SongService;
 
     public configuration: Configuration;
     public gig: Gig;
@@ -34,7 +34,8 @@ export class GigDetailComponent implements OnInit {
 
     @ViewChild('songAccordion') songPanels: MatAccordion;
 
-    constructor(router: Router, gigService: GigService, location: Location, authService: AuthService, configurationServcie: ConfigurationService, songService: SongService) {
+    constructor(router: Router, gigService: GigService, location: Location, authService: AuthService,
+        configurationServcie: ConfigurationService, songService: SongService) {
         this._router = router;
         this._gigService = gigService;
         this._location = location;
@@ -52,8 +53,8 @@ export class GigDetailComponent implements OnInit {
         this._authService.user$.subscribe((user: User) => {
             this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {
                 this.configuration = configuration;
-            })
-        })
+            });
+        });
     }
 
     public goBack(): void {
@@ -77,7 +78,7 @@ export class GigDetailComponent implements OnInit {
         this._router.navigate(['/edit-song']);
     }
 
-    public togglePlayMode(): void {        
+    public togglePlayMode(): void {
         this.isPlayMode = !this.isPlayMode;
         if (this.isPlayMode) {
             this.songPanels.openAll();
@@ -85,6 +86,6 @@ export class GigDetailComponent implements OnInit {
         } else {
             this.songPanels.closeAll();
             this.playModeIcon = 'play_arrow';
-        };
+        }
     }
 }

@@ -1,30 +1,30 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
 
-  public searchString: string;
+    public searchString: string;
 
-  @Output('onSearch') onSearch: EventEmitter<string> = new EventEmitter<string>();
-  @Output('onClear') onClear: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output('onSearch') onSearch: EventEmitter<string> = new EventEmitter<string>();
+    @Output('onClear') onClear: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() { }
+    constructor() { }
 
-  public search(): void {
-    if (this.searchString.length > 0) {
-      this.onSearch.emit(this.searchString);
-    } else {
-      this.clearSearch();
+    public search(): void {
+        if (this.searchString.length > 0) {
+            this.onSearch.emit(this.searchString);
+        } else {
+            this.clearSearch();
+        }
     }
-  }
 
-  public clearSearch(): void {
-    this.searchString = '';
-    this.onClear.emit();
-  }
+    public clearSearch(): void {
+        this.searchString = '';
+        this.onClear.emit();
+    }
 
 }

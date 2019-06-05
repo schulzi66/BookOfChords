@@ -1,27 +1,26 @@
 <shared-fab-btn [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
 <mat-form-field appearance="outline" class="song-name">
-  <mat-label>Song Name</mat-label>
-  <input matInput required [(ngModel)]="song.name" name="songName">
+    <mat-label>Song Name</mat-label>
+    <input matInput required [(ngModel)]="song.name" name="songName">
 </mat-form-field>
 <shared-fab-btn [icon]="'add'" (onClick)="addNewSection()"></shared-fab-btn>
 
 <div *ngFor="let section of song?.sections; index as i">
-  <mat-form-field appearance="outline" class="section-name">
-    <mat-label>Section</mat-label>
-    <input matInput [(ngModel)]="section.name" name="name">
-  </mat-form-field>
-  <mat-form-field class="section-value">
-    <textarea matInput [value]="section?.value | StringArrayLines"
-      (change)="onTextAreaValueChanged(i, $event.target.value)" cdkTextareaAutosize
-      #autosize="cdkTextareaAutosize"></textarea>
-  </mat-form-field>
-  <shared-fab-btn [icon]="'delete'" (onClick)="removeSection(i)"></shared-fab-btn>
+    <mat-form-field appearance="outline" class="section-name">
+        <mat-label>Section</mat-label>
+        <input matInput [(ngModel)]="section.name" name="name">
+    </mat-form-field>
+    <mat-form-field class="section-value">
+        <textarea matInput [value]="section?.value | StringArrayLines" (change)="onTextAreaValueChanged(i, $event.target.value)"
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize"></textarea>
+    </mat-form-field>
+    <shared-fab-btn [icon]="'delete'" (onClick)="removeSection(i)"></shared-fab-btn>
 </div>
 <br>
 
 <div *ngFor="let picture of song?.pictures; index as i">
-  <img class="picture" [src]="picture">
-  <shared-fab-btn [icon]="'delete'" (onClick)="removePicture(i)"></shared-fab-btn>
+    <img class="picture" [src]="picture">
+    <shared-fab-btn [icon]="'delete'" (onClick)="removePicture(i)"></shared-fab-btn>
 </div>
 
 <uploader [storageBucketPrefix]="'songs'" (onUploadComplete)="onImageUploadCompleted($event)"></uploader>

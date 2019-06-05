@@ -7,46 +7,46 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-styles',
-  templateUrl: './styles.component.html',
-  styleUrls: ['./styles.component.scss']
+    selector: 'app-styles',
+    templateUrl: './styles.component.html',
+    styleUrls: ['./styles.component.scss']
 })
 export class StylesComponent implements OnInit {
 
-  private _configurationService: ConfigurationService;
-  private _authService: AuthService;
-  private _location: Location;
+    private _configurationService: ConfigurationService;
+    private _authService: AuthService;
+    private _location: Location;
 
-  public configuration: Configuration;
+    public configuration: Configuration;
 
-  constructor(configurationService: ConfigurationService, authService: AuthService, location: Location) {
-    this._configurationService = configurationService;
-    this._authService = authService;
-    this._location = location;
-  }
+    constructor(configurationService: ConfigurationService, authService: AuthService, location: Location) {
+        this._configurationService = configurationService;
+        this._authService = authService;
+        this._location = location;
+    }
 
-  ngOnInit() {
-    this._authService.user$.subscribe((user: User) => {
-      this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {
-        if (configuration === undefined) {
-          this.configuration = new Configuration(user.uid);
-        } else {
-          this.configuration = configuration;
-        }
-      })
-    })
-  }
+    ngOnInit() {
+        this._authService.user$.subscribe((user: User) => {
+            this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {
+                if (configuration === undefined) {
+                    this.configuration = new Configuration(user.uid);
+                } else {
+                    this.configuration = configuration;
+                }
+            });
+        });
+    }
 
-  public fontSizeHeaderChanged(event: MatSelectChange) {
-    this.configuration.fontSizeHeader = event.value;
-  }
+    public fontSizeHeaderChanged(event: MatSelectChange) {
+        this.configuration.fontSizeHeader = event.value;
+    }
 
-  public fontSizeSectionChanged(event: MatSelectChange) {
-    this.configuration.fontSizeSection = event.value;
-  }
+    public fontSizeSectionChanged(event: MatSelectChange) {
+        this.configuration.fontSizeSection = event.value;
+    }
 
-  public goBack(): void {
-    this._configurationService.saveConfigurationForUser(this.configuration);
-    this._location.back();
-  }
+    public goBack(): void {
+        this._configurationService.saveConfigurationForUser(this.configuration);
+        this._location.back();
+    }
 }

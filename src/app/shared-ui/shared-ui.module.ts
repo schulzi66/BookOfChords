@@ -11,34 +11,34 @@ import { DropzoneDirective } from './directives/dropzone.directive';
 import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
 
 @NgModule({
-  declarations: [
-    FabBtnMatIcoComponent,
-    StringArrayLinesPipe,
-    DropzoneDirective,
-    UploaderComponent,
-    UploadTaskComponent,
-    SearchComponent,
-    PopupDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    AllMaterialModule,
-    FormsModule
-  ],
-  // providers: [
-  //   {
-  //     provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
-  //       restoreFocus: false
-  //     }
-  //   }
-  // ],
-  entryComponents: [PopupDialogComponent],
-  exports: [
-    FabBtnMatIcoComponent,
-    StringArrayLinesPipe,
-    UploaderComponent,
-    SearchComponent,
-    PopupDialogComponent
-  ]
+    declarations: [
+        FabBtnMatIcoComponent,
+        StringArrayLinesPipe,
+        DropzoneDirective,
+        UploaderComponent,
+        UploadTaskComponent,
+        SearchComponent,
+        PopupDialogComponent
+    ],
+    imports: [
+        CommonModule,
+        AllMaterialModule,
+        FormsModule
+    ],
+    // providers: [
+    //   {
+    //     provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
+    //       restoreFocus: false
+    //     }
+    //   }
+    // ],
+    entryComponents: [PopupDialogComponent],
+    exports: [
+        FabBtnMatIcoComponent,
+        StringArrayLinesPipe,
+        UploaderComponent,
+        SearchComponent,
+        PopupDialogComponent
+    ]
 })
 export class SharedUiModule { }

@@ -7,18 +7,18 @@ import { ConfigurationRoutes } from './configuration.routing';
 import { StylesComponent } from './styles/styles.component';
 
 @NgModule({
-  declarations: [
-    StylesComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharedUiModule,
-    AllMaterialModule,
-    ConfigurationRoutes
-  ],
-  exports: [
-    StylesComponent
-  ]
+    declarations: [
+        StylesComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SharedUiModule,
+        AllMaterialModule,
+        ConfigurationRoutes
+    ],
+    exports: [
+        StylesComponent
+    ]
 })
 export class ConfigurationModule { }

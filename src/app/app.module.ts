@@ -19,26 +19,26 @@ import { SharedUiModule } from './shared-ui/shared-ui.module';
 
 
 @NgModule({
-   declarations: [
-      AppComponent
-   ],
-   imports: [
-      ChordModule,
-      SharedUiModule,
-      BrowserModule,
-      BrowserAnimationsModule,
-      AppRoutingModule,
-      FormsModule,
-      ReactiveFormsModule,
-      AngularFireModule.initializeApp(firebaseConfig),
-      AngularFirestoreModule,
-      AngularFireAuthModule,
-      AngularFireStorageModule,
-      HttpClientModule,
-      ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
-      AllMaterialModule
-   ],
-   providers: [{ provide: FirestoreSettingsToken, useValue: {} }],
-   bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        ChordModule,
+        SharedUiModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AngularFireModule.initializeApp(firebaseConfig),
+        AngularFirestoreModule,
+        AngularFireAuthModule,
+        AngularFireStorageModule,
+        HttpClientModule,
+        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+        AllMaterialModule
+    ],
+    providers: [{ provide: FirestoreSettingsToken, useValue: {} }],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

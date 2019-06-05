@@ -11,49 +11,49 @@ import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user$: Observable<any>;
+    user$: Observable<any>;
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router
-  ) {
-    this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => {
-        if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        } else {
-          return of(null);
-        }
-      })
-    );
-  }
+    constructor(
+        private afAuth: AngularFireAuth,
+        private afs: AngularFirestore,
+        private router: Router
+    ) {
+        this.user$ = this.afAuth.authState.pipe(
+            switchMap(user => {
+                if (user) {
+                    return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+                } else {
+                    return of(null);
+                }
+            })
+        );
+    }
 
-  googleSignIn() {
-    const provider = new auth.GoogleAuthProvider();
-    return this.oAuthLogin(provider);
-  }
+    googleSignIn() {
+        const provider = new auth.GoogleAuthProvider();
+        return this.oAuthLogin(provider);
+    }
 
-  private async oAuthLogin(provider) {
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return this.updateUserData(credential.user);
-  }
+    private async oAuthLogin(provider) {
+        const credential = await this.afAuth.auth.signInWithPopup(provider);
+        return this.updateUserData(credential.user);
+    }
 
-  private updateUserData({ uid, email, displayName, photoURL }: User) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
+    private updateUserData({ uid, email, displayName, photoURL }: User) {
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
 
-    const data = {
-      uid,
-      email,
-      displayName,
-      photoURL
-    };
+        const data = {
+            uid,
+            email,
+            displayName,
+            photoURL
+        };
 
-    return userRef.set(data, { merge: true });
-  }
+        return userRef.set(data, { merge: true });
+    }
 
-  async signOut() {
-    await this.afAuth.auth.signOut();
-    return this.router.navigate(['/']);
-  }
+    async signOut() {
+        await this.afAuth.auth.signOut();
+        return this.router.navigate(['/']);
+    }
 }

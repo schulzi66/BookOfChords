@@ -1,5 +1,5 @@
 <shared-fab-btn [icon]="'add'" (onClick)="createNewGig()" [routerLink]="['./edit']"></shared-fab-btn>
 <mat-action-list *ngFor="let gig of gigs">
-  <button mat-list-item (click)="editGig(gig)" [routerLink]="['./details']">{{gig.name}}</button>
-  <mat-divider></mat-divider>
+    <button mat-list-item (click)="editGig(gig)" [routerLink]="['./details']">{{gig.name}}</button>
+    <mat-divider></mat-divider>
 </mat-action-list>

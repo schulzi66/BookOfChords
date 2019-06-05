@@ -40,7 +40,7 @@ export class GigService {
     }
 
     public updateSongInGigsForUser(uid: string, song: Song): any {
-        let gigsToUpdate: Gig[] = []
+        let gigsToUpdate: Gig[] = [];
         this._angularFirestore.collection<Gig>('gigs', ref => {
             return ref.where('uid', '==', uid);
         })
@@ -50,8 +50,8 @@ export class GigService {
                 x.docs.forEach(doc => {
                     currentGigsState.push(doc.data() as Gig);
                 });
-                gigsToUpdate = currentGigsState.filter(x =>
-                    x.songs.filter(y => y.id === song.id).length > 0
+                gigsToUpdate = currentGigsState.filter(gig =>
+                    gig.songs.filter(y => y.id === song.id).length > 0
                 );
                 gigsToUpdate.forEach(gig => {
                     for (let i = 0; i < gig.songs.length; i++) {
@@ -62,8 +62,8 @@ export class GigService {
                 });
                 gigsToUpdate.forEach(gig => {
                     this._angularFirestore.doc(`gigs/${gig.id}`).update({ songs: gig.songs });
-                })
-            })
+                });
+            });
     }
 
     public storeSelectedGig(gig: Gig): void {

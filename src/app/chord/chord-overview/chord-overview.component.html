@@ -1,35 +1,33 @@
 <div class="flex-container">
-  <app-search (onSearch)="searchForSong($event)" (onClear)="clearSearch()" class="search-input"></app-search>
-  <shared-fab-btn class="new-song-btn" [icon]="'add'" (onClick)="createNewSong()"></shared-fab-btn>
+    <app-search (onSearch)="searchForSong($event)" (onClear)="clearSearch()" class="search-input"></app-search>
+    <shared-fab-btn class="new-song-btn" [icon]="'add'" (onClick)="createNewSong()"></shared-fab-btn>
 </div>
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let song of filteredSongs; index as i" (opened)="setSelectedSong(song)"
-    (closed)="removeSelectedSong()">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <h3>{{song.name}}</h3>
-      </mat-panel-title>
-      <mat-panel-description>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <button mat-button (click)="editSelectedSong()">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-button (click)="deleteSelectedSong(song)">
-        <mat-icon>delete</mat-icon>
-      </button>
-      <div class="song-panel-body" *ngFor="let section of song.sections">
-        <h5 class="section-name" [style.fontSize]="configuration?.fontSizeHeader">{{section.name}}</h5>
-        <div class="section-value-flex-wrapper">
-          <div class="section-value" *ngFor="let value of section.value"
-            [style.fontSize]="configuration?.fontSizeSection">{{value}}</div>
-        </div>
-        <mat-divider></mat-divider>
-      </div>
-      <div class="section-value" *ngFor="let picture of song.pictures">
-        <img class="picture" [src]="picture">
-      </div>
-    </ng-template>
-  </mat-expansion-panel>
+    <mat-expansion-panel *ngFor="let song of filteredSongs; index as i" (opened)="setSelectedSong(song)" (closed)="removeSelectedSong()">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>{{song.name}}</h3>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+            <button mat-button (click)="editSelectedSong()">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button (click)="deleteSelectedSong(song)">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <div class="song-panel-body" *ngFor="let section of song.sections">
+                <h5 class="section-name" [style.fontSize]="configuration?.fontSizeHeader">{{section.name}}</h5>
+                <div class="section-value-flex-wrapper">
+                    <div class="section-value" *ngFor="let value of section.value" [style.fontSize]="configuration?.fontSizeSection">{{value}}</div>
+                </div>
+                <mat-divider></mat-divider>
+            </div>
+            <div class="section-value" *ngFor="let picture of song.pictures">
+                <img class="picture" [src]="picture">
+            </div>
+        </ng-template>
+    </mat-expansion-panel>
 </mat-accordion>

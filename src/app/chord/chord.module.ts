@@ -7,19 +7,19 @@ import { ChordEditComponent } from './chord-edit/chord-edit.component';
 import { ChordOverviewComponent } from './chord-overview/chord-overview.component';
 
 @NgModule({
-  declarations: [
-    ChordOverviewComponent,
-    ChordEditComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharedUiModule,
-    AllMaterialModule
-  ],
-  exports: [
-    ChordOverviewComponent,
-    ChordEditComponent
-  ]
+    declarations: [
+        ChordOverviewComponent,
+        ChordEditComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SharedUiModule,
+        AllMaterialModule
+    ],
+    exports: [
+        ChordOverviewComponent,
+        ChordEditComponent
+    ]
 })
 export class ChordModule { }
