@@ -37,12 +37,16 @@ export class StylesComponent implements OnInit {
         });
     }
 
-    public fontSizeHeaderChanged(event: MatSelectChange) {
+    public fontSizeHeaderChanged(event: MatSelectChange): void {
         this.configuration.fontSizeHeader = event.value;
     }
 
-    public fontSizeSectionChanged(event: MatSelectChange) {
+    public fontSizeSectionChanged(event: MatSelectChange): void {
         this.configuration.fontSizeSection = event.value;
+    }
+
+    public fontFamilyChanged(event: MatSelectChange): void {
+        this.configuration.fontFamily = event.value;
     }
 
     public goBack(): void {
