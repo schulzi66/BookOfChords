@@ -4,6 +4,7 @@ Small mobile optimized progressive web app to add and quickly edit chords for so
 ## Features
 - Login/Logout using your Google account
 - Create/delete/modify Songs, add different sections with chords
+- Metronome: Set the BPM for each song and have an integrated metronome 
 - Upload pictures to songs from your filesystem or directly from the camera. (Opt. on pc: drag and drop multiple files at the same time)
 - Create Gigs, select from all your songs or filter by name
 - Delete gigs

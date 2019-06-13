@@ -1,0 +1,83 @@
+@import '../../../../styles/colors';
+
+.metronom-card {
+    outline: 0;
+    border: 0px solid #fff;
+    font-size: 14px;
+    transition: all 0.2s ease-out;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.card-header {
+    justify-content: space-between;
+}
+
+.play-btn {
+    padding-right: 10px;
+}
+
+/* Box shadow styling for button pulse effect */
+.hit-effect {
+    box-shadow: 0px 0px 8px 4px #2F4858,
+        0px 0px 2px 4px rgb(35, 51, 61);
+}
+
+.hit-effect-gone {
+    border-width: 0px;
+}
+
+.beat-slider {
+    width: 100%;
+    padding-bottom: 10px;
+    -webkit-appearance: none;
+    /* Hides the default slider so that a custom slider can be made */
+    outline: none;
+}
+
+/* Styles the adjustable knob of the slider */
+.beat-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    margin-top: -6px;
+    border-radius: 50%;
+    background-color: $base-color;
+    cursor: pointer;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+}
+
+.beat-slider::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    margin-top: -6px;
+    border-radius: 50%;
+    border: none;
+    background-color: #7e7e7e;
+    cursor: pointer;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+}
+
+/* Styles the track the the slider button moves across */
+.beat-slider::-webkit-slider-runnable-track {
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+    background: #e3e3e3;
+    height: 2px;
+}
+
+.beat-slider::-moz-range-track {
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+    background: #e3e3e3;
+    height: 2px;
+    outline: none;
+}
+
+/* Removes dotted border in firefox on selection */
+.beat-slider::-moz-focus-outer {
+    border: 0;
+}

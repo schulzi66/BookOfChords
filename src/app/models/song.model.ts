@@ -5,6 +5,7 @@ export class Song {
     uid: string;
     name: string;
     sections: SongSection[];
+    bpm: number;
     pictures: string[];
 
     constructor(name: string) {

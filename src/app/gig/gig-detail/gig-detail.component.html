@@ -8,9 +8,10 @@
     <shared-fab-btn class="play-btn" [icon]="playModeIcon" (onClick)="togglePlayMode()"></shared-fab-btn>
 </div>
 
-<mat-accordion #songAccordion="matAccordion" cdkDropList (cdkDropListDropped)="drop($event)" [hideToggle]="true" multi="isPlayMode">
-    <mat-expansion-panel *ngFor="let song of gig?.songs; index as i" (opened)="setSelectedSong(song)" (closed)="removeSelectedSong()"
-        cdkDrag [disabled]="isPlayMode" [expanded]="isPlayMode">
+<mat-accordion #songAccordion="matAccordion" cdkDropList (cdkDropListDropped)="drop($event)" [hideToggle]="true"
+    multi="isPlayMode">
+    <mat-expansion-panel *ngFor="let song of gig?.songs; index as i" (opened)="setSelectedSong(song)"
+        (closed)="removeSelectedSong()" cdkDrag [disabled]="isPlayMode" [expanded]="isPlayMode">
         <div class="placeholder" *cdkDragPlaceholder></div>
         <mat-expansion-panel-header class="panel-header">
             <mat-panel-title [style.font-family]="configuration?.fontFamily">
@@ -24,10 +25,13 @@
             <button *ngIf="!isPlayMode" mat-button (click)="editSelectedSong()">
                 <mat-icon>edit</mat-icon>
             </button>
+            <shared-metronome *ngIf="isPlayMode" [bpm]="song.bpm" [sliderDisabled]="true"></shared-metronome>
             <div class="song-panel-body" *ngFor="let section of song.sections">
-                <h5 class="section-name" [style.fontSize]="configuration?.fontSizeHeader" [style.font-family]="configuration?.fontFamily">{{section.name}}</h5>
+                <h5 class="section-name" [style.fontSize]="configuration?.fontSizeHeader"
+                    [style.font-family]="configuration?.fontFamily">{{section.name}}</h5>
                 <div class="section-value-flex-wrapper">
-                    <div class="section-value" *ngFor="let value of section.value" [style.fontSize]="configuration?.fontSizeSection"
+                    <div class="section-value" *ngFor="let value of section.value"
+                        [style.fontSize]="configuration?.fontSizeSection"
                         [style.font-family]="configuration?.fontFamily">{{value}}</div>
                 </div>
                 <mat-divider></mat-divider>

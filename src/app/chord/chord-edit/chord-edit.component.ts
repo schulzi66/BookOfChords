@@ -70,4 +70,8 @@ export class ChordEditComponent implements OnInit {
     public removePicture(index: number): void {
         this.song.pictures.splice(index, 1);
     }
+
+    public updateBpm(newBpm: number): void {
+        this.song.bpm = newBpm;
+    }
 }

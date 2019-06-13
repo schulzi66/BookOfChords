@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AllMaterialModule } from './../material-module';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
+import { MetronomeComponent } from './components/metronome/metronome.component';
 import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.component';
 import { SearchComponent } from './components/search/search.component';
 import { UploadTaskComponent } from './components/upload-task/upload-task.component';
@@ -18,7 +19,8 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
         UploaderComponent,
         UploadTaskComponent,
         SearchComponent,
-        PopupDialogComponent
+        PopupDialogComponent,
+        MetronomeComponent
     ],
     imports: [
         CommonModule,
@@ -38,7 +40,8 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
         StringArrayLinesPipe,
         UploaderComponent,
         SearchComponent,
-        PopupDialogComponent
+        PopupDialogComponent,
+        MetronomeComponent
     ]
 })
 export class SharedUiModule { }
