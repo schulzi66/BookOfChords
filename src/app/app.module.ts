@@ -12,6 +12,7 @@ import { firebaseConfig } from 'src/environments/environment';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { KonzertmeisterIntegrationModule } from './konzertmeister-integration/konzertmeister-integration.module';
 import { AllMaterialModule } from './material-module';
 import { SharedUiModule } from './shared-ui/shared-ui.module';
 import { SongsModule } from './songs/songs.module';
@@ -31,8 +32,9 @@ import { SongsModule } from './songs/songs.module';
 		AngularFireAuthModule,
 		AngularFireStorageModule,
 		HttpClientModule,
-		ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
-		AllMaterialModule
+		AllMaterialModule,
+		KonzertmeisterIntegrationModule,
+		ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
 	],
 	providers: [ { provide: FirestoreSettingsToken, useValue: {} } ],
 	bootstrap: [ AppComponent ]

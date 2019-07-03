@@ -24,6 +24,10 @@ const routes: Routes = [
 	{
 		path: 'configuration',
 		loadChildren: './configuration/configuration.module#ConfigurationModule'
+	},
+	{
+		path: 'konzertmeister-integration',
+		loadChildren: './konzertmeister-integration/konzertmeister-integration.module#KonzertmeisterIntegrationModule'
 	}
 ];
 
