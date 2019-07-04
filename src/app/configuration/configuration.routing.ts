@@ -1,10 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
-import { StylesComponent } from './styles/styles.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: StylesComponent
+        component: ConfigurationComponent
     },
 ];
 

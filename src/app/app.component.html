@@ -1,6 +1,6 @@
 <div class="flex-container">
     <h1 class="title">{{title}}</h1>
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu" *ngIf="auth.user$ | async as user;">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu" *ngIf="authService.user$ | async as user;">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -12,7 +12,7 @@
             <mat-icon>queue_music</mat-icon>
             <span>Gigs</span>
         </button>
-        <button mat-menu-item [routerLink]="['./konzertmeister-integration']">
+        <button mat-menu-item *ngIf="configuration?.useKonzertmeister" [routerLink]="['./konzertmeister-integration']">
             <mat-icon>event</mat-icon>
             <span>Konzertmeister</span>
         </button>
@@ -20,21 +20,21 @@
             <mat-icon>settings</mat-icon>
             <span>Settings</span>
         </button>
-        <button mat-menu-item (click)="auth.signOut()">
+        <button mat-menu-item (click)="authService.signOut()">
             <mat-icon>logout</mat-icon>
             <span>Logout</span>
         </button>
-        <button mat-menu-item *ngIf="Pwa.promptEvent" (click)="installPwa()">
+        <button mat-menu-item *ngIf="pwaService.promptEvent" (click)="installPwa()">
             <mat-icon>save_alt</mat-icon>
             <span>Install</span>
         </button>
     </mat-menu>
 </div>
 
-<div class="app-content" *ngIf="auth.user$ | async as user; else login">
+<div class="app-content" *ngIf="authService.user$ | async as user; else login">
     <router-outlet></router-outlet>
 </div>
 
 <ng-template #login>
-    <button mat-raised-button class="button" (click)="auth.googleSignIn()">Login with Google</button>
+    <button mat-raised-button class="button" (click)="authService.googleSignIn()">Login with Google</button>
 </ng-template>

@@ -36,4 +36,8 @@
         </mat-select>
     </mat-form-field>
 
+    <mat-slide-toggle [checked]="configuration?.useKonzertmeister" (change)="useKonzertmeisterChanged($event)">
+        Use Konzertmeister
+    </mat-slide-toggle>
+
 </div>

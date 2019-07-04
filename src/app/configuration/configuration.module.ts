@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { AllMaterialModule } from '../material-module';
 import { SharedUiModule } from '../shared-ui/shared-ui.module';
 import { ConfigurationRoutes } from './configuration.routing';
-import { StylesComponent } from './styles/styles.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 @NgModule({
     declarations: [
-        StylesComponent
+        ConfigurationComponent
     ],
     imports: [
         CommonModule,
@@ -18,7 +18,7 @@ import { StylesComponent } from './styles/styles.component';
         ConfigurationRoutes
     ],
     exports: [
-        StylesComponent
+        ConfigurationComponent
     ]
 })
 export class ConfigurationModule { }

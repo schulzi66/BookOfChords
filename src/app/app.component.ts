@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'firebase';
+import { ConfigurationService } from './configuration/services/configuration.service';
+import { Configuration } from './models/configuration.model';
 import { AuthService } from './services/auth.service';
 import { PwaService } from './services/pwa.service';
 
@@ -10,17 +13,29 @@ import { PwaService } from './services/pwa.service';
 export class AppComponent implements OnInit {
 
     public title: string;
+    public authService: AuthService;
+    public pwaService: PwaService;
+    public configuration: Configuration;
 
-    constructor(
-        public auth: AuthService,
-        public Pwa: PwaService
-    ) { }
+    private _configurationService: ConfigurationService;
+
+    constructor(authService: AuthService, pwaService: PwaService, configurationServcie: ConfigurationService) {
+        this.authService = authService;
+        this.pwaService = pwaService
+        this._configurationService = configurationServcie;
+    }
 
     ngOnInit(): void {
         this.title = 'Book of Chords';
+        this.authService.user$.subscribe((user: User) => {
+            this._configurationService.loadConfigurationForUser(user.uid)
+                .subscribe((configuration: Configuration) => {
+                    this.configuration = configuration;
+                });
+        });
     }
 
     installPwa(): void {
-        this.Pwa.promptEvent.prompt();
+        this.pwaService.promptEvent.prompt();
     }
 }

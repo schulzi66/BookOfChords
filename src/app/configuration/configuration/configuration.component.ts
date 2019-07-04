@@ -1,17 +1,17 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatSelectChange } from '@angular/material';
+import { MatSelectChange, MatSlideToggleChange } from '@angular/material';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-    selector: 'app-styles',
-    templateUrl: './styles.component.html',
-    styleUrls: ['./styles.component.scss']
+    selector: 'app-configuration',
+    templateUrl: './configuration.component.html',
+    styleUrls: ['./configuration.component.scss']
 })
-export class StylesComponent implements OnInit {
+export class ConfigurationComponent implements OnInit {
 
     private _configurationService: ConfigurationService;
     private _authService: AuthService;
@@ -47,6 +47,10 @@ export class StylesComponent implements OnInit {
 
     public fontFamilyChanged(event: MatSelectChange): void {
         this.configuration.fontFamily = event.value;
+    }
+
+    public useKonzertmeisterChanged(event: MatSlideToggleChange): void {
+        this.configuration.useKonzertmeister = event.checked;
     }
 
     public goBack(): void {
