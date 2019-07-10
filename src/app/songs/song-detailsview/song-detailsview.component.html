@@ -26,12 +26,7 @@
     <shared-fab-btn [icon]="'delete'" (onClick)="removePicture(i)"></shared-fab-btn>
 </div>
 <div *ngFor="let pdf of song?.pdfs; index as i">
-    <pdf-viewer [src]="pdf"></pdf-viewer>
-    <!-- <embed class="pdf" [src]="pdf"> -->
-    <!-- <object [data]="pdf" type="application/pdf" width="85vh" height="100%">
-        <p>Your browser does not support PDFs.
-            <a href="https://example.com/test.pdf">Download the PDF</a>.</p>
-    </object> -->
+    <ngx-extended-pdf-viewer [src]="pdf" useBrowserLocale="true" height="80vh"></ngx-extended-pdf-viewer>
     <shared-fab-btn [icon]="'delete'" (onClick)="removePdf(i)"></shared-fab-btn>
 </div>
 

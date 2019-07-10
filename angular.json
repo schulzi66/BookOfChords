@@ -25,21 +25,27 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
-                            "src/manifest.webmanifest"
+                            "src/manifest.webmanifest",
+                            {
+                                "glob": "**/*",
+                                "input": "node_modules/ngx-extended-pdf-viewer/assets/locale",
+                                "output": "/assets/locale/"
+                            }
                         ],
                         "styles": [
                             "src/styles/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": ["node_modules/ngx-extended-pdf-viewer/assets/pdf.js",
+                            "node_modules/ngx-extended-pdf-viewer/assets/pdf.worker.js",
+                            "node_modules/ngx-extended-pdf-viewer/assets/viewer.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
-                                }
-                            ],
+                            "fileReplacements": [{
+                                "replace": "src/environments/environment.ts",
+                                "with": "src/environments/environment.prod.ts"
+                            }],
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,

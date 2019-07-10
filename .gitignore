@@ -40,3 +40,4 @@ testem.log
 Thumbs.db
 
 src/environments
+cors.json
