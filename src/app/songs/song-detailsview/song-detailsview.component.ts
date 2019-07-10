@@ -38,6 +38,14 @@ export class SongDetailsviewComponent implements OnInit {
 		}
 	}
 
+	// public get pdfFromSong(): string[] {
+	// 	let pdfs: string[] = [];
+	//     this.song.pdfs.forEach((pdf) => {
+	// 		pdfs.push(this._sanitizer.bypassSecurityTrustResourceUrl(pdf) as string);
+	// 	});
+	// 	return pdfs;
+	// }
+
 	public addNewSection(): void {
 		this.song.sections.push(new SongSection());
 	}
@@ -60,14 +68,25 @@ export class SongDetailsviewComponent implements OnInit {
 	}
 
 	public onImageUploadCompleted($event: string): void {
-		if (this.song.pictures === undefined) {
-			this.song.pictures = [];
+		if ($event.includes('.pdf?')) {
+			if (this.song.pdfs === undefined) {
+				this.song.pdfs = [];
+			}
+			this.song.pdfs.push($event);
+		} else {
+			if (this.song.pictures === undefined) {
+				this.song.pictures = [];
+			}
+			this.song.pictures.push($event);
 		}
-		this.song.pictures.push($event);
 	}
 
 	public removePicture(index: number): void {
 		this.song.pictures.splice(index, 1);
+	}
+
+	public removePdf(index: number): void {
+		this.song.pdfs.splice(index, 1);
 	}
 
 	public updateBpm(newBpm: number): void {

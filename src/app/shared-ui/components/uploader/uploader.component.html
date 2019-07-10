@@ -1,7 +1,8 @@
 <div class="dropzone" dropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)" [class.hovering]="isHovering">
 
     <shared-fab-btn [icon]="'file_upload'" (onClick)="fileInput.click()">
-        <input #fileInput type="file" accept="image/*" (change)="onDrop($event.target.files)" style="display:none;" />
+        <input #fileInput type="file" accept="image/*,.pdf" (change)="onDrop($event.target.files)"
+            style="display:none;" />
     </shared-fab-btn>
     <!-- <shared-fab-btn [icon]="'camera'" (onClick)="cameraInput.click()">
         <input #cameraInput type="file" accept="image/*" capture="environment" (change)="onDrop($event.target.files)" style="display:none;" >
