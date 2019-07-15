@@ -26,13 +26,17 @@ const routes: Routes = [
 		loadChildren: './configuration/configuration.module#ConfigurationModule'
 	},
 	{
-		path: 'konzertmeister-integration',
-		loadChildren: './konzertmeister/konzertmeister-integration.module#KonzertmeisterIntegrationModule'
+		path: 'band',
+		loadChildren: './band/band.module#BandModule'
 	}
+	// {
+	// 	path: 'konzertmeister-integration',
+	// 	loadChildren: './band/konzertmeister-integration.module#KonzertmeisterIntegrationModule'
+	// }
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true })],
-	exports: [RouterModule]
+	imports: [ RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true }) ],
+	exports: [ RouterModule ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

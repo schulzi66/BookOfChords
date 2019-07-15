@@ -12,13 +12,13 @@ import { firebaseConfig } from 'src/environments/environment';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { KonzertmeisterIntegrationModule } from './konzertmeister/konzertmeister-integration.module';
+import { BandModule } from './band/band.module';
 import { AllMaterialModule } from './material-module';
 import { SharedUiModule } from './shared-ui/shared-ui.module';
 import { SongsModule } from './songs/songs.module';
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [ AppComponent ],
 	imports: [
 		SongsModule,
 		SharedUiModule,
@@ -33,10 +33,10 @@ import { SongsModule } from './songs/songs.module';
 		AngularFireStorageModule,
 		HttpClientModule,
 		AllMaterialModule,
-		KonzertmeisterIntegrationModule,
+		BandModule,
 		ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
 	],
-	providers: [{ provide: FirestoreSettingsToken, useValue: {} }],
-	bootstrap: [AppComponent]
+	providers: [ { provide: FirestoreSettingsToken, useValue: {} } ],
+	bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {}

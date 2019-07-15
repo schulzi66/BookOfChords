@@ -12,9 +12,9 @@
             <mat-icon>queue_music</mat-icon>
             <span>Gigs</span>
         </button>
-        <button mat-menu-item *ngIf="configuration?.useKonzertmeister" [routerLink]="['./konzertmeister-integration']">
-            <mat-icon>event</mat-icon>
-            <span>Konzertmeister</span>
+        <button mat-menu-item [routerLink]="['./band']">
+            <mat-icon>group</mat-icon>
+            <span>Band</span>
         </button>
         <button mat-menu-item [routerLink]="['./configuration']">
             <mat-icon>settings</mat-icon>
@@ -35,6 +35,10 @@
     <router-outlet></router-outlet>
 </div>
 
+<!-- #region Templates-->
+
 <ng-template #login>
     <button mat-raised-button class="button" (click)="authService.googleSignIn()">Login with Google</button>
 </ng-template>
+
+<!-- #endregion-->

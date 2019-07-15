@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { Configuration } from 'src/app/models/configuration.model';
+import { Configuration } from 'src/app/models/configuration';
 import { PopupDialogData } from 'src/app/shared-ui/components/popup-dialog/popup-dialog-data';
 import { PopupDialogComponent } from 'src/app/shared-ui/components/popup-dialog/popup-dialog.component';
-import { Song } from '../../models/song.model';
-import { User } from '../../models/user.model';
+import { Song } from '../../models/song';
+import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
 

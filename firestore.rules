@@ -16,6 +16,9 @@ service cloud.firestore {
      match /files/{id} {
     	allow read, write: if isSignedIn()
     }
+    match /bands/{id} {
+        allow read, write: if isSignedIn()
+    }
     
     
     /// Functions ///

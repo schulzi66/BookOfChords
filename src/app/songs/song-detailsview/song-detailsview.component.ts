@@ -1,9 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { GigService } from '../../gig/services/gig.service';
-import { SongSection } from '../../models/song-section.model';
-import { Song } from '../../models/song.model';
-import { User } from '../../models/user.model';
+import { Song } from '../../models/song';
+import { SongSection } from '../../models/song-section';
+import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
 

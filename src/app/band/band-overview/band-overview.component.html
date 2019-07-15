@@ -1,0 +1,11 @@
+<p *ngIf="isUserInBand; else noBand">
+    band works!
+</p>
+
+<!-- #region Templates-->
+
+<ng-template #noBand>
+    <app-no-band-overview></app-no-band-overview>
+</ng-template>
+
+<!-- #endregion -->

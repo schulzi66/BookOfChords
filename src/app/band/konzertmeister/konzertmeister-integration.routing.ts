@@ -3,7 +3,7 @@ import { KonzertmeisterIntegrationComponent } from './konzertmeister-integration
 
 const routes: Routes = [
 	{
-		path: '',
+		path: 'konzertmeister',
 		component: KonzertmeisterIntegrationComponent
 	}
 ];

@@ -1,4 +1,4 @@
-import { SongSection } from './song-section.model';
+import { SongSection } from './song-section';
 
 export class Song {
 	id: string;

@@ -4,11 +4,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material';
 import { Router } from '@angular/router';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { Configuration } from 'src/app/models/configuration.model';
+import { Configuration } from 'src/app/models/configuration';
 import { Gig } from '../../models/gig';
-import { Song } from '../../models/song.model';
+import { Song } from '../../models/song';
 import { GigService } from '../services/gig.service';
-import { User } from './../../models/user.model';
+import { User } from './../../models/user';
 import { AuthService } from './../../services/auth.service';
 import { SongService } from './../../songs/services/song.service';
 
