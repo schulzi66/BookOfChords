@@ -1,0 +1,17 @@
+.flex-container {
+    display: flex;
+    align-items: baseline;
+}
+
+.band-name {
+    margin: 10px;
+    flex-grow: 9;
+}
+
+.save-btn {
+    flex-grow: 1;
+}
+
+.band-picture {
+    width: 100%
+}

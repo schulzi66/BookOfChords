@@ -31,6 +31,17 @@ export class BandService {
 	// 		.set(Object.assign({}, JSON.parse(JSON.stringify(band))));
 	// }
 
+	public saveBand(band: Band): string {
+		if (!band.id) {
+			band.id = this._angularFirestore.createId();
+		}
+		this._angularFirestore
+			.collection('bands')
+			.doc(band.id)
+			.set(Object.assign({}, JSON.parse(JSON.stringify(band))));
+		return band.id;
+	}
+
 	public getBandByBandId(bandId: string): Observable<Band> {
 		return this._angularFirestore
 			.collection<Band>('bands', (ref) => {

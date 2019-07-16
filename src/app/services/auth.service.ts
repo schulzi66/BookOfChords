@@ -23,31 +23,57 @@ export class AuthService {
 		);
 	}
 
-	googleSignIn() {
+	public googleSignIn() {
 		const provider = new auth.GoogleAuthProvider();
 		return this.oAuthLogin(provider);
 	}
 
 	private async oAuthLogin(provider) {
 		const credential = await this.afAuth.auth.signInWithPopup(provider);
-		return this.updateUserData(credential.user);
+		return this.updateUserData(
+			credential.user.uid,
+			credential.user.email,
+			(credential.additionalUserInfo.profile as any).name === undefined
+				? credential.user.displayName
+				: (credential.additionalUserInfo.profile as any).name,
+			credential.user.photoURL
+		);
 	}
 
-	private updateUserData({ uid, email, displayName, photoURL, bandId }: User) {
+	private updateUserData(uid: string, email: string, displayName: string, photoURL: string) {
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
 
 		const data = {
 			uid,
 			email,
 			displayName,
-			photoURL,
-			bandId
+			photoURL
 		};
 
 		return userRef.set(data, { merge: true });
 	}
 
-	async signOut() {
+	// private updateUserData({ uid, email, displayName, photoURL }: User) {
+	// 	const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
+
+	// 	const data = {
+	// 		uid,
+	// 		email,
+	// 		displayName,
+	// 		photoURL
+	// 	};
+
+	// 	return userRef.set(data, { merge: true });
+	// }
+
+	public updateBandIdForUserId(uid: string, bandId: string): void {
+		const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
+		userRef.update({
+			bandId: bandId
+		});
+	}
+
+	public async signOut() {
 		await this.afAuth.auth.signOut();
 		return this.router.navigate([ '/' ]);
 	}

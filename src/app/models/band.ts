@@ -8,4 +8,9 @@ export class Band {
 	pictureUrl: string;
 	members: User[];
 	setlists: Setlist[];
+
+	constructor() {
+		this.members = [];
+		this.setlists = [];
+	}
 }

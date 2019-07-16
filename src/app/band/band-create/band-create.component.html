@@ -1,3 +1,11 @@
-<p>
-  band-create works!
-</p>
+<div class="flex-container">
+
+    <mat-form-field appearance="outline" class="band-name">
+        <mat-label>Band Name</mat-label>
+        <input matInput required [(ngModel)]="band.name">
+    </mat-form-field>
+    <shared-fab-btn class="save-btn" (onClick)="saveBand()" [disabled]="!band.name" [icon]="'save'"></shared-fab-btn>
+
+</div>
+<img *ngIf="band.pictureUrl" [src]="band.pictureUrl" class="band-picture">
+<uploader [storageBucketPrefix]="'bands'" (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
