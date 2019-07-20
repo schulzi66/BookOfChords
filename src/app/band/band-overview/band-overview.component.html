@@ -1,6 +1,35 @@
-<p *ngIf="isUserInBand; else noBand">
-    band works!
-</p>
+<div *ngIf="isUserInBand; else noBand">
+    <mat-tab-group mat-stretch-tabs>
+        <mat-tab label="My Band">
+            <ng-template matTabContent>
+                <div class="flex-container">
+                    <mat-label class="label">Name:</mat-label>
+                    <mat-label class="value">{{band.name}}</mat-label>
+                </div>
+                <div class="flex-container">
+                    <mat-label class="label">Members:</mat-label>
+                </div>
+                <div class="flex-container">
+                    <mat-label class="member-value" *ngFor="let member of band.members">{{member.displayName}}
+                    </mat-label>
+                    <img *ngIf="band.pictureUrl" [src]="band.pictureUrl" class="band-picture">
+                </div>
+                <div class="flex-container">
+                    <mat-label class="label">Band ID:</mat-label>
+                    <mat-label class="value">{{band.id}}</mat-label>
+                </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Setlists">
+
+        </mat-tab>
+        <mat-tab *ngIf="configuration?.useKonzertmeister" label="Konzertmeister">
+            <ng-template matTabContent>
+                <app-konzertmeister-integration></app-konzertmeister-integration>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</div>
 
 <!-- #region Templates-->
 

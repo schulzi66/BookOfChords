@@ -1,0 +1,26 @@
+.flex-container {
+    display: flex;
+    align-items: flex-start;
+    margin: 2vh;
+}
+
+.label {
+    flex-grow: 2;
+    text-align: left;
+    text-decoration: underline;
+}
+
+.value {
+    flex-grow: 8;
+    text-align: right;
+}
+
+.member-value {
+    flex-grow: 8;
+    text-align: left;
+}
+
+.band-picture {
+    width: 50%;
+    flex-grow: 5;
+}
