@@ -1,3 +1,8 @@
-<p>
-  band-join works!
-</p>
+<div class="flex-container">
+
+    <mat-form-field appearance="outline" class="band-id">
+        <mat-label>Band ID</mat-label>
+        <input matInput required [(ngModel)]="bandId">
+    </mat-form-field>
+    <shared-fab-btn class="join-btn" (onClick)="joinBand()" [disabled]="!bandId" [icon]="'person_add'"></shared-fab-btn>
+</div>

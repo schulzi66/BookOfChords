@@ -66,6 +66,7 @@ export class AuthService {
 	// 	return userRef.set(data, { merge: true });
 	// }
 
+	//Refactor to use the currentUserObject and not make another call!
 	public updateBandIdForUserId(uid: string, bandId: string): void {
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
 		userRef.update({

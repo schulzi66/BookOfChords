@@ -4,8 +4,8 @@ import { KonzertmeisterIntegrationRoutes } from './konzertmeister-integration.ro
 import { KonzertmeisterIntegrationComponent } from './konzertmeister-integration/konzertmeister-integration.component';
 
 @NgModule({
-	imports: [CommonModule, KonzertmeisterIntegrationRoutes],
-	declarations: [KonzertmeisterIntegrationComponent],
-	exports: [KonzertmeisterIntegrationComponent]
+	imports: [ CommonModule, KonzertmeisterIntegrationRoutes ],
+	declarations: [ KonzertmeisterIntegrationComponent ],
+	exports: [ KonzertmeisterIntegrationComponent ]
 })
-export class KonzertmeisterIntegrationModule { }
+export class KonzertmeisterIntegrationModule {}

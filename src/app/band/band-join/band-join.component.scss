@@ -1,0 +1,13 @@
+.flex-container {
+    display: flex;
+    align-items: baseline;
+}
+
+.band-id {
+    margin: 10px;
+    flex-grow: 9;
+}
+
+.join-btn {
+    flex-grow: 1;
+}
