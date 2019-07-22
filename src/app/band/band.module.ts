@@ -7,19 +7,24 @@ import { BandCreateComponent } from './band-create/band-create.component';
 import { BandJoinComponent } from './band-join/band-join.component';
 import { BandOverviewComponent } from './band-overview/band-overview.component';
 import { BandRoutes } from './band.routing';
-import { KonzertmeisterIntegrationModule } from './konzertmeister/konzertmeister-integration.module';
+import { KonzertmeisterIntegrationComponent } from './konzertmeister-integration/konzertmeister-integration.component';
 import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		KonzertmeisterIntegrationModule,
-		BandRoutes,
-		SharedUiModule,
-		AllMaterialModule,
-		FormsModule
+	imports: [ CommonModule, BandRoutes, SharedUiModule, AllMaterialModule, FormsModule ],
+	declarations: [
+		BandOverviewComponent,
+		NoBandOverviewComponent,
+		BandCreateComponent,
+		BandJoinComponent,
+		KonzertmeisterIntegrationComponent
 	],
-	declarations: [ BandOverviewComponent, NoBandOverviewComponent, BandCreateComponent, BandJoinComponent ],
-	exports: [ BandOverviewComponent, NoBandOverviewComponent, BandCreateComponent, BandJoinComponent ]
+	exports: [
+		BandOverviewComponent,
+		NoBandOverviewComponent,
+		BandCreateComponent,
+		BandJoinComponent,
+		KonzertmeisterIntegrationComponent
+	]
 })
 export class BandModule {}

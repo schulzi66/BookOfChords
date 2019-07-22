@@ -29,10 +29,6 @@ const routes: Routes = [
 		path: 'band',
 		loadChildren: './band/band.module#BandModule'
 	}
-	// {
-	// 	path: 'konzertmeister-integration',
-	// 	loadChildren: './band/konzertmeister-integration.module#KonzertmeisterIntegrationModule'
-	// }
 ];
 
 @NgModule({

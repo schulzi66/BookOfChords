@@ -5,10 +5,6 @@ const routes: Routes = [
 	{
 		path: '',
 		component: BandOverviewComponent
-	},
-	{
-		path: 'konzertmeister',
-		loadChildren: './konzertmeister/konzertmeister-integration.module#KonzertMeisterIntegrationModule'
 	}
 ];
 
