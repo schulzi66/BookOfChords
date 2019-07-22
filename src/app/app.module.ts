@@ -12,7 +12,6 @@ import { firebaseConfig } from 'src/environments/environment';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BandModule } from './band/band.module';
 import { AllMaterialModule } from './material-module';
 import { SharedUiModule } from './shared-ui/shared-ui.module';
 import { SongsModule } from './songs/songs.module';
@@ -33,7 +32,6 @@ import { SongsModule } from './songs/songs.module';
 		AngularFireStorageModule,
 		HttpClientModule,
 		AllMaterialModule,
-		BandModule,
 		ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
 	],
 	providers: [ { provide: FirestoreSettingsToken, useValue: {} } ],

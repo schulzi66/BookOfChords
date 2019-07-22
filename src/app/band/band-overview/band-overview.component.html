@@ -6,7 +6,9 @@
             </ng-template>
         </mat-tab>
         <mat-tab label="Setlists">
-
+            <ng-template matTabContent>
+                <app-band-setlist-overview></app-band-setlist-overview>
+            </ng-template>
         </mat-tab>
         <mat-tab *ngIf="configuration?.useKonzertmeister" label="Konzertmeister">
             <ng-template matTabContent>

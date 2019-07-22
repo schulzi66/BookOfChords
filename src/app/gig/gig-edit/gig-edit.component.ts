@@ -73,10 +73,11 @@ export class GigEditComponent implements OnInit {
 		});
 	}
 
-	public checkSelected(song: Song) {
+	public checkSelected(song: Song): boolean {
 		return this.gig.songs.find((x) => x.id === song.id) !== undefined;
 	}
-	public onSelectionChange(event: MatSelectionListChange) {
+
+	public onSelectionChange(event: MatSelectionListChange): void {
 		// song was added
 		if (event.option.selected) {
 			this.gig.songs.push(event.option.value as Song);

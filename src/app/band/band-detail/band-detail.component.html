@@ -1,6 +1,6 @@
 <div class="flex-container">
     <img *ngIf="band?.pictureUrl" [src]="band?.pictureUrl" class="band-picture">
-    <shared-fab-btn class="edit-btn" *ngIf="isUserBandAdmin" [icon]="'edit'" [routerLink]="['/edit', band.id ]">
+    <shared-fab-btn class="edit-btn" *ngIf="isUserBandAdmin" [icon]="'edit'" [routerLink]="['./edit', band.id ]">
     </shared-fab-btn>
     <mat-label class="label">Name</mat-label>
     <mat-label class="value">{{band?.name}}</mat-label>
