@@ -1,15 +1,13 @@
-.flex-container {
+.profile-picture {
+    width: 10%;
+    border-radius: 50%;
+    align-self: center;
+    margin-right: 2vh;
+}
+
+.member-list {
     display: flex;
-    align-items: baseline;
-}
-
-.band-name {
-    margin: 10px;
-    flex-grow: 9;
-}
-
-.save-btn {
-    flex-grow: 1;
+    align-items: center;
 }
 
 .band-picture {

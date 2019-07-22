@@ -19,7 +19,7 @@ export class BandOverviewComponent implements OnInit {
 	public band: Band;
 	public configuration: Configuration;
 
-	constructor(authService: AuthService, bandService: BandService, configurationService: ConfigurationService) {
+	public constructor(authService: AuthService, bandService: BandService, configurationService: ConfigurationService) {
 		this._authService = authService;
 		this._bandService = bandService;
 		this._configurationService = configurationService;

@@ -16,7 +16,7 @@ export class BandCreateComponent implements OnInit {
 
 	public band: Band;
 
-	constructor(authService: AuthService, bandService: BandService) {
+	public constructor(authService: AuthService, bandService: BandService) {
 		this._authService = authService;
 		this._bandService = bandService;
 		this.band = new Band();

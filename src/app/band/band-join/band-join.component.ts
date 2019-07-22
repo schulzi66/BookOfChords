@@ -21,7 +21,7 @@ export class BandJoinComponent implements OnInit {
 
 	public bandId: string;
 
-	constructor(authService: AuthService, bandService: BandService, matDialog: MatDialog) {
+	public constructor(authService: AuthService, bandService: BandService, matDialog: MatDialog) {
 		this._authService = authService;
 		this._bandService = bandService;
 		this._matDialog = matDialog;

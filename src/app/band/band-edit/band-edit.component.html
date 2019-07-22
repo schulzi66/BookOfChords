@@ -1,0 +1,16 @@
+<shared-fab-btn [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
+<div class="flex-container">
+    <mat-form-field appearance="outline" class="band-name">
+        <mat-label>Band Name</mat-label>
+        <input matInput required [(ngModel)]="band.name">
+    </mat-form-field>
+    <img *ngIf="band.pictureUrl" [src]="band.pictureUrl" class="band-picture">
+    <div *ngFor="let member of band?.members; index as i" class="member-list">
+        <img [src]="member?.photoURL" class="profile-picture">
+        <mat-label class="member-value">{{member?.displayName}}</mat-label>
+        <button mat-button *ngIf="!isUserBandAdmin" (onclick="deleteMember(i)" )>
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+    <uploader [storageBucketPrefix]="'bands'" (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
+</div>

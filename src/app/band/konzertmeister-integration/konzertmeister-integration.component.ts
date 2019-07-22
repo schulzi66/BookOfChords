@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-konzertmeister-integration',
 	templateUrl: './konzertmeister-integration.component.html',
 	styleUrls: [ './konzertmeister-integration.component.scss' ]
 })
-export class KonzertmeisterIntegrationComponent implements OnInit {
-	constructor() {}
-
-	ngOnInit() {}
-}
+export class KonzertmeisterIntegrationComponent {}
