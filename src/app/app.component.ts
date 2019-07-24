@@ -19,12 +19,6 @@ export class AppComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.title = 'Book of Chords';
-		// this.authService.user$.subscribe((user: User) => {
-		//     this._configurationService.loadConfigurationForUser(user.uid)
-		//         .subscribe((configuration: Configuration) => {
-		//             this.configuration = configuration;
-		//         });
-		// });
 	}
 
 	installPwa(): void {

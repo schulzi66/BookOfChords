@@ -1,15 +1,18 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material';
+import { MatSelectionListChange, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Band } from 'src/app/models/band';
+import { Gig } from 'src/app/models/gig';
 import { Setlist } from 'src/app/models/setlist';
 import { Song } from 'src/app/models/song';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { RockNRollSnackbarComponent } from 'src/app/shared-ui/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { SongService } from 'src/app/songs/services/song.service';
 import { BandService } from '../services/band.service';
+import { GigService } from './../../gig/services/gig.service';
 
 @Component({
 	selector: 'app-band-setlist-edit',
@@ -23,10 +26,12 @@ export class BandSetlistEditComponent implements OnInit {
 	private _currentUser: User;
 	private _location: Location;
 	private _songService: SongService;
+	private _gigService: GigService;
+	private _snackBar: MatSnackBar;
 
 	public band: Band;
 	public setlist: Setlist;
-	public allSongs: Song[];
+	public allSongsOfCurrentUser: Song[];
 	public selectedSongs: Song[];
 	public filteredSongs: Song[];
 
@@ -35,13 +40,17 @@ export class BandSetlistEditComponent implements OnInit {
 		bandService: BandService,
 		authService: AuthService,
 		location: Location,
-		songService: SongService
+		songService: SongService,
+		gigService: GigService,
+		snackBar: MatSnackBar
 	) {
 		this._activatedRoute = activatedRoute;
 		this._bandService = bandService;
 		this._authService = authService;
 		this._location = location;
 		this._songService = songService;
+		this._gigService = gigService;
+		this._snackBar = snackBar;
 		this.setlist = new Setlist();
 	}
 
@@ -57,7 +66,7 @@ export class BandSetlistEditComponent implements OnInit {
 								this.setlist = this.band.setlists.find((x) => x.id === params.id);
 							}
 							this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
-								this.allSongs = songs;
+								this.allSongsOfCurrentUser = songs;
 								this.filteredSongs = songs;
 							});
 						} else {
@@ -70,24 +79,26 @@ export class BandSetlistEditComponent implements OnInit {
 	}
 
 	public goBack(): void {
-		if (this.setlist.name) {
-			this._bandService.saveSetlistForBand(this.band, this.setlist);
-		}
 		this._location.back();
+	}
+
+	public onNameChanged(): void {
+		this.saveIfValid();
 	}
 
 	public onDescriptionChanged(description: string): void {
 		this.setlist.description = description;
+		this.saveIfValid();
 	}
 
 	public searchForSong(searchString: string): void {
-		this.filteredSongs = this.allSongs.filter((song) =>
+		this.filteredSongs = this.allSongsOfCurrentUser.filter((song) =>
 			song.name.toLowerCase().includes(searchString.toLowerCase())
 		);
 	}
 
 	public clearSearch(): void {
-		this.filteredSongs = this.allSongs;
+		this.filteredSongs = this.allSongsOfCurrentUser;
 	}
 
 	public checkSelected(song: Song): boolean {
@@ -104,20 +115,51 @@ export class BandSetlistEditComponent implements OnInit {
 		} else {
 			this.setlist.songs.splice(this.setlist.songs.findIndex((x) => x === (event.option.value as Song).name), 1);
 		}
+		this.saveIfValid();
 	}
 
 	public onImageUploadCompleted($event: string): void {
 		if ($event.includes('.pdf?')) {
 			this.setlist.pdfUrl = $event;
+			this.saveIfValid();
 		}
 	}
 
-	public importSetlist(): void {
-		console.log('awesome feature incoming');
+	public exportSetlistAsGig(): void {
+		let gig = new Gig(this.setlist.name);
+		gig.uid = this._currentUser.uid;
+
+		this.setlist.songs.forEach((setlistSong) => {
+			const song = this.allSongsOfCurrentUser.find((x) => x.name.toLowerCase() === setlistSong.toLowerCase());
+			if (song) {
+				//User has already this song in his book of chords and song should be added to new gig
+				gig.songs.push(song);
+			} else {
+				//New song will be created and added to the gig without chords
+				let newSong = new Song(setlistSong);
+				newSong.uid = this._currentUser.uid;
+				gig.songs.push(newSong);
+				this._songService.saveSong(newSong);
+			}
+		});
+		this._gigService.saveGig(gig);
+		this._snackBar.openFromComponent(RockNRollSnackbarComponent, {
+			data: 'New Gig created from Setlist!'
+		});
 	}
+
+	// public importGigAsSetlist(): void {
+	// 	this._snackBar.openFromComponent(RockNRollSnackbarComponent, {
+	// 		data: 'Songs from Gig added to Setlist!'
+	// 	});
+	// }
 
 	public drop(event: CdkDragDrop<Song>) {
 		moveItemInArray(this.setlist.songs, event.previousIndex, event.currentIndex);
+		this.saveIfValid();
+	}
+
+	private saveIfValid(): void {
 		if (this.setlist.name) {
 			this._bandService.saveSetlistForBand(this.band, this.setlist);
 		}

@@ -2,12 +2,13 @@
     <mat-tab label="Info">
         <div class="btn-wrapper">
             <shared-fab-btn [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
-            <shared-fab-btn [icon]="'playlist_add'" (onClick)="importSetlist()"></shared-fab-btn>
+            <!-- <shared-fab-btn [icon]="'archive'" (onClick)="importGigAsSetlist()"></shared-fab-btn> -->
+            <shared-fab-btn [icon]="'unarchive'" (onClick)="exportSetlistAsGig()"></shared-fab-btn>
         </div>
         <div class="flex-container">
             <mat-form-field appearance="outline" class="setlist-name">
                 <mat-label>Name</mat-label>
-                <input matInput required [(ngModel)]="setlist.name">
+                <input matInput required [(ngModel)]="setlist.name" (change)="onNameChanged()">
             </mat-form-field>
             <mat-form-field appearance="outline" class="setlist-description">
                 <textarea matInput placeholder="Description" [value]="setlist?.description"
