@@ -25,6 +25,7 @@ export class BandSetlistOverviewComponent implements OnInit {
 		this._authService.user$.subscribe((user: User) => {
 			this._currentUser = user;
 			if (user.bandId) {
+				// this.
 				this._bandService.getBandByBandId(user.bandId).subscribe((band: Band) => {
 					this.band = band;
 				});

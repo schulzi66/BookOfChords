@@ -49,20 +49,22 @@ export class BandSetlistEditComponent implements OnInit {
 		this._authService.user$.subscribe((user: User) => {
 			this._currentUser = user;
 			this._activatedRoute.params.subscribe((params: { id?: string }) => {
-				this._bandService.getBandByBandId(null).subscribe((band: Band) => {
-					if (band !== undefined) {
-						this.band = band;
-						if (params.id !== '-1') {
-							this.setlist = this.band.setlists.find((x) => x.id === params.id);
+				if (this._currentUser.bandId) {
+					this._bandService.getBandByBandId(this._currentUser.bandId).subscribe((band: Band) => {
+						if (band !== undefined) {
+							this.band = band;
+							if (params.id !== '-1') {
+								this.setlist = this.band.setlists.find((x) => x.id === params.id);
+							}
+							this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
+								this.allSongs = songs;
+								this.filteredSongs = songs;
+							});
+						} else {
+							this._location.back();
 						}
-						this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
-							this.allSongs = songs;
-							this.filteredSongs = songs;
-						});
-					} else {
-						this._location.back();
-					}
-				});
+					});
+				}
 			});
 		});
 	}
@@ -97,11 +99,9 @@ export class BandSetlistEditComponent implements OnInit {
 	}
 
 	public onSelectionChange(event: MatSelectionListChange) {
-		// song was added
 		if (event.option.selected) {
 			this.setlist.songs.push((event.option.value as Song).name);
 		} else {
-			// song was removed
 			this.setlist.songs.splice(this.setlist.songs.findIndex((x) => x === (event.option.value as Song).name), 1);
 		}
 	}
@@ -118,5 +118,8 @@ export class BandSetlistEditComponent implements OnInit {
 
 	public drop(event: CdkDragDrop<Song>) {
 		moveItemInArray(this.setlist.songs, event.previousIndex, event.currentIndex);
+		if (this.setlist.name) {
+			this._bandService.saveSetlistForBand(this.band, this.setlist);
+		}
 	}
 }
