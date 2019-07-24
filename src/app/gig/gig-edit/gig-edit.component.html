@@ -17,8 +17,7 @@
     <shared-fab-btn class="filter-btn" [icon]="filterIcon" (onClick)="toggleFilter()"></shared-fab-btn>
 </div>
 
-
-<mat-selection-list #songs (selectionChange)="onSelectionChange($event)">
+<mat-selection-list #songs class="song-list" (selectionChange)="onSelectionChange($event)">
     <mat-list-option *ngFor="let song of filteredSongs" [selected]="checkSelected(song)" [value]="song">
         {{song.name}}
     </mat-list-option>

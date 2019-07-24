@@ -19,9 +19,16 @@
             <uploader [storageBucketPrefix]="'setlists'" (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
         </div>
     </mat-tab>
-    <mat-tab label="Songs">
+    <mat-tab label="Setlist Songs">
+        <div cdkDropList class="setlist-songs" (cdkDropListDropped)="drop($event)">
+            <div class="song-box" *ngFor="let song of setlist.songs" cdkDrag>{{song}}
+                <mat-icon cdkDragHandle>drag_handle</mat-icon>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Add Songs">
         <app-search (onSearch)="searchForSong($event)" (onClear)="clearSearch()" class="search-input"></app-search>
-        <mat-selection-list #songs (selectionChange)="onSelectionChange($event)">
+        <mat-selection-list #songs class="user-song-list" (selectionChange)="onSelectionChange($event)">
             <mat-list-option *ngFor="let song of filteredSongs" [selected]="checkSelected(song)" [value]="song">
                 {{song.name}}
             </mat-list-option>

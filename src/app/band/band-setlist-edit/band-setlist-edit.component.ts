@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material';
@@ -111,5 +112,9 @@ export class BandSetlistEditComponent implements OnInit {
 
 	public importSetlist(): void {
 		console.log('awesome feature incoming');
+	}
+
+	public drop(event: CdkDragDrop<Song>) {
+		moveItemInArray(this.setlist.songs, event.previousIndex, event.currentIndex);
 	}
 }

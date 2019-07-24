@@ -1,31 +1,35 @@
 .gig-name {
-  //   margin: 0 10px 0 10px;
-  height: 75px;
-  flex-grow: 8;
+    //   margin: 0 10px 0 10px;
+    height: 75px;
+    flex-grow: 8;
 }
 
 .flex-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .search-input {
-  flex-grow: 7;
-  height: 75px;
+    flex-grow: 7;
+    height: 75px;
 }
 
 .back-btn {
-  flex-grow: 1;
-  padding: 0 10px 0 0;
+    flex-grow: 1;
+    padding: 0 10px 0 0;
 }
 
 .delete-btn {
-  flex-grow: 1;
-  padding: 0 0 0 10px;
+    flex-grow: 1;
+    padding: 0 0 0 10px;
 }
 
 .filter-btn {
-  flex-grow: 1;
-  padding: 0 0 0 10px;
+    flex-grow: 1;
+    padding: 0 0 0 10px;
+}
+
+.song-list {
+    text-align: left;
 }
