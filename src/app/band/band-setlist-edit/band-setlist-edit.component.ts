@@ -68,7 +68,9 @@ export class BandSetlistEditComponent implements OnInit {
 	}
 
 	public goBack(): void {
-		this._bandService.saveSetlistForBand(this.band, this.setlist);
+		if (this.setlist.name) {
+			this._bandService.saveSetlistForBand(this.band, this.setlist);
+		}
 		this._location.back();
 	}
 

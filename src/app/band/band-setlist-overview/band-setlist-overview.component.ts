@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
-import { Setlist } from 'src/app/models/setlist';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -32,8 +31,4 @@ export class BandSetlistOverviewComponent implements OnInit {
 			}
 		});
 	}
-
-	public createNewSetlist(): void {}
-
-	public editSetlist(setlist: Setlist): void {}
 }
