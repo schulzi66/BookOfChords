@@ -130,7 +130,9 @@ export class BandSetlistEditComponent implements OnInit {
 		gig.uid = this._currentUser.uid;
 
 		this.setlist.songs.forEach((setlistSong) => {
-			const song = this.allSongsOfCurrentUser.find((x) => x.name.toLowerCase() === setlistSong.toLowerCase());
+			const song = this.allSongsOfCurrentUser.find(
+				(x) => x.name.toLowerCase().trim() === setlistSong.toLowerCase().trim()
+			);
 			if (song) {
 				//User has already this song in his book of chords and song should be added to new gig
 				gig.songs.push(song);
@@ -147,12 +149,6 @@ export class BandSetlistEditComponent implements OnInit {
 			data: 'New Gig created from Setlist!'
 		});
 	}
-
-	// public importGigAsSetlist(): void {
-	// 	this._snackBar.openFromComponent(RockNRollSnackbarComponent, {
-	// 		data: 'Songs from Gig added to Setlist!'
-	// 	});
-	// }
 
 	public drop(event: CdkDragDrop<Song>) {
 		moveItemInArray(this.setlist.songs, event.previousIndex, event.currentIndex);

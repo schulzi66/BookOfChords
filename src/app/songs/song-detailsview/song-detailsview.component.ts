@@ -38,14 +38,6 @@ export class SongDetailsviewComponent implements OnInit {
 		}
 	}
 
-	// public get pdfFromSong(): string[] {
-	// 	let pdfs: string[] = [];
-	//     this.song.pdfs.forEach((pdf) => {
-	// 		pdfs.push(this._sanitizer.bypassSecurityTrustResourceUrl(pdf) as string);
-	// 	});
-	// 	return pdfs;
-	// }
-
 	public addNewSection(): void {
 		this.song.sections.push(new SongSection());
 	}
