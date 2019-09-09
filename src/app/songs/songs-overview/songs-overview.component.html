@@ -30,7 +30,9 @@
                 <mat-divider></mat-divider>
             </div>
             <div class="section-value" *ngFor="let picture of song.pictures">
-                <img class="picture" [src]="picture">
+                <pinch-zoom [zoom-button]="false">
+                    <img class="picture" [src]="picture">
+                </pinch-zoom>
             </div>
             <div *ngFor="let pdf of song?.pdfs">
                 <ngx-extended-pdf-viewer [src]="pdf" useBrowserLocale="true" height="80vh"></ngx-extended-pdf-viewer>
