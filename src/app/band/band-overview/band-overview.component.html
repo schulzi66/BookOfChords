@@ -1,11 +1,11 @@
 <div *ngIf="isUserInBand; else noBand">
     <mat-tab-group mat-stretch-tabs>
-        <mat-tab label="My Band">
+        <mat-tab [label]="'my_band' | transloco">
             <ng-template matTabContent>
                 <app-band-detail></app-band-detail>
             </ng-template>
         </mat-tab>
-        <mat-tab label="Setlists">
+        <mat-tab [label]="'setlists' | transloco">
             <ng-template matTabContent>
                 <app-band-setlist-overview></app-band-setlist-overview>
             </ng-template>

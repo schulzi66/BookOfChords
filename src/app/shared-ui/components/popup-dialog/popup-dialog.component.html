@@ -3,6 +3,14 @@
     {{data.content}}
 </div>
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true">Ok</button>
+    <button mat-button mat-dialog-close>
+        <ng-template transloco let-t>
+            {{ t.cancel }}
+        </ng-template>
+    </button>
+    <button mat-button [mat-dialog-close]="true">
+        <ng-template transloco let-t>
+            {{ t.confirm }}
+        </ng-template>
+    </button>
 </div>

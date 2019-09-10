@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSelectionList, MatSelectionListChange } from '@angular/material';
 import { Router } from '@angular/router';
+import { translate } from '@ngneat/transloco';
 import { PopupDialogData } from 'src/app/shared-ui/components/popup-dialog/popup-dialog-data';
 import { PopupDialogComponent } from 'src/app/shared-ui/components/popup-dialog/popup-dialog.component';
 import { Gig } from '../../models/gig';
@@ -113,8 +114,8 @@ export class GigEditComponent implements OnInit {
 
 	public deleteGig(): void {
 		this._popupDialogData = {
-			title: 'Delete Gig?',
-			content: `Do you really want to delete the Gig: ${this.gig.name} ?`
+			title: translate<string>('delete_gig_title'),
+			content: translate<string>('delete_gig_content', { value: this.gig.name })
 		};
 		const dialogRef = this._matDialog.open(PopupDialogComponent, {
 			data: this._popupDialogData

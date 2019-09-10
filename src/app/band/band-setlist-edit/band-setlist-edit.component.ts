@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionListChange, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { translate } from '@ngneat/transloco';
 import { Band } from 'src/app/models/band';
 import { Gig } from 'src/app/models/gig';
 import { Setlist } from 'src/app/models/setlist';
@@ -146,7 +147,7 @@ export class BandSetlistEditComponent implements OnInit {
 		});
 		this._gigService.saveGig(gig);
 		this._snackBar.openFromComponent(RockNRollSnackbarComponent, {
-			data: 'New Gig created from Setlist!'
+			data: translate<string>('snackbar_data')
 		});
 	}
 

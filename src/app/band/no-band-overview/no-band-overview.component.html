@@ -1,11 +1,11 @@
 <mat-tab-group mat-stretch-tabs>
-    <mat-tab label="Create">
+    <mat-tab [label]="'create' | transloco">
         <ng-template matTabContent>
             <app-band-create></app-band-create>
         </ng-template>
     </mat-tab>
 
-    <mat-tab label="Join">
+    <mat-tab [label]="'join'| transloco">
         <ng-template matTabContent>
             <app-band-join></app-band-join>
         </ng-template>

@@ -6,27 +6,39 @@
     <mat-menu #menu="matMenu">
         <button mat-menu-item [routerLink]="['./songs']">
             <mat-icon>music_note</mat-icon>
-            <span>Songs</span>
+            <ng-template transloco let-t>
+                {{ t.songs }}
+            </ng-template>
         </button>
         <button mat-menu-item [routerLink]="['./gigs']">
             <mat-icon>queue_music</mat-icon>
-            <span>Gigs</span>
+            <ng-template transloco let-t>
+                {{ t.gigs }}
+            </ng-template>
         </button>
         <button mat-menu-item [routerLink]="['./band']">
             <mat-icon>group</mat-icon>
-            <span>Band</span>
+            <ng-template transloco let-t>
+                {{ t.band }}
+            </ng-template>
         </button>
         <button mat-menu-item [routerLink]="['./configuration']">
             <mat-icon>settings</mat-icon>
-            <span>Settings</span>
+            <ng-template transloco let-t>
+                {{ t.settings }}
+            </ng-template>
         </button>
         <button mat-menu-item (click)="authService.signOut()">
             <mat-icon>logout</mat-icon>
-            <span>Logout</span>
+            <ng-template transloco let-t>
+                {{ t.logout }}
+            </ng-template>
         </button>
         <button mat-menu-item *ngIf="pwaService.promptEvent" (click)="installPwa()">
             <mat-icon>save_alt</mat-icon>
-            <span>Install</span>
+            <ng-template transloco let-t>
+                {{ t.install }}
+            </ng-template>
         </button>
     </mat-menu>
 </div>
@@ -38,7 +50,11 @@
 <!-- #region Templates-->
 
 <ng-template #login>
-    <button mat-raised-button class="button" (click)="authService.googleSignIn()">Login with Google</button>
+    <button mat-raised-button class="button" (click)="authService.googleSignIn()">
+        <ng-template transloco let-t>
+            {{ t.login_with_google }}
+        </ng-template>
+    </button>
 </ng-template>
 
 <!-- #endregion-->

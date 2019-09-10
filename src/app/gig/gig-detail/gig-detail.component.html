@@ -1,7 +1,7 @@
 <div class="flex-container">
     <shared-fab-btn *ngIf="!isPlayMode" class="back-btn" [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
     <mat-form-field *ngIf="!isPlayMode" appearance="outline" class="gig-name">
-        <mat-label>Gig Name</mat-label>
+        <mat-label>{{'gig_name' | transloco}}</mat-label>
         <input matInput [(ngModel)]="gig.name" name="gigName">
     </mat-form-field>
     <shared-fab-btn *ngIf="!isPlayMode" class="edit-btn" [icon]="'edit'" [routerLink]="['../edit']"></shared-fab-btn>

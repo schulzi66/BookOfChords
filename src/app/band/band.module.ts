@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslocoModule } from '@ngneat/transloco';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AllMaterialModule } from '../material-module';
 import { SharedUiModule } from '../shared-ui/shared-ui.module';
@@ -16,7 +17,15 @@ import { KonzertmeisterIntegrationComponent } from './konzertmeister-integration
 import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.component';
 
 @NgModule({
-	imports: [ CommonModule, BandRoutes, SharedUiModule, AllMaterialModule, FormsModule, NgxExtendedPdfViewerModule ],
+	imports: [
+		CommonModule,
+		BandRoutes,
+		SharedUiModule,
+		AllMaterialModule,
+		FormsModule,
+		NgxExtendedPdfViewerModule,
+		TranslocoModule
+	],
 	declarations: [
 		BandOverviewComponent,
 		NoBandOverviewComponent,

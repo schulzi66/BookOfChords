@@ -14,7 +14,6 @@ export class ConfigurationService {
 	}
 
 	public loadConfigurationForUser(uid: string): Observable<Configuration> {
-		// this.configuration$
 		return this._angularFirestore.collection('configurations').doc<Configuration>(uid).valueChanges();
 	}
 

@@ -5,7 +5,6 @@ import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { Configuration } from './../../models/configuration';
-
 @Component({
 	selector: 'app-band-overview',
 	templateUrl: './band-overview.component.html',

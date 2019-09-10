@@ -1,7 +1,7 @@
 <shared-fab-btn [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
 <div class="flex-container">
     <mat-form-field appearance="outline" class="band-name">
-        <mat-label>Band Name</mat-label>
+        <mat-label>{{'band_name' | transloco}}</mat-label>
         <input matInput required [(ngModel)]="band.name">
     </mat-form-field>
     <img *ngIf="band.pictureUrl" [src]="band.pictureUrl" class="band-picture">

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
+import { TranslocoModule } from '@ngneat/transloco';
 import { AllMaterialModule } from './../material-module';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
 import { MetronomeComponent } from './components/metronome/metronome.component';
@@ -25,7 +26,7 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
 		MetronomeComponent,
 		RockNRollSnackbarComponent
 	],
-	imports: [ CommonModule, AllMaterialModule, FormsModule ],
+	imports: [ CommonModule, AllMaterialModule, FormsModule, TranslocoModule ],
 	providers: [
 		{
 			provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,

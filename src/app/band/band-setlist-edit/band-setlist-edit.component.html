@@ -1,17 +1,16 @@
 <mat-tab-group mat-stretch-tabs>
-    <mat-tab label="Info">
+    <mat-tab [label]="'info' | transloco">
         <div class="btn-wrapper">
             <shared-fab-btn [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
-            <!-- <shared-fab-btn [icon]="'archive'" (onClick)="importGigAsSetlist()"></shared-fab-btn> -->
             <shared-fab-btn [icon]="'unarchive'" (onClick)="exportSetlistAsGig()"></shared-fab-btn>
         </div>
         <div class="flex-container">
             <mat-form-field appearance="outline" class="setlist-name">
-                <mat-label>Name</mat-label>
+                <mat-label>{{'setlist_name' | transloco}}</mat-label>
                 <input matInput required [(ngModel)]="setlist.name" (change)="onNameChanged()">
             </mat-form-field>
             <mat-form-field appearance="outline" class="setlist-description">
-                <textarea matInput placeholder="Description" [value]="setlist?.description"
+                <textarea matInput [placeholder]="'description' | transloco" [value]="setlist?.description"
                     (change)="onDescriptionChanged($event.target.value)" cdkTextareaAutosize
                     #autosize="cdkTextareaAutosize"></textarea>
             </mat-form-field>
@@ -20,14 +19,14 @@
             <uploader [storageBucketPrefix]="'setlists'" (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
         </div>
     </mat-tab>
-    <mat-tab label="Setlist Songs">
+    <mat-tab [label]="'songs' | transloco">
         <div cdkDropList class="setlist-songs" (cdkDropListDropped)="drop($event)">
             <div class="song-box" *ngFor="let song of setlist.songs" cdkDrag>{{song}}
                 <mat-icon cdkDragHandle>drag_handle</mat-icon>
             </div>
         </div>
     </mat-tab>
-    <mat-tab label="Add Songs">
+    <mat-tab [label]="'add_songs' | transloco">
         <app-search (onSearch)="searchForSong($event)" (onClear)="clearSearch()" class="search-input"></app-search>
         <mat-selection-list #songs class="user-song-list" (selectionChange)="onSelectionChange($event)">
             <mat-list-option *ngFor="let song of filteredSongs" [selected]="checkSelected(song)" [value]="song">
