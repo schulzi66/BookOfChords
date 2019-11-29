@@ -34,5 +34,6 @@
     "resume": "Resume",
     "lang": "Language",
     "en": "English",
-    "de": "German"
+    "de": "German",
+    "snackbar_copied_data": "Song copied to clipboard"
 }

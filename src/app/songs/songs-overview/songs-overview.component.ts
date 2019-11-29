@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { translate } from '@ngneat/transloco';
+import { ClipboardService } from 'ngx-clipboard';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
 import { PopupDialogData } from 'src/app/shared-ui/components/popup-dialog/popup-dialog-data';
 import { PopupDialogComponent } from 'src/app/shared-ui/components/popup-dialog/popup-dialog.component';
+import { RockNRollSnackbarComponent } from 'src/app/shared-ui/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { Song } from '../../models/song';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
@@ -21,8 +24,10 @@ export class SongsOverviewComponent implements OnInit {
 	private _authService: AuthService;
 	private _configurationService: ConfigurationService;
 	private _matDialog: MatDialog;
-	private _popupDialogData: PopupDialogData;
-
+    private _popupDialogData: PopupDialogData;
+    private _clipboardService: ClipboardService;
+    private _snackBar: MatSnackBar;
+    
 	public configuration: Configuration;
 
 	public songs: Song[];
@@ -33,13 +38,17 @@ export class SongsOverviewComponent implements OnInit {
 		router: Router,
 		authService: AuthService,
 		configurationService: ConfigurationService,
-		matDialog: MatDialog
+        matDialog: MatDialog,
+        clipboardService: ClipboardService,
+        snackBar: MatSnackBar
 	) {
 		this._songService = songService;
 		this._router = router;
 		this._authService = authService;
 		this._configurationService = configurationService;
-		this._matDialog = matDialog;
+        this._matDialog = matDialog;
+        this._clipboardService = clipboardService;
+        this._snackBar = snackBar;
 	}
 
 	ngOnInit() {
@@ -73,6 +82,22 @@ export class SongsOverviewComponent implements OnInit {
 
 	public editSelectedSong(): void {
 		this._router.navigate([ '/edit-song' ]);
+	}
+
+    public copySelectedSong(song: Song): void {
+        let songContent: string = '';        
+        songContent += song.name + '\n\n'
+        song.sections.forEach(section => {
+            songContent += section.name + '\n'
+            section.value.forEach(value => {
+                songContent += value + '\n'
+            });
+            songContent += '\n';
+        })        
+        this._clipboardService.copy(songContent);
+        this._snackBar.openFromComponent(RockNRollSnackbarComponent, {
+            data: translate<string>('snackbar_copied_data')
+        });
 	}
 
 	public deleteSelectedSong(song: Song): void {
