@@ -35,5 +35,10 @@
     "lang": "Sprache",
     "en": "Englisch",
     "de": "Deutsch",
-    "snackbar_copied_data": "Song zur Zwischenablage hinzugefügt"
+    "snackbar_copied_data": "Song zur Zwischenablage hinzugefügt",
+    "demo_overview": "Habe all deine Songs beisammen",
+    "demo_gig_overview": "Erstelle und verändere deine Auftritte",
+    "demo_gig_search": "Füge deinen Auftritten Songs hinzu",
+    "demo_band": "Verwalte deine Band & Setlisten und exportiere sie als Auftritte mit automatischem Song-Mapping",
+    "demo_settings": "Ändere das Aussehen der App nach deinem Belieben"
 }

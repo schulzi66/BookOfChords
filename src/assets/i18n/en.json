@@ -35,5 +35,10 @@
     "lang": "Language",
     "en": "English",
     "de": "German",
-    "snackbar_copied_data": "Song copied to clipboard"
+    "snackbar_copied_data": "Song copied to clipboard",
+    "demo_overview": "Have all your songs at one place",
+    "demo_gig_overview": "Quickly create and modify your gigs",
+    "demo_gig_search": "Add Songs to your gig",
+    "demo_band": "Mange your band & setlists and export them as gigs with having them automapped to your songs",
+    "demo_settings": "Change the appearance as you wish"
 }
