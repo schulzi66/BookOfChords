@@ -13,3 +13,33 @@
 .menu {
   flex-grow: 1;
 }
+
+.demo-flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+ 
+}
+
+.demo-row {
+    margin: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    @media only screen and (min-width: 768px) {
+        width: 70%;
+        flex-direction: row;        
+    }
+}
+
+.row-el-1 {
+    flex-grow: 7;    
+}
+
+.row-el-2 {
+    @media only screen and (max-width: 768px) {
+        width: 100%;             
+    }    
+}

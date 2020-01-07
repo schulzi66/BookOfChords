@@ -43,6 +43,8 @@
     </mat-menu>
 </div>
 
+
+
 <div class="app-content" *ngIf="authService.user$ | async as user; else login">
     <router-outlet></router-outlet>
 </div>
@@ -55,6 +57,28 @@
             {{ t.login_with_google }}
         </ng-template>
     </button>
+    <div class="demo-flex-container">
+        <div class="demo-row">
+            <h2 class="row-el-1">Titel 1</h2>
+            <img class="row-el-2" src="../assets/overview.gif">
+        </div>
+        <div class="demo-row">
+            <img class="row-el-2" src="../assets/gig-edit.gif">
+            <h2 class="row-el-1">Titel 2</h2>
+        </div>
+        <div class="demo-row">
+            <h2 class="row-el-1">Titel 1</h2>
+            <img class="row-el-2" src="../assets/gig-drag-n-drop.gif">
+        </div>
+        <div class="demo-row">
+            <img class="row-el-2" src="../assets/band-setlist.gif">
+            <h2 class="row-el-1">Titel 1</h2>
+        </div>
+        <div class="demo-row">
+            <h2 class="row-el-1">Titel 1</h2>
+            <img class="row-el-2" src="../assets/settings.gif">
+        </div>
+    </div>
 </ng-template>
 
 <!-- #endregion-->
