@@ -3,5 +3,7 @@ export interface User {
 	email: string;
 	photoURL?: string;
 	displayName?: string;
-	bandId?: string;
+    bandId?: string;
+    
+    fcmTokens?: { [token: string]: true };
 }

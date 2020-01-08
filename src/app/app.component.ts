@@ -4,6 +4,7 @@ import { ConfigurationService } from 'src/app/configuration/services/configurati
 import { Configuration } from './models/configuration';
 import { User } from './models/user';
 import { AuthService } from './services/auth.service';
+import { MessagingService } from './services/messaging.service';
 import { PwaService } from './services/pwa.service';
 
 @Component({
@@ -16,27 +17,38 @@ export class AppComponent implements OnInit {
 	public authService: AuthService;
 	public pwaService: PwaService;
 
+    message;
+
 	private _configurationService: ConfigurationService;
-	private _translocoService: TranslocoService;
+    private _translocoService: TranslocoService;
+    private _messagingService: MessagingService;
 
 	constructor(
 		authService: AuthService,
 		pwaService: PwaService,
 		configurationService: ConfigurationService,
-		translocoService: TranslocoService
+        translocoService: TranslocoService,
+        messagingService: MessagingService
 	) {
 		this.authService = authService;
 		this.pwaService = pwaService;
 		this._configurationService = configurationService;
-		this._translocoService = translocoService;
+        this._translocoService = translocoService;
+        this._messagingService = messagingService;
 	}
 
 	ngOnInit(): void {
 		this.title = 'Book of Chords';
 		this.authService.user$.subscribe((user: User) => {
+            if(user) {
 			this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {
 				this._translocoService.setActiveLang(configuration.lang);
-			});
+            });
+                this._messagingService.getPermission(user);
+                this._messagingService.monitorRefresh(user);
+                this._messagingService.receiveMessages();
+                this.message = this._messagingService.currentMessage$;
+            }
 		});
 	}
 
