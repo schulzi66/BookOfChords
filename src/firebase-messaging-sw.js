@@ -13,7 +13,7 @@ messaging.setBackgroundMessageHandler(function (payload) {
     var notificationTitle = payload.data.title;
     var notificationOptions = {
         body: payload.data.body,
-        icon: '/assets/icons/icon-128x128.png',
+        icon: payload.data.icon,
         data: {
             url: payload.data.click_action
         },
@@ -28,7 +28,7 @@ messaging.setBackgroundMessageHandler(function (payload) {
 });
 
 self.addEventListener('notificationclick', function (event) {
-
+    event.notification.close();
     clients.openWindow(event.notification.data.url);
 
 }, false);

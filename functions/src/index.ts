@@ -16,7 +16,8 @@ exports.sendSetlistNotification = functions.firestore.document('/bands/{id}').on
 		const payload = {
 			data: {
 				title: 'Neue Setlist!',
-				body: 'Eine neue Setliste wurde angelegt',
+                body: 'Eine neue Setliste wurde angelegt',
+                icon: 'https://book-of-chords.firebaseapp.com/assets/icons/icon-152x152.png',
 				click_action: url
 			}
 		};
@@ -39,7 +40,8 @@ exports.sendSetlistNotification = functions.firestore.document('/bands/{id}').on
 
 					if (!tokens.length && user) {
 						throw new Error('User has no token: ' + user.uid);
-					}
+                    }
+                    console.log(`Successful send to user: ${user}, with tokens: ${tokens}`);
 					return admin.messaging().sendToDevice(tokens, payload);
 				})
 				.catch((err) => console.log(err));
