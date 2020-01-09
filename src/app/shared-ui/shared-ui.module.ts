@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
+import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 import { AllMaterialModule } from './../material-module';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
@@ -26,11 +27,11 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
 		MetronomeComponent,
 		RockNRollSnackbarComponent
 	],
-	imports: [ CommonModule, AllMaterialModule, FormsModule, TranslocoModule ],
+	imports: [ CommonModule, AllMaterialModule, FormsModule, TranslocoModule, RouterModule ],
 	providers: [
 		{
 			provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-			useValue: { duration: 3000, panelClass: 'message-snackbar' }
+			useValue: { duration: 5000, panelClass: 'message-snackbar' }
 		}
 	],
 	entryComponents: [ PopupDialogComponent, RockNRollSnackbarComponent ],

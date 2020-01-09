@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
+import { MatSnackBar } from '@angular/material';
+import { translate, TranslocoService } from '@ngneat/transloco';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from './models/configuration';
 import { User } from './models/user';
 import { AuthService } from './services/auth.service';
 import { MessagingService } from './services/messaging.service';
 import { PwaService } from './services/pwa.service';
+import { RockNRollSnackbarComponent } from './shared-ui/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 
 @Component({
 	selector: 'app-root',
@@ -15,26 +17,27 @@ import { PwaService } from './services/pwa.service';
 export class AppComponent implements OnInit {
 	public title: string;
 	public authService: AuthService;
-	public pwaService: PwaService;
-
-    message;
+	public pwaService: PwaService;    
 
 	private _configurationService: ConfigurationService;
     private _translocoService: TranslocoService;
     private _messagingService: MessagingService;
+    private _snackbar: MatSnackBar;
 
 	constructor(
 		authService: AuthService,
 		pwaService: PwaService,
 		configurationService: ConfigurationService,
         translocoService: TranslocoService,
-        messagingService: MessagingService
+        messagingService: MessagingService,
+        snackbar: MatSnackBar
 	) {
 		this.authService = authService;
 		this.pwaService = pwaService;
 		this._configurationService = configurationService;
         this._translocoService = translocoService;
         this._messagingService = messagingService;
+        this._snackbar = snackbar;
 	}
 
 	ngOnInit(): void {
@@ -47,7 +50,14 @@ export class AppComponent implements OnInit {
                 this._messagingService.getPermission(user);
                 this._messagingService.monitorRefresh(user);
                 this._messagingService.receiveMessages();
-                this.message = this._messagingService.currentMessage$;
+                this._messagingService.currentMessage$.subscribe(message => {                    
+                    this._snackbar.openFromComponent(RockNRollSnackbarComponent, {
+                        data: {
+                            message: translate<string>('notification_data'),
+                            route: 'band'
+                        }
+                    } );
+                });
             }
 		});
 	}

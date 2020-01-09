@@ -45,8 +45,7 @@
 
 
 
-<div class="app-content" *ngIf="authService.user$ | async as user; else login">
-    {{message | async | json }}
+<div class="app-content" *ngIf="authService.user$ | async as user; else login">    
     <router-outlet></router-outlet>
 </div>
 

@@ -147,7 +147,10 @@ export class BandSetlistEditComponent implements OnInit {
 		});
 		this._gigService.saveGig(gig);
 		this._snackBar.openFromComponent(RockNRollSnackbarComponent, {
-			data: translate<string>('snackbar_data')
+			data: {
+                message: translate<string>('snackbar_data'),
+                route: 'gigs'
+            } 
 		});
 	}
 

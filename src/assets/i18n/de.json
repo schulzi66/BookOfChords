@@ -40,5 +40,6 @@
     "demo_gig_overview": "Erstelle und verändere deine Auftritte",
     "demo_gig_search": "Füge deinen Auftritten Songs hinzu",
     "demo_band": "Verwalte deine Band & Setlisten und exportiere sie als Auftritte mit automatischem Song-Mapping",
-    "demo_settings": "Ändere das Aussehen der App nach deinem Belieben"
+    "demo_settings": "Ändere das Aussehen der App nach deinem Belieben",
+    "notification_data": "Eine neue Setliste wurde angelegt"
 }

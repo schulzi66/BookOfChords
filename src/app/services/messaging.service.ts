@@ -9,7 +9,6 @@ export class MessagingService {
 
     private firebaseMessaging = firebase.messaging();
 
-
     private messageSource = new Subject();
     public currentMessage$ = this.messageSource.asObservable();
 
@@ -20,12 +19,10 @@ export class MessagingService {
      */
     public getPermission(user: User): void {
         this.firebaseMessaging.requestPermission()
-        .then(() => {
-            console.log('notification permisson granted');
+        .then(() => {            
             return this.firebaseMessaging.getToken();            
         })
-        .then(token => {
-            console.log(token);
+        .then(token => {            
             this.saveToken(user, token);            
         })
         .catch((error) => {
@@ -38,8 +35,7 @@ export class MessagingService {
      */
     public monitorRefresh(user: User) {
         this.firebaseMessaging.onTokenRefresh(() => {
-            this.firebaseMessaging.getToken().then(refreshedToken => {
-                console.log('Token refreshed');
+            this.firebaseMessaging.getToken().then(refreshedToken => {                
                 this.saveToken(user, refreshedToken);                
             }).catch((error) => {
                 console.log(error, 'Unable to retrieve new token');                
@@ -51,8 +47,7 @@ export class MessagingService {
      * receiveMessages
      */
     public receiveMessages() {
-        this.firebaseMessaging.onMessage(payload => {
-            console.log(payload);
+        this.firebaseMessaging.onMessage(payload => {                                    
             this.messageSource.next(payload);
         })
     }
