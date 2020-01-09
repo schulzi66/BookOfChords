@@ -9,17 +9,17 @@ const messaging = firebase.messaging();
 
 
 messaging.setBackgroundMessageHandler(function (payload) {
-    
+
     var notificationTitle = payload.data.title;
     var notificationOptions = {
         body: payload.data.body,
-        icon: payload.data.icon,
+        icon: '/assets/icons/icon-128x128.png',
         data: {
             url: payload.data.click_action
         },
         actions: [{
             action: "open_url",
-            title: "Read Now"
+            title: "Anzeigen"
         }]
     };
 

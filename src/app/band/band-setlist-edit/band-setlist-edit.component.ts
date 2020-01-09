@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionListChange, MatSnackBar } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { Band } from 'src/app/models/band';
 import { Gig } from 'src/app/models/gig';
@@ -28,7 +28,8 @@ export class BandSetlistEditComponent implements OnInit {
 	private _location: Location;
 	private _songService: SongService;
 	private _gigService: GigService;
-	private _snackBar: MatSnackBar;
+    private _snackBar: MatSnackBar;
+    private _router: Router;
 
 	public band: Band;
 	public setlist: Setlist;
@@ -43,7 +44,8 @@ export class BandSetlistEditComponent implements OnInit {
 		location: Location,
 		songService: SongService,
 		gigService: GigService,
-		snackBar: MatSnackBar
+        snackBar: MatSnackBar,
+        router: Router
 	) {
 		this._activatedRoute = activatedRoute;
 		this._bandService = bandService;
@@ -51,8 +53,9 @@ export class BandSetlistEditComponent implements OnInit {
 		this._location = location;
 		this._songService = songService;
 		this._gigService = gigService;
-		this._snackBar = snackBar;
-		this.setlist = new Setlist();
+        this._snackBar = snackBar;
+        this._router = router;
+        this.setlist = new Setlist();        
 	}
 
 	ngOnInit() {
@@ -80,7 +83,7 @@ export class BandSetlistEditComponent implements OnInit {
 	}
 
 	public goBack(): void {
-		this._location.back();
+		this._router.navigate([ '/band' ]);
 	}
 
 	public onNameChanged(): void {
