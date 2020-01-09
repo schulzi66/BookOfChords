@@ -18,11 +18,11 @@ Small mobile optimized progressive web app to add and quickly edit chords for so
 - Create or join a band
 - Manage the band profile, members and more
 - Upload setlists and share them with your band members
-- Konzertmeister integration optional
-  
+- Native notifications with FCM across multiple devices
+- Automapping of your songs and chords to the songs of a setlist
+
 ## Open/potential features
 ```
-- Share/use same chord sets and gig sets with multiple users
 - Enter a url to external page as chords as link and not text
 ```
 
@@ -30,6 +30,7 @@ Small mobile optimized progressive web app to add and quickly edit chords for so
 ```
 - FIXED ✔: Updating chords of a song, without removing and readding the song to a gig, still shows old chords inside the gig view
 - Open 🏗: Deleting a song does not remove the song from the gigs containing the removed song. 
+- Open 🏗: Konzertmeister integration currently not working due to CORS restrictions of Konzertmeister
 ```
 
 ## Setup
