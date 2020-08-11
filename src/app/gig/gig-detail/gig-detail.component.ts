@@ -31,7 +31,7 @@ export class GigDetailComponent implements OnInit {
   public isPlayMode: boolean;
   public playModeIcon: string = 'play_arrow';
 
-  @ViewChild('songAccordion') songPanels: MatAccordion;
+  @ViewChild('songAccordion', {static: false}) songPanels: MatAccordion;
 
   constructor(
     router: Router,

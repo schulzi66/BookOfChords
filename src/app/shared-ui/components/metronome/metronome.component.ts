@@ -14,8 +14,8 @@ export class MetronomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly minuteInMs: number = 60000;
     private timerHandle: number;
 
-    @ViewChild('bpmSlider') bpmSlider: ElementRef;
-    @ViewChild('playBtn') playBtn: ElementRef
+    @ViewChild('bpmSlider', {static: false}) bpmSlider: ElementRef;
+    @ViewChild('playBtn', {static: false}) playBtn: ElementRef;
 
     @Output('onBpmChanged') onBpmChanged: EventEmitter<number> = new EventEmitter<number>();
 
