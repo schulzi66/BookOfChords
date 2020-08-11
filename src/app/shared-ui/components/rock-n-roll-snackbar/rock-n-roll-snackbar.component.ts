@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_SNACK_BAR_DATA } from '@angular/material';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 export class RockNRollSnackbarConfigInjectionToken {
@@ -18,7 +18,7 @@ export class RockNRollSnackbarComponent {
 	constructor(@Inject(MAT_SNACK_BAR_DATA) token: RockNRollSnackbarConfigInjectionToken, private _router: Router) {
         this.token = token;
     }
-    
+
     public tryNavigate() {
         this._router.navigate([this.token.route]);
     }

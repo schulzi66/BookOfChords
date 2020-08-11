@@ -23,9 +23,9 @@
 <br>
 
 <div *ngFor="let picture of song?.pictures; index as i">
-    <pinch-zoom [zoom-button]="false">
+    <!-- <pinch-zoom [zoom-button]="false"> -->
         <img class="picture" [src]="picture">
-    </pinch-zoom>
+    <!-- </pinch-zoom> -->
     <shared-fab-btn [icon]="'delete'" (onClick)="removePicture(i)"></shared-fab-btn>
 </div>
 <div *ngFor="let pdf of song?.pdfs; index as i">

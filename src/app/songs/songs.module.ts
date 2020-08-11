@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { PinchZoomModule } from 'ngx-pinch-zoom';
+// import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { AllMaterialModule } from '../material-module';
 import { SharedUiModule } from '../shared-ui/shared-ui.module';
 import { SongDetailsviewComponent } from './song-detailsview/song-detailsview.component';
@@ -18,7 +18,7 @@ import { SongsOverviewComponent } from './songs-overview/songs-overview.componen
 		SharedUiModule,
 		AllMaterialModule,
 		NgxExtendedPdfViewerModule,
-		PinchZoomModule,
+		// PinchZoomModule,
         TranslocoModule,
         ClipboardModule
 	],

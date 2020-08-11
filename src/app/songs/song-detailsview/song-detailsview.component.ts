@@ -19,13 +19,13 @@ export class SongDetailsviewComponent implements OnInit {
 	private _songService: SongService;
 	private _authService: AuthService;
 	private _currentUser: User;
-	private _gigService: GigService;
+    private _gigService: GigService;    
 
 	constructor(location: Location, songService: SongService, authService: AuthService, gigService: GigService) {
 		this._location = location;
 		this._songService = songService;
 		this._authService = authService;
-		this._gigService = gigService;
+        this._gigService = gigService;
 	}
 
 	ngOnInit() {
@@ -47,7 +47,7 @@ export class SongDetailsviewComponent implements OnInit {
 			this.song.uid = this._currentUser.uid;
 			this._songService.saveSong(this.song);
 			this._gigService.updateSongInGigsForUser(this._currentUser.uid, this.song);
-		}
+        }        
 		this._location.back();
 	}
 
