@@ -5,17 +5,17 @@
 <div *ngIf="(snapshot | async) as snap">
     <button mat-button (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">
         <ng-template transloco let-t>
-            {{ t.pause }}
+            {{ t('pause') }}
         </ng-template>
     </button>
     <button mat-button (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">
         <ng-template transloco let-t>
-            {{ t.cancel }}
+            {{ t('cancel') }}
         </ng-template>
     </button>
     <button mat-button (click)="task.resume()" class="button is-info" [disabled]="!(snap?.state === 'paused')">
         <ng-template transloco let-t>
-            {{ t.resume }}
+            {{ t('resume') }}
         </ng-template>
     </button>
 </div>

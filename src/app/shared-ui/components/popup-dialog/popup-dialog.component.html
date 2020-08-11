@@ -5,12 +5,12 @@
 <div mat-dialog-actions>
     <button mat-button mat-dialog-close>
         <ng-template transloco let-t>
-            {{ t.cancel }}
+            {{ t('cancel') }}
         </ng-template>
     </button>
     <button mat-button [mat-dialog-close]="true">
         <ng-template transloco let-t>
-            {{ t.confirm }}
+            {{ t('confirm') }}
         </ng-template>
     </button>
 </div>

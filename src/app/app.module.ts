@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
+import { TranslocoModule, TRANSLOCO_CONFIG, translocoConfig } from '@ngneat/transloco';
 import { firebaseConfig } from 'src/environments/environment';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,38 +19,37 @@ import { SongsModule } from './songs/songs.module';
 import { translocoLoader } from './transloco.loader';
 
 @NgModule({
-	declarations: [ AppComponent ],
-	imports: [
-		SongsModule,
-		SharedUiModule,
-		BrowserModule,
-		BrowserAnimationsModule,
-		AppRoutingModule,
-		FormsModule,
-		ReactiveFormsModule,
-		AngularFireModule.initializeApp(firebaseConfig),
-		AngularFirestoreModule,
-		AngularFireAuthModule,
-		AngularFireStorageModule,
-		HttpClientModule,
-		AllMaterialModule,
-		ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
-		TranslocoModule
-	],
-	providers: [
-		{ provide: FirestoreSettingsToken, useValue: {} },
-		{
-			provide: TRANSLOCO_CONFIG,
-			useValue: {
-				listenToLangChange: true,
-				defaultLang: 'en',
-				fallbackLang: 'de',
-				prodMode: environment.production,
-				scopeStrategy: 'shared'
-			} as TranslocoConfig
-		},
-		translocoLoader
-	],
-	bootstrap: [ AppComponent ]
+  declarations: [AppComponent],
+  imports: [
+    SongsModule,
+    SharedUiModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    HttpClientModule,
+    AllMaterialModule,
+    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+    TranslocoModule
+  ],
+  providers: [
+    { provide: FirestoreSettingsToken, useValue: {} },
+    {
+      provide: TRANSLOCO_CONFIG,
+      useValue: translocoConfig({
+        availableLangs: ['en', 'de'],
+        defaultLang: 'en',
+        reRenderOnLangChange: true,
+        prodMode: environment.production
+      })
+    },
+    translocoLoader
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

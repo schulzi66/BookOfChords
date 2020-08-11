@@ -7,37 +7,37 @@
         <button mat-menu-item [routerLink]="['./songs']">
             <mat-icon>music_note</mat-icon>
             <ng-template transloco let-t>
-                {{ t.songs }}
+              {{ t('songs') }}
             </ng-template>
         </button>
         <button mat-menu-item [routerLink]="['./gigs']">
             <mat-icon>queue_music</mat-icon>
             <ng-template transloco let-t>
-                {{ t.gigs }}
+                {{ t('gigs') }}
             </ng-template>
         </button>
         <button mat-menu-item [routerLink]="['./band']">
             <mat-icon>group</mat-icon>
             <ng-template transloco let-t>
-                {{ t.band }}
+                {{ t('band') }}
             </ng-template>
         </button>
         <button mat-menu-item [routerLink]="['./configuration']">
             <mat-icon>settings</mat-icon>
             <ng-template transloco let-t>
-                {{ t.settings }}
+                {{ t('settings') }}
             </ng-template>
         </button>
         <button mat-menu-item (click)="authService.signOut()">
             <mat-icon>logout</mat-icon>
             <ng-template transloco let-t>
-                {{ t.logout }}
+                {{ t('logout') }}
             </ng-template>
         </button>
         <button mat-menu-item *ngIf="pwaService.promptEvent" (click)="installPwa()">
             <mat-icon>save_alt</mat-icon>
             <ng-template transloco let-t>
-                {{ t.install }}
+                {{ t('install') }}
             </ng-template>
         </button>
     </mat-menu>
@@ -54,7 +54,7 @@
 <ng-template #login>
     <button mat-raised-button class="button" (click)="authService.googleSignIn()">
         <ng-template transloco let-t>
-            {{ t.login_with_google }}
+            {{ t('login_with_google') }}
         </ng-template>
     </button>
     <div class="demo-flex-container">

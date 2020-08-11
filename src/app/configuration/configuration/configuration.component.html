@@ -41,12 +41,12 @@
         <mat-select [value]="configuration?.lang" (selectionChange)="langChanged($event)">
             <mat-option value="en">
                 <ng-template transloco let-t>
-                    {{ t.en }}
+                    {{ t('en') }}
                 </ng-template>
             </mat-option>
             <mat-option value="de">
                 <ng-template transloco let-t>
-                    {{ t.de }}
+                    {{ t('de') }}
                 </ng-template>
             </mat-option>
         </mat-select>
