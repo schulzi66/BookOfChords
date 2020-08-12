@@ -6426,10 +6426,10 @@ ngx-extended-pdf-viewer@^0.9.54:
   dependencies:
     tslib "^1.9.0"
 
-ngx-pinch-zoom@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/ngx-pinch-zoom/-/ngx-pinch-zoom-1.2.5.tgz#4ddedbce750c59eafce22e9088dff60add717f71"
-  integrity sha512-zZJ9t+RifdHZDuNy0vU//yontD4rT/0J3dHvDbKxfnBGXoTuCnaYYUeDtFUIjYSu71xxpELANjeNwna2D02hzw==
+ngx-pinch-zoom@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/ngx-pinch-zoom/-/ngx-pinch-zoom-2.4.4.tgz#dbc19d73d1c464888fca78c090c7e47514124dbc"
+  integrity sha512-36GZ+ck16m5xrDSz8c/ZX0u5grAelPbi6/hL/UvNSpkgkolamlsg5p+FwMwPgoHiOmwsYQpTo5FPeWmwrS9cHg==
   dependencies:
     tslib "^1.9.0"
 
