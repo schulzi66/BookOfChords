@@ -1,3 +1,4 @@
+import { TitleService } from './services/title.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { translate, TranslocoService } from '@ngneat/transloco';
@@ -15,7 +16,6 @@ import { RockNRollSnackbarComponent } from './shared/components/rock-n-roll-snac
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public title: string;
   public authService: AuthService;
   public pwaService: PwaService;
 
@@ -30,7 +30,8 @@ export class AppComponent implements OnInit {
     configurationService: ConfigurationService,
     translocoService: TranslocoService,
     messagingService: MessagingService,
-    snackbar: MatSnackBar
+    snackbar: MatSnackBar,
+    public titleService: TitleService
   ) {
     this.authService = authService;
     this.pwaService = pwaService;
@@ -41,7 +42,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title = 'Book of Chords';
     this.authService.user$.subscribe((user: User) => {
       if (user) {
         this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {

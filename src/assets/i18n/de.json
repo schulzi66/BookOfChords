@@ -1,10 +1,13 @@
 {
+    "default_title": "Book of Chords",
     "songs": "Lieder",
     "gigs": "Auftritte",
     "band": "Band",
     "settings": "Einstellungen",
     "logout": "Abmelden",
     "install": "Installieren",
+    "demo": "Demo",
+    "login": "Anmelden",
     "login_with_google": "Mit Google anmelden",
     "song_name": "Name des Songs",
     "section": "Abschnitt",

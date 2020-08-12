@@ -1,3 +1,4 @@
+import { DemoComponent } from './demo/demo.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'demo',
+    component: DemoComponent
   },
   {
     path: 'songs',

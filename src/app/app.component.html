@@ -4,44 +4,67 @@
               mode="over">
     <div class="drawer-content">
       <mat-nav-list>
+        <div *ngIf="authService.user$ | async as user">
+          <mat-list-item class="navigation-item"
+                         [routerLink]="['./songs']"
+                         (click)="drawer.close()">
+            <mat-icon>music_note</mat-icon>
+            <ng-template transloco
+                         let-t>
+              {{ t('songs') }}
+            </ng-template>
+          </mat-list-item>
+          <mat-list-item class="navigation-item"
+                         [routerLink]="['./gigs']"
+                         (click)="drawer.close()">
+            <mat-icon>queue_music</mat-icon>
+            <ng-template transloco
+                         let-t>
+              {{ t('gigs') }}
+            </ng-template>
+          </mat-list-item>
+          <mat-list-item class="navigation-item"
+                         [routerLink]="['./band']"
+                         (click)="drawer.close()">
+            <mat-icon>group</mat-icon>
+            <ng-template transloco
+                         let-t>
+              {{ t('band') }}
+            </ng-template>
+          </mat-list-item>
+          <mat-list-item class="navigation-item"
+                         [routerLink]="['./configuration']"
+                         (click)="drawer.close()">
+            <mat-icon>settings</mat-icon>
+            <ng-template transloco
+                         let-t>
+              {{ t('settings') }}
+            </ng-template>
+          </mat-list-item>
+        </div>
+
         <mat-list-item class="navigation-item"
-                       [routerLink]="['./songs']"
-                       (click)="drawer.close()">
-          <mat-icon>music_note</mat-icon>
+                       [routerLink]="['./login']"
+                       (click)="drawer.close()"
+                       *ngIf="(this.authService.user$ | async) === null">
+          <mat-icon>lock_open</mat-icon>
           <ng-template transloco
                        let-t>
-            {{ t('songs') }}
+            {{ t('login') }}
           </ng-template>
         </mat-list-item>
         <mat-list-item class="navigation-item"
-                       [routerLink]="['./gigs']"
+                       [routerLink]="['./demo']"
                        (click)="drawer.close()">
-          <mat-icon>queue_music</mat-icon>
+          <mat-icon>play_circle_outline</mat-icon>
           <ng-template transloco
                        let-t>
-            {{ t('gigs') }}
+            {{ t('demo') }}
           </ng-template>
         </mat-list-item>
         <mat-list-item class="navigation-item"
-                       [routerLink]="['./band']"
-                       (click)="drawer.close()">
-          <mat-icon>group</mat-icon>
-          <ng-template transloco
-                       let-t>
-            {{ t('band') }}
-          </ng-template>
-        </mat-list-item>
-        <mat-list-item class="navigation-item"
-                       [routerLink]="['./configuration']"
-                       (click)="drawer.close()">
-          <mat-icon>settings</mat-icon>
-          <ng-template transloco
-                       let-t>
-            {{ t('settings') }}
-          </ng-template>
-        </mat-list-item>
-        <mat-list-item class="navigation-item"
-                       (click)="authService.signOut(); drawer.close()">
+                       (click)="authService.signOut(); drawer.close()"
+                       *ngIf="authService.user$ | async as user">
           <mat-icon>logout</mat-icon>
           <ng-template transloco
                        let-t>
@@ -61,15 +84,16 @@
     </div>
   </mat-drawer>
 
-  <mat-toolbar *ngIf="authService.user$ | async as user">
+  <mat-toolbar>
     <button mat-icon-button
             (click)="drawer.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>{{title}}</span>
+    <span>{{this.titleService.currentTitleKey | transloco}}</span>
   </mat-toolbar>
 
   <div class="app-content">
     <router-outlet></router-outlet>
   </div>
+
 </mat-drawer-container>

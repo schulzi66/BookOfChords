@@ -1,19 +1,19 @@
 @import '../styles/colors';
 
 .flex-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
-  flex-grow: 9;
-  margin-left: 40px;
-  font-family: Arial;
+    flex-grow: 9;
+    margin-left: 40px;
+    font-family: Arial;
 }
 
 .menu {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .drawer-container {
@@ -32,5 +32,5 @@
 }
 
 .app-content {
-    margin: 8px;   
+    margin: 8px;
 }

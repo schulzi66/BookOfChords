@@ -18,11 +18,10 @@ import { SharedModule } from './shared/shared.module';
 import { SongsModule } from './songs/songs.module';
 import { translocoLoader } from './transloco.loader';
 import { LoginComponent } from './login/login.component';
+import { DemoComponent } from './demo/demo.component';
 
 @NgModule({
-  declarations: [	AppComponent,
-      LoginComponent
-   ],
+  declarations: [AppComponent, LoginComponent, DemoComponent],
   imports: [
     SongsModule,
     SharedModule,

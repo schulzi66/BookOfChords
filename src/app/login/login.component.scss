@@ -1,45 +1,27 @@
-
-.demo-flex-container {
+.flex-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
- 
-}
 
-.demo-row {
-    margin: 16px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    @media only screen and (min-width: 992px) {
-        width: 70%;
-        flex-direction: row;        
+    &.h80 {
+        height: 80vh;
+    }
+
+    &.h6 {
+        height: 6vh;
     }
 }
 
-.demo-row > * {
-    font-family: 'Arial';
+.login-card {
+    width: 70vw;
+    height: 30vh;
 }
 
-.row-el-1 {
-    flex-grow: 7;        
+.login-image {
+    background-image: url(./../../assets/icons/icon-72x72.png);
+    background-size: cover;
 }
 
-.row-el-2 {    
-    @media only screen and (max-width: 600px) {
-        width: 100%;             
-    }    
-}
-
-.first {
-    order: 1;
-}
-
-.second {
-    order: 2;
-    @media only screen and (max-width: 992px) { 
-        order: 1;
-    }
+.spacer {
+    flex: 1 1 auto;
 }

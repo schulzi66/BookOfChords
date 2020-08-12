@@ -1,3 +1,4 @@
+import { TitleService, TITLEKEYS } from './../../services/title.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -41,7 +42,8 @@ export class SongsOverviewComponent implements OnInit {
     configurationService: ConfigurationService,
     matDialog: MatDialog,
     clipboardService: ClipboardService,
-    snackBar: MatSnackBar
+    snackBar: MatSnackBar,
+    private _titleService: TitleService
   ) {
     this._songService = songService;
     this._router = router;
@@ -53,6 +55,7 @@ export class SongsOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._titleService.currentTitleKey = TITLEKEYS.songs;
     this._authService.user$.subscribe((user: User) => {
       if (user) {
         this._songService.getSongsForUser(user.uid).subscribe((songs: Song[]) => {
