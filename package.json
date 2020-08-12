@@ -29,7 +29,7 @@
     "core-js": "^2.6.1",
     "firebase": "^5.8.5",
     "ngx-clipboard": "^12.3.0",
-    "ngx-extended-pdf-viewer": "^0.9.54",    
+    "ngx-extended-pdf-viewer": "4.1.0",    
     "rxjs": "~6.6.2",
     "tslib": "^1.13.0",
     "web-animations-js": "2.3.1",
