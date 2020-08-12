@@ -6876,13 +6876,6 @@ ngx-extended-pdf-viewer@^0.9.54:
   dependencies:
     tslib "^1.9.0"
 
-ngx-pinch-zoom@2.4.4:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/ngx-pinch-zoom/-/ngx-pinch-zoom-2.4.4.tgz#dbc19d73d1c464888fca78c090c7e47514124dbc"
-  integrity sha512-36GZ+ck16m5xrDSz8c/ZX0u5grAelPbi6/hL/UvNSpkgkolamlsg5p+FwMwPgoHiOmwsYQpTo5FPeWmwrS9cHg==
-  dependencies:
-    tslib "^1.9.0"
-
 ngx-window-token@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/ngx-window-token/-/ngx-window-token-2.0.1.tgz#8f91221af4116aa9f49bb3f7a6f1111639884fba"
@@ -9910,10 +9903,10 @@ ts-node@~7.0.0:
     source-map-support "^0.5.6"
     yn "^2.0.0"
 
-tsickle@0.38.1:
-  version "0.38.1"
-  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.38.1.tgz#30762db759d40c435943093b6972c7f2efb384ef"
-  integrity sha512-4xZfvC6+etRu6ivKCNqMOd1FqcY/m6JY3Y+yr5+Xw+i751ciwrWINi6x/3l1ekcODH9GZhlf0ny2LpzWxnjWYA==
+tsickle@0.39.1:
+  version "0.39.1"
+  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.39.1.tgz#7ccf672cde5b430f5dd0b281ee49e170ef390ff9"
+  integrity sha512-CCc9cZhZbKoNizVM+K3Uqgit/go8GacjpqTv1cpwG/n2P0gB9GMoWZbxrUULDE9Wz26Lh86CGf6QyIPUVV1lnQ==
 
 tslib@1.11.1:
   version "1.11.1"

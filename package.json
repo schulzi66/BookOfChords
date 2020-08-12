@@ -29,8 +29,7 @@
     "core-js": "^2.6.1",
     "firebase": "^5.8.5",
     "ngx-clipboard": "^12.3.0",
-    "ngx-extended-pdf-viewer": "^0.9.54",
-    "ngx-pinch-zoom": "2.4.4",
+    "ngx-extended-pdf-viewer": "^0.9.54",    
     "rxjs": "~6.6.2",
     "tslib": "^1.13.0",
     "web-animations-js": "2.3.1",
@@ -56,7 +55,7 @@
     "ng-packagr": "^9.1.5",
     "protractor": "~5.4.2",
     "ts-node": "~7.0.0",
-    "tsickle": "0.38.1",
+    "tsickle": "0.39.1",
     "tslint": "~5.12.0",
     "typescript": "~3.8.3"
   }
