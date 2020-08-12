@@ -31,7 +31,7 @@ export class GigEditComponent implements OnInit {
     return this.gig.name && this.gig.songs.length > 0 && this._currentUser !== undefined;
   }
 
-  @ViewChild(MatSelectionList, {static: false}) selection: MatSelectionList;
+  @ViewChild(MatSelectionList) selection: MatSelectionList;
 
   private _gigService: GigService;
   private _songService: SongService;
