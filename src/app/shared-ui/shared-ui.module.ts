@@ -34,7 +34,6 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
       useValue: { duration: 5000, panelClass: 'message-snackbar' }
     }
   ],
-  entryComponents: [PopupDialogComponent, RockNRollSnackbarComponent],
   exports: [
     FabBtnMatIcoComponent,
     StringArrayLinesPipe,
