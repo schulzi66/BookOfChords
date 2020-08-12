@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
+import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -38,7 +38,7 @@ import { translocoLoader } from './transloco.loader';
     TranslocoModule
   ],
   providers: [
-    { provide: FirestoreSettingsToken, useValue: {} },
+    { provide: SETTINGS, useValue: {} },
     {
       provide: TRANSLOCO_CONFIG,
       useValue: translocoConfig({
