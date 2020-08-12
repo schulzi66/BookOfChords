@@ -6278,6 +6278,11 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
+lodash.deburr@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/lodash.deburr/-/lodash.deburr-4.1.0.tgz#ddb1bbb3ef07458c0177ba07de14422cb033ff9b"
+  integrity sha1-3bG7s+8HRYwBd7oH3hRCLLAz/5s=
+
 lodash.kebabcase@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.kebabcase/-/lodash.kebabcase-4.1.1.tgz#8489b1cb0d29ff88195cceca448ff6d6cc295c36"
@@ -6869,11 +6874,12 @@ ngx-clipboard@^12.3.0:
     ngx-window-token "^2.0.0"
     tslib "^1.9.0"
 
-ngx-extended-pdf-viewer@^0.9.54:
-  version "0.9.55"
-  resolved "https://registry.yarnpkg.com/ngx-extended-pdf-viewer/-/ngx-extended-pdf-viewer-0.9.55.tgz#09911810f361caea348ae23c32f1f637322f6b22"
-  integrity sha512-Cx0dDXnB2qkH/4Cj9l5ofsv25da7HUEa9EmnkJY9mjwBSBhfiqm1OTQuhgfoxHPIRJ7rpJiupaTjqVOZoZOJHw==
+ngx-extended-pdf-viewer@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-extended-pdf-viewer/-/ngx-extended-pdf-viewer-4.1.0.tgz#f53875cec3ef56a3c248be0f334939f1846b873e"
+  integrity sha512-uEogOQKVVe2K8WDGLNKJU72Js8ClAyvWnRZgB7RQN9Mo6nHM130IftLv14I8KBuesom1KCBBPFMmDkLUk7hONQ==
   dependencies:
+    lodash.deburr "^4.1.0"
     tslib "^1.9.0"
 
 ngx-window-token@^2.0.0:
