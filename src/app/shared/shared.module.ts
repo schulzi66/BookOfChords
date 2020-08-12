@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
-import { AllMaterialModule } from './../material-module';
+import { AllMaterialModule } from '../material-module';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
 import { MetronomeComponent } from './components/metronome/metronome.component';
 import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.component';
@@ -44,4 +44,4 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     RockNRollSnackbarComponent
   ]
 })
-export class SharedUiModule {}
+export class SharedModule {}

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AllMaterialModule } from '../material-module';
-import { SharedUiModule } from '../shared-ui/shared-ui.module';
+import { SharedModule } from '../shared/shared.module';
 import { BandCreateComponent } from './band-create/band-create.component';
 import { BandDetailComponent } from './band-detail/band-detail.component';
 import { BandEditComponent } from './band-edit/band-edit.component';
@@ -20,7 +20,7 @@ import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.com
 	imports: [
 		CommonModule,
 		BandRoutes,
-		SharedUiModule,
+		SharedModule,
 		AllMaterialModule,
 		FormsModule,
 		NgxExtendedPdfViewerModule,

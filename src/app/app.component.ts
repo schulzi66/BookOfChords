@@ -7,7 +7,7 @@ import { User } from './models/user';
 import { AuthService } from './services/auth.service';
 import { MessagingService } from './services/messaging.service';
 import { PwaService } from './services/pwa.service';
-import { RockNRollSnackbarComponent } from './shared-ui/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
+import { RockNRollSnackbarComponent } from './shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 
 @Component({
   selector: 'app-root',

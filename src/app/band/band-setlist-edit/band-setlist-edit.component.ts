@@ -11,7 +11,7 @@ import { Setlist } from 'src/app/models/setlist';
 import { Song } from 'src/app/models/song';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { RockNRollSnackbarComponent } from 'src/app/shared-ui/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
+import { RockNRollSnackbarComponent } from 'src/app/shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { SongService } from 'src/app/songs/services/song.service';
 import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';

@@ -14,15 +14,18 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AllMaterialModule } from './material-module';
-import { SharedUiModule } from './shared-ui/shared-ui.module';
+import { SharedModule } from './shared/shared.module';
 import { SongsModule } from './songs/songs.module';
 import { translocoLoader } from './transloco.loader';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [	AppComponent,
+      LoginComponent
+   ],
   imports: [
     SongsModule,
-    SharedUiModule,
+    SharedModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

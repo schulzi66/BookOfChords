@@ -25,7 +25,7 @@ export class AuthService {
 
   public googleSignIn() {
     const provider = new auth.GoogleAuthProvider();
-    return this.oAuthLogin(provider);
+    this.oAuthLogin(provider).then(() => this.router.navigate(['/songs']));
   }
 
   private async oAuthLogin(provider) {
@@ -76,6 +76,6 @@ export class AuthService {
 
   public async signOut() {
     await this.afAuth.signOut();
-    return this.router.navigate(['/']);
+    return this.router.navigate(['/login']);
   }
 }

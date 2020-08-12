@@ -6,7 +6,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 // import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { AllMaterialModule } from '../material-module';
-import { SharedUiModule } from '../shared-ui/shared-ui.module';
+import { SharedModule } from '../shared/shared.module';
 import { SongDetailsviewComponent } from './song-detailsview/song-detailsview.component';
 import { SongsOverviewComponent } from './songs-overview/songs-overview.component';
 
@@ -15,7 +15,7 @@ import { SongsOverviewComponent } from './songs-overview/songs-overview.componen
 	imports: [
 		CommonModule,
 		FormsModule,
-		SharedUiModule,
+		SharedModule,
 		AllMaterialModule,
 		NgxExtendedPdfViewerModule,
 		// PinchZoomModule,

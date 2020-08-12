@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { PopupDialogData } from 'src/app/shared-ui/components/popup-dialog/popup-dialog-data';
-import { PopupDialogComponent } from 'src/app/shared-ui/components/popup-dialog/popup-dialog.component';
+import { PopupDialogData } from 'src/app/shared/components/popup-dialog/popup-dialog-data';
+import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
 import { BandService } from '../services/band.service';
 
 @Component({

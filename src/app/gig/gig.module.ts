@@ -5,7 +5,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 // import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { AllMaterialModule } from '../material-module';
-import { SharedUiModule } from '../shared-ui/shared-ui.module';
+import { SharedModule } from '../shared/shared.module';
 import { GigDetailComponent } from './gig-detail/gig-detail.component';
 import { GigEditComponent } from './gig-edit/gig-edit.component';
 import { GigOverviewComponent } from './gig-overview/gig-overview.component';
@@ -15,7 +15,7 @@ import { GigRoutes } from './gig.routing';
 	declarations: [ GigOverviewComponent, GigEditComponent, GigDetailComponent ],
 	imports: [
 		CommonModule,
-		SharedUiModule,
+		SharedModule,
 		AllMaterialModule,
 		FormsModule,
 		GigRoutes,

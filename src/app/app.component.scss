@@ -1,3 +1,5 @@
+@import '../styles/colors';
+
 .flex-container {
   display: flex;
   justify-content: center;
@@ -14,47 +16,21 @@
   flex-grow: 1;
 }
 
-.demo-flex-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
- 
-}
+.drawer-container {
+    height: 100vh;
 
-.demo-row {
-    margin: 16px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    @media only screen and (min-width: 992px) {
-        width: 70%;
-        flex-direction: row;        
+    .drawer-content {
+        display: flex;
+        flex-direction: column;
+
+        .navigation-item {
+            mat-icon {
+                margin: 0 8px 0 0;
+            }
+        }
     }
 }
 
-.demo-row > * {
-    font-family: 'Arial';
-}
-
-.row-el-1 {
-    flex-grow: 7;        
-}
-
-.row-el-2 {    
-    @media only screen and (max-width: 600px) {
-        width: 100%;             
-    }    
-}
-
-.first {
-    order: 1;
-}
-
-.second {
-    order: 2;
-    @media only screen and (max-width: 992px) { 
-        order: 1;
-    }
+.app-content {
+    margin: 8px;   
 }

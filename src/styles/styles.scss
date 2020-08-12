@@ -1,5 +1,9 @@
 @import "../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 
+body {
+    margin: 0;
+}
+
 .content {
     justify-content: center;
     text-align: center;

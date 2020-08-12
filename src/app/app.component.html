@@ -1,84 +1,75 @@
-<div class="flex-container">
-    <h1 class="title">{{title}}</h1>
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu" *ngIf="authService.user$ | async as user;">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['./songs']">
-            <mat-icon>music_note</mat-icon>
-            <ng-template transloco let-t>
-              {{ t('songs') }}
-            </ng-template>
-        </button>
-        <button mat-menu-item [routerLink]="['./gigs']">
-            <mat-icon>queue_music</mat-icon>
-            <ng-template transloco let-t>
-                {{ t('gigs') }}
-            </ng-template>
-        </button>
-        <button mat-menu-item [routerLink]="['./band']">
-            <mat-icon>group</mat-icon>
-            <ng-template transloco let-t>
-                {{ t('band') }}
-            </ng-template>
-        </button>
-        <button mat-menu-item [routerLink]="['./configuration']">
-            <mat-icon>settings</mat-icon>
-            <ng-template transloco let-t>
-                {{ t('settings') }}
-            </ng-template>
-        </button>
-        <button mat-menu-item (click)="authService.signOut()">
-            <mat-icon>logout</mat-icon>
-            <ng-template transloco let-t>
-                {{ t('logout') }}
-            </ng-template>
-        </button>
-        <button mat-menu-item *ngIf="pwaService.promptEvent" (click)="installPwa()">
-            <mat-icon>save_alt</mat-icon>
-            <ng-template transloco let-t>
-                {{ t('install') }}
-            </ng-template>
-        </button>
-    </mat-menu>
-</div>
-
-
-
-<div class="app-content" *ngIf="authService.user$ | async as user; else login">    
-    <router-outlet></router-outlet>
-</div>
-
-<!-- #region Templates-->
-
-<ng-template #login>
-    <button mat-raised-button class="button" (click)="authService.googleSignIn()">
-        <ng-template transloco let-t>
-            {{ t('login_with_google') }}
-        </ng-template>
-    </button>
-    <div class="demo-flex-container">
-        <div class="demo-row">
-            <h2 class="row-el-1 first">{{ 'demo_overview' | transloco }}</h2>
-            <img class="row-el-2 second" src="../assets/overview.gif">
-        </div>
-        <div class="demo-row">
-            <h2 class="row-el-1 second">{{ 'demo_gig_overview' | transloco }}</h2>
-            <img class="row-el-2 first" src="../assets/gig-drag-n-drop.gif">
-        </div>
-        <div class="demo-row">
-            <h2 class="row-el-1 first">{{ 'demo_gig_search' | transloco }}</h2>
-            <img class="row-el-2 second" src="../assets/gig-edit.gif">
-        </div>
-        <div class="demo-row">
-            <h2 class="row-el-1 second">{{ 'demo_band' | transloco }}</h2>
-            <img class="row-el-2 first" src="../assets/band-setlist.gif">
-        </div>
-        <div class="demo-row">
-            <h2 class="row-el-1 first">{{ 'demo_settings' | transloco }}</h2>
-            <img class="row-el-2 second" src="../assets/settings.gif">
-        </div>
+<mat-drawer-container class="drawer-container"
+                      autosize>
+  <mat-drawer #drawer
+              mode="over">
+    <div class="drawer-content">
+      <mat-nav-list>
+        <mat-list-item class="navigation-item"
+                       [routerLink]="['./songs']"
+                       (click)="drawer.close()">
+          <mat-icon>music_note</mat-icon>
+          <ng-template transloco
+                       let-t>
+            {{ t('songs') }}
+          </ng-template>
+        </mat-list-item>
+        <mat-list-item class="navigation-item"
+                       [routerLink]="['./gigs']"
+                       (click)="drawer.close()">
+          <mat-icon>queue_music</mat-icon>
+          <ng-template transloco
+                       let-t>
+            {{ t('gigs') }}
+          </ng-template>
+        </mat-list-item>
+        <mat-list-item class="navigation-item"
+                       [routerLink]="['./band']"
+                       (click)="drawer.close()">
+          <mat-icon>group</mat-icon>
+          <ng-template transloco
+                       let-t>
+            {{ t('band') }}
+          </ng-template>
+        </mat-list-item>
+        <mat-list-item class="navigation-item"
+                       [routerLink]="['./configuration']"
+                       (click)="drawer.close()">
+          <mat-icon>settings</mat-icon>
+          <ng-template transloco
+                       let-t>
+            {{ t('settings') }}
+          </ng-template>
+        </mat-list-item>
+        <mat-list-item class="navigation-item"
+                       (click)="authService.signOut(); drawer.close()">
+          <mat-icon>logout</mat-icon>
+          <ng-template transloco
+                       let-t>
+            {{ t('logout') }}
+          </ng-template>
+        </mat-list-item>
+        <mat-list-item class="navigation-item"
+                       *ngIf="pwaService.promptEvent"
+                       (click)="installPwa(); drawer.close()">
+          <mat-icon>save_alt</mat-icon>
+          <ng-template transloco
+                       let-t>
+            {{ t('install') }}
+          </ng-template>
+        </mat-list-item>
+      </mat-nav-list>
     </div>
-</ng-template>
+  </mat-drawer>
 
-<!-- #endregion-->
+  <mat-toolbar *ngIf="authService.user$ | async as user">
+    <button mat-icon-button
+            (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>{{title}}</span>
+  </mat-toolbar>
+
+  <div class="app-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
