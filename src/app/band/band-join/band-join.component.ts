@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { map, tap } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
@@ -6,49 +7,66 @@ import { AuthService } from 'src/app/services/auth.service';
 import { PopupDialogData } from 'src/app/shared/components/popup-dialog/popup-dialog-data';
 import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
 import { BandService } from '../services/band.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-band-join',
   templateUrl: './band-join.component.html',
   styleUrls: ['./band-join.component.scss']
 })
-export class BandJoinComponent implements OnInit {
-  private _authService: AuthService;
-  private _bandService: BandService;
+export class BandJoinComponent implements OnInit, OnDestroy {
   private _currentUser: User;
-  private _matDialog: MatDialog;
   private _popupDialogData: PopupDialogData;
+  private _subscriptions$: Subscription;
 
   public bandId: string;
 
-  public constructor(authService: AuthService, bandService: BandService, matDialog: MatDialog) {
-    this._authService = authService;
-    this._bandService = bandService;
-    this._matDialog = matDialog;
+  public constructor(
+    private _authService: AuthService,
+    private _bandService: BandService,
+    private _matDialog: MatDialog
+  ) {
+    this._subscriptions$ = new Subscription();
   }
 
   ngOnInit() {
-    this._authService.user$.subscribe((user: User) => {
-      this._currentUser = user;
-    });
+    this._subscriptions$.add(
+      this._authService.user$
+        .pipe(
+          tap((user: User) => {
+            this._currentUser = user;
+          })
+        )
+        .subscribe()
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._subscriptions$.unsubscribe();
   }
 
   public joinBand(): void {
-    const subscription = this._bandService.getBandByBandId(this.bandId).subscribe((band: Band) => {
-      if (band) {
-        this._authService.updateBandIdForUserId(this._currentUser.uid, band.id);
-        band.members.push(this._currentUser);
-        this._bandService.saveBand(band);
-        subscription.unsubscribe();
-      } else {
-        this._popupDialogData = {
-          title: 'No Band Found',
-          content: `We could not find any band with the id: ${this.bandId}.`
-        };
-        this._matDialog.open(PopupDialogComponent, {
-          data: this._popupDialogData
-        });
-      }
-    });
+    this._subscriptions$.add(
+      this._bandService
+        .getBandByBandId(this.bandId)
+        .pipe(
+          map((band: Band) => {
+            if (band) {
+              this._authService.updateBandIdForUserId(this._currentUser.uid, band.id);
+              band.members.push(this._currentUser);
+              this._bandService.saveBand(band);
+            } else {
+              this._popupDialogData = {
+                title: 'No Band Found',
+                content: `We could not find any band with the id: ${this.bandId}.`
+              };
+              this._matDialog.open(PopupDialogComponent, {
+                data: this._popupDialogData
+              });
+            }
+          })
+        )
+        .subscribe()
+    );
   }
 }

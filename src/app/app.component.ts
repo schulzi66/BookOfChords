@@ -1,4 +1,4 @@
-import { TitleService } from './services/title.service';
+import { TitleKeyService } from './services/title-key.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { translate, TranslocoService } from '@ngneat/transloco';
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     translocoService: TranslocoService,
     messagingService: MessagingService,
     snackbar: MatSnackBar,
-    public titleService: TitleService
+    public titleService: TitleKeyService
   ) {
     this.authService = authService;
     this.pwaService = pwaService;

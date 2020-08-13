@@ -1,8 +1,10 @@
 <div class="new-setlist-btn">
-    <shared-fab-btn [icon]="'add'" [routerLink]="['./setlist/edit', -1]">
-    </shared-fab-btn>
+  <shared-fab-btn [icon]="'add'"
+                  [routerLink]="['./setlist/edit', -1]">
+  </shared-fab-btn>
 </div>
 <mat-action-list *ngFor="let setlist of band?.setlists">
-    <button mat-list-item [routerLink]="['./setlist/edit', setlist.id]">{{setlist?.name}}</button>
-    <mat-divider></mat-divider>
+  <button mat-list-item
+          [routerLink]="['./setlist/edit', setlist.id]">{{setlist?.name}}</button>
+  <mat-divider></mat-divider>
 </mat-action-list>

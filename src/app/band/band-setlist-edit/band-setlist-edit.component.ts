@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,22 +15,18 @@ import { RockNRollSnackbarComponent } from 'src/app/shared/components/rock-n-rol
 import { SongService } from 'src/app/songs/services/song.service';
 import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-band-setlist-edit',
   templateUrl: './band-setlist-edit.component.html',
   styleUrls: ['./band-setlist-edit.component.scss']
 })
-export class BandSetlistEditComponent implements OnInit {
-  private _activatedRoute: ActivatedRoute;
-  private _bandService: BandService;
-  private _authService: AuthService;
+export class BandSetlistEditComponent implements OnInit, OnDestroy {
   private _currentUser: User;
-  private _location: Location;
-  private _songService: SongService;
-  private _gigService: GigService;
-  private _snackBar: MatSnackBar;
-  private _router: Router;
+
+  private _subscriptions$: Subscription;
 
   public band: Band;
   public setlist: Setlist;
@@ -39,48 +35,71 @@ export class BandSetlistEditComponent implements OnInit {
   public filteredSongs: Song[];
 
   public constructor(
-    activatedRoute: ActivatedRoute,
-    bandService: BandService,
-    authService: AuthService,
-    location: Location,
-    songService: SongService,
-    gigService: GigService,
-    snackBar: MatSnackBar,
-    router: Router
+    private _activatedRoute: ActivatedRoute,
+    private _bandService: BandService,
+    private _authService: AuthService,
+    private _location: Location,
+    private _songService: SongService,
+    private _gigService: GigService,
+    private _snackBar: MatSnackBar,
+    private _router: Router
   ) {
-    this._activatedRoute = activatedRoute;
-    this._bandService = bandService;
-    this._authService = authService;
-    this._location = location;
-    this._songService = songService;
-    this._gigService = gigService;
-    this._snackBar = snackBar;
-    this._router = router;
+    this._subscriptions$ = new Subscription();
     this.setlist = new Setlist();
   }
 
   ngOnInit() {
-    this._authService.user$.subscribe((user: User) => {
-      this._currentUser = user;
-      this._activatedRoute.params.subscribe((params: { id?: string }) => {
-        if (this._currentUser.bandId) {
-          this._bandService.getBandByBandId(this._currentUser.bandId).subscribe((band: Band) => {
-            if (band !== undefined) {
-              this.band = band;
-              if (params.id !== '-1') {
-                this.setlist = this.band.setlists.find((x) => x.id === params.id);
-              }
-              this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
-                this.allSongsOfCurrentUser = songs;
-                this.filteredSongs = songs;
-              });
-            } else {
-              this._location.back();
-            }
-          });
-        }
-      });
-    });
+    this._subscriptions$.add(
+      this._authService.user$
+        .pipe(
+          tap((user: User) => {
+            this._currentUser = user;
+            this._subscriptions$.add(
+              this._activatedRoute.params
+                .pipe(
+                  tap((params: { id?: string }) => {
+                    if (this._currentUser.bandId) {
+                      this._subscriptions$.add(
+                        this._bandService
+                          .getBandByBandId(this._currentUser.bandId)
+                          .pipe(
+                            tap((band: Band) => {
+                              if (band !== undefined) {
+                                this.band = band;
+                                if (params.id !== '-1') {
+                                  this.setlist = this.band.setlists.find((x) => x.id === params.id);
+                                }
+                                this._subscriptions$.add(
+                                  this._songService
+                                    .getSongsForUser(this._currentUser.uid)
+                                    .pipe(
+                                      tap((songs: Song[]) => {
+                                        this.allSongsOfCurrentUser = songs;
+                                        this.filteredSongs = songs;
+                                      })
+                                    )
+                                    .subscribe()
+                                );
+                              } else {
+                                this._location.back();
+                              }
+                            })
+                          )
+                          .subscribe()
+                      );
+                    }
+                  })
+                )
+                .subscribe()
+            );
+          })
+        )
+        .subscribe()
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._subscriptions$.unsubscribe();
   }
 
   public goBack(): void {

@@ -89,7 +89,7 @@
             (click)="drawer.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>{{this.titleService.currentTitleKey | transloco}}</span>
+    <span>{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
   </mat-toolbar>
 
   <div class="app-content">

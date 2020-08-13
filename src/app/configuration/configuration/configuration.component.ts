@@ -7,7 +7,7 @@ import { ConfigurationService } from 'src/app/configuration/services/configurati
 import { Configuration } from 'src/app/models/configuration';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { TitleService, TITLEKEYS } from 'src/app/services/title.service';
+import { TitleKeyService, TITLEKEYS } from 'src/app/services/title-key.service';
 
 @Component({
   selector: 'app-configuration',
@@ -27,16 +27,16 @@ export class ConfigurationComponent implements OnInit {
     authService: AuthService,
     location: Location,
     translocoService: TranslocoService,
-    private _titleService: TitleService
+    private _titleService: TitleKeyService
   ) {
     this._configurationService = configurationService;
     this._authService = authService;
     this._location = location;
     this._translocoService = translocoService;
+    this._titleService.currentTitleKey = TITLEKEYS.configuration;
   }
 
   ngOnInit() {
-    this._titleService.currentTitleKey = TITLEKEYS.configuration;
     this._authService.user$.subscribe((user: User) => {
       this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {
         if (configuration === undefined) {

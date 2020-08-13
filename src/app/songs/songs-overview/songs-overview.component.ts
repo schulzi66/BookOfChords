@@ -1,72 +1,73 @@
-import { TitleService, TITLEKEYS } from './../../services/title.service';
+import { TitleKeyService, TITLEKEYS } from '../../services/title-key.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { ClipboardService } from 'ngx-clipboard';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
-import { PopupDialogData } from 'src/app/shared/components/popup-dialog/popup-dialog-data';
 import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
 import { RockNRollSnackbarComponent } from 'src/app/shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { Song } from '../../models/song';
-import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
+import { map, mergeMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-songs-overview',
   templateUrl: './songs-overview.component.html',
   styleUrls: ['./songs-overview.component.scss']
 })
-export class SongsOverviewComponent implements OnInit {
-  private _songService: SongService;
-  private _router: Router;
-  private _authService: AuthService;
-  private _configurationService: ConfigurationService;
-  private _matDialog: MatDialog;
-  private _popupDialogData: PopupDialogData;
-  private _clipboardService: ClipboardService;
-  private _snackBar: MatSnackBar;
-
+export class SongsOverviewComponent implements OnInit, OnDestroy {
   public configuration: Configuration;
-
   public songs: Song[];
   public filteredSongs: Song[];
 
+  private _subscriptions$: Subscription;
+
   constructor(
-    songService: SongService,
-    router: Router,
-    authService: AuthService,
-    configurationService: ConfigurationService,
-    matDialog: MatDialog,
-    clipboardService: ClipboardService,
-    snackBar: MatSnackBar,
-    private _titleService: TitleService
+    private _songService: SongService,
+    private _router: Router,
+    private _authService: AuthService,
+    private _configurationService: ConfigurationService,
+    private _matDialog: MatDialog,
+    private _clipboardService: ClipboardService,
+    private _snackBar: MatSnackBar,
+    private _titleService: TitleKeyService
   ) {
-    this._songService = songService;
-    this._router = router;
-    this._authService = authService;
-    this._configurationService = configurationService;
-    this._matDialog = matDialog;
-    this._clipboardService = clipboardService;
-    this._snackBar = snackBar;
+    this._subscriptions$ = new Subscription();
+    this._titleService.currentTitleKey = TITLEKEYS.songs;
   }
 
   ngOnInit() {
-    this._titleService.currentTitleKey = TITLEKEYS.songs;
-    this._authService.user$.subscribe((user: User) => {
-      if (user) {
-        this._songService.getSongsForUser(user.uid).subscribe((songs: Song[]) => {
-          this.songs = songs;
-          this.filteredSongs = songs;
-        });
-        this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {
-          this.configuration = configuration;
-        });
-      }
-    });
+    this._subscriptions$.add(
+      this._authService.user$
+        .pipe(
+          mergeMap((user: User) => {
+            this._subscriptions$.add(
+              this._configurationService
+                .loadConfigurationForUser(user.uid)
+                .pipe(map((configuration) => (this.configuration = configuration)))
+                .subscribe()
+            );
+
+            return this._songService.getSongsForUser(user.uid).pipe(
+              map((songs: Song[]) => {
+                this.songs = songs;
+                this.filteredSongs = songs;
+              })
+            );
+          })
+        )
+        .subscribe()
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._subscriptions$.unsubscribe();
   }
 
   public createNewSong(): void {
@@ -103,12 +104,11 @@ export class SongsOverviewComponent implements OnInit {
   }
 
   public deleteSelectedSong(song: Song): void {
-    this._popupDialogData = {
-      title: 'Delete Song?',
-      content: `Do you really want to delete the song: ${song.name} ?`
-    };
     const dialogRef = this._matDialog.open(PopupDialogComponent, {
-      data: this._popupDialogData
+      data: {
+        title: 'Delete Song?',
+        content: `Do you really want to delete the song: ${song.name} ?`
+      }
     });
 
     dialogRef.afterClosed().subscribe((result: Boolean) => {

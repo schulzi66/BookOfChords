@@ -1,14 +1,21 @@
 <div class="flex-container">
-    <img *ngIf="band?.pictureUrl" [src]="band?.pictureUrl" class="band-picture">
-    <shared-fab-btn class="edit-btn" *ngIf="isUserBandAdmin" [icon]="'edit'" [routerLink]="['./edit', band.id ]">
-    </shared-fab-btn>
-    <mat-label class="label">{{'band_name' | transloco}}</mat-label>
-    <mat-label class="value">{{band?.name}}</mat-label>
-    <mat-label class="label">{{'band_id' | transloco}}</mat-label>
-    <mat-label class="value">{{band?.id}}</mat-label>
-    <mat-label class="label">{{'band_member' | transloco}}</mat-label>
-    <div *ngFor="let member of band?.members" class="member-list">
-        <img [src]="member?.photoURL" class="profile-picture">
-        <mat-label class="member-value">{{member?.displayName}}</mat-label>
-    </div>
+  <img *ngIf="band?.pictureUrl"
+       [src]="band?.pictureUrl"
+       class="band-picture">
+  <shared-fab-btn class="edit-btn"
+                  *ngIf="isUserBandAdmin"
+                  [icon]="'edit'"
+                  [routerLink]="['./edit', band.id ]">
+  </shared-fab-btn>
+  <mat-label class="label">{{'band_name' | transloco}}</mat-label>
+  <mat-label class="value">{{band?.name}}</mat-label>
+  <mat-label class="label">{{'band_id' | transloco}}</mat-label>
+  <mat-label class="value">{{band?.id}}</mat-label>
+  <mat-label class="label">{{'band_member' | transloco}}</mat-label>
+  <div *ngFor="let member of band?.members"
+       class="member-list">
+    <img [src]="member?.photoURL"
+         class="profile-picture">
+    <mat-label class="member-value">{{member?.displayName}}</mat-label>
+  </div>
 </div>

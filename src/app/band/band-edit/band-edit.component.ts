@@ -1,71 +1,89 @@
+import { tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-	selector: 'app-band-edit',
-	templateUrl: './band-edit.component.html',
-	styleUrls: [ './band-edit.component.scss' ]
+  selector: 'app-band-edit',
+  templateUrl: './band-edit.component.html',
+  styleUrls: ['./band-edit.component.scss']
 })
-export class BandEditComponent implements OnInit {
-	private _activatedRoute: ActivatedRoute;
-	private _bandService: BandService;
-	private _authService: AuthService;
-	private _currentUser: User;
-	private _location: Location;
+export class BandEditComponent implements OnInit, OnDestroy {
+  private _subscriptions$: Subscription;
+  private _currentUser: User;
 
-	public band: Band;
+  public band: Band;
 
-	public get isUserBandAdmin(): boolean {
-		if (this.band && this._currentUser) {
-			return this.band.adminId === this._currentUser.uid;
-		} else {
-			return false;
-		}
-	}
+  public get isUserBandAdmin(): boolean {
+    if (this.band && this._currentUser) {
+      return this.band.adminId === this._currentUser.uid;
+    } else {
+      return false;
+    }
+  }
 
-	public constructor(
-		activatedRoute: ActivatedRoute,
-		bandService: BandService,
-		authService: AuthService,
-		location: Location
-	) {
-		this._activatedRoute = activatedRoute;
-		this._bandService = bandService;
-		this._authService = authService;
-		this._location = location;
-		this.band = new Band();
-	}
+  public constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _bandService: BandService,
+    private _authService: AuthService,
+    private _location: Location
+  ) {
+    this._subscriptions$ = new Subscription();
+    this.band = new Band();
+  }
 
-	ngOnInit() {
-		this._authService.user$.subscribe((user: User) => {
-			this._currentUser = user;
-			this._activatedRoute.params.subscribe((params: { id: string }) => {
-				if (params.id === this._currentUser.bandId) {
-					this._bandService.getBandByBandId(params.id).subscribe((band: Band) => {
-						this.band = band;
-					});
-				} else {
-					this._location.back();
-				}
-			});
-		});
-	}
+  ngOnInit() {
+    this._subscriptions$.add(
+      this._authService.user$
+        .pipe(
+          tap((user: User) => {
+            this._currentUser = user;
+            this._subscriptions$.add(
+              this._activatedRoute.params
+                .pipe(
+                  tap((params: { id: string }) => {
+                    if (params.id === this._currentUser.bandId) {
+                      this._subscriptions$.add(
+                        this._bandService
+                          .getBandByBandId(params.id)
+                          .pipe(
+                            tap((band: Band) => {
+                              this.band = band;
+                            })
+                          )
+                          .subscribe()
+                      );
+                    } else {
+                      this._location.back();
+                    }
+                  })
+                )
+                .subscribe()
+            );
+          })
+        )
+        .subscribe()
+    );
+  }
 
-	public deleteMember(i: number): void {
-		this.band.members.splice(i, 1);
-	}
+  ngOnDestroy(): void {
+    this._subscriptions$.unsubscribe();
+  }
+  public deleteMember(i: number): void {
+    this.band.members.splice(i, 1);
+  }
 
-	public onImageUploadCompleted($event: string): void {
-		this.band.pictureUrl = $event;
-	}
+  public onImageUploadCompleted($event: string): void {
+    this.band.pictureUrl = $event;
+  }
 
-	public goBack(): void {
-		this._bandService.saveBand(this.band);
-		this._location.back();
-	}
+  public goBack(): void {
+    this._bandService.saveBand(this.band);
+    this._location.back();
+  }
 }

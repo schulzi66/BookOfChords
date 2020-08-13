@@ -3,7 +3,7 @@ import { Gig } from '../../models/gig';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { GigService } from '../services/gig.service';
-import { TitleService, TITLEKEYS } from 'src/app/services/title.service';
+import { TitleKeyService, TITLEKEYS } from 'src/app/services/title-key.service';
 
 @Component({
   selector: 'app-gig-overview',
@@ -16,13 +16,13 @@ export class GigOverviewComponent implements OnInit {
 
   public gigs: Gig[];
 
-  constructor(gigService: GigService, authService: AuthService, private _titleService: TitleService) {
+  constructor(gigService: GigService, authService: AuthService, private _titleService: TitleKeyService) {
     this._gigService = gigService;
     this._authService = authService;
+    this._titleService.currentTitleKey = TITLEKEYS.gigs;
   }
 
   ngOnInit() {
-    this._titleService.currentTitleKey = TITLEKEYS.gigs;
     this._authService.user$.subscribe((user: User) => {
       this._gigService.getGigsForUser(user.uid).subscribe((gigs: Gig[]) => {
         this.gigs = gigs;

@@ -4,23 +4,23 @@ import { Observable } from 'rxjs';
 import { Configuration } from '../../models/configuration';
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root'
 })
 export class ConfigurationService {
-	private _angularFirestore: AngularFirestore;
+  private _angularFirestore: AngularFirestore;
 
-	constructor(angularFirestore: AngularFirestore) {
-		this._angularFirestore = angularFirestore;
-	}
+  constructor(angularFirestore: AngularFirestore) {
+    this._angularFirestore = angularFirestore;
+  }
 
-	public loadConfigurationForUser(uid: string): Observable<Configuration> {
-		return this._angularFirestore.collection('configurations').doc<Configuration>(uid).valueChanges();
-	}
+  public loadConfigurationForUser(uid: string): Observable<Configuration> {
+    return this._angularFirestore.collection('configurations').doc<Configuration>(uid).valueChanges();
+  }
 
-	public saveConfigurationForUser(configuration: Configuration): void {
-		this._angularFirestore
-			.collection('configurations')
-			.doc(configuration.uid)
-			.set(Object.assign({}, JSON.parse(JSON.stringify(configuration))));
-	}
+  public saveConfigurationForUser(configuration: Configuration): void {
+    this._angularFirestore
+      .collection('configurations')
+      .doc(configuration.uid)
+      .set(Object.assign({}, JSON.parse(JSON.stringify(configuration))));
+  }
 }

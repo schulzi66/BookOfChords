@@ -1,27 +1,27 @@
 <div *ngIf="isUserInBand; else noBand">
-    <mat-tab-group mat-stretch-tabs>
-        <mat-tab [label]="'my_band' | transloco">
-            <ng-template matTabContent>
-                <app-band-detail></app-band-detail>
-            </ng-template>
-        </mat-tab>
-        <mat-tab [label]="'setlists' | transloco">
-            <ng-template matTabContent>
-                <app-band-setlist-overview></app-band-setlist-overview>
-            </ng-template>
-        </mat-tab>
-        <!-- <mat-tab *ngIf="configuration?.useKonzertmeister" label="Konzertmeister">
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab [label]="'my_band' | transloco">
+      <ng-template matTabContent>
+        <app-band-detail></app-band-detail>
+      </ng-template>
+    </mat-tab>
+    <mat-tab [label]="'setlists' | transloco">
+      <ng-template matTabContent>
+        <app-band-setlist-overview></app-band-setlist-overview>
+      </ng-template>
+    </mat-tab>
+    <!-- <mat-tab *ngIf="configuration?.useKonzertmeister" label="Konzertmeister">
             <ng-template matTabContent>
                 <app-konzertmeister-integration></app-konzertmeister-integration>
             </ng-template>
         </mat-tab> -->
-    </mat-tab-group>
+  </mat-tab-group>
 </div>
 
 <!-- #region Templates-->
 
 <ng-template #noBand>
-    <app-no-band-overview></app-no-band-overview>
+  <app-no-band-overview></app-no-band-overview>
 </ng-template>
 
 <!-- #endregion -->

@@ -1,4 +1,4 @@
-import { TitleService, TITLEKEYS } from './../services/title.service';
+import { TitleKeyService, TITLEKEYS } from '../services/title-key.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,10 +7,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  constructor(public authService: AuthService, private _titleService: TitleService) {}
-
-  ngOnInit(): void {
+export class LoginComponent {
+  constructor(public authService: AuthService, private _titleService: TitleKeyService) {
     this._titleService.currentTitleKey = TITLEKEYS.default;
   }
 }
