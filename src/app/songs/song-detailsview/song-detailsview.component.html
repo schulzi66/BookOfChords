@@ -1,36 +1,55 @@
-<shared-fab-btn [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
-<mat-form-field appearance="outline" class="song-name">
-    <mat-label>{{'song_name' | transloco}}
-    </mat-label>
-    <input matInput required [(ngModel)]="song.name" name="songName">
+<shared-fab-btn [icon]="'arrow_back'"
+                (onClick)="goBack()"></shared-fab-btn>
+<mat-form-field appearance="outline"
+                class="song-name">
+  <mat-label>{{'song_name' | transloco}}
+  </mat-label>
+  <input matInput
+         required
+         [(ngModel)]="song.name"
+         name="songName">
 </mat-form-field>
-<shared-fab-btn [icon]="'add'" (onClick)="addNewSection()"></shared-fab-btn>
+<shared-fab-btn [icon]="'add'"
+                (onClick)="addNewSection()"></shared-fab-btn>
 
-<shared-metronome [bpm]="song.bpm" (onBpmChanged)="updateBpm($event)"></shared-metronome>
+<shared-metronome [bpm]="song.bpm"
+                  (onBpmChanged)="updateBpm($event)"></shared-metronome>
 
 <div *ngFor="let section of song?.sections; index as i">
-    <mat-form-field appearance="outline" class="section-name">
-        <mat-label>{{'section' | transloco}}</mat-label>
-        <input matInput [(ngModel)]="section.name" name="name">
-    </mat-form-field>
-    <mat-form-field class="section-value">
-        <textarea matInput [value]="section?.value | StringArrayLines"
-            (change)="onTextAreaValueChanged(i, $event.target.value)" cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"></textarea>
-    </mat-form-field>
-    <shared-fab-btn [icon]="'delete'" (onClick)="removeSection(i)"></shared-fab-btn>
+  <mat-form-field appearance="outline"
+                  class="section-name">
+    <mat-label>{{'section' | transloco}}</mat-label>
+    <input matInput
+           [(ngModel)]="section.name"
+           name="name">
+  </mat-form-field>
+  <mat-form-field class="section-value">
+    <textarea matInput
+              [value]="section?.value | StringArrayLines"
+              (change)="onTextAreaValueChanged(i, $event.target.value)"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"></textarea>
+  </mat-form-field>
+  <shared-fab-btn [icon]="'delete'"
+                  (onClick)="removeSection(i)"></shared-fab-btn>
 </div>
 <br>
 
 <div *ngFor="let picture of song?.pictures; index as i">
-    <!-- <pinch-zoom [zoom-button]="false"> -->
-        <img class="picture" [src]="picture">
-    <!-- </pinch-zoom> -->
-    <shared-fab-btn [icon]="'delete'" (onClick)="removePicture(i)"></shared-fab-btn>
+  <!-- <pinch-zoom [zoom-button]="false"> -->
+  <img class="picture"
+       [src]="picture">
+  <!-- </pinch-zoom> -->
+  <shared-fab-btn [icon]="'delete'"
+                  (onClick)="removePicture(i)"></shared-fab-btn>
 </div>
 <div *ngFor="let pdf of song?.pdfs; index as i">
-    <ngx-extended-pdf-viewer [src]="pdf" useBrowserLocale="true" height="80vh"></ngx-extended-pdf-viewer>
-    <shared-fab-btn [icon]="'delete'" (onClick)="removePdf(i)"></shared-fab-btn>
+  <ngx-extended-pdf-viewer [src]="pdf"
+                           useBrowserLocale="true"
+                           height="80vh"></ngx-extended-pdf-viewer>
+  <shared-fab-btn [icon]="'delete'"
+                  (onClick)="removePdf(i)"></shared-fab-btn>
 </div>
 
-<uploader [storageBucketPrefix]="'songs'" (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
+<uploader [storageBucketPrefix]="'songs'"
+          (onUploadComplete)="onImageUploadCompleted($event)"></uploader>

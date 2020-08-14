@@ -1,59 +1,67 @@
 <div class="flex-container">
-    <shared-fab-btn [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
+  <shared-fab-btn [icon]="'arrow_back'"
+                  (onClick)="goBack()"></shared-fab-btn>
 
-    <mat-form-field>
-        <mat-label>{{'font_size_header' | transloco}}</mat-label>
-        <mat-select [value]="configuration?.fontSizeHeader" (selectionChange)="fontSizeHeaderChanged($event)">
-            <mat-option value="14px">14px</mat-option>
-            <mat-option value="16px">16px</mat-option>
-            <mat-option value="18px">18px</mat-option>
-            <mat-option value="20px">20px</mat-option>
-            <mat-option value="24px">24px</mat-option>
-            <mat-option value="28px">28px</mat-option>
-        </mat-select>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'font_size_header' | transloco}}</mat-label>
+    <mat-select [value]="configuration?.fontSizeHeader"
+                (selectionChange)="fontSizeHeaderChanged($event)">
+      <mat-option value="14px">14px</mat-option>
+      <mat-option value="16px">16px</mat-option>
+      <mat-option value="18px">18px</mat-option>
+      <mat-option value="20px">20px</mat-option>
+      <mat-option value="24px">24px</mat-option>
+      <mat-option value="28px">28px</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>{{'font_size_section' | transloco}}</mat-label>
-        <mat-select [value]="configuration?.fontSizeSection" (selectionChange)="fontSizeSectionChanged($event)">
-            <mat-option value="14px">14px</mat-option>
-            <mat-option value="16px">16px</mat-option>
-            <mat-option value="18px">18px</mat-option>
-            <mat-option value="20px">20px</mat-option>
-            <mat-option value="24px">24px</mat-option>
-            <mat-option value="28px">28px</mat-option>
-        </mat-select>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'font_size_section' | transloco}}</mat-label>
+    <mat-select [value]="configuration?.fontSizeSection"
+                (selectionChange)="fontSizeSectionChanged($event)">
+      <mat-option value="14px">14px</mat-option>
+      <mat-option value="16px">16px</mat-option>
+      <mat-option value="18px">18px</mat-option>
+      <mat-option value="20px">20px</mat-option>
+      <mat-option value="24px">24px</mat-option>
+      <mat-option value="28px">28px</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>{{'font_family' | transloco}}</mat-label>
-        <mat-select [value]="configuration?.fontFamily" (selectionChange)="fontFamilyChanged($event)">
-            <mat-option value="Arial">Arial</mat-option>
-            <mat-option value="Helvetica">Helvetica</mat-option>
-            <mat-option value="Times New Roman">Times New Roman</mat-option>
-            <mat-option value="Calibri">Calibri</mat-option>
-            <mat-option value="Georgia">Georgia</mat-option>
-        </mat-select>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'font_family' | transloco}}</mat-label>
+    <mat-select [value]="configuration?.fontFamily"
+                (selectionChange)="fontFamilyChanged($event)">
+      <mat-option value="Arial">Arial</mat-option>
+      <mat-option value="Helvetica">Helvetica</mat-option>
+      <mat-option value="Times New Roman">Times New Roman</mat-option>
+      <mat-option value="Calibri">Calibri</mat-option>
+      <mat-option value="Georgia">Georgia</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>{{'lang' | transloco}}</mat-label>
-        <mat-select [value]="configuration?.lang" (selectionChange)="langChanged($event)">
-            <mat-option value="en">
-                <ng-template transloco let-t>
-                    {{ t('en') }}
-                </ng-template>
-            </mat-option>
-            <mat-option value="de">
-                <ng-template transloco let-t>
-                    {{ t('de') }}
-                </ng-template>
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'lang' | transloco}}</mat-label>
+    <mat-select [value]="configuration?.lang"
+                (selectionChange)="langChanged($event)">
+      <mat-option value="en">
+        <ng-template transloco
+                     let-t>
+          {{ t('en') }}
+        </ng-template>
+      </mat-option>
+      <mat-option value="de">
+        <ng-template transloco
+                     let-t>
+          {{ t('de') }}
+        </ng-template>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <mat-slide-toggle [checked]="configuration?.useKonzertmeister" (change)="useKonzertmeisterChanged($event)">
-        {{'use_konzertmeister' | transloco}}
-    </mat-slide-toggle>
+  <mat-slide-toggle [checked]="configuration?.useKonzertmeister"
+                    (change)="useKonzertmeisterChanged($event)">
+    {{'use_konzertmeister' | transloco}}
+  </mat-slide-toggle>
 
 </div>

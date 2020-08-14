@@ -38,36 +38,15 @@ export class BandEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this._currentUser = this._authService.user;
     this._subscriptions$.add(
-      this._authService.user$
-        .pipe(
-          tap((user: User) => {
-            this._currentUser = user;
-            this._subscriptions$.add(
-              this._activatedRoute.params
-                .pipe(
-                  tap((params: { id: string }) => {
-                    if (params.id === this._currentUser.bandId) {
-                      this._subscriptions$.add(
-                        this._bandService
-                          .getBandByBandId(params.id)
-                          .pipe(
-                            tap((band: Band) => {
-                              this.band = band;
-                            })
-                          )
-                          .subscribe()
-                      );
-                    } else {
-                      this._location.back();
-                    }
-                  })
-                )
-                .subscribe()
-            );
-          })
-        )
-        .subscribe()
+      this._activatedRoute.params.subscribe((params: { id: string }) => {
+        if (params.id === this._currentUser.bandId) {
+          this._subscriptions$.add(this._bandService.band$.subscribe((band: Band) => (this.band = band)));
+        } else {
+          this._location.back();
+        }
+      })
     );
   }
 

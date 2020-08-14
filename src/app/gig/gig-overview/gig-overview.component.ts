@@ -1,33 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Gig } from '../../models/gig';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { GigService } from '../services/gig.service';
 import { TitleKeyService, TITLEKEYS } from 'src/app/services/title-key.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-gig-overview',
   templateUrl: './gig-overview.component.html',
   styleUrls: ['./gig-overview.component.scss']
 })
-export class GigOverviewComponent implements OnInit {
-  private _gigService: GigService;
-  private _authService: AuthService;
-
+export class GigOverviewComponent implements OnInit, OnDestroy {
   public gigs: Gig[];
 
-  constructor(gigService: GigService, authService: AuthService, private _titleService: TitleKeyService) {
-    this._gigService = gigService;
-    this._authService = authService;
+  private _subscriptions$: Subscription;
+
+  constructor(
+    private _gigService: GigService,
+    private _authService: AuthService,
+    private _titleService: TitleKeyService
+  ) {
+    this._subscriptions$ = new Subscription();
     this._titleService.currentTitleKey = TITLEKEYS.gigs;
   }
 
   ngOnInit() {
-    this._authService.user$.subscribe((user: User) => {
-      this._gigService.getGigsForUser(user.uid).subscribe((gigs: Gig[]) => {
+    this._subscriptions$.add(
+      this._gigService.getGigsForUser(this._authService.user.uid).subscribe((gigs: Gig[]) => {
         this.gigs = gigs;
-      });
-    });
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._subscriptions$.unsubscribe();
   }
 
   public createNewGig(): void {

@@ -1,12 +1,22 @@
-<mat-card class="metronom-card" [ngClass]="{'hit-effect': isTick, 'hit-effect-remove': !isTick}">
-    <mat-card-header class="card-header">
-        <mat-card-title>{{bpm}}</mat-card-title>
-        <mat-card-subtitle>BPM</mat-card-subtitle>
-        <shared-fab-btn *ngIf="showPlay" class="play-btn" [icon]="playModeIcon" (onClick)="togglePlayMode()">
-        </shared-fab-btn>
-    </mat-card-header>
-    <mat-card-content>
-        <input #bpmSlider [disabled]="sliderDisabled" class="beat-slider" type="range" min="40" max="208" step="1"
-            (input)="changeSpeed($event.target.value)">
-    </mat-card-content>
+<mat-card class="metronom-card"
+          [ngClass]="{'hit-effect': isTick, 'hit-effect-remove': !isTick}">
+  <mat-card-header class="card-header">
+    <mat-card-title>{{bpm}}</mat-card-title>
+    <mat-card-subtitle>BPM</mat-card-subtitle>
+    <shared-fab-btn *ngIf="showPlay"
+                    class="play-btn"
+                    [icon]="playModeIcon"
+                    (onClick)="togglePlayMode()">
+    </shared-fab-btn>
+  </mat-card-header>
+  <mat-card-content>
+    <input #bpmSlider
+           [disabled]="sliderDisabled"
+           class="beat-slider"
+           type="range"
+           min="40"
+           max="208"
+           step="1"
+           (input)="changeSpeed($event.target.value)">
+  </mat-card-content>
 </mat-card>

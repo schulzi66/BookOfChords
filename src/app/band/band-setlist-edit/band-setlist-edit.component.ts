@@ -17,6 +17,7 @@ import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { TileStyler } from '@angular/material/grid-list/tile-styler';
 
 @Component({
   selector: 'app-band-setlist-edit',
@@ -49,52 +50,30 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this._currentUser = this._authService.user;
     this._subscriptions$.add(
-      this._authService.user$
-        .pipe(
-          tap((user: User) => {
-            this._currentUser = user;
-            this._subscriptions$.add(
-              this._activatedRoute.params
-                .pipe(
-                  tap((params: { id?: string }) => {
-                    if (this._currentUser.bandId) {
-                      this._subscriptions$.add(
-                        this._bandService
-                          .getBandByBandId(this._currentUser.bandId)
-                          .pipe(
-                            tap((band: Band) => {
-                              if (band !== undefined) {
-                                this.band = band;
-                                if (params.id !== '-1') {
-                                  this.setlist = this.band.setlists.find((x) => x.id === params.id);
-                                }
-                                this._subscriptions$.add(
-                                  this._songService
-                                    .getSongsForUser(this._currentUser.uid)
-                                    .pipe(
-                                      tap((songs: Song[]) => {
-                                        this.allSongsOfCurrentUser = songs;
-                                        this.filteredSongs = songs;
-                                      })
-                                    )
-                                    .subscribe()
-                                );
-                              } else {
-                                this._location.back();
-                              }
-                            })
-                          )
-                          .subscribe()
-                      );
-                    }
+      this._activatedRoute.params.subscribe((params: { id?: string }) => {
+        if (this._currentUser.bandId) {
+          this._subscriptions$.add(
+            this._bandService.band$.subscribe((band: Band) => {
+              if (band !== undefined) {
+                this.band = band;
+                if (params.id !== '-1') {
+                  this.setlist = this.band.setlists.find((x) => x.id === params.id);
+                }
+                this._subscriptions$.add(
+                  this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
+                    this.allSongsOfCurrentUser = songs;
+                    this.filteredSongs = songs;
                   })
-                )
-                .subscribe()
-            );
-          })
-        )
-        .subscribe()
+                );
+              } else {
+                this._location.back();
+              }
+            })
+          );
+        }
+      })
     );
   }
 

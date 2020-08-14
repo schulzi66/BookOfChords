@@ -11,32 +11,18 @@ import { Subscription } from 'rxjs';
   templateUrl: './band-create.component.html',
   styleUrls: ['./band-create.component.scss']
 })
-export class BandCreateComponent implements OnInit, OnDestroy {
+export class BandCreateComponent implements OnInit {
   private _currentUser: User;
-  private _subscriptions$: Subscription;
 
   public band: Band;
 
   public constructor(private _authService: AuthService, private _bandService: BandService) {
-    this._subscriptions$ = new Subscription();
     this.band = new Band();
   }
 
   ngOnInit() {
-    this._subscriptions$.add(
-      this._authService.user$
-        .pipe(
-          tap((user: User) => {
-            this._currentUser = user;
-            this.band.adminId = this._currentUser.uid;
-          })
-        )
-        .subscribe()
-    );
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
+    this._currentUser = this._authService.user;
+    this.band.adminId = this._currentUser.uid;
   }
 
   public saveBand(): void {

@@ -1,4 +1,4 @@
 export interface PopupDialogData {
-    title: string;
-    content: string;
+  title: string;
+  content: string;
 }

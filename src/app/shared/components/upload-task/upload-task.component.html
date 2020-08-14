@@ -1,21 +1,34 @@
 <div *ngIf="percentage | async as pct">
-    <mat-progress-bar mode="determinate" [value]="pct"></mat-progress-bar>
+  <mat-progress-bar mode="determinate"
+                    [value]="pct"></mat-progress-bar>
 </div>
 
 <div *ngIf="(snapshot | async) as snap">
-    <button mat-button (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">
-        <ng-template transloco let-t>
-            {{ t('pause') }}
-        </ng-template>
-    </button>
-    <button mat-button (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">
-        <ng-template transloco let-t>
-            {{ t('cancel') }}
-        </ng-template>
-    </button>
-    <button mat-button (click)="task.resume()" class="button is-info" [disabled]="!(snap?.state === 'paused')">
-        <ng-template transloco let-t>
-            {{ t('resume') }}
-        </ng-template>
-    </button>
+  <button mat-button
+          (click)="task.pause()"
+          class="button is-warning"
+          [disabled]="!isActive(snap)">
+    <ng-template transloco
+                 let-t>
+      {{ t('pause') }}
+    </ng-template>
+  </button>
+  <button mat-button
+          (click)="task.cancel()"
+          class="button is-danger"
+          [disabled]="!isActive(snap)">
+    <ng-template transloco
+                 let-t>
+      {{ t('cancel') }}
+    </ng-template>
+  </button>
+  <button mat-button
+          (click)="task.resume()"
+          class="button is-info"
+          [disabled]="!(snap?.state === 'paused')">
+    <ng-template transloco
+                 let-t>
+      {{ t('resume') }}
+    </ng-template>
+  </button>
 </div>

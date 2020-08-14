@@ -1,19 +1,31 @@
-import { Injectable } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { tap } from 'rxjs/operators';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { Configuration } from '../../models/configuration';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigurationService {
-  private _angularFirestore: AngularFirestore;
+export class ConfigurationService implements OnDestroy {
+  private _subscriptions$: Subscription;
 
-  constructor(angularFirestore: AngularFirestore) {
-    this._angularFirestore = angularFirestore;
+  public configuration$: Observable<Configuration> = of(null);
+
+  constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
+    this._subscriptions$ = new Subscription();
+    this._subscriptions$.add(
+      this._authService.user$.subscribe((user) => (this.configuration$ = this.loadConfigurationForUser(user.uid)))
+    );
   }
 
-  public loadConfigurationForUser(uid: string): Observable<Configuration> {
+  ngOnDestroy(): void {
+    this.configuration$ = null;
+    this._subscriptions$.unsubscribe();
+  }
+
+  private loadConfigurationForUser(uid: string): Observable<Configuration> {
     return this._angularFirestore.collection('configurations').doc<Configuration>(uid).valueChanges();
   }
 

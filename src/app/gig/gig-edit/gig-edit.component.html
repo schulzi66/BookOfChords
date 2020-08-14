@@ -1,24 +1,41 @@
 <!-- #region Templates-->
 
 <ng-template #filterTemplate>
-    <app-search (onSearch)="searchForSong($event)" (onClear)="clearSearch()" class="search-input"></app-search>
+  <app-search (onSearch)="searchForSong($event)"
+              (onClear)="clearSearch()"
+              class="search-input"></app-search>
 </ng-template>
 
 <!-- #endregion-->
 
 <div class="flex-container">
-    <shared-fab-btn class="back-btn" [icon]="'arrow_back'" (onClick)="goBack()"></shared-fab-btn>
-    <mat-form-field appearance="outline" class="gig-name" *ngIf="!filterToggle; else filterTemplate">
-        <mat-label>{{'gig_name' | transloco}}</mat-label>
-        <input matInput [(ngModel)]="gig.name" name="gigName">
-    </mat-form-field>
+  <shared-fab-btn class="back-btn"
+                  [icon]="'arrow_back'"
+                  (onClick)="goBack()"></shared-fab-btn>
+  <mat-form-field appearance="outline"
+                  class="gig-name"
+                  *ngIf="!filterToggle; else filterTemplate">
+    <mat-label>{{'gig_name' | transloco}}</mat-label>
+    <input matInput
+           [(ngModel)]="gig.name"
+           name="gigName">
+  </mat-form-field>
 
-    <shared-fab-btn *ngIf="!isNewGig" class="delete-btn" [icon]="'delete'" (onClick)="deleteGig()"></shared-fab-btn>
-    <shared-fab-btn class="filter-btn" [icon]="filterIcon" (onClick)="toggleFilter()"></shared-fab-btn>
+  <shared-fab-btn *ngIf="!isNewGig"
+                  class="delete-btn"
+                  [icon]="'delete'"
+                  (onClick)="deleteGig()"></shared-fab-btn>
+  <shared-fab-btn class="filter-btn"
+                  [icon]="filterIcon"
+                  (onClick)="toggleFilter()"></shared-fab-btn>
 </div>
 
-<mat-selection-list #songs class="song-list" (selectionChange)="onSelectionChange($event)">
-    <mat-list-option *ngFor="let song of filteredSongs" [selected]="checkSelected(song)" [value]="song">
-        {{song.name}}
-    </mat-list-option>
+<mat-selection-list #songs
+                    class="song-list"
+                    (selectionChange)="onSelectionChange($event)">
+  <mat-list-option *ngFor="let song of filteredSongs"
+                   [selected]="checkSelected(song)"
+                   [value]="song">
+    {{song.name}}
+  </mat-list-option>
 </mat-selection-list>

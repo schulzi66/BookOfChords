@@ -31,23 +31,8 @@ export class BandDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._subscriptions$.add(
-      this._authService.user$
-        .pipe(
-          tap((user: User) => {
-            this._currentUser = user;
-            if (user.bandId) {
-              this._subscriptions$.add(
-                this._bandService
-                  .getBandByBandId(user.bandId)
-                  .pipe(tap((band: Band) => (this.band = band)))
-                  .subscribe()
-              );
-            }
-          })
-        )
-        .subscribe()
-    );
+    this._currentUser = this._authService.user;
+    this._subscriptions$.add(this._bandService.band$.subscribe((band: Band) => (this.band = band)));
   }
 
   ngOnDestroy(): void {
