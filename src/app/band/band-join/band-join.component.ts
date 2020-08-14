@@ -30,15 +30,7 @@ export class BandJoinComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._subscriptions$.add(
-      this._authService.user$
-        .pipe(
-          tap((user: User) => {
-            this._currentUser = user;
-          })
-        )
-        .subscribe()
-    );
+    this._currentUser = this._authService.user;
   }
 
   ngOnDestroy(): void {
@@ -47,26 +39,21 @@ export class BandJoinComponent implements OnInit, OnDestroy {
 
   public joinBand(): void {
     this._subscriptions$.add(
-      this._bandService
-        .getBandByBandId(this.bandId)
-        .pipe(
-          map((band: Band) => {
-            if (band) {
-              this._authService.updateBandIdForUserId(this._currentUser.uid, band.id);
-              band.members.push(this._currentUser);
-              this._bandService.saveBand(band);
-            } else {
-              this._popupDialogData = {
-                title: 'No Band Found',
-                content: `We could not find any band with the id: ${this.bandId}.`
-              };
-              this._matDialog.open(PopupDialogComponent, {
-                data: this._popupDialogData
-              });
-            }
-          })
-        )
-        .subscribe()
+      this._bandService.band$.subscribe((band) => {
+        if (band) {
+          this._authService.updateBandIdForUserId(this._currentUser.uid, band.id);
+          band.members.push(this._currentUser);
+          this._bandService.saveBand(band);
+        } else {
+          this._popupDialogData = {
+            title: 'No Band Found',
+            content: `We could not find any band with the id: ${this.bandId}.`
+          };
+          this._matDialog.open(PopupDialogComponent, {
+            data: this._popupDialogData
+          });
+        }
+      })
     );
   }
 }

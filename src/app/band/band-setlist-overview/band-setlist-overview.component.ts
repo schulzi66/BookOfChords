@@ -21,26 +21,13 @@ export class BandSetlistOverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._subscriptions$.add(
-      this._authService.user$
-        .pipe(
-          tap((user: User) => {
-            if (user.bandId) {
-              this._subscriptions$.add(
-                this._bandService
-                  .getBandByBandId(user.bandId)
-                  .pipe(
-                    tap((band: Band) => {
-                      this.band = band;
-                    })
-                  )
-                  .subscribe()
-              );
-            }
-          })
-        )
-        .subscribe()
-    );
+    if (this._authService.user.bandId) {
+      this._subscriptions$.add(
+        this._bandService.band$.subscribe((band: Band) => {
+          this.band = band;
+        })
+      );
+    }
   }
 
   ngOnDestroy(): void {

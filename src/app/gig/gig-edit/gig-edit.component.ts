@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { Router } from '@angular/router';
@@ -12,13 +12,14 @@ import { User } from '../../models/user';
 import { SongService } from '../../songs/services/song.service';
 import { GigService } from '../services/gig.service';
 import { AuthService } from './../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-gig-edit',
   templateUrl: './gig-edit.component.html',
   styleUrls: ['./gig-edit.component.scss']
 })
-export class GigEditComponent implements OnInit {
+export class GigEditComponent implements OnInit, OnDestroy {
   public gig: Gig;
   public allSongs: Song[];
   public selectedSongs: Song[];
@@ -33,29 +34,19 @@ export class GigEditComponent implements OnInit {
 
   @ViewChild(MatSelectionList) selection: MatSelectionList;
 
-  private _gigService: GigService;
-  private _songService: SongService;
-  private _authService: AuthService;
-  private _location: Location;
-  private _router: Router;
   private _currentUser: User;
-  private _matDialog: MatDialog;
   private _popupDialogData: PopupDialogData;
+  private _subscriptions$: Subscription;
 
   constructor(
-    gigService: GigService,
-    songService: SongService,
-    authService: AuthService,
-    location: Location,
-    matDialog: MatDialog,
-    router: Router
+    private _gigService: GigService,
+    private _songService: SongService,
+    private _authService: AuthService,
+    private _location: Location,
+    private _matDialog: MatDialog,
+    private _router: Router
   ) {
-    this._gigService = gigService;
-    this._songService = songService;
-    this._authService = authService;
-    this._location = location;
-    this._matDialog = matDialog;
-    this._router = router;
+    this._subscriptions$ = new Subscription();
   }
 
   ngOnInit() {
@@ -66,13 +57,17 @@ export class GigEditComponent implements OnInit {
     if (!this.gig) {
       this.gig = new Gig('New Gig');
     }
-    this._authService.user$.subscribe((user: User) => {
-      this._currentUser = user;
-      this._songService.getSongsForUser(user.uid).subscribe((songs: Song[]) => {
+    this._currentUser = this._authService.user;
+    this._subscriptions$.add(
+      this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
         this.allSongs = songs;
         this.filteredSongs = songs;
-      });
-    });
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._subscriptions$.unsubscribe();
   }
 
   public checkSelected(song: Song): boolean {
@@ -123,12 +118,14 @@ export class GigEditComponent implements OnInit {
       data: this._popupDialogData
     });
 
-    dialogRef.afterClosed().subscribe((result: Boolean) => {
-      if (result) {
-        this._gigService.deleteGig(this.gig.id).then(() => {
-          this._router.navigate(['/gigs']);
-        });
-      }
-    });
+    this._subscriptions$.add(
+      dialogRef.afterClosed().subscribe((result: Boolean) => {
+        if (result) {
+          this._gigService.deleteGig(this.gig.id).then(() => {
+            this._router.navigate(['/gigs']);
+          });
+        }
+      })
+    );
   }
 }

@@ -12,7 +12,7 @@ import { RockNRollSnackbarComponent } from 'src/app/shared/components/rock-n-rol
 import { Song } from '../../models/song';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, tap, take, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 
@@ -22,8 +22,7 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./songs-overview.component.scss']
 })
 export class SongsOverviewComponent implements OnInit, OnDestroy {
-  public configuration: Configuration;
-  public songs: Song[];
+  private _songs: Song[];
   public filteredSongs: Song[];
 
   private _subscriptions$: Subscription;
@@ -32,11 +31,11 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
     private _songService: SongService,
     private _router: Router,
     private _authService: AuthService,
-    private _configurationService: ConfigurationService,
     private _matDialog: MatDialog,
     private _clipboardService: ClipboardService,
     private _snackBar: MatSnackBar,
-    private _titleService: TitleKeyService
+    private _titleService: TitleKeyService,
+    public configurationService: ConfigurationService
   ) {
     this._subscriptions$ = new Subscription();
     this._titleService.currentTitleKey = TITLEKEYS.songs;
@@ -44,25 +43,10 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._subscriptions$.add(
-      this._authService.user$
-        .pipe(
-          mergeMap((user: User) => {
-            this._subscriptions$.add(
-              this._configurationService
-                .loadConfigurationForUser(user.uid)
-                .pipe(map((configuration) => (this.configuration = configuration)))
-                .subscribe()
-            );
-
-            return this._songService.getSongsForUser(user.uid).pipe(
-              map((songs: Song[]) => {
-                this.songs = songs;
-                this.filteredSongs = songs;
-              })
-            );
-          })
-        )
-        .subscribe()
+      this._songService.getSongsForUser(this._authService.user.uid).subscribe((songs) => {
+        this._songs = songs;
+        this.filteredSongs = songs;
+      })
     );
   }
 
@@ -119,10 +103,10 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
   }
 
   public searchForSong(searchString: string): void {
-    this.filteredSongs = this.songs.filter((song) => song.name.toLowerCase().includes(searchString.toLowerCase()));
+    this.filteredSongs = this._songs.filter((song) => song.name.toLowerCase().includes(searchString.toLowerCase()));
   }
 
   public clearSearch(): void {
-    this.filteredSongs = this.songs;
+    this.filteredSongs = this._songs;
   }
 }

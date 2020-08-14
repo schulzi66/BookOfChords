@@ -18,13 +18,6 @@ import { SongService } from './../../songs/services/song.service';
   styleUrls: ['./gig-detail.component.scss']
 })
 export class GigDetailComponent implements OnInit {
-  private _router: Router;
-  private _gigService: GigService;
-  private _location: Location;
-  private _authService: AuthService;
-  private _configurationService: ConfigurationService;
-  private _songService: SongService;
-
   public configuration: Configuration;
   public gig: Gig;
   public songs: Song[];
@@ -34,19 +27,12 @@ export class GigDetailComponent implements OnInit {
   @ViewChild('songAccordion') songPanels: MatAccordion;
 
   constructor(
-    router: Router,
-    gigService: GigService,
-    location: Location,
-    authService: AuthService,
-    configurationServcie: ConfigurationService,
-    songService: SongService
+    private _router: Router,
+    private _gigService: GigService,
+    private _location: Location,
+    private _songService: SongService,
+    public _configurationService: ConfigurationService
   ) {
-    this._router = router;
-    this._gigService = gigService;
-    this._location = location;
-    this._configurationService = configurationServcie;
-    this._authService = authService;
-    this._songService = songService;
     this.isPlayMode = false;
   }
 
@@ -55,11 +41,6 @@ export class GigDetailComponent implements OnInit {
     if (!this.gig) {
       this._router.navigate(['/gigs']);
     }
-    this._authService.user$.subscribe((user: User) => {
-      this._configurationService.loadConfigurationForUser(user.uid).subscribe((configuration: Configuration) => {
-        this.configuration = configuration;
-      });
-    });
   }
 
   public goBack(): void {

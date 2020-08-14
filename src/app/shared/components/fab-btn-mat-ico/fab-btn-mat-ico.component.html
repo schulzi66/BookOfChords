@@ -1,4 +1,6 @@
-<button mat-mini-fab [disabled]="disabled" (click)="onClickEvent($event)">
-    <mat-icon class="shared-fab-btn">{{icon}}</mat-icon>
-    <ng-content></ng-content>
+<button mat-mini-fab
+        [disabled]="disabled"
+        (click)="onClickEvent($event)">
+  <mat-icon class="shared-fab-btn">{{icon}}</mat-icon>
+  <ng-content></ng-content>
 </button>

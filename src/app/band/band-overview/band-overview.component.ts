@@ -20,9 +20,7 @@ export class BandOverviewComponent implements OnInit, OnDestroy {
   public configuration: Configuration;
 
   public constructor(
-    private _authService: AuthService,
     private _bandService: BandService,
-    private _configurationService: ConfigurationService,
     private _titleService: TitleKeyService
   ) {
     this._subscriptions$ = new Subscription();
@@ -31,21 +29,9 @@ export class BandOverviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._subscriptions$.add(
-      this._authService.user$
-        .pipe(
-          mergeMap((user: User) => {
-            this._subscriptions$.add(
-              this._configurationService
-                .loadConfigurationForUser(user.uid)
-                .pipe(tap((configuration: Configuration) => (this.configuration = configuration)))
-                .subscribe()
-            );
-            if (user.bandId) {
-              return this._bandService.getBandByBandId(user.bandId).pipe(tap((band: Band) => (this.band = band)));
-            }
-          })
-        )
-        .subscribe()
+      this._bandService.band$.subscribe((band: Band) => {
+        this.band = band;
+      })
     );
   }
 

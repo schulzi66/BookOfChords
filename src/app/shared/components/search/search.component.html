@@ -1,7 +1,15 @@
 <mat-form-field appearance="outline">
-    <mat-label>{{'search' | transloco}}</mat-label>
-    <input matInput [(ngModel)]="searchString" name="search" (keyup)="search()">
-    <button mat-button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
-        <mat-icon>close</mat-icon>
-    </button>
+  <mat-label>{{'search' | transloco}}</mat-label>
+  <input matInput
+         [(ngModel)]="searchString"
+         name="search"
+         (keyup)="search()">
+  <button mat-button
+          *ngIf="searchString"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="clearSearch()">
+    <mat-icon>close</mat-icon>
+  </button>
 </mat-form-field>

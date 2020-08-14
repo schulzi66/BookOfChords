@@ -1,18 +1,34 @@
-import { Injectable } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Band } from 'src/app/models/band';
 import { Setlist } from 'src/app/models/setlist';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BandService {
-  private _angularFirestore: AngularFirestore;
+export class BandService implements OnDestroy {
+  private _subscriptions$: Subscription;
 
-  constructor(angularFirestore: AngularFirestore) {
-    this._angularFirestore = angularFirestore;
+  public band$: Observable<Band> = of(null);
+
+  constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
+    this._subscriptions$ = new Subscription();
+    this._subscriptions$.add(
+      this._authService.user$.subscribe((user: User) => {
+        if (user.bandId) {
+          this.band$ = this.getBandByBandId(user.bandId);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.band$ = null;
+    this._subscriptions$.unsubscribe();
   }
 
   public saveBand(band: Band): string {
@@ -34,11 +50,7 @@ export class BandService {
     this.saveBand(band);
   }
 
-  public saveNewSetlistForBand(band: Band, setlist: Setlist): void {
-    this._angularFirestore.createId();
-  }
-
-  public getBandByBandId(bandId: string): Observable<Band> {
+  private getBandByBandId(bandId: string): Observable<Band> {
     return this._angularFirestore
       .collection<Band>('bands', (ref) => {
         return ref.where('id', '==', bandId);
