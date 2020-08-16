@@ -6,29 +6,18 @@ import { map } from 'rxjs/operators';
 import { Band } from 'src/app/models/band';
 import { Setlist } from 'src/app/models/setlist';
 import { User } from 'src/app/models/user';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BandService implements OnDestroy {
-  private _subscriptions$: Subscription;
-
-  public band$: Observable<Band> = of(null);
+export class BandService {
+  public band$: Observable<Band> = of(new Band());
 
   constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
-    this._subscriptions$ = new Subscription();
-    this._subscriptions$.add(
-      this._authService.user$.subscribe((user: User) => {
-        if (user.bandId) {
-          this.band$ = this.getBandByBandId(user.bandId);
-        }
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.band$ = null;
-    this._subscriptions$.unsubscribe();
+    if (this._authService.user.bandId) {
+      this.band$ = this.getBandByBandId(this._authService.user.bandId);
+    }
   }
 
   public saveBand(band: Band): string {
@@ -50,7 +39,7 @@ export class BandService implements OnDestroy {
     this.saveBand(band);
   }
 
-  private getBandByBandId(bandId: string): Observable<Band> {
+  public getBandByBandId(bandId: string): Observable<Band> {
     return this._angularFirestore
       .collection<Band>('bands', (ref) => {
         return ref.where('id', '==', bandId);

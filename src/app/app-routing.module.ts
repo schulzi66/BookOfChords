@@ -1,3 +1,5 @@
+import { DrawerActionResolver } from './shared/resolvers/drawer-action.resolver';
+import { BandService } from 'src/app/band/services/band.service';
 import { DemoComponent } from './demo/demo.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LoginComponent } from './login/login.component';
@@ -22,13 +24,9 @@ const routes: Routes = [
   },
   {
     path: 'songs',
-    component: SongsOverviewComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'edit-song',
-    component: SongDetailsviewComponent,
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./songs/songs.module').then((m) => m.SongsModule),
+    canActivate: [AuthGuard],
+
   },
   {
     path: 'gigs',

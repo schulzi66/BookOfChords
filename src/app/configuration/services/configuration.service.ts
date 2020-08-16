@@ -16,7 +16,11 @@ export class ConfigurationService implements OnDestroy {
   constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
     this._subscriptions$ = new Subscription();
     this._subscriptions$.add(
-      this._authService.user$.subscribe((user) => (this.configuration$ = this.loadConfigurationForUser(user.uid)))
+      this._authService.user$.subscribe((user) => {
+        if (user) {
+          this.configuration$ = this.loadConfigurationForUser(user.uid);
+        }
+      })
     );
   }
 
