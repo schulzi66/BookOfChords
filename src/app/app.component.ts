@@ -1,5 +1,5 @@
 import { TitleKeyService } from './services/title-key.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { translate, TranslocoService } from '@ngneat/transloco';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
@@ -10,17 +10,23 @@ import { MessagingService } from './services/messaging.service';
 import { PwaService } from './services/pwa.service';
 import { RockNRollSnackbarComponent } from './shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { Subscription } from 'rxjs';
+import { DrawerActionService } from './services/drawer-action.service';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   private _subscriptions$: Subscription;
+
+  @ViewChild('drawer') private _drawer: MatDrawer;
+
   constructor(
     public authService: AuthService,
     public pwaService: PwaService,
+    public drawerActionService: DrawerActionService,
     private _configurationService: ConfigurationService,
     private _translocoService: TranslocoService,
     private _messagingService: MessagingService,
@@ -32,21 +38,30 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._subscriptions$.add(
-      this._configurationService.configuration$.subscribe((configuration: Configuration) => {
-        this._translocoService.setActiveLang(configuration.lang);
+      this.authService.user$.subscribe((user: User) => {
+        this._messagingService.getPermission(user);
+        this._messagingService.monitorRefresh(user);
+        this._messagingService.receiveMessages();
+        this._messagingService.currentMessage$.subscribe((message) => {
+          this._snackbar.openFromComponent(RockNRollSnackbarComponent, {
+            data: {
+              message: translate<string>('notification_data'),
+              route: 'band'
+            }
+          });
+        });
+
+        this._subscriptions$.add(
+          this._configurationService.configuration$.subscribe((configuration: Configuration) => {
+            this._translocoService.setActiveLang(configuration.lang);
+          })
+        );
       })
     );
-    this._messagingService.getPermission(this.authService.user);
-    this._messagingService.monitorRefresh(this.authService.user);
-    this._messagingService.receiveMessages();
-    this._messagingService.currentMessage$.subscribe((message) => {
-      this._snackbar.openFromComponent(RockNRollSnackbarComponent, {
-        data: {
-          message: translate<string>('notification_data'),
-          route: 'band'
-        }
-      });
-    });
+  }
+
+  ngAfterViewInit(): void {
+    this.drawerActionService.drawer = this._drawer;
   }
 
   ngOnDestroy(): void {

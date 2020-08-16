@@ -9,19 +9,21 @@ import { AllMaterialModule } from '../material-module';
 import { SharedModule } from '../shared/shared.module';
 import { SongDetailsviewComponent } from './song-detailsview/song-detailsview.component';
 import { SongsOverviewComponent } from './songs-overview/songs-overview.component';
+import { SongRoutes } from './songs.routing';
 
 @NgModule({
-	declarations: [ SongsOverviewComponent, SongDetailsviewComponent ],
-	imports: [
-		CommonModule,
-		FormsModule,
-		SharedModule,
-		AllMaterialModule,
-		NgxExtendedPdfViewerModule,
-		// PinchZoomModule,
-        TranslocoModule,
-        ClipboardModule
-	],
-	exports: [ SongsOverviewComponent, SongDetailsviewComponent ]
+  declarations: [SongsOverviewComponent, SongDetailsviewComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    SharedModule,
+    SongRoutes,
+    AllMaterialModule,
+    NgxExtendedPdfViewerModule,
+    // PinchZoomModule,
+    TranslocoModule,
+    ClipboardModule
+  ],
+  exports: [SongsOverviewComponent, SongDetailsviewComponent]
 })
 export class SongsModule {}

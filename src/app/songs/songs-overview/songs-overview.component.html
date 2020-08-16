@@ -19,7 +19,7 @@
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
       <button mat-button
-              (click)="editSelectedSong()">
+              [routerLink]="['/songs/edit', song.id]">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-button
