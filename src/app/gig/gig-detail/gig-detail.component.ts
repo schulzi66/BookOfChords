@@ -61,7 +61,7 @@ export class GigDetailComponent implements OnInit {
   }
 
   public editSelectedSong(): void {
-    this._router.navigate(['/edit-song']);
+    this._router.navigate(['/songs/edit', this._songService.selectedSong.id]);
   }
 
   public togglePlayMode(): void {

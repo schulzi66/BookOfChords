@@ -56,7 +56,7 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
 
   public createNewSong(): void {
     this.removeSelectedSong();
-    this._router.navigate(['/edit-song']);
+    this._router.navigate(['./songs/edit', -1]);
   }
 
   public setSelectedSong(song: Song): void {
@@ -65,10 +65,6 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
 
   public removeSelectedSong(): void {
     this._songService.removeSelectedSong();
-  }
-
-  public editSelectedSong(): void {
-    this._router.navigate(['/edit-song']);
   }
 
   public copySelectedSong(song: Song): void {

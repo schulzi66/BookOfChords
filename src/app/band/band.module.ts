@@ -17,36 +17,36 @@ import { KonzertmeisterIntegrationComponent } from './konzertmeister-integration
 import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		BandRoutes,
-		SharedModule,
-		AllMaterialModule,
-		FormsModule,
-		NgxExtendedPdfViewerModule,
-		TranslocoModule
-	],
-	declarations: [
-		BandOverviewComponent,
-		NoBandOverviewComponent,
-		BandCreateComponent,
-		BandJoinComponent,
-		KonzertmeisterIntegrationComponent,
-		BandDetailComponent,
-		BandEditComponent,
-		BandSetlistOverviewComponent,
-		BandSetlistEditComponent
-	],
-	exports: [
-		BandOverviewComponent,
-		NoBandOverviewComponent,
-		BandCreateComponent,
-		BandJoinComponent,
-		KonzertmeisterIntegrationComponent,
-		BandDetailComponent,
-		BandEditComponent,
-		BandSetlistOverviewComponent,
-		BandSetlistEditComponent
-	]
+  imports: [
+    CommonModule,
+    BandRoutes,
+    SharedModule,
+    AllMaterialModule,
+    FormsModule,
+    NgxExtendedPdfViewerModule,
+    TranslocoModule
+  ],
+  declarations: [
+    BandOverviewComponent,
+    NoBandOverviewComponent,
+    BandCreateComponent,
+    BandJoinComponent,
+    KonzertmeisterIntegrationComponent,
+    BandDetailComponent,
+    BandEditComponent,
+    BandSetlistOverviewComponent,
+    BandSetlistEditComponent
+  ],
+  exports: [
+    BandOverviewComponent,
+    NoBandOverviewComponent,
+    BandCreateComponent,
+    BandJoinComponent,
+    KonzertmeisterIntegrationComponent,
+    BandDetailComponent,
+    BandEditComponent,
+    BandSetlistOverviewComponent,
+    BandSetlistEditComponent
+  ]
 })
 export class BandModule {}
