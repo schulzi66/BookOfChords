@@ -3,11 +3,11 @@ export const environment = {
 };
 
 export const firebaseConfig = {
- apiKey: "***REMOVED***",
-  authDomain: "book-of-chords.firebaseapp.com",
-  databaseURL: "https://book-of-chords.firebaseio.com",
-  projectId: "book-of-chords",
-  storageBucket: "book-of-chords.appspot.com",
-  messagingSenderId: "149787186867",
-  appId: "***REMOVED***"
+  apiKey: '**Insert Key here**',
+  authDomain: 'book-of-chords.firebaseapp.com',
+  databaseURL: '**Insert database url here**',
+  projectId: '**Insert project id here**',
+  storageBucket: '**Insert storage bucket here**',
+  messagingSenderId: '**Insert massaging sender id here**',
+  appId: '**Insert app id here'
 };
