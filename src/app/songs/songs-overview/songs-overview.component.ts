@@ -1,3 +1,4 @@
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { TitleKeyService, TITLEKEYS } from '../../services/title-key.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -22,9 +23,9 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./songs-overview.component.scss']
 })
 export class SongsOverviewComponent implements OnInit, OnDestroy {
-  private _songs: Song[];
   public filteredSongs: Song[];
 
+  private _songs: Song[];
   private _subscriptions$: Subscription;
 
   constructor(
@@ -34,11 +35,17 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
     private _matDialog: MatDialog,
     private _clipboardService: ClipboardService,
     private _snackBar: MatSnackBar,
-    private _titleService: TitleKeyService,
+    private _navbarActionService: NavbarActionService,
     public configurationService: ConfigurationService
   ) {
     this._subscriptions$ = new Subscription();
-    this._titleService.currentTitleKey = TITLEKEYS.songs;
+    this._navbarActionService.registerActions([
+      {
+        order: 100,
+        icon: 'add',
+        action: () => this.createNewSong()
+      }
+    ]);
   }
 
   ngOnInit() {

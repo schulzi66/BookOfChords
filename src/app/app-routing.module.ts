@@ -1,12 +1,10 @@
-import { DrawerActionResolver } from './shared/resolvers/drawer-action.resolver';
-import { BandService } from 'src/app/band/services/band.service';
+import { TitleKeyResolver } from './shared/resolvers/title-key.resolver';
 import { DemoComponent } from './demo/demo.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { SongDetailsviewComponent } from './songs/song-detailsview/song-detailsview.component';
-import { SongsOverviewComponent } from './songs/songs-overview/songs-overview.component';
+import { TITLEKEYS } from './services/title-key.service';
 
 const routes: Routes = [
   {
@@ -16,32 +14,43 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    resolve: { key: TitleKeyResolver },
+    data: { key: TITLEKEYS.default }
   },
   {
     path: 'demo',
-    component: DemoComponent
+    component: DemoComponent,
+    resolve: { key: TitleKeyResolver },
+    data: { key: TITLEKEYS.demo }
   },
   {
     path: 'songs',
     loadChildren: () => import('./songs/songs.module').then((m) => m.SongsModule),
     canActivate: [AuthGuard],
-
+    resolve: { key: TitleKeyResolver },
+    data: { key: TITLEKEYS.songs }
   },
   {
     path: 'gigs',
     loadChildren: () => import('./gig/gig.module').then((m) => m.GigModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: { key: TitleKeyResolver },
+    data: { key: TITLEKEYS.gigs }
   },
   {
     path: 'configuration',
     loadChildren: () => import('./configuration/configuration.module').then((m) => m.ConfigurationModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: { key: TitleKeyResolver },
+    data: { key: TITLEKEYS.configuration }
   },
   {
     path: 'band',
     loadChildren: () => import('./band/band.module').then((m) => m.BandModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: { key: TitleKeyResolver },
+    data: { key: TITLEKEYS.band }
   }
 ];
 

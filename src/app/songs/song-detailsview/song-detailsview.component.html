@@ -1,15 +1,14 @@
-<mat-form-field appearance="outline"
-                class="song-name">
-  <mat-label>{{'song_name' | transloco}}
-  </mat-label>
-  <input matInput
-         required
-         [(ngModel)]="song.name"
-         name="songName">
-</mat-form-field>
-<shared-fab-btn [icon]="'add'"
-                (onClick)="addNewSection()"></shared-fab-btn>
-
+<div class="flex-container">
+  <mat-form-field appearance="outline"
+                  class="song-name">
+    <mat-label>{{'song_name' | transloco}}
+    </mat-label>
+    <input matInput
+           required
+           [(ngModel)]="song.name"
+           name="songName">
+  </mat-form-field>
+</div>
 <shared-metronome [bpm]="song.bpm"
                   (onBpmChanged)="updateBpm($event)"></shared-metronome>
 
@@ -28,8 +27,10 @@
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"></textarea>
   </mat-form-field>
-  <shared-fab-btn [icon]="'delete'"
-                  (onClick)="removeSection(i)"></shared-fab-btn>
+  <button mat-icon-button
+          (click)="removeSection(i)">
+    <mat-icon>delete_outline</mat-icon>
+  </button>
 </div>
 <br>
 
@@ -38,16 +39,22 @@
   <img class="picture"
        [src]="picture">
   <!-- </pinch-zoom> -->
-  <shared-fab-btn [icon]="'delete'"
-                  (onClick)="removePicture(i)"></shared-fab-btn>
+  <button mat-icon-button
+          (click)="removePicture(i)">
+    <mat-icon>delete_outline</mat-icon>
+  </button>
 </div>
 <div *ngFor="let pdf of song?.pdfs; index as i">
   <ngx-extended-pdf-viewer [src]="pdf"
                            useBrowserLocale="true"
                            height="80vh"></ngx-extended-pdf-viewer>
-  <shared-fab-btn [icon]="'delete'"
-                  (onClick)="removePdf(i)"></shared-fab-btn>
+  <button mat-icon-button
+          (click)="removePdf(i)">
+    <mat-icon>delete_outline</mat-icon>
+  </button>
 </div>
 
-<uploader [storageBucketPrefix]="'songs'"
+
+<uploader *ngIf="this.showUpload"
+          [storageBucketPrefix]="'songs'"
           (onUploadComplete)="onImageUploadCompleted($event)"></uploader>

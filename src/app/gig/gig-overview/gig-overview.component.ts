@@ -16,13 +16,8 @@ export class GigOverviewComponent implements OnInit, OnDestroy {
 
   private _subscriptions$: Subscription;
 
-  constructor(
-    private _gigService: GigService,
-    private _authService: AuthService,
-    private _titleService: TitleKeyService
-  ) {
+  constructor(private _gigService: GigService, private _authService: AuthService) {
     this._subscriptions$ = new Subscription();
-    this._titleService.currentTitleKey = TITLEKEYS.gigs;
   }
 
   ngOnInit() {

@@ -12,6 +12,7 @@ import { RockNRollSnackbarComponent } from './shared/components/rock-n-roll-snac
 import { Subscription } from 'rxjs';
 import { DrawerActionService } from './services/drawer-action.service';
 import { MatDrawer } from '@angular/material/sidenav';
+import { NavbarActionService } from './services/navbar-action.service';
 
 @Component({
   selector: 'app-root',
@@ -26,12 +27,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public authService: AuthService,
     public pwaService: PwaService,
+    public titleService: TitleKeyService,
+    public navbarActionService: NavbarActionService,
     public drawerActionService: DrawerActionService,
     private _configurationService: ConfigurationService,
     private _translocoService: TranslocoService,
     private _messagingService: MessagingService,
-    private _snackbar: MatSnackBar,
-    public titleService: TitleKeyService
+    private _snackbar: MatSnackBar
   ) {
     this._subscriptions$ = new Subscription();
   }
@@ -53,7 +55,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this._subscriptions$.add(
           this._configurationService.configuration$.subscribe((configuration: Configuration) => {
-            this._translocoService.setActiveLang(configuration.lang);
+            if (configuration) {
+              this._translocoService.setActiveLang(configuration.lang);
+            }
           })
         );
       })

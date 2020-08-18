@@ -8,7 +8,5 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(public authService: AuthService, private _titleService: TitleKeyService) {
-    this._titleService.currentTitleKey = TITLEKEYS.default;
-  }
+  constructor(public authService: AuthService) {}
 }

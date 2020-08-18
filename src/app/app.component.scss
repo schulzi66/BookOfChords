@@ -7,13 +7,13 @@
 }
 
 .title {
-    flex-grow: 9;
-    margin-left: 40px;
     font-family: Arial;
+    padding: 0 0 0 10px;
 }
 
-.menu {
-    flex-grow: 1;
+.action-bar {
+    display: flex;
+    flex-grow: 9;
 }
 
 .drawer-container {

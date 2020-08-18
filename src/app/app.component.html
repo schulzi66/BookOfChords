@@ -8,7 +8,7 @@
           <mat-list-item class="navigation-item"
                          [routerLink]="['./songs']"
                          (click)="drawer.close()">
-            <mat-icon>music_note</mat-icon>
+            <mat-icon fontSet="material-icons-outlined">music_note</mat-icon>
             <ng-template transloco
                          let-t>
               {{ t('songs') }}
@@ -17,7 +17,7 @@
           <mat-list-item class="navigation-item"
                          [routerLink]="['./gigs']"
                          (click)="drawer.close()">
-            <mat-icon>queue_music</mat-icon>
+            <mat-icon fontSet="material-icons-outlined">queue_music</mat-icon>
             <ng-template transloco
                          let-t>
               {{ t('gigs') }}
@@ -26,7 +26,7 @@
           <mat-list-item class="navigation-item"
                          [routerLink]="['./band']"
                          (click)="drawer.close()">
-            <mat-icon>group</mat-icon>
+            <mat-icon fontSet="material-icons-outlined">group</mat-icon>
             <ng-template transloco
                          let-t>
               {{ t('band') }}
@@ -35,7 +35,7 @@
           <mat-list-item class="navigation-item"
                          [routerLink]="['./configuration']"
                          (click)="drawer.close()">
-            <mat-icon>settings</mat-icon>
+            <mat-icon fontSet="material-icons-outlined">settings</mat-icon>
             <ng-template transloco
                          let-t>
               {{ t('settings') }}
@@ -47,7 +47,7 @@
                        [routerLink]="['./login']"
                        (click)="drawer.close()"
                        *ngIf="(this.authService.user$ | async) === null">
-          <mat-icon>lock_open</mat-icon>
+          <mat-icon fontSet="material-icons-outlined">lock_open</mat-icon>
           <ng-template transloco
                        let-t>
             {{ t('login') }}
@@ -56,7 +56,7 @@
         <mat-list-item class="navigation-item"
                        [routerLink]="['./demo']"
                        (click)="drawer.close()">
-          <mat-icon>play_circle_outline</mat-icon>
+          <mat-icon fontSet="material-icons-outlined">play_circle_outline</mat-icon>
           <ng-template transloco
                        let-t>
             {{ t('demo') }}
@@ -74,7 +74,7 @@
         <mat-list-item class="navigation-item"
                        *ngIf="pwaService.promptEvent"
                        (click)="installPwa(); drawer.close()">
-          <mat-icon>save_alt</mat-icon>
+          <mat-icon fontSet="material-icons-outlined">save_alt</mat-icon>
           <ng-template transloco
                        let-t>
             {{ t('install') }}
@@ -89,7 +89,16 @@
             (click)="this.drawerActionService.executeAction()">
       <mat-icon>{{this.drawerActionService.iconKey}}</mat-icon>
     </button>
-    <span>{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
+    <span class="title">{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
+
+    <div class="action-bar" dir="rtl">      
+      <div *ngFor="let action of (this.navbarActionService.navbarActions$ |async)">
+        <button mat-icon-button (click)="this.action.action()">
+          <mat-icon>{{action.icon}}</mat-icon>
+        </button>
+      </div>
+    </div>
+
   </mat-toolbar>
 
   <div class="app-content">

@@ -3,11 +3,11 @@
   <mat-card-header class="card-header">
     <mat-card-title>{{bpm}}</mat-card-title>
     <mat-card-subtitle>BPM</mat-card-subtitle>
-    <shared-fab-btn *ngIf="showPlay"
-                    class="play-btn"
-                    [icon]="playModeIcon"
-                    (onClick)="togglePlayMode()">
-    </shared-fab-btn>
+    <button mat-icon-button
+            *ngIf="showPlay"
+            (click)="togglePlayMode()">
+      <mat-icon fontSet="material-icons-outlined">{{this.playModeIcon}}</mat-icon>
+    </button>
   </mat-card-header>
   <mat-card-content>
     <input #bpmSlider

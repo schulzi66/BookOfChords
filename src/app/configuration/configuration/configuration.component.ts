@@ -24,11 +24,9 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     private _configurationService: ConfigurationService,
     private _authService: AuthService,
     private _location: Location,
-    private _translocoService: TranslocoService,
-    private _titleService: TitleKeyService
+    private _translocoService: TranslocoService
   ) {
     this._subscriptions$ = new Subscription();
-    this._titleService.currentTitleKey = TITLEKEYS.configuration;
   }
 
   ngOnInit() {

@@ -1,3 +1,4 @@
+import { INavbarAction } from './../../models/navbar-action';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { GigService } from '../../gig/services/gig.service';
@@ -6,6 +7,7 @@ import { SongSection } from '../../models/song-section';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 
 @Component({
   selector: 'app-song-detailsview',
@@ -14,17 +16,29 @@ import { SongService } from '../services/song.service';
 })
 export class SongDetailsviewComponent implements OnInit {
   public song: Song;
+  public showUpload: boolean = false;
 
-  private _location: Location;
-  private _songService: SongService;
-  private _authService: AuthService;
-  private _gigService: GigService;
-
-  constructor(location: Location, songService: SongService, authService: AuthService, gigService: GigService) {
-    this._location = location;
-    this._songService = songService;
-    this._authService = authService;
-    this._gigService = gigService;
+  constructor(
+    private _location: Location,
+    private _songService: SongService,
+    private _authService: AuthService,
+    private _gigService: GigService,
+    private _navbarActionService: NavbarActionService
+  ) {
+    this._navbarActionService.registerActions([
+      {
+        order: 100,
+        icon: 'add',
+        action: () => this.addNewSection()
+      },
+      {
+        order: 200,
+        icon: 'attach_file',
+        action: () => {
+          this.showUpload = !this.showUpload;
+        }
+      }
+    ]);
   }
 
   ngOnInit() {

@@ -2,9 +2,6 @@
   <app-search (onSearch)="searchForSong($event)"
               (onClear)="clearSearch()"
               class="search-input"></app-search>
-  <shared-fab-btn class="new-song-btn"
-                  [icon]="'add'"
-                  (onClick)="createNewSong()"></shared-fab-btn>
 </div>
 <mat-accordion>
   <mat-expansion-panel *ngFor="let song of filteredSongs; index as i"
@@ -18,17 +15,17 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
-      <button mat-button
+      <button mat-icon-button
               [routerLink]="['/songs/edit', song.id]">
-        <mat-icon>edit</mat-icon>
+        <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
       </button>
-      <button mat-button
+      <button mat-icon-button
               (click)="copySelectedSong(song)">
-        <mat-icon>assignment</mat-icon>
+        <mat-icon>content_copy</mat-icon>
       </button>
-      <button mat-button
+      <button mat-icon-button
               (click)="deleteSelectedSong(song)">
-        <mat-icon>delete</mat-icon>
+        <mat-icon>delete_outline</mat-icon>
       </button>
       <div class="song-panel-body"
            *ngFor="let section of song.sections">

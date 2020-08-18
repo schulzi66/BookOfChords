@@ -19,12 +19,8 @@ export class BandOverviewComponent implements OnInit, OnDestroy {
   public band: Band;
   public configuration: Configuration;
 
-  public constructor(
-    private _bandService: BandService,
-    private _titleService: TitleKeyService
-  ) {
+  public constructor(private _bandService: BandService) {
     this._subscriptions$ = new Subscription();
-    this._titleService.currentTitleKey = TITLEKEYS.band;
   }
 
   ngOnInit() {

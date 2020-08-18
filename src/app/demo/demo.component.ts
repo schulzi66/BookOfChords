@@ -7,7 +7,5 @@ import { TitleKeyService, TITLEKEYS } from '../services/title-key.service';
   styleUrls: ['./demo.component.scss']
 })
 export class DemoComponent {
-  constructor(private _titleService: TitleKeyService) {
-    this._titleService.currentTitleKey = TITLEKEYS.demo;
-  }
+  constructor() {}
 }

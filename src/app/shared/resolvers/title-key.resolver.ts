@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TitleKeyResolver implements Resolve<any> {
-  constructor(private service: TitleKeyService, private _router: Router, private _location: Location) {}
+  constructor(private _titleKeyService: TitleKeyService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    console.log(this._router.url);
+    this._titleKeyService.currentTitleKey = route.data['key'];
   }
 }
