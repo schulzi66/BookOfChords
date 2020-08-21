@@ -21,7 +21,7 @@ export class DrawerActionService {
   }
 
   constructor() {
-    this._iconKey = 'menu';
+    this._iconKey = DEFAULT_DRAWER_ICON_KEY;
   }
   private _iconKey: string;
 

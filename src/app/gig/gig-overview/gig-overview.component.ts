@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Gig } from '../../models/gig';
 import { User } from '../../models/user';
@@ -5,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { GigService } from '../services/gig.service';
 import { TitleKeyService, TITLEKEYS } from 'src/app/services/title-key.service';
 import { Subscription } from 'rxjs';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 
 @Component({
   selector: 'app-gig-overview',
@@ -16,7 +18,19 @@ export class GigOverviewComponent implements OnInit, OnDestroy {
 
   private _subscriptions$: Subscription;
 
-  constructor(private _gigService: GigService, private _authService: AuthService) {
+  constructor(
+    private _gigService: GigService,
+    private _authService: AuthService,
+    private _navbarActionService: NavbarActionService,
+    private _router: Router
+  ) {
+    this._navbarActionService.registerActions([
+      {
+        order: 100,
+        icon: 'add',
+        action: () => this.createNewGig()
+      }
+    ]);
     this._subscriptions$ = new Subscription();
   }
 
@@ -33,10 +47,11 @@ export class GigOverviewComponent implements OnInit, OnDestroy {
   }
 
   public createNewGig(): void {
-    this._gigService.removeSelectedGig();
+      this._gigService.removeSelectedGig();
+      this._router.navigate(['/gigs/edit', -1]);
   }
 
-  public editGig(gig: Gig): void {
+  public viewDetails(gig: Gig): void {
     this._gigService.storeSelectedGig(gig);
   }
 }

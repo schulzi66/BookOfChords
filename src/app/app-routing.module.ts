@@ -8,11 +8,6 @@ import { TITLEKEYS } from './services/title-key.service';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'songs',
-    pathMatch: 'full'
-  },
-  {
     path: 'login',
     component: LoginComponent,
     resolve: { key: TitleKeyResolver },
@@ -55,7 +50,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true })],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

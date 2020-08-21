@@ -1,14 +1,12 @@
-import { Location } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { TranslocoService } from '@ngneat/transloco';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
-import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { TitleKeyService, TITLEKEYS } from 'src/app/services/title-key.service';
 import { Subscription } from 'rxjs';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 
 @Component({
   selector: 'app-configuration',
@@ -23,9 +21,18 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   constructor(
     private _configurationService: ConfigurationService,
     private _authService: AuthService,
-    private _location: Location,
-    private _translocoService: TranslocoService
+    private _translocoService: TranslocoService,
+    private _navbarActionService: NavbarActionService
   ) {
+    this._navbarActionService.registerActions([
+      {
+        order: 100,
+        icon: 'save',
+        action: () => {
+          this._configurationService.saveConfigurationForUser(this.configuration);
+        }
+      }
+    ]);
     this._subscriptions$ = new Subscription();
   }
 
@@ -48,30 +55,21 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
 
   public fontSizeHeaderChanged(event: MatSelectChange): void {
     this.configuration.fontSizeHeader = event.value;
-    this._configurationService.saveConfigurationForUser(this.configuration);
   }
 
   public fontSizeSectionChanged(event: MatSelectChange): void {
     this.configuration.fontSizeSection = event.value;
-    this._configurationService.saveConfigurationForUser(this.configuration);
   }
 
   public fontFamilyChanged(event: MatSelectChange): void {
     this.configuration.fontFamily = event.value;
-    this._configurationService.saveConfigurationForUser(this.configuration);
   }
 
   public useKonzertmeisterChanged(event: MatSlideToggleChange): void {
     this.configuration.useKonzertmeister = event.checked;
-    this._configurationService.saveConfigurationForUser(this.configuration);
   }
 
   public langChanged(event: MatSelectChange): void {
     this.configuration.lang = event.value;
-    this._configurationService.saveConfigurationForUser(this.configuration);
-  }
-
-  public goBack(): void {
-    this._location.back();
   }
 }

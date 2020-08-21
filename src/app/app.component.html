@@ -87,14 +87,14 @@
   <mat-toolbar>
     <button mat-icon-button
             (click)="this.drawerActionService.executeAction()">
-      <mat-icon>{{this.drawerActionService.iconKey}}</mat-icon>
+      <mat-icon fontSet="material-icons-outlined">{{this.drawerActionService.iconKey}}</mat-icon>
     </button>
     <span class="title">{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
 
     <div class="action-bar" dir="rtl">      
       <div *ngFor="let action of (this.navbarActionService.navbarActions$ |async)">
         <button mat-icon-button (click)="this.action.action()">
-          <mat-icon>{{action.icon}}</mat-icon>
+          <mat-icon fontSet="material-icons-outlined">{{action.icon}}</mat-icon>
         </button>
       </div>
     </div>

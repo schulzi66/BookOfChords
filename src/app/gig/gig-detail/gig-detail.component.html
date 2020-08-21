@@ -1,8 +1,4 @@
 <div class="flex-container">
-  <shared-fab-btn *ngIf="!isPlayMode"
-                  class="back-btn"
-                  [icon]="'arrow_back'"
-                  (onClick)="goBack()"></shared-fab-btn>
   <mat-form-field *ngIf="!isPlayMode"
                   appearance="outline"
                   class="gig-name">
@@ -11,13 +7,6 @@
            [(ngModel)]="gig.name"
            name="gigName">
   </mat-form-field>
-  <shared-fab-btn *ngIf="!isPlayMode"
-                  class="edit-btn"
-                  [icon]="'edit'"
-                  [routerLink]="['../edit']"></shared-fab-btn>
-  <shared-fab-btn class="play-btn"
-                  [icon]="playModeIcon"
-                  (onClick)="togglePlayMode()"></shared-fab-btn>
 </div>
 
 <mat-accordion #songAccordion="matAccordion"
@@ -34,7 +23,7 @@
     <div class="placeholder"
          *cdkDragPlaceholder></div>
     <mat-expansion-panel-header class="panel-header">
-      <mat-panel-title [style.font-family]="(this._configurationService.configuration$ | async)?.fontFamily">
+      <mat-panel-title [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
         <h3>{{song.name}}</h3>
       </mat-panel-title>
       <mat-panel-description class="panel-description">
@@ -45,7 +34,7 @@
       <button *ngIf="!isPlayMode"
               mat-button
               (click)="editSelectedSong()">
-        <mat-icon>edit</mat-icon>
+        <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
       </button>
       <shared-metronome *ngIf="isPlayMode"
                         [bpm]="song.bpm"
@@ -53,13 +42,13 @@
       <div class="song-panel-body"
            *ngFor="let section of song.sections">
         <h5 class="section-name"
-            [style.fontSize]="(this._configurationService.configuration$ | async)?.fontSizeHeader"
-            [style.font-family]="(this._configurationService.configuration$ | async)?.fontFamily">{{section.name}}</h5>
+            [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
+            [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{section.name}}</h5>
         <div class="section-value-flex-wrapper">
           <div class="section-value"
                *ngFor="let value of section.value"
-               [style.fontSize]="(this._configurationService.configuration$ | async)?.fontSizeSection"
-               [style.font-family]="(this._configurationService.configuration$ | async)?.fontFamily">{{value}}</div>
+               [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
+               [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{value}}</div>
         </div>
         <mat-divider></mat-divider>
       </div>

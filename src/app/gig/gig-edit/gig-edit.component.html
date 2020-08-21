@@ -9,9 +9,6 @@
 <!-- #endregion-->
 
 <div class="flex-container">
-  <shared-fab-btn class="back-btn"
-                  [icon]="'arrow_back'"
-                  (onClick)="goBack()"></shared-fab-btn>
   <mat-form-field appearance="outline"
                   class="gig-name"
                   *ngIf="!filterToggle; else filterTemplate">
@@ -20,14 +17,6 @@
            [(ngModel)]="gig.name"
            name="gigName">
   </mat-form-field>
-
-  <shared-fab-btn *ngIf="!isNewGig"
-                  class="delete-btn"
-                  [icon]="'delete'"
-                  (onClick)="deleteGig()"></shared-fab-btn>
-  <shared-fab-btn class="filter-btn"
-                  [icon]="filterIcon"
-                  (onClick)="toggleFilter()"></shared-fab-btn>
 </div>
 
 <mat-selection-list #songs

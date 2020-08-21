@@ -1,7 +1,7 @@
+import { INavbarAction } from './../models/navbar-action';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { INavbarAction } from '../models/navbar-action';
 import { filter } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
@@ -19,8 +19,8 @@ export class NavbarActionService {
     });
   }
 
-  public registerActions(actions: INavbarAction[]) {
+  public registerActions(actions: INavbarAction[]): number {
     this._actions = [];
-    this._actions.push(...actions);
+    return this._actions.push(...actions);
   }
 }

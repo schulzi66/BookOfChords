@@ -19,7 +19,6 @@ export class SongDetailsviewComponent implements OnInit {
   public showUpload: boolean = false;
 
   constructor(
-    private _location: Location,
     private _songService: SongService,
     private _authService: AuthService,
     private _gigService: GigService,
@@ -33,6 +32,11 @@ export class SongDetailsviewComponent implements OnInit {
       },
       {
         order: 200,
+        icon: 'save',
+        action: () => this.saveSong()
+      },
+      {
+        order: 300,
         icon: 'attach_file',
         action: () => {
           this.showUpload = !this.showUpload;
@@ -52,13 +56,12 @@ export class SongDetailsviewComponent implements OnInit {
     this.song.sections.push(new SongSection());
   }
 
-  public goBack(): void {
+  public saveSong(): void {
     if (this.song.name && this._authService.user) {
       this.song.uid = this._authService.user.uid;
       this._songService.saveSong(this.song);
       this._gigService.updateSongInGigsForUser(this._authService.user.uid, this.song);
     }
-    this._location.back();
   }
 
   public removeSection(index: number): void {

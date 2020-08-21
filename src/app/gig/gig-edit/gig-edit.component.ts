@@ -13,6 +13,7 @@ import { SongService } from '../../songs/services/song.service';
 import { GigService } from '../services/gig.service';
 import { AuthService } from './../../services/auth.service';
 import { Subscription } from 'rxjs';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 
 @Component({
   selector: 'app-gig-edit',
@@ -42,10 +43,11 @@ export class GigEditComponent implements OnInit, OnDestroy {
     private _gigService: GigService,
     private _songService: SongService,
     private _authService: AuthService,
-    private _location: Location,
     private _matDialog: MatDialog,
-    private _router: Router
+    private _router: Router,
+    private _navbarActionService: NavbarActionService
   ) {
+    this.registerNavbarActions();
     this._subscriptions$ = new Subscription();
   }
 
@@ -57,6 +59,7 @@ export class GigEditComponent implements OnInit, OnDestroy {
     if (!this.gig) {
       this.gig = new Gig('New Gig');
     }
+
     this._currentUser = this._authService.user;
     this._subscriptions$.add(
       this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
@@ -87,12 +90,11 @@ export class GigEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  public goBack(): void {
+  public saveGig(): void {
     if (this.isValidGig) {
       this.gig.uid = this._currentUser.uid;
       this._gigService.saveGig(this.gig);
     }
-    this._location.back();
   }
 
   public searchForSong(searchString: string): void {
@@ -106,6 +108,7 @@ export class GigEditComponent implements OnInit, OnDestroy {
   public toggleFilter(): void {
     this.filterToggle ? (this.filterIcon = 'search') : (this.filterIcon = 'text_fields');
     this.filterToggle = !this.filterToggle;
+    this.registerNavbarActions();
     this.clearSearch();
   }
 
@@ -127,5 +130,31 @@ export class GigEditComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  private registerNavbarActions(): void {
+    this._navbarActionService.registerActions([
+      {
+        order: 100,
+        icon: 'save',
+        action: () => {
+          this.saveGig();
+        }
+      },
+      {
+        order: 200,
+        icon: 'delete',
+        action: () => {
+          this.deleteGig();
+        }
+      },
+      {
+        order: 300,
+        icon: this.filterIcon,
+        action: () => {
+          this.toggleFilter();
+        }
+      }
+    ]);
   }
 }
