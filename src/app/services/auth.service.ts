@@ -26,7 +26,11 @@ export class AuthService implements OnDestroy {
         }
       })
     );
-    this._subscriptions$.add(this.user$.subscribe((user: User) => (this.user = user)));
+    this._subscriptions$.add(
+      this.user$.subscribe((user: User) => {
+        this.user = user;
+      })
+    );
   }
 
   ngOnDestroy(): void {

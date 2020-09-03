@@ -26,6 +26,7 @@
     "@angular/router": "^10.0.8",
     "@angular/service-worker": "^10.0.8",
     "@ngneat/transloco": "2.18.4",
+    "angular-animations": "^0.0.10",
     "core-js": "3.6.5",
     "firebase": "7.17.2",
     "ngx-clipboard": "13.0.1",

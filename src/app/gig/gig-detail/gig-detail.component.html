@@ -15,8 +15,6 @@
                [hideToggle]="true"
                multi="isPlayMode">
   <mat-expansion-panel *ngFor="let song of gig?.songs; index as i"
-                       (opened)="setSelectedSong(song)"
-                       (closed)="removeSelectedSong()"
                        cdkDrag
                        [disabled]="isPlayMode"
                        [expanded]="isPlayMode">
@@ -33,7 +31,7 @@
     <ng-template matExpansionPanelContent>
       <button *ngIf="!isPlayMode"
               mat-button
-              (click)="editSelectedSong()">
+              (click)="editSelectedSong(song.id)">
         <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
       </button>
       <shared-metronome *ngIf="isPlayMode"

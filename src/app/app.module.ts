@@ -46,6 +46,7 @@ import { DemoComponent } from './demo/demo.component';
       useValue: translocoConfig({
         availableLangs: ['en', 'de'],
         defaultLang: 'en',
+        fallbackLang: 'en',
         reRenderOnLangChange: true,
         prodMode: environment.production
       })

@@ -7,6 +7,7 @@ import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 
 @Component({
   selector: 'app-band-edit',
@@ -18,6 +19,7 @@ export class BandEditComponent implements OnInit, OnDestroy {
   private _currentUser: User;
 
   public band: Band;
+  public showUpload: boolean = false;
 
   public get isUserBandAdmin(): boolean {
     if (this.band && this._currentUser) {
@@ -31,8 +33,23 @@ export class BandEditComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _bandService: BandService,
     private _authService: AuthService,
-    private _location: Location
+    private _location: Location,
+    private _navbarActionService: NavbarActionService
   ) {
+    this._navbarActionService.registerActions([
+      {
+        order: 100,
+        icon: 'save',
+        action: () => this._bandService.saveBand(this.band)
+      },
+      {
+        order: 200,
+        icon: 'attach_file',
+        action: () => {
+          this.showUpload = !this.showUpload;
+        }
+      }
+    ]);
     this._subscriptions$ = new Subscription();
     this.band = new Band();
   }
@@ -59,10 +76,5 @@ export class BandEditComponent implements OnInit, OnDestroy {
 
   public onImageUploadCompleted($event: string): void {
     this.band.pictureUrl = $event;
-  }
-
-  public goBack(): void {
-    this._bandService.saveBand(this.band);
-    this._location.back();
   }
 }

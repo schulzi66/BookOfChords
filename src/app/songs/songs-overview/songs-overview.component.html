@@ -1,57 +1,56 @@
-<div class="flex-container">
+<div class="flex-container" [@fadeInOnEnter]>
   <app-search (onSearch)="searchForSong($event)"
               (onClear)="clearSearch()"
               class="search-input"></app-search>
-</div>
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let song of filteredSongs; index as i"
-                       (opened)="setSelectedSong(song)"
-                       (closed)="removeSelectedSong()">
-    <mat-expansion-panel-header>
-      <mat-panel-title [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-        <h3>{{song.name}}</h3>
-      </mat-panel-title>
-      <mat-panel-description>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <button mat-icon-button
-              [routerLink]="['/songs/edit', song.id]">
-        <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
-      </button>
-      <button mat-icon-button
-              (click)="copySelectedSong(song)">
-        <mat-icon>content_copy</mat-icon>
-      </button>
-      <button mat-icon-button
-              (click)="deleteSelectedSong(song)">
-        <mat-icon>delete_outline</mat-icon>
-      </button>
-      <div class="song-panel-body"
-           *ngFor="let section of song.sections">
-        <h5 class="section-name"
-            [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
-            [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{section.name}}</h5>
-        <div class="section-value-flex-wrapper">
-          <div class="section-value"
-               *ngFor="let value of section.value"
-               [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
-               [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{value}}</div>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let song of filteredSongs; index as i">
+      <mat-expansion-panel-header>
+        <mat-panel-title [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+          <h3>{{song.name}}</h3>
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <button mat-icon-button
+                [routerLink]="['/songs/edit', song.id]">
+          <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+        </button>
+        <button mat-icon-button
+                (click)="copySelectedSong(song)">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+        <button mat-icon-button
+                (click)="deleteSelectedSong(song)">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+        <div class="song-panel-body"
+             *ngFor="let section of song.sections">
+          <h5 class="section-name"
+              [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
+              [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{section.name}}</h5>
+          <div class="section-value-flex-wrapper">
+            <div class="section-value"
+                 *ngFor="let value of section.value"
+                 [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
+                 [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{value}}</div>
+          </div>
+          <mat-divider></mat-divider>
         </div>
-        <mat-divider></mat-divider>
-      </div>
-      <div class="section-value"
-           *ngFor="let picture of song.pictures">
-        <!-- <pinch-zoom [zoom-button]="false"> -->
-        <img class="picture"
-             [src]="picture">
-        <!-- </pinch-zoom> -->
-      </div>
-      <div *ngFor="let pdf of song?.pdfs">
-        <ngx-extended-pdf-viewer [src]="pdf"
-                                 useBrowserLocale="true"
-                                 height="80vh"></ngx-extended-pdf-viewer>
-      </div>
-    </ng-template>
-  </mat-expansion-panel>
-</mat-accordion>
+        <div class="section-value"
+             *ngFor="let picture of song.pictures">
+          <!-- <pinch-zoom [zoom-button]="false"> -->
+          <img class="picture"
+               [src]="picture">
+          <!-- </pinch-zoom> -->
+        </div>
+        <div *ngFor="let pdf of song?.pdfs">
+          <ngx-extended-pdf-viewer [src]="pdf"
+                                   useBrowserLocale="true"
+                                   height="80vh"></ngx-extended-pdf-viewer>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

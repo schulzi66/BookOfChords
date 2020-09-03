@@ -1,3 +1,5 @@
+import { UserResolver } from './shared/resolvers/user.resolver';
+import { BandResolver } from './shared/resolvers/band.resolver';
 import { TitleKeyResolver } from './shared/resolvers/title-key.resolver';
 import { DemoComponent } from './demo/demo.component';
 import { AuthGuard } from './shared/guards/auth.guard';
@@ -23,8 +25,6 @@ const routes: Routes = [
     path: 'songs',
     loadChildren: () => import('./songs/songs.module').then((m) => m.SongsModule),
     canActivate: [AuthGuard],
-    resolve: { key: TitleKeyResolver },
-    data: { key: TITLEKEYS.songs }
   },
   {
     path: 'gigs',
@@ -44,7 +44,7 @@ const routes: Routes = [
     path: 'band',
     loadChildren: () => import('./band/band.module').then((m) => m.BandModule),
     canActivate: [AuthGuard],
-    resolve: { key: TitleKeyResolver },
+    resolve: { key: TitleKeyResolver, band: BandResolver },
     data: { key: TITLEKEYS.band }
   }
 ];

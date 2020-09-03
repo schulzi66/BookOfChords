@@ -1,12 +1,8 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BandService } from 'src/app/band/services/band.service';
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Band } from 'src/app/models/band';
-import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
 import { Configuration } from './../../models/configuration';
-import { TitleKeyService, TITLEKEYS } from 'src/app/services/title-key.service';
-import { mergeMap, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-band-overview',
@@ -19,13 +15,13 @@ export class BandOverviewComponent implements OnInit, OnDestroy {
   public band: Band;
   public configuration: Configuration;
 
-  public constructor(private _bandService: BandService) {
+  public constructor(public bandService: BandService, private _activatedRoute: ActivatedRoute) {
     this._subscriptions$ = new Subscription();
   }
 
   ngOnInit() {
     this._subscriptions$.add(
-      this._bandService.band$.subscribe((band: Band) => {
+      this.bandService.band$.subscribe((band: Band) => {
         this.band = band;
       })
     );
@@ -36,6 +32,8 @@ export class BandOverviewComponent implements OnInit, OnDestroy {
   }
 
   public get isUserInBand(): boolean {
+    // this.;
+    // return this._activatedRoute.snapshot.data['band'] !== undefined;
     return this.band !== undefined;
   }
 }

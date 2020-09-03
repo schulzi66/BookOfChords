@@ -1,27 +1,34 @@
-<shared-fab-btn [icon]="'arrow_back'"
-                (onClick)="goBack()"></shared-fab-btn>
-<div class="flex-container">
-  <mat-form-field appearance="outline"
-                  class="band-name">
-    <mat-label>{{'band_name' | transloco}}</mat-label>
-    <input matInput
-           required
-           [(ngModel)]="band.name">
-  </mat-form-field>
-  <img *ngIf="band.pictureUrl"
-       [src]="band.pictureUrl"
-       class="band-picture">
-  <div *ngFor="let member of band?.members; index as i"
-       class="member-list">
-    <img [src]="member?.photoURL"
-         class="profile-picture">
-    <mat-label class="member-value">{{member?.displayName}}</mat-label>
-    <button mat-button
-            *ngIf="isUserBandAdmin"
-            (onclick)="deleteMember(i)">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </div>
-  <uploader [storageBucketPrefix]="'bands'"
-            (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
-</div>
+<mat-card class="band-card">
+  <mat-card-header class="band-header">
+    <div *ngIf="band?.pictureUrl"
+         mat-card-avatar
+         [style.background-image]="'url(' + band?.pictureUrl +')'"
+         class="band-image"></div>
+    <mat-form-field appearance="legacy"
+                    class="band-name">
+      <mat-label>{{'band_name' | transloco}}</mat-label>
+      <input matInput
+             required
+             [(ngModel)]="band.name">
+    </mat-form-field>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let member of band?.members; index as i">
+        <img [src]="member.photoURL"
+             class="profile-picture">
+        <div class="member-entry">
+          {{member.displayName}}
+          <button mat-button
+                  *ngIf="isUserBandAdmin"
+                  (click)="this.deleteMember(i)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<uploader *ngIf="this.showUpload"
+          [storageBucketPrefix]="'bands'"
+          (onUploadComplete)="onImageUploadCompleted($event)"></uploader>

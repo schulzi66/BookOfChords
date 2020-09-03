@@ -1,15 +1,30 @@
-import { Injectable } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { Song } from '../../models/song';
+import { User } from 'src/app/models/user';
 
 @Injectable({ providedIn: 'root' })
-export class SongService {
+export class SongService implements OnDestroy {
+  private _subscriptions$: Subscription;
+
   public selectedSong: Song;
 
-  private _angularFirestore: AngularFirestore;
-  constructor(angularFirestore: AngularFirestore) {
-    this._angularFirestore = angularFirestore;
+  public songs$: Observable<Song[]>;
+  public songs: Song[];
+
+  constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
+    this._subscriptions$ = new Subscription();
+
+    this.songs$ = this.getSongsForUser(this._authService.user.uid);
+
+    this._subscriptions$.add(this.songs$.subscribe((songs: Song[]) => (this.songs = songs)));
+  }
+
+  ngOnDestroy(): void {
+    this.songs$ = null;
+    this._subscriptions$.unsubscribe();
   }
 
   public saveSong(song: Song): void {
@@ -58,16 +73,5 @@ export class SongService {
     // 		});
     // 		sub.unsubscribe();
     // 	});
-  }
-
-  public storeSelectedSong(song: Song): void {
-    this.selectedSong = song;
-  }
-  public removeSelectedSong(): void {
-    this.selectedSong = null;
-  }
-
-  public retrieveSelectedSong(): Song {
-    return this.selectedSong;
   }
 }

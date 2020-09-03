@@ -1,3 +1,4 @@
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -16,8 +17,6 @@ import { SongService } from 'src/app/songs/services/song.service';
 import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { TileStyler } from '@angular/material/grid-list/tile-styler';
 
 @Component({
   selector: 'app-band-setlist-edit',
@@ -34,6 +33,7 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
   public allSongsOfCurrentUser: Song[];
   public selectedSongs: Song[];
   public filteredSongs: Song[];
+  public showUpload: boolean = false;
 
   public constructor(
     private _activatedRoute: ActivatedRoute,
@@ -43,10 +43,30 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
     private _songService: SongService,
     private _gigService: GigService,
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    private _navbarActionService: NavbarActionService
   ) {
     this._subscriptions$ = new Subscription();
     this.setlist = new Setlist();
+    this._navbarActionService.registerActions([
+      {
+        order: 100,
+        icon: 'save',
+        action: () => this.saveIfValid()
+      },
+      {
+        order: 200,
+        icon: 'unarchive',
+        action: () => this.exportSetlistAsGig()
+      },
+      {
+        order: 300,
+        icon: 'attach_file',
+        action: () => {
+          this.showUpload = !this.showUpload;
+        }
+      }
+    ]);
   }
 
   ngOnInit() {
@@ -79,10 +99,6 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._subscriptions$.unsubscribe();
-  }
-
-  public goBack(): void {
-    this._router.navigate(['/band']);
   }
 
   public onNameChanged(): void {

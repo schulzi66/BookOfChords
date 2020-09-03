@@ -15,12 +15,16 @@ export class NavbarActionService {
   constructor(private _router: Router) {
     this._actions = [];
     this._router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
-      this._actions = [];
+       this.resetActions();
     });
   }
 
   public registerActions(actions: INavbarAction[]): number {
-    this._actions = [];
+    this.resetActions();
     return this._actions.push(...actions);
+  }
+
+  public resetActions(): void {
+      this._actions = [];
   }
 }

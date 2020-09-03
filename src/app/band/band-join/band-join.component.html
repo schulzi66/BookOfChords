@@ -1,5 +1,4 @@
 <div class="flex-container">
-
   <mat-form-field appearance="outline"
                   class="band-id">
     <mat-label>{{'band_id' | transloco}}</mat-label>
@@ -7,8 +6,4 @@
            required
            [(ngModel)]="bandId">
   </mat-form-field>
-  <shared-fab-btn class="join-btn"
-                  (onClick)="joinBand()"
-                  [disabled]="!bandId"
-                  [icon]="'person_add'"></shared-fab-btn>
 </div>

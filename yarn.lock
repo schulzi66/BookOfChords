@@ -1955,6 +1955,13 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+angular-animations@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/angular-animations/-/angular-animations-0.0.10.tgz#88d1bd59430e0636181800527fbf952d4203fbc6"
+  integrity sha512-UKKWRZDDXl3m+bcS1PfW5xZ2WoyM9ixfdLS7OG9lDrWm5KkIYEIrZvC+r5nfU3C5ovltHId5e2BlwYqL18kxOA==
+  dependencies:
+    tslib "^1.9.0"
+
 ansi-align@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-3.0.0.tgz#b536b371cf687caaef236c18d3e21fe3797467cb"

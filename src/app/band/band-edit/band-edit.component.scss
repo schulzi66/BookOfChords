@@ -1,20 +1,21 @@
 .profile-picture {
-    width: 10%;
+    width: 30px;
     border-radius: 50%;
     align-self: center;
     margin-right: 2vh;
 }
-
 .member-list {
     display: flex;
     align-items: center;
 }
 
-.band-picture {
-    flex-grow: 5;
-    border-radius: 50%;
-    align-self: center;
-    margin-top: 2vh;
-    margin-bottom: 4vh;
-    height: 25vh;
+.band-image {
+    background-size: cover;
+}
+
+.member-entry {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

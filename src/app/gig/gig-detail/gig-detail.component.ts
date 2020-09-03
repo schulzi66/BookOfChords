@@ -50,16 +50,8 @@ export class GigDetailComponent implements OnInit {
     moveItemInArray(this.gig.songs, event.previousIndex, event.currentIndex);
   }
 
-  public setSelectedSong(song: Song): void {
-    this._songService.storeSelectedSong(song);
-  }
-
-  public removeSelectedSong(): void {
-    this._songService.removeSelectedSong();
-  }
-
-  public editSelectedSong(): void {
-    this._router.navigate(['/songs/edit', this._songService.selectedSong.id]);
+  public editSelectedSong(id: string): void {
+    this._router.navigate(['/songs/edit', id]);
   }
 
   public togglePlayMode(): void {

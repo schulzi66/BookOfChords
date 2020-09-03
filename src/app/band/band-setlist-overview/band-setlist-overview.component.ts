@@ -5,6 +5,8 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-band-setlist-overview',
@@ -16,7 +18,19 @@ export class BandSetlistOverviewComponent implements OnInit, OnDestroy {
 
   private _subscriptions$: Subscription;
 
-  public constructor(private _authService: AuthService, private _bandService: BandService) {
+  public constructor(
+    private _authService: AuthService,
+    private _bandService: BandService,
+    private _navbarActionService: NavbarActionService,
+    private _router: Router
+  ) {
+    this._navbarActionService.registerActions([
+      {
+        order: 100,
+        icon: 'add',
+        action: () => this._router.navigate(['./band/setlist/edit', -1])
+      }
+    ]);
     this._subscriptions$ = new Subscription();
   }
 

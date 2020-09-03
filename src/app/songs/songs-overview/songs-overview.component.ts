@@ -3,11 +3,10 @@ import { TitleKeyService, TITLEKEYS } from '../../services/title-key.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { ClipboardService } from 'ngx-clipboard';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { Configuration } from 'src/app/models/configuration';
 import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
 import { RockNRollSnackbarComponent } from 'src/app/shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { Song } from '../../models/song';
@@ -16,11 +15,15 @@ import { SongService } from '../services/song.service';
 import { map, mergeMap, tap, take, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-songs-overview',
   templateUrl: './songs-overview.component.html',
-  styleUrls: ['./songs-overview.component.scss']
+  styleUrls: ['./songs-overview.component.scss'],
+  animations: [
+    fadeInOnEnterAnimation({ duration: 1000, delay: 300 })
+  ]
 })
 export class SongsOverviewComponent implements OnInit, OnDestroy {
   public filteredSongs: Song[];
@@ -36,6 +39,7 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
     private _clipboardService: ClipboardService,
     private _snackBar: MatSnackBar,
     private _navbarActionService: NavbarActionService,
+    private _activatedRoute: ActivatedRoute,
     public configurationService: ConfigurationService
   ) {
     this._subscriptions$ = new Subscription();
@@ -50,7 +54,7 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._subscriptions$.add(
-      this._songService.getSongsForUser(this._authService.user.uid).subscribe((songs) => {
+      this._songService.songs$.subscribe((songs: Song[]) => {
         this._songs = songs;
         this.filteredSongs = songs;
       })
@@ -62,16 +66,7 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
   }
 
   public createNewSong(): void {
-    this.removeSelectedSong();
     this._router.navigate(['./songs/edit', -1]);
-  }
-
-  public setSelectedSong(song: Song): void {
-    this._songService.storeSelectedSong(song);
-  }
-
-  public removeSelectedSong(): void {
-    this._songService.removeSelectedSong();
   }
 
   public copySelectedSong(song: Song): void {

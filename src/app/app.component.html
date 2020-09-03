@@ -91,9 +91,11 @@
     </button>
     <span class="title">{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
 
-    <div class="action-bar" dir="rtl">      
-      <div *ngFor="let action of (this.navbarActionService.navbarActions$ |async)">
-        <button mat-icon-button (click)="this.action.action()">
+    <div class="action-bar"
+         dir="rtl">
+      <div *ngFor="let action of (this.navbarActionService.navbarActions$ | async)">
+        <button mat-icon-button
+                (click)="this.action.action()">
           <mat-icon fontSet="material-icons-outlined">{{action.icon}}</mat-icon>
         </button>
       </div>

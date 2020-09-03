@@ -1,50 +1,18 @@
-.flex-container {
-    display: flex;
-    align-items: flex-start;
-    margin: 2vh;
-    flex-direction: column;
+.band-card {
+    margin: 2%;
 }
 
-.label {
-    flex-grow: 2;
-    text-align: left;
-    font-weight: bold;
-    margin-bottom: 1vh;
-}
-
-.value {
-    flex-grow: 8;
-    text-align: right;
-    margin-bottom: 3vh;
-}
-
-.member-value {
-    flex-grow: 8;
+.band-header {
     text-align: left;
 }
 
-.band-picture {
-    flex-grow: 5;
-    border-radius: 50%;
-    align-self: center;
-    margin-top: 2vh;
-    margin-bottom: 4vh;
-    height: 25vh;
+.band-image {    
+    background-size: cover;
 }
 
 .profile-picture {
-    width: 10%;
+    width: 30px;
     border-radius: 50%;
     align-self: center;
     margin-right: 2vh;
-}
-
-.member-list {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1vh;
-}
-
-.edit-btn {
-    align-self: center;
 }

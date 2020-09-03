@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { BandService } from '../services/band.service';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 
 @Component({
   selector: 'app-band-detail',
@@ -26,13 +28,32 @@ export class BandDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  public constructor(private _authService: AuthService, private _bandService: BandService) {
+  public constructor(
+    private _authService: AuthService,
+    private _bandService: BandService,
+    private _navbarActionService: NavbarActionService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) {
     this._subscriptions$ = new Subscription();
+    this._subscriptions$.add(
+      this._bandService.band$.subscribe((band: Band) => {
+        this.band = band;
+        if (this.isUserBandAdmin) {
+          this._navbarActionService.registerActions([
+            {
+              order: 100,
+              icon: 'edit',
+              action: () => this._router.navigate(['band/edit', this.band.id])
+            }
+          ]);
+        }
+      })
+    );
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._currentUser = this._authService.user;
-    this._subscriptions$.add(this._bandService.band$.subscribe((band: Band) => (this.band = band)));
   }
 
   ngOnDestroy(): void {

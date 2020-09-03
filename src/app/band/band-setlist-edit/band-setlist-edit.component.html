@@ -1,11 +1,5 @@
 <mat-tab-group mat-stretch-tabs>
   <mat-tab [label]="'info' | transloco">
-    <div class="btn-wrapper">
-      <shared-fab-btn [icon]="'arrow_back'"
-                      (onClick)="goBack()"></shared-fab-btn>
-      <shared-fab-btn [icon]="'unarchive'"
-                      (onClick)="exportSetlistAsGig()"></shared-fab-btn>
-    </div>
     <div class="flex-container">
       <mat-form-field appearance="outline"
                       class="setlist-name">
@@ -28,7 +22,8 @@
                                useBrowserLocale="true"
                                height="80vh">
       </ngx-extended-pdf-viewer>
-      <uploader [storageBucketPrefix]="'setlists'"
+      <uploader *ngIf="this.showUpload"
+                [storageBucketPrefix]="'setlists'"
                 (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
     </div>
   </mat-tab>

@@ -1,3 +1,5 @@
+import { SongResolver } from './../shared/resolvers/song.resolver';
+import { UserResolver } from './../shared/resolvers/user.resolver';
 import { AuthGuard } from './../shared/guards/auth.guard';
 import { SongDetailsviewComponent } from './song-detailsview/song-detailsview.component';
 import { SongsOverviewComponent } from './songs-overview/songs-overview.component';
@@ -9,17 +11,28 @@ import { TITLEKEYS } from '../services/title-key.service';
 const routes: Routes = [
   {
     path: '',
-    component: SongsOverviewComponent,
-    canActivate: [AuthGuard],
-    resolve: { key: TitleKeyResolver },
-    data: { key: TITLEKEYS.songs }
-  },
-  {
-    path: 'edit/:id',
-    component: SongDetailsviewComponent,
-    resolve: {
-      drawerAction: DrawerActionResolver
-    }
+    resolve: { key: TitleKeyResolver, user: UserResolver },
+    data: { key: TITLEKEYS.songs },
+    children: [
+      {
+        path: '',
+        redirectTo: 'songs',
+        pathMatch: 'full'
+      },
+      {
+        path: 'songs',
+        component: SongsOverviewComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'songs/edit/:id',
+        component: SongDetailsviewComponent,
+        resolve: {
+          drawerAction: DrawerActionResolver,
+          song: SongResolver
+        }
+      }
+    ]
   }
 ];
 

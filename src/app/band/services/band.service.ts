@@ -12,11 +12,13 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
   providedIn: 'root'
 })
 export class BandService {
-  public band$: Observable<Band> = of(new Band());
+  public band$: Observable<Band> = of(undefined);
+  public band: Band;
 
   constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
     if (this._authService.user.bandId) {
       this.band$ = this.getBandByBandId(this._authService.user.bandId);
+      this.band$.subscribe((band: Band) => (this.band = band));
     }
   }
 
@@ -28,6 +30,7 @@ export class BandService {
       .collection('bands')
       .doc(band.id)
       .set(Object.assign({}, JSON.parse(JSON.stringify(band))));
+    this.band$ = of(band);
     return band.id;
   }
 
@@ -37,6 +40,10 @@ export class BandService {
       band.setlists.push(setlist);
     }
     this.saveBand(band);
+  }
+
+  public getBandForCurrentUser(): Observable<Band> {
+    return this.getBandByBandId(this._authService.user.bandId);
   }
 
   public getBandByBandId(bandId: string): Observable<Band> {

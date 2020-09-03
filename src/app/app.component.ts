@@ -1,5 +1,5 @@
 import { TitleKeyService } from './services/title-key.service';
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { translate, TranslocoService } from '@ngneat/transloco';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         this._messagingService.getPermission(user);
         this._messagingService.monitorRefresh(user);
         this._messagingService.receiveMessages();
-        this._messagingService.currentMessage$.subscribe((message) => {
+        this._messagingService.currentMessage$.subscribe(() => {
           this._snackbar.openFromComponent(RockNRollSnackbarComponent, {
             data: {
               message: translate<string>('notification_data'),

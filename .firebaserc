@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "book-of-chords"
+    "default": "book-of-chords",
+    "testing": "bookofchordstesting"
   }
 }

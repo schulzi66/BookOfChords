@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { INavbarAction } from './../../models/navbar-action';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -8,11 +9,15 @@ import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-song-detailsview',
   templateUrl: './song-detailsview.component.html',
-  styleUrls: ['./song-detailsview.component.scss']
+  styleUrls: ['./song-detailsview.component.scss'],
+  animations: [
+    fadeInOnEnterAnimation({ duration: 1000, delay: 300 })
+  ]
 })
 export class SongDetailsviewComponent implements OnInit {
   public song: Song;
@@ -22,6 +27,7 @@ export class SongDetailsviewComponent implements OnInit {
     private _songService: SongService,
     private _authService: AuthService,
     private _gigService: GigService,
+    private _activatedRoute: ActivatedRoute,
     private _navbarActionService: NavbarActionService
   ) {
     this._navbarActionService.registerActions([
@@ -46,10 +52,9 @@ export class SongDetailsviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.song = this._songService.retrieveSelectedSong();
-    if (!this.song) {
-      this.song = new Song('');
-    }
+    if (this._activatedRoute.snapshot.params['id'] !== '-1') {
+      this.song = this._activatedRoute.snapshot.data['song'];
+    } else { this.song = new Song(''); }
   }
 
   public addNewSection(): void {
