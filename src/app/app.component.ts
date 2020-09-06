@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { DrawerActionService } from './services/drawer-action.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { NavbarActionService } from './services/navbar-action.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-root',

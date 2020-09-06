@@ -1,0 +1,41 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+}
+
+app-song-section {
+    display: flex;
+    width: 100%;
+    margin: 5px;
+}
+
+.song-name {
+    flex: 1;
+}
+
+.section-name {
+    margin-right: 5px;
+    width: 25%;
+    text-align: left;
+}
+
+.section-value {
+    width: 60%;
+    margin-right: 5px;
+}
+
+.edit-icon {
+    margin-bottom: 2px;
+}
+
+.picture {
+    height: 100%;
+    width: 100%;
+}
+
+.pdf {
+    height: 85vh;
+    width: 100%;
+}

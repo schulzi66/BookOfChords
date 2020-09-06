@@ -4,10 +4,12 @@ import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
 import { Configuration } from './../../models/configuration';
 import { Subscription } from 'rxjs';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 @Component({
   selector: 'app-band-overview',
   templateUrl: './band-overview.component.html',
-  styleUrls: ['./band-overview.component.scss']
+  styleUrls: ['./band-overview.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class BandOverviewComponent implements OnInit, OnDestroy {
   private _subscriptions$: Subscription;

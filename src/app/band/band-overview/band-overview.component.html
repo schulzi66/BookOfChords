@@ -1,5 +1,6 @@
 <!-- <div *ngIf="isUserInBand; else noBand"> -->
-<div *ngIf="this.bandService.band$ | async; else noBand">
+<div *ngIf="this.bandService.band$ | async; else noBand"
+     [@fadeInOnEnter]>
   <mat-tab-group mat-stretch-tabs>
     <mat-tab [label]="'my_band' | transloco">
       <ng-template matTabContent>

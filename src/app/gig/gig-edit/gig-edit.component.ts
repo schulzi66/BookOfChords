@@ -14,11 +14,13 @@ import { GigService } from '../services/gig.service';
 import { AuthService } from './../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-gig-edit',
   templateUrl: './gig-edit.component.html',
-  styleUrls: ['./gig-edit.component.scss']
+  styleUrls: ['./gig-edit.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class GigEditComponent implements OnInit, OnDestroy {
   public gig: Gig;

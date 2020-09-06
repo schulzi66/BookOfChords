@@ -1,41 +1,42 @@
-.flex-container {
-    display: flex;
-    flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
+.song-card {
+    margin: 2%;
 }
-
-app-song-section {
+.song-panel-body {
     display: flex;
-    width: 100%;
     margin: 5px;
-}
-
-.song-name {
-    flex: 1;
+    flex-direction: column;
 }
 
 .section-name {
-    margin-right: 5px;
     width: 25%;
+    margin: 5px;
     text-align: left;
 }
 
-.section-value {
-    width: 60%;
-    margin-right: 5px;
+.section-value-flex-wrapper {
+    display: flex;
+    flex-direction: column;
+    white-space: pre-wrap;
 }
 
-.edit-icon {
-    margin-bottom: 2px;
+.section-value {
+    align-self: center;
+    font-size: 18px;
+    margin: 4px;
 }
+
+// mat-divider {
+//     margin: 5px;
+// }
 
 .picture {
     height: 100%;
     width: 100%;
 }
 
-.pdf {
-    height: 85vh;
-    width: 100%;
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
 }

@@ -9,11 +9,13 @@ import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/pop
 import { BandService } from '../services/band.service';
 import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-band-join',
   templateUrl: './band-join.component.html',
-  styleUrls: ['./band-join.component.scss']
+  styleUrls: ['./band-join.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class BandJoinComponent implements OnInit, OnDestroy {
   private _currentUser: User;

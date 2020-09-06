@@ -7,11 +7,13 @@ import { Configuration } from 'src/app/models/configuration';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-configuration',
   templateUrl: './configuration.component.html',
-  styleUrls: ['./configuration.component.scss']
+  styleUrls: ['./configuration.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class ConfigurationComponent implements OnInit, OnDestroy {
   private _subscriptions$: Subscription;

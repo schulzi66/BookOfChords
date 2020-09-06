@@ -1,36 +1,3 @@
-.song-panel-body {
-    display: flex;
-    margin: 5px;
-    flex-direction: column;
-}
-
-.section-name {
-    width: 25%;
-    margin: 5px;
-    text-align: left;
-}
-
-.section-value-flex-wrapper {
-    display: flex;
-    flex-direction: column;
-    white-space: pre-wrap;
-}
-
-.section-value {
-    align-self: center;
-    font-size: 18px;
-    margin: 4px;
-}
-
-mat-divider {
-    margin: 5px;
-}
-
-.picture {
-    height: 100%;
-    width: 100%;
-}
-
 .flex-container {
     display: flex;
     flex-direction: column;
@@ -42,3 +9,19 @@ mat-divider {
     flex-grow: 1;
     height: 75px;
 }
+
+.viewport {
+    // height: 100vh;
+    // flex-grow: 1;
+    // min-height: 100%;
+    height: calc(100vh - 163px);
+}
+
+.song-option {
+    height: 48px;
+    text-align: left;
+}
+// .selection-list {
+    // min-height: 100%;
+    // height: auto;
+// }

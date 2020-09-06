@@ -8,7 +8,8 @@
 
 <!-- #endregion-->
 
-<div class="flex-container">
+<div class="flex-container"
+     [@fadeInOnEnter]>
   <mat-form-field appearance="outline"
                   class="gig-name"
                   *ngIf="!filterToggle; else filterTemplate">

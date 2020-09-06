@@ -7,11 +7,13 @@ import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { Router } from '@angular/router';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-band-setlist-overview',
   templateUrl: './band-setlist-overview.component.html',
-  styleUrls: ['./band-setlist-overview.component.scss']
+  styleUrls: ['./band-setlist-overview.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class BandSetlistOverviewComponent implements OnInit, OnDestroy {
   public band: Band;

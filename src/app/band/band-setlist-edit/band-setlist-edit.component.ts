@@ -17,11 +17,13 @@ import { SongService } from 'src/app/songs/services/song.service';
 import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
 import { Subscription } from 'rxjs';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-band-setlist-edit',
   templateUrl: './band-setlist-edit.component.html',
-  styleUrls: ['./band-setlist-edit.component.scss']
+  styleUrls: ['./band-setlist-edit.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class BandSetlistEditComponent implements OnInit, OnDestroy {
   private _currentUser: User;

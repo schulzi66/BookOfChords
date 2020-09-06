@@ -7,11 +7,13 @@ import { GigService } from '../services/gig.service';
 import { TitleKeyService, TITLEKEYS } from 'src/app/services/title-key.service';
 import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-gig-overview',
   templateUrl: './gig-overview.component.html',
-  styleUrls: ['./gig-overview.component.scss']
+  styleUrls: ['./gig-overview.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class GigOverviewComponent implements OnInit, OnDestroy {
   public gigs: Gig[];

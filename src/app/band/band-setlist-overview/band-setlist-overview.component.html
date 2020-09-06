@@ -1,4 +1,5 @@
-<mat-action-list *ngFor="let setlist of band?.setlists">
+<mat-action-list *ngFor="let setlist of band?.setlists"
+                 [@fadeInOnEnter]>
   <button mat-list-item
           [routerLink]="['./setlist/edit', setlist.id]">{{setlist?.name}}</button>
   <mat-divider></mat-divider>

@@ -12,11 +12,13 @@ import { User } from './../../models/user';
 import { AuthService } from './../../services/auth.service';
 import { SongService } from './../../songs/services/song.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-gig-detail',
   templateUrl: './gig-detail.component.html',
-  styleUrls: ['./gig-detail.component.scss']
+  styleUrls: ['./gig-detail.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class GigDetailComponent implements OnInit {
   public configuration: Configuration;

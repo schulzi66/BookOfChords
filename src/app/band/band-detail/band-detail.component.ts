@@ -7,11 +7,13 @@ import { BandService } from '../services/band.service';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-band-detail',
   templateUrl: './band-detail.component.html',
-  styleUrls: ['./band-detail.component.scss']
+  styleUrls: ['./band-detail.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class BandDetailComponent implements OnInit, OnDestroy {
   private _currentUser: User;

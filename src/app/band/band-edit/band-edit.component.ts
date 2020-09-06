@@ -8,11 +8,13 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-band-edit',
   templateUrl: './band-edit.component.html',
-  styleUrls: ['./band-edit.component.scss']
+  styleUrls: ['./band-edit.component.scss'],
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class BandEditComponent implements OnInit, OnDestroy {
   private _subscriptions$: Subscription;

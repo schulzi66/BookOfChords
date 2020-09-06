@@ -1,64 +1,37 @@
-<div class="flex-container"
-     [@fadeInOnEnter]>
-  <mat-form-field appearance="outline"
-                  class="song-name">
-    <mat-label>{{'song_name' | transloco}}
-    </mat-label>
-    <input matInput
-           required
-           [(ngModel)]="song.name"
-           name="songName">
-  </mat-form-field>
-
-  <shared-metronome [bpm]="song.bpm"
-                    (onBpmChanged)="updateBpm($event)"
-                    [@fadeInOnEnter]></shared-metronome>
-
-  <div *ngFor="let section of song?.sections; index as i">
-    <mat-form-field appearance="outline"
-                    class="section-name">
-      <mat-label>{{'section' | transloco}}</mat-label>
-      <input matInput
-             [(ngModel)]="section.name"
-             name="name">
-    </mat-form-field>
-    <mat-form-field class="section-value">
-      <textarea matInput
-                [value]="section?.value | StringArrayLines"
-                (change)="onTextAreaValueChanged(i, $event.target.value)"
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"></textarea>
-    </mat-form-field>
-    <button mat-icon-button
-            (click)="removeSection(i)">
-      <mat-icon>delete_outline</mat-icon>
-    </button>
-  </div>
-  <br>
-
-  <div *ngFor="let picture of song?.pictures; index as i">
-    <!-- <pinch-zoom [zoom-button]="false"> -->
-    <img class="picture"
-         [src]="picture">
-    <!-- </pinch-zoom> -->
-    <button mat-icon-button
-            (click)="removePicture(i)">
-      <mat-icon>delete_outline</mat-icon>
-    </button>
-  </div>
-  <div *ngFor="let pdf of song?.pdfs; index as i">
-    <ngx-extended-pdf-viewer [src]="pdf"
-                             useBrowserLocale="true"
-                             height="80vh"></ngx-extended-pdf-viewer>
-    <button mat-icon-button
-            (click)="removePdf(i)">
-      <mat-icon>delete_outline</mat-icon>
-    </button>
-  </div>
-
-
-  <uploader *ngIf="this.showUpload"
-            [storageBucketPrefix]="'songs'"
-            (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
-
-</div>
+<mat-card class="song-card"
+          [@fadeInOnEnter]>
+  <mat-card-header class="song-header">
+    <mat-card-title [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+      {{this.song.name}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="song-panel-body"
+         *ngFor="let section of song.sections; index as i">
+      <h5 class="section-name"
+          [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
+          [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{section.name}}
+      </h5>
+      <div class="section-value-flex-wrapper">
+        <div class="section-value"
+             *ngFor="let value of section.value"
+             [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
+             [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{value}}
+        </div>
+      </div>
+      <mat-divider *ngIf="i > 0"></mat-divider>
+    </div>
+    <div class="section-value"
+         *ngFor="let picture of song.pictures">
+      <!-- <pinch-zoom [zoom-button]="false"> -->
+      <img class="picture"
+           [src]="picture">
+      <!-- </pinch-zoom> -->
+    </div>
+    <div *ngFor="let pdf of song?.pdfs">
+      <ngx-extended-pdf-viewer [src]="pdf"
+                               useBrowserLocale="true"
+                               height="80vh"></ngx-extended-pdf-viewer>
+    </div>
+  </mat-card-content>
+</mat-card>
