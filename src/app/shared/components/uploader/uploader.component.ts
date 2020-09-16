@@ -1,3 +1,4 @@
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -12,7 +13,7 @@ export class UploaderComponent implements OnInit {
   public isHovering: boolean;
   public files: File[] = [];
 
-  constructor() {}
+  constructor(public configurationService: ConfigurationService) {}
 
   ngOnInit() {}
 

@@ -43,9 +43,13 @@ export class DrawerActionService {
   public executeAction(): void {
     if (this._drawerAction) {
       this._drawerAction();
-      this.drawerAction = undefined;
+      this.resetDrawerAction();
     } else {
       this._drawer.toggle();
     }
+  }
+
+  public resetDrawerAction(): void {
+    this.drawerAction = undefined;
   }
 }

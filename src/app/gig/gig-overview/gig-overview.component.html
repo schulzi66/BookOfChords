@@ -1,7 +1,6 @@
 <mat-action-list *ngFor="let gig of gigs"
                  [@fadeInOnEnter]>
   <button mat-list-item
-          (click)="viewDetails(gig)"
           [routerLink]="['./details', gig.id]">{{gig.name}}</button>
   <mat-divider></mat-divider>
 </mat-action-list>

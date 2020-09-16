@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { PopupDialogData } from 'src/app/shared/components/popup-dialog/popup-dialog-data';
 import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
@@ -15,6 +15,7 @@ import { AuthService } from './../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { INavbarAction } from 'src/app/models/navbar-action';
 
 @Component({
   selector: 'app-gig-edit',
@@ -29,7 +30,7 @@ export class GigEditComponent implements OnInit, OnDestroy {
   public filteredSongs: Song[];
   public filterToggle: boolean = false;
   public filterIcon: string = 'search';
-  public isNewGig: boolean;
+  public isNewGig: boolean = false;
 
   public get isValidGig(): boolean {
     return this.gig.name && this.gig.songs.length > 0 && this._currentUser !== undefined;
@@ -47,21 +48,20 @@ export class GigEditComponent implements OnInit, OnDestroy {
     private _authService: AuthService,
     private _matDialog: MatDialog,
     private _router: Router,
-    private _navbarActionService: NavbarActionService
+    private _navbarActionService: NavbarActionService,
+    private _activatedRoute: ActivatedRoute
   ) {
+    this.gig = this._activatedRoute.snapshot.data['gig'];
+    if (this.gig === null || this.gig === undefined) {
+      this.isNewGig = true;
+      this.gig = new Gig('New Gig');
+    }
+
     this.registerNavbarActions();
     this._subscriptions$ = new Subscription();
   }
 
   ngOnInit() {
-    this.gig = this._gigService.retrieveSelectedGig();
-    if (this.gig === null || this.gig === undefined) {
-      this.isNewGig = true;
-    }
-    if (!this.gig) {
-      this.gig = new Gig('New Gig');
-    }
-
     this._currentUser = this._authService.user;
     this._subscriptions$.add(
       this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
@@ -135,28 +135,28 @@ export class GigEditComponent implements OnInit, OnDestroy {
   }
 
   private registerNavbarActions(): void {
-    this._navbarActionService.registerActions([
-      {
-        order: 100,
-        icon: 'save',
-        action: () => {
-          this.saveGig();
-        }
-      },
-      {
-        order: 200,
-        icon: 'delete',
-        action: () => {
-          this.deleteGig();
-        }
-      },
-      {
-        order: 300,
-        icon: this.filterIcon,
-        action: () => {
-          this.toggleFilter();
-        }
+    const saveAction: INavbarAction = {
+      order: 100,
+      icon: 'save',
+      action: () => {
+        this.saveGig();
       }
-    ]);
+    };
+    const deleteAction: INavbarAction = {
+      order: 200,
+      icon: 'delete',
+      action: () => {
+        this.deleteGig();
+      }
+    };
+    const filterAction: INavbarAction = {
+      order: 300,
+      icon: this.filterIcon,
+      action: () => {
+        this.toggleFilter();
+      }
+    };
+
+    this._navbarActionService.registerActions([saveAction, ...(this.isNewGig ? [] : [deleteAction]), filterAction]);
   }
 }

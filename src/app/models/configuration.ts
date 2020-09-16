@@ -3,12 +3,12 @@ export class Configuration {
   fontSizeHeader: number;
   fontSizeSection: number;
   fontFamily: string;
-  useKonzertmeister: boolean;
+  useDarkMode: boolean;
   lang: string;
 
   constructor(uid: string) {
     this.uid = uid;
-    this.useKonzertmeister = true;
     this.lang = 'en';
+    this.useDarkMode = false;
   }
 }

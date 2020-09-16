@@ -13,7 +13,6 @@ import { BandOverviewComponent } from './band-overview/band-overview.component';
 import { BandSetlistEditComponent } from './band-setlist-edit/band-setlist-edit.component';
 import { BandSetlistOverviewComponent } from './band-setlist-overview/band-setlist-overview.component';
 import { BandRoutes } from './band.routing';
-import { KonzertmeisterIntegrationComponent } from './konzertmeister-integration/konzertmeister-integration.component';
 import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.component';
 
 @NgModule({
@@ -31,7 +30,6 @@ import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.com
     NoBandOverviewComponent,
     BandCreateComponent,
     BandJoinComponent,
-    KonzertmeisterIntegrationComponent,
     BandDetailComponent,
     BandEditComponent,
     BandSetlistOverviewComponent,
@@ -42,7 +40,6 @@ import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.com
     NoBandOverviewComponent,
     BandCreateComponent,
     BandJoinComponent,
-    KonzertmeisterIntegrationComponent,
     BandDetailComponent,
     BandEditComponent,
     BandSetlistOverviewComponent,

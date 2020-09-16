@@ -10,10 +10,15 @@ export class DrawerActionResolver implements Resolve<void> {
   constructor(private _drawerActionService: DrawerActionService, private _location: Location) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<void> | Promise<void> | void {
-    this._drawerActionService.iconKey = 'cancel';
-    this._drawerActionService.drawerAction = () => {
+    if (route.data['isBaseDrawerAction']) {
       this._drawerActionService.iconKey = DEFAULT_DRAWER_ICON_KEY;
-      this._location.back();
-    };
+      this._drawerActionService.resetDrawerAction();
+    } else {
+      this._drawerActionService.iconKey = 'cancel';
+      this._drawerActionService.drawerAction = () => {
+        this._drawerActionService.iconKey = DEFAULT_DRAWER_ICON_KEY;
+        this._location.back();
+      };
+    }
   }
 }

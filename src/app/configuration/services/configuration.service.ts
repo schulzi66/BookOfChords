@@ -13,6 +13,10 @@ export class ConfigurationService implements OnDestroy {
 
   public configuration$: Observable<Configuration> = of(null);
 
+  public get useDarkMode(): boolean {
+    return localStorage.getItem('useDarkMode') === 'true';
+  }
+
   constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
     this._subscriptions$ = new Subscription();
     this._subscriptions$.add(
@@ -38,5 +42,10 @@ export class ConfigurationService implements OnDestroy {
       .collection('configurations')
       .doc(configuration.uid)
       .set(Object.assign({}, JSON.parse(JSON.stringify(configuration))));
+    this.storeThemeSelectionInLocalStorage(configuration.useDarkMode);
+  }
+
+  private storeThemeSelectionInLocalStorage(useDarkMode: boolean): void {
+    localStorage.setItem('useDarkMode', String(useDarkMode));
   }
 }

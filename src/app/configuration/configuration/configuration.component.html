@@ -1,6 +1,6 @@
 <div class="flex-container"
      [@fadeInOnEnter]>
-  <mat-form-field>
+  <mat-form-field color="accent">
     <mat-label>{{'font_size_header' | transloco}}</mat-label>
     <mat-select [value]="configuration?.fontSizeHeader"
                 (selectionChange)="fontSizeHeaderChanged($event)">
@@ -13,7 +13,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field color="accent">
     <mat-label>{{'font_size_section' | transloco}}</mat-label>
     <mat-select [value]="configuration?.fontSizeSection"
                 (selectionChange)="fontSizeSectionChanged($event)">
@@ -26,7 +26,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field color="accent">
     <mat-label>{{'font_family' | transloco}}</mat-label>
     <mat-select [value]="configuration?.fontFamily"
                 (selectionChange)="fontFamilyChanged($event)">
@@ -38,7 +38,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field color="accent">
     <mat-label>{{'lang' | transloco}}</mat-label>
     <mat-select [value]="configuration?.lang"
                 (selectionChange)="langChanged($event)">
@@ -57,9 +57,9 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-slide-toggle [checked]="configuration?.useKonzertmeister"
-                    (change)="useKonzertmeisterChanged($event)">
-    {{'use_konzertmeister' | transloco}}
+  <mat-slide-toggle [checked]="configuration?.useDarkMode"
+                    (change)="useDarkModeChanged($event)">
+    {{'use_dark_mode' | transloco}}
   </mat-slide-toggle>
 
 </div>

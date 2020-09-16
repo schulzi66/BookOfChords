@@ -49,11 +49,6 @@ export class GigOverviewComponent implements OnInit, OnDestroy {
   }
 
   public createNewGig(): void {
-      this._gigService.removeSelectedGig();
-      this._router.navigate(['/gigs/edit', -1]);
-  }
-
-  public viewDetails(gig: Gig): void {
-    this._gigService.storeSelectedGig(gig);
+    this._router.navigate(['/gigs/edit', -1]);
   }
 }

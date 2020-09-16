@@ -1,4 +1,13 @@
 .flex-container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+mat-slide-toggle {
+    margin-bottom: 5px;
+    margin: 0 5vw;
+}
+mat-form-field {
+    width: 90%;
+    margin: 0 5vw;
 }

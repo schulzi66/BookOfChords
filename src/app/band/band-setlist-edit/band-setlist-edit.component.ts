@@ -1,3 +1,4 @@
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
@@ -38,6 +39,7 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
   public showUpload: boolean = false;
 
   public constructor(
+    public configurationService: ConfigurationService,
     private _activatedRoute: ActivatedRoute,
     private _bandService: BandService,
     private _authService: AuthService,

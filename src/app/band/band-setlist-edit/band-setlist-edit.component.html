@@ -30,12 +30,13 @@
   </mat-tab>
   <mat-tab [label]="'songs' | transloco">
     <div cdkDropList
-         class="setlist-songs"
-         (cdkDropListDropped)="drop($event)">
+         class="setlist-songs">
       <div class="song-box"
+           [style.color]="this.configurationService.useDarkMode ? 'white' : 'rgba(0, 0, 0, 0.87)'"
            *ngFor="let song of setlist.songs"
            cdkDrag>{{song}}
-        <mat-icon cdkDragHandle>drag_handle</mat-icon>
+        <mat-icon cdkDragHandle
+                  color="accent">drag_handle</mat-icon>
       </div>
     </div>
   </mat-tab>

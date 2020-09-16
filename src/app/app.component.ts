@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     public titleService: TitleKeyService,
     public navbarActionService: NavbarActionService,
     public drawerActionService: DrawerActionService,
-    private _configurationService: ConfigurationService,
+    public configurationService: ConfigurationService,
     private _translocoService: TranslocoService,
     private _messagingService: MessagingService,
     private _snackbar: MatSnackBar
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         this._subscriptions$.add(
-          this._configurationService.configuration$.subscribe((configuration: Configuration) => {
+          this.configurationService.configuration$.subscribe((configuration: Configuration) => {
             if (configuration) {
               this._translocoService.setActiveLang(configuration.lang);
             }

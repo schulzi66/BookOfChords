@@ -45,6 +45,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
           this.configuration = new Configuration(this._authService.user.uid);
         } else {
           this.configuration = configuration;
+          this._configurationService.saveConfigurationForUser(this.configuration);
         }
         this._translocoService.setActiveLang(this.configuration.lang);
       })
@@ -67,11 +68,12 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     this.configuration.fontFamily = event.value;
   }
 
-  public useKonzertmeisterChanged(event: MatSlideToggleChange): void {
-    this.configuration.useKonzertmeister = event.checked;
-  }
-
   public langChanged(event: MatSelectChange): void {
     this.configuration.lang = event.value;
+  }
+
+  public useDarkModeChanged(event: MatSlideToggleChange): void {
+    this.configuration.useDarkMode = event.checked;
+    this._configurationService.saveConfigurationForUser(this.configuration);
   }
 }

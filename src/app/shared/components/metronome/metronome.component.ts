@@ -11,11 +11,12 @@ import {
 } from '@angular/core';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'shared-metronome',
   templateUrl: './metronome.component.html',
   styleUrls: ['./metronome.component.scss']
 })
-export class MetronomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MetronomeComponent implements OnInit, OnDestroy {
   @Input('showPlay') showPlay: boolean;
   @Input('bpm') bpm: number;
   @Input('sliderDisabled') sliderDisabled: boolean;
@@ -47,10 +48,6 @@ export class MetronomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;
     }
-  }
-
-  ngAfterViewInit(): void {
-    this.bpmSlider.nativeElement.value = this.bpm;
   }
 
   ngOnDestroy(): void {

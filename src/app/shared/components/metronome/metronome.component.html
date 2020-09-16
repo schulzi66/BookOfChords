@@ -6,17 +6,20 @@
     <button mat-icon-button
             *ngIf="showPlay"
             (click)="togglePlayMode()">
-      <mat-icon fontSet="material-icons-outlined">{{this.playModeIcon}}</mat-icon>
+      <mat-icon fontSet="material-icons-outlined"
+                color="accent">{{this.playModeIcon}}</mat-icon>
     </button>
   </mat-card-header>
   <mat-card-content>
-    <input #bpmSlider
-           [disabled]="sliderDisabled"
-           class="beat-slider"
-           type="range"
-           min="40"
-           max="208"
-           step="1"
-           (input)="changeSpeed($event.target.value)">
+    <mat-slider class="beat-slider"
+                [disabled]="sliderDisabled"
+                [min]="40"
+                [max]="208"
+                [step]="1"
+                [(ngModel)]="bpm"
+                thumbLabel
+                (ngModelChange)="changeSpeed($event)">
+
+    </mat-slider>
   </mat-card-content>
 </mat-card>

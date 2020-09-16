@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
 import { Gig } from '../../models/gig';
@@ -35,14 +35,15 @@ export class GigDetailComponent implements OnInit {
     private _gigService: GigService,
     private _location: Location,
     private _songService: SongService,
-    private _navbarActionService: NavbarActionService
+    private _navbarActionService: NavbarActionService,
+    private _activatedRoute: ActivatedRoute
   ) {
     this.registerNavbarActions();
     this.isPlayMode = false;
   }
 
   ngOnInit() {
-    this.gig = this._gigService.retrieveSelectedGig();
+    this.gig = this._activatedRoute.snapshot.data['gig'];
     if (!this.gig) {
       this._router.navigate(['/gigs']);
     }

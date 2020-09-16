@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Gig } from '../../models/gig';
 import { Song } from '../../models/song';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GigService {
-  public selectedGig: Gig;
+  private _subscriptions$: Subscription;
 
-  constructor(private _angularFirestore: AngularFirestore) {}
+  public gigs$: Observable<Gig[]>;
+  public gigs: Gig[];
+
+  constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
+    this._subscriptions$ = new Subscription();
+    this.gigs$ = this.getGigsForUser(this._authService.user.uid);
+
+    this._subscriptions$.add(this.gigs$.subscribe((gigs: Gig[]) => (this.gigs = gigs)));
+  }
 
   public saveGig(gig: Gig): void {
     if (!gig.id) {
@@ -58,17 +67,5 @@ export class GigService {
           this._angularFirestore.doc(`gigs/${gig.id}`).update({ songs: gig.songs });
         });
       });
-  }
-
-  public storeSelectedGig(gig: Gig): void {
-    this.selectedGig = gig;
-  }
-
-  public removeSelectedGig(): void {
-    this.selectedGig = null;
-  }
-
-  public retrieveSelectedGig(): Gig {
-    return this.selectedGig;
-  }
+    }
 }

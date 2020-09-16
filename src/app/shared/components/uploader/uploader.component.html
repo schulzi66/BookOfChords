@@ -2,7 +2,8 @@
      dropzone
      (hovered)="toggleHover($event)"
      (dropped)="onDrop($event)"
-     [class.hovering]="isHovering">
+     [class.hovering]="isHovering"
+     [style.backgroundColor]="this.configurationService.useDarkMode ? 'rgb(66, 66, 66)' : 'white'">
 
   <shared-fab-btn [icon]="'file_upload'"
                   (onClick)="fileInput.click()">

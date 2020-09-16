@@ -30,7 +30,6 @@ Small mobile optimized progressive web app to add and quickly edit chords for so
 ```
 - FIXED ✔: Updating chords of a song, without removing and readding the song to a gig, still shows old chords inside the gig view
 - Open 🏗: Deleting a song does not remove the song from the gigs containing the removed song. 
-- Open 🏗: Konzertmeister integration currently not working due to CORS restrictions of Konzertmeister
 ```
 
 ## Setup
