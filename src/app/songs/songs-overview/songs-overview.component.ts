@@ -27,8 +27,6 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
   private _songs: Song[];
   private _subscriptions$: Subscription;
 
-  public i: number;
-
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
   constructor(
