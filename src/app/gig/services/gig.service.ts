@@ -21,11 +21,11 @@ export class GigService {
     this._subscriptions$.add(this.gigs$.subscribe((gigs: Gig[]) => (this.gigs = gigs)));
   }
 
-  public saveGig(gig: Gig): void {
+  public saveGig(gig: Gig): Promise<void> {
     if (!gig.id) {
       gig.id = this._angularFirestore.createId();
     }
-    this._angularFirestore
+    return this._angularFirestore
       .collection<Gig>('gigs')
       .doc(gig.id)
       .set(Object.assign({}, JSON.parse(JSON.stringify(gig))));
@@ -67,5 +67,5 @@ export class GigService {
           this._angularFirestore.doc(`gigs/${gig.id}`).update({ songs: gig.songs });
         });
       });
-    }
+  }
 }

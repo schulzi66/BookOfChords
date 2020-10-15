@@ -32,7 +32,7 @@
     "setlist_name": "Name der Setlist",
     "description": "Beschreibung",
     "add_songs": "Lieder hinzufügen",
-    "snackbar_data": "Neuer Auftritt aus der Setlist erstellt!",
+    "new_gig_from_setlist": "Neuer Auftritt aus Setlist erstellt!",
     "pause": "Unterbrechen",
     "resume": "Fortsetzen",
     "lang": "Sprache",
@@ -44,5 +44,8 @@
     "demo_gig_search": "Füge deinen Auftritten Songs hinzu",
     "demo_band": "Verwalte deine Band & Setlisten und exportiere sie als Auftritte mit automatischem Song-Mapping",
     "demo_settings": "Ändere das Aussehen der App nach deinem Belieben",
-    "notification_data": "Eine neue Setliste wurde angelegt"
+    "notification_data": "Eine neue Setliste wurde angelegt",
+    "saved": "Erfolgreich gespeichert",
+    "no_band_found_title": "Keine Band gefunden",
+    "no_band_found_content": "Es wurde keine Band mit der ID: {{value}} gefunden."
 }

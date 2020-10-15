@@ -1,3 +1,4 @@
+import { translate } from '@ngneat/transloco';
 import { map, tap } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -58,8 +59,8 @@ export class BandJoinComponent implements OnInit, OnDestroy {
             this._bandService.saveBand(band);
           } else {
             this._popupDialogData = {
-              title: 'No Band Found',
-              content: `We could not find any band with the id: ${this.bandId}.`
+              title: translate<string>('no_band_found_title'),
+              content: translate<string>('no_band_found_content', { value: this.bandId })
             };
             this._matDialog.open(PopupDialogComponent, {
               data: this._popupDialogData

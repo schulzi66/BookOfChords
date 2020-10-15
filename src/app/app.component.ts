@@ -1,6 +1,6 @@
+import { SnackbarService } from './services/snackbar.service';
 import { TitleKeyService } from './services/title-key.service';
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { translate, TranslocoService } from '@ngneat/transloco';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from './models/configuration';
@@ -8,12 +8,10 @@ import { User } from './models/user';
 import { AuthService } from './services/auth.service';
 import { MessagingService } from './services/messaging.service';
 import { PwaService } from './services/pwa.service';
-import { RockNRollSnackbarComponent } from './shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { Subscription } from 'rxjs';
 import { DrawerActionService } from './services/drawer-action.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { NavbarActionService } from './services/navbar-action.service';
-import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +32,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     public configurationService: ConfigurationService,
     private _translocoService: TranslocoService,
     private _messagingService: MessagingService,
-    private _snackbar: MatSnackBar
+    private _snackbarService: SnackbarService
   ) {
     this._subscriptions$ = new Subscription();
   }
@@ -46,12 +44,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         this._messagingService.monitorRefresh(user);
         this._messagingService.receiveMessages();
         this._messagingService.currentMessage$.subscribe(() => {
-          this._snackbar.openFromComponent(RockNRollSnackbarComponent, {
-            data: {
-              message: translate<string>('notification_data'),
-              route: 'band'
-            }
-          });
+          this._snackbarService.show({ message: translate<string>('notification_data'), route: 'band' });
         });
 
         this._subscriptions$.add(

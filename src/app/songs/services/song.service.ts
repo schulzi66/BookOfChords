@@ -27,12 +27,12 @@ export class SongService implements OnDestroy {
     this._subscriptions$.unsubscribe();
   }
 
-  public saveSong(song: Song): void {
+  public saveSong(song: Song): Promise<void> {
     if (!song.id) {
       song.id = this._angularFirestore.createId();
     }
     song.name = song.name.trim();
-    this._angularFirestore
+    return this._angularFirestore
       .collection('songs')
       .doc(song.id)
       .set(Object.assign({}, JSON.parse(JSON.stringify(song))));

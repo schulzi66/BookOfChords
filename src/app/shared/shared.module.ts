@@ -31,7 +31,7 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
   providers: [
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: { duration: 5000, panelClass: 'message-snackbar' }
+      useValue: { duration: 3000, panelClass: 'message-snackbar' }
     }
   ],
   exports: [
@@ -40,8 +40,7 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     UploaderComponent,
     SearchComponent,
     PopupDialogComponent,
-    MetronomeComponent,
-    RockNRollSnackbarComponent
+    MetronomeComponent
   ]
 })
 export class SharedModule {}

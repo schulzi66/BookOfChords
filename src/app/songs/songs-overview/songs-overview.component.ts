@@ -1,13 +1,10 @@
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { translate } from '@ngneat/transloco';
 import { ClipboardService } from 'ngx-clipboard';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
-import { RockNRollSnackbarComponent } from 'src/app/shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { Song } from '../../models/song';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
@@ -32,12 +29,7 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
   constructor(
     public _songService: SongService,
     private _router: Router,
-    private _authService: AuthService,
-    private _matDialog: MatDialog,
-    private _clipboardService: ClipboardService,
-    private _snackBar: MatSnackBar,
     private _navbarActionService: NavbarActionService,
-    private _activatedRoute: ActivatedRoute,
     public configurationService: ConfigurationService
   ) {
     this._subscriptions$ = new Subscription();

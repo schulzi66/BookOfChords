@@ -1,5 +1,4 @@
 import { AuthService } from 'src/app/services/auth.service';
-import { tap } from 'rxjs/operators';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subscription, of } from 'rxjs';
@@ -37,12 +36,12 @@ export class ConfigurationService implements OnDestroy {
     return this._angularFirestore.collection('configurations').doc<Configuration>(uid).valueChanges();
   }
 
-  public saveConfigurationForUser(configuration: Configuration): void {
-    this._angularFirestore
+  public saveConfigurationForUser(configuration: Configuration): Promise<void> {
+    this.storeThemeSelectionInLocalStorage(configuration.useDarkMode);
+    return this._angularFirestore
       .collection('configurations')
       .doc(configuration.uid)
       .set(Object.assign({}, JSON.parse(JSON.stringify(configuration))));
-    this.storeThemeSelectionInLocalStorage(configuration.useDarkMode);
   }
 
   private storeThemeSelectionInLocalStorage(useDarkMode: boolean): void {

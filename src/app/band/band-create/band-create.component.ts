@@ -1,11 +1,10 @@
-import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { translate } from '@ngneat/transloco';
+import { SnackbarService } from './../../services/snackbar.service';
+import { Component, OnInit } from '@angular/core';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 
@@ -25,9 +24,8 @@ export class BandCreateComponent implements OnInit {
     private _authService: AuthService,
     private _bandService: BandService,
     private _navbarActionService: NavbarActionService,
-    private _activatedRoute: ActivatedRoute
+    private _snackbarService: SnackbarService
   ) {
-    //   if (this._activatedRoute.snapshot.data {; }
     this.band = new Band();
     this._navbarActionService.registerActions([
       {
@@ -53,9 +51,14 @@ export class BandCreateComponent implements OnInit {
   public saveBand(): void {
     if (this.band.name) {
       this.band.members.push(this._currentUser);
-      this._currentUser.bandId = this._bandService.saveBand(this.band);
-      this._authService.updateBandIdForUserId(this._currentUser.uid, this._currentUser.bandId);
-      this._navbarActionService.resetActions();
+      this._bandService.saveBand(this.band).then((bandId: string) => {
+        this._currentUser.bandId = bandId;
+        this._snackbarService.show({
+          message: translate<string>('saved')
+        });
+        this._authService.updateBandIdForUserId(this._currentUser.uid, this._currentUser.bandId);
+        this._navbarActionService.resetActions();
+      });
     }
   }
 

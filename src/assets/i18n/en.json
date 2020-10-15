@@ -32,7 +32,7 @@
     "setlist_name": "Name of the setlist",
     "description": "Description",
     "add_songs": "Add songs",
-    "snackbar_data": "New gig created from Setlist!",
+    "new_gig_from_setlist": "New gig created from Setlist!",
     "pause": "Pause",
     "resume": "Resume",
     "lang": "Language",
@@ -44,5 +44,8 @@
     "demo_gig_search": "Add Songs to your gig",
     "demo_band": "Mange your band & setlists and export them as gigs with having them automapped to your songs",
     "demo_settings": "Change the appearance as you wish",
-    "notification_data": "A new setlist was created"
+    "notification_data": "A new setlist was created",
+    "saved": "Saved sucessfully",
+    "no_band_found_title": "No band found",
+    "no_band_found_content": "We could not find any band with the id: {{value}}."
 }

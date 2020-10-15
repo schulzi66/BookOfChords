@@ -1,3 +1,5 @@
+import { translate } from '@ngneat/transloco';
+import { SnackbarService } from './../../services/snackbar.service';
 import { ActivatedRoute } from '@angular/router';
 import { INavbarAction } from '../../models/navbar-action';
 import { Location } from '@angular/common';
@@ -26,7 +28,8 @@ export class SongEditComponent implements OnInit {
     private _authService: AuthService,
     private _gigService: GigService,
     private _activatedRoute: ActivatedRoute,
-    private _navbarActionService: NavbarActionService
+    private _navbarActionService: NavbarActionService,
+    private _snackbarService: SnackbarService
   ) {
     this._navbarActionService.registerActions([
       {
@@ -64,7 +67,11 @@ export class SongEditComponent implements OnInit {
   public saveSong(): void {
     if (this.song.name && this._authService.user) {
       this.song.uid = this._authService.user.uid;
-      this._songService.saveSong(this.song);
+      this._songService.saveSong(this.song).then(() => {
+        this._snackbarService.show({
+          message: translate<string>('saved')
+        });
+      });
       this._gigService.updateSongInGigsForUser(this._authService.user.uid, this.song);
     }
   }

@@ -1,11 +1,11 @@
+import { SnackbarService } from './../../services/snackbar.service';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { Band } from 'src/app/models/band';
 import { Gig } from 'src/app/models/gig';
@@ -13,7 +13,6 @@ import { Setlist } from 'src/app/models/setlist';
 import { Song } from 'src/app/models/song';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { RockNRollSnackbarComponent } from 'src/app/shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { SongService } from 'src/app/songs/services/song.service';
 import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
@@ -46,8 +45,7 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
     private _location: Location,
     private _songService: SongService,
     private _gigService: GigService,
-    private _snackBar: MatSnackBar,
-    private _router: Router,
+    private _snackbarService: SnackbarService,
     private _navbarActionService: NavbarActionService
   ) {
     this._subscriptions$ = new Subscription();
@@ -56,7 +54,12 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
       {
         order: 100,
         icon: 'save',
-        action: () => this.saveIfValid()
+        action: () =>
+          this.saveIfValid().then((_: string) => {
+            this._snackbarService.show({
+              message: translate<string>('saved')
+            });
+          })
       },
       {
         order: 200,
@@ -170,12 +173,11 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
         this._songService.saveSong(newSong);
       }
     });
-    this._gigService.saveGig(gig);
-    this._snackBar.openFromComponent(RockNRollSnackbarComponent, {
-      data: {
-        message: translate<string>('snackbar_data'),
+    this._gigService.saveGig(gig).then(() => {
+      this._snackbarService.show({
+        message: translate<string>('new_gig_from_setlist'),
         route: 'gigs'
-      }
+      });
     });
   }
 
@@ -184,9 +186,9 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
     this.saveIfValid();
   }
 
-  private saveIfValid(): void {
+  private saveIfValid(): Promise<string> {
     if (this.setlist.name) {
-      this._bandService.saveSetlistForBand(this.band, this.setlist);
+      return this._bandService.saveSetlistForBand(this.band, this.setlist);
     }
   }
 }

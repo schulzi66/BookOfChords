@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { SnackbarService } from 'src/app/services/snackbar.service';
+import { translate } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-band-edit',
@@ -36,13 +38,19 @@ export class BandEditComponent implements OnInit, OnDestroy {
     private _bandService: BandService,
     private _authService: AuthService,
     private _location: Location,
-    private _navbarActionService: NavbarActionService
+    private _navbarActionService: NavbarActionService,
+    private _snackbarService: SnackbarService
   ) {
     this._navbarActionService.registerActions([
       {
         order: 100,
         icon: 'save',
-        action: () => this._bandService.saveBand(this.band)
+        action: () =>
+          this._bandService.saveBand(this.band).then((_: string) => {
+            this._snackbarService.show({
+              message: translate<string>('saved')
+            });
+          })
       },
       {
         order: 200,

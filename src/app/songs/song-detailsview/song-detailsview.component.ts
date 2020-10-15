@@ -1,3 +1,4 @@
+import { SnackbarService } from './../../services/snackbar.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SongService } from './../services/song.service';
@@ -5,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
 import { Song } from 'src/app/models/song';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { ClipboardService } from 'ngx-clipboard';
-import { RockNRollSnackbarComponent } from 'src/app/shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { translate } from '@ngneat/transloco';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
@@ -26,9 +25,9 @@ export class SongDetailsviewComponent implements OnInit {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _navbarActionService: NavbarActionService,
-    private _snackBar: MatSnackBar,
     private _matDialog: MatDialog,
     private _clipboardService: ClipboardService,
+    private _snackbarService: SnackbarService,
     public configurationService: ConfigurationService
   ) {
     this._navbarActionService.registerActions([
@@ -65,9 +64,7 @@ export class SongDetailsviewComponent implements OnInit {
       songContent += '\n';
     });
     this._clipboardService.copy(songContent);
-    this._snackBar.openFromComponent(RockNRollSnackbarComponent, {
-      data: translate<string>('snackbar_copied_data')
-    });
+    this._snackbarService.show({ message: translate<string>('snackbar_copied_data') });
   }
 
   public deleteSong(): void {

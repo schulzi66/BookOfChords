@@ -22,24 +22,28 @@ export class BandService {
     }
   }
 
-  public saveBand(band: Band): string {
+  public saveBand(band: Band): Promise<string> {
     if (!band.id) {
       band.id = this._angularFirestore.createId();
     }
-    this._angularFirestore
+    return this._angularFirestore
       .collection('bands')
       .doc(band.id)
-      .set(Object.assign({}, JSON.parse(JSON.stringify(band))));
-    this.band$ = of(band);
-    return band.id;
+      .set(Object.assign({}, JSON.parse(JSON.stringify(band))))
+      .then(() => {
+        return new Promise<string>((resolve) => {
+          this.band$ = of(band);
+          resolve(band.id);
+        });
+      });
   }
 
-  public saveSetlistForBand(band: Band, setlist: Setlist): void {
+  public saveSetlistForBand(band: Band, setlist: Setlist): Promise<string> {
     if (setlist.id === undefined) {
       setlist.id = this._angularFirestore.createId();
       band.setlists.push(setlist);
     }
-    this.saveBand(band);
+    return this.saveBand(band);
   }
 
   public getBandForCurrentUser(): Observable<Band> {

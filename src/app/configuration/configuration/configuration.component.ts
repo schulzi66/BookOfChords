@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { TranslocoService } from '@ngneat/transloco';
+import { translate, TranslocoService } from '@ngneat/transloco';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-configuration',
@@ -24,14 +25,19 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     private _configurationService: ConfigurationService,
     private _authService: AuthService,
     private _translocoService: TranslocoService,
-    private _navbarActionService: NavbarActionService
+    private _navbarActionService: NavbarActionService,
+    private _snackbarService: SnackbarService
   ) {
     this._navbarActionService.registerActions([
       {
         order: 100,
         icon: 'save',
         action: () => {
-          this._configurationService.saveConfigurationForUser(this.configuration);
+          this._configurationService.saveConfigurationForUser(this.configuration).then(() => {
+            this._snackbarService.show({
+              message: translate<string>('saved')
+            });
+          });
         }
       }
     ]);
@@ -45,7 +51,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
           this.configuration = new Configuration(this._authService.user.uid);
         } else {
           this.configuration = configuration;
-          this._configurationService.saveConfigurationForUser(this.configuration);
         }
         this._translocoService.setActiveLang(this.configuration.lang);
       })
