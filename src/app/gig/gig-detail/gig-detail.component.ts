@@ -8,11 +8,10 @@ import { Configuration } from 'src/app/models/configuration';
 import { Gig } from '../../models/gig';
 import { Song } from '../../models/song';
 import { GigService } from '../services/gig.service';
-import { User } from './../../models/user';
-import { AuthService } from './../../services/auth.service';
-import { SongService } from './../../songs/services/song.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { translate } from '@ngneat/transloco';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-gig-detail',
@@ -33,10 +32,9 @@ export class GigDetailComponent implements OnInit {
     public configurationService: ConfigurationService,
     private _router: Router,
     private _gigService: GigService,
-    private _location: Location,
-    private _songService: SongService,
     private _navbarActionService: NavbarActionService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _snackbarService: SnackbarService
   ) {
     this.registerNavbarActions();
     this.isPlayMode = false;
@@ -86,7 +84,11 @@ export class GigDetailComponent implements OnInit {
           order: 100,
           icon: 'save',
           action: () => {
-            this._gigService.saveGig(this.gig);
+            this._gigService.saveGig(this.gig).then(() => {
+              this._snackbarService.show({
+                message: translate<string>('saved')
+              });
+            });
           }
         },
         {

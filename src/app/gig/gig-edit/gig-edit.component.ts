@@ -1,5 +1,5 @@
-import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { SnackbarService } from './../../services/snackbar.service';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -49,7 +49,8 @@ export class GigEditComponent implements OnInit, OnDestroy {
     private _matDialog: MatDialog,
     private _router: Router,
     private _navbarActionService: NavbarActionService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _snackbarService: SnackbarService
   ) {
     this.gig = this._activatedRoute.snapshot.data['gig'];
     if (this.gig === null || this.gig === undefined) {
@@ -95,7 +96,11 @@ export class GigEditComponent implements OnInit, OnDestroy {
   public saveGig(): void {
     if (this.isValidGig) {
       this.gig.uid = this._currentUser.uid;
-      this._gigService.saveGig(this.gig);
+      this._gigService.saveGig(this.gig).then(() => {
+        this._snackbarService.show({
+          message: translate<string>('saved')
+        });
+      });
     }
   }
 
