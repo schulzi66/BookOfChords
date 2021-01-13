@@ -1,7 +1,31 @@
-## Book of Chords
-Small mobile optimized progressive web app to add and quickly edit chords for songs so that you have them always in your pocket and not on paper. It is hosted with Firebase and can be found on: https://book-of-chords.firebaseapp.com/
+## 🎼 Book of Chords 📚
+Small mobile optimized progressive web app to add and quickly edit chords/lyrics for songs so that you have them always in your pocket and not on paper. 
 
-## Features
+Check it out: 👉 https://book-of-chords.firebaseapp.com/
+
+## Feature Overview
+🎵 Have all your chords and lyrics in one place
+
+🎸 Be always ready to perform on stage by creating setlists
+
+🎤 Manage your band and gigs 
+
+⏲ Integrated metronome for each song
+
+🌒 Dark mode 
+
+🎯 Native notifications when there is a new gig for your band created
+
+📱 Install it to have a native look and feel
+
+🔐 Secure Google login
+
+💲 Completly free without adds
+
+<br>
+
+### Detailed Feature overview
+
 - Login/Logout using your Google account
 - Create/delete/modify Songs, add different sections with chords
 - Search for Songs by name
@@ -21,23 +45,3 @@ Small mobile optimized progressive web app to add and quickly edit chords for so
 - Native notifications with FCM across multiple devices
 - Automapping of your songs and chords to the songs of a setlist
 
-## Open/potential features
-```
-- Enter a url to external page as chords as link and not text
-```
-
-## Known issues
-```
-- FIXED ✔: Updating chords of a song, without removing and readding the song to a gig, still shows old chords inside the gig view
-- Open 🏗: Deleting a song does not remove the song from the gigs containing the removed song. 
-```
-
-## Setup
-
-You need to enter you firebase keys to environment.ts
-
-```
-git clone <this-repo>
-npm i
-ng s
-```
