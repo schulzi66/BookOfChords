@@ -13,6 +13,7 @@
     flex-direction: column;
     @media only screen and (min-width: 992px) {
         width: 70%;
+        height: 80vh;
         flex-direction: row;
     }
 }
@@ -26,7 +27,8 @@
 }
 
 .row-el-2 {
-    @media only screen and (max-width: 600px) {
+    height: 100%;
+    @media only screen and (max-width: 992px) {
         width: 100%;
     }
 }
