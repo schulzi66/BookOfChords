@@ -10,6 +10,11 @@
     &.h6 {
         height: 6vh;
     }
+
+    &.buttons {
+        flex-direction: row;
+        margin-bottom: 4px;
+    }
 }
 
 .login-card {
@@ -24,4 +29,9 @@
 
 .spacer {
     flex: 1 1 auto;
+}
+
+.guest-note {
+    font-style: italic;
+    font-size: small;
 }

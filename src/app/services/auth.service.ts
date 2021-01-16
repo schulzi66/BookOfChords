@@ -38,14 +38,21 @@ export class AuthService implements OnDestroy {
     this._subscriptions$.unsubscribe();
   }
 
-  public googleSignIn() {
+  public async googleSignIn() {
     const provider = new auth.GoogleAuthProvider();
-    this.oAuthLogin(provider).then(() => this.router.navigate(['/songs']));
+    await this.oAuthLogin(provider);
+    this.router.navigate(['/songs']);
+  }
+
+  public async anonymSignIn() {
+    const credential = await this.afAuth.signInAnonymously();
+    await this.updateUserData(credential.user.uid, null, 'Anonymous', null);
+    this.router.navigate(['/songs']);
   }
 
   private async oAuthLogin(provider) {
     const credential = await this.afAuth.signInWithPopup(provider);
-    return this.updateUserData(
+    return await this.updateUserData(
       credential.user.uid,
       credential.user.email,
       (credential.additionalUserInfo.profile as any).name === undefined
@@ -55,7 +62,7 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  private updateUserData(uid: string, email: string, displayName: string, photoURL: string) {
+  private updateUserData(uid: string, email: string, displayName: string, photoURL: string): Promise<void> {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
 
     const data = {
@@ -67,19 +74,6 @@ export class AuthService implements OnDestroy {
 
     return userRef.set(data, { merge: true });
   }
-
-  // private updateUserData({ uid, email, displayName, photoURL }: User) {
-  // 	const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
-
-  // 	const data = {
-  // 		uid,
-  // 		email,
-  // 		displayName,
-  // 		photoURL
-  // 	};
-
-  // 	return userRef.set(data, { merge: true });
-  // }
 
   // Refactor to use the currentUserObject and not make another call!
   public updateBandIdForUserId(uid: string, bandId: string): void {

@@ -9,6 +9,7 @@
     "demo": "Demo",
     "login": "Anmelden",
     "login_with_google": "Mit Google anmelden",
+    "login_as_guest": "Als Gast anmelden",
     "song_name": "Name des Songs",
     "section": "Abschnitt",
     "search": "Suche",
@@ -49,5 +50,6 @@
     "notification_data": "Eine neue Setliste wurde angelegt",
     "saved": "Erfolgreich gespeichert",
     "no_band_found_title": "Keine Band gefunden",
-    "no_band_found_content": "Es wurde keine Band mit der ID: {{value}} gefunden."
+    "no_band_found_content": "Es wurde keine Band mit der ID: {{value}} gefunden.",
+    "guest_note": "*Das Gastkonto wird auch von anderen Personen verwendet"
 }

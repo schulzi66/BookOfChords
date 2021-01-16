@@ -9,6 +9,7 @@
     "demo": "Demo",
     "login": "Sign In",
     "login_with_google": "Login with Google",
+    "login_as_guest": "Login as guest",
     "song_name": "Name of the song",
     "section": "Section",
     "search": "Search",
@@ -49,5 +50,6 @@
     "notification_data": "A new setlist was created",
     "saved": "Saved successfully",
     "no_band_found_title": "No band found",
-    "no_band_found_content": "We could not find any band with the id: {{value}}."
+    "no_band_found_content": "We could not find any band with the id: {{value}}.",
+    "guest_note": "*The guest account will also be used by other people"
 }
