@@ -20,6 +20,8 @@ Check it out: 👉 https://book-of-chords.firebaseapp.com/
 
 🔐 Secure Google login
 
+👻 Guest account (to try out/no permanent storage)
+
 💲 Completly free without adds
 
 <br>
