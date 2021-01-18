@@ -1,13 +1,11 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Gig } from '../../models/gig';
-import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { GigService } from '../services/gig.service';
-import { TitleKeyService, TITLEKEYS } from 'src/app/services/title-key.service';
-import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-gig-overview',
@@ -15,10 +13,8 @@ import { fadeInOnEnterAnimation } from 'angular-animations';
   styleUrls: ['./gig-overview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class GigOverviewComponent implements OnInit, OnDestroy {
+export class GigOverviewComponent extends SubscriptionHandler implements OnInit {
   public gigs: Gig[];
-
-  private _subscriptions$: Subscription;
 
   constructor(
     private _gigService: GigService,
@@ -26,6 +22,7 @@ export class GigOverviewComponent implements OnInit, OnDestroy {
     private _navbarActionService: NavbarActionService,
     private _router: Router
   ) {
+    super();
     this._navbarActionService.registerActions([
       {
         order: 100,
@@ -33,7 +30,6 @@ export class GigOverviewComponent implements OnInit, OnDestroy {
         action: () => this.createNewGig()
       }
     ]);
-    this._subscriptions$ = new Subscription();
   }
 
   ngOnInit() {
@@ -42,10 +38,6 @@ export class GigOverviewComponent implements OnInit, OnDestroy {
         this.gigs = gigs;
       })
     );
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
   }
 
   public createNewGig(): void {

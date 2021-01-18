@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { translate, TranslocoService } from '@ngneat/transloco';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-configuration',
@@ -16,9 +16,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
   styleUrls: ['./configuration.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class ConfigurationComponent implements OnInit, OnDestroy {
-  private _subscriptions$: Subscription;
-
+export class ConfigurationComponent extends SubscriptionHandler implements OnInit {
   public configuration: Configuration;
 
   constructor(
@@ -28,6 +26,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     private _navbarActionService: NavbarActionService,
     private _snackbarService: SnackbarService
   ) {
+    super();
     this._navbarActionService.registerActions([
       {
         order: 100,
@@ -41,7 +40,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
         }
       }
     ]);
-    this._subscriptions$ = new Subscription();
   }
 
   ngOnInit() {
@@ -55,10 +53,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
         this._translocoService.setActiveLang(this.configuration.lang);
       })
     );
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
   }
 
   public fontSizeHeaderChanged(event: MatSelectChange): void {

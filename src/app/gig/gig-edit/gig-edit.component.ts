@@ -1,5 +1,5 @@
 import { SnackbarService } from './../../services/snackbar.service';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,10 +12,10 @@ import { User } from '../../models/user';
 import { SongService } from '../../songs/services/song.service';
 import { GigService } from '../services/gig.service';
 import { AuthService } from './../../services/auth.service';
-import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { INavbarAction } from 'src/app/models/navbar-action';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-gig-edit',
@@ -23,7 +23,7 @@ import { INavbarAction } from 'src/app/models/navbar-action';
   styleUrls: ['./gig-edit.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class GigEditComponent implements OnInit, OnDestroy {
+export class GigEditComponent extends SubscriptionHandler implements OnInit {
   public gig: Gig;
   public allSongs: Song[];
   public selectedSongs: Song[];
@@ -40,7 +40,6 @@ export class GigEditComponent implements OnInit, OnDestroy {
 
   private _currentUser: User;
   private _popupDialogData: PopupDialogData;
-  private _subscriptions$: Subscription;
 
   constructor(
     private _gigService: GigService,
@@ -52,6 +51,7 @@ export class GigEditComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _snackbarService: SnackbarService
   ) {
+    super();
     this.gig = this._activatedRoute.snapshot.data['gig'];
     if (this.gig === null || this.gig === undefined) {
       this.isNewGig = true;
@@ -59,7 +59,6 @@ export class GigEditComponent implements OnInit, OnDestroy {
     }
 
     this.registerNavbarActions();
-    this._subscriptions$ = new Subscription();
   }
 
   ngOnInit() {
@@ -70,10 +69,6 @@ export class GigEditComponent implements OnInit, OnDestroy {
         this.filteredSongs = songs;
       })
     );
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
   }
 
   public checkSelected(song: Song): boolean {

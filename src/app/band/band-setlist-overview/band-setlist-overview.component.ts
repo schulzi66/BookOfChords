@@ -1,13 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
-import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { Router } from '@angular/router';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-band-setlist-overview',
@@ -15,10 +13,8 @@ import { fadeInOnEnterAnimation } from 'angular-animations';
   styleUrls: ['./band-setlist-overview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class BandSetlistOverviewComponent implements OnInit, OnDestroy {
+export class BandSetlistOverviewComponent extends SubscriptionHandler implements OnInit {
   public band: Band;
-
-  private _subscriptions$: Subscription;
 
   public constructor(
     private _authService: AuthService,
@@ -26,6 +22,7 @@ export class BandSetlistOverviewComponent implements OnInit, OnDestroy {
     private _navbarActionService: NavbarActionService,
     private _router: Router
   ) {
+    super();
     this._navbarActionService.registerActions([
       {
         order: 100,
@@ -33,7 +30,6 @@ export class BandSetlistOverviewComponent implements OnInit, OnDestroy {
         action: () => this._router.navigate(['./band/setlist/edit', -1])
       }
     ]);
-    this._subscriptions$ = new Subscription();
   }
 
   ngOnInit() {
@@ -44,9 +40,5 @@ export class BandSetlistOverviewComponent implements OnInit, OnDestroy {
         })
       );
     }
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
   }
 }

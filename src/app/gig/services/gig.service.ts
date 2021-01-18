@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Gig } from '../../models/gig';
 import { Song } from '../../models/song';
 import { AuthService } from 'src/app/services/auth.service';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GigService {
-  private _subscriptions$: Subscription;
-
+export class GigService extends SubscriptionHandler {
   public gigs$: Observable<Gig[]>;
   public gigs: Gig[];
 
   constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
-    this._subscriptions$ = new Subscription();
+    super();
     this.gigs$ = this.getGigsForUser(this._authService.user.uid);
 
     this._subscriptions$.add(this.gigs$.subscribe((gigs: Gig[]) => (this.gigs = gigs)));

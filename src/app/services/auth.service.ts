@@ -1,22 +1,20 @@
+import { SubscriptionHandler } from './../shared/helper/subscription-handler';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { auth } from 'firebase';
-import { Observable, of, Subscription } from 'rxjs';
-import { switchMap, tap, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { User } from '../models/user';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService implements OnDestroy {
+export class AuthService extends SubscriptionHandler implements OnDestroy {
   public user$: Observable<User>;
   public user: User;
 
-  private _subscriptions$: Subscription;
-
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
-    this._subscriptions$ = new Subscription();
-
+    super();
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
@@ -35,7 +33,7 @@ export class AuthService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.user$ = null;
-    this._subscriptions$.unsubscribe();
+    super.ngOnDestroy();
   }
 
   public async googleSignIn() {

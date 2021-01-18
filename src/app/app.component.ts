@@ -1,6 +1,6 @@
 import { SnackbarService } from './services/snackbar.service';
 import { TitleKeyService } from './services/title-key.service';
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { translate, TranslocoService } from '@ngneat/transloco';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from './models/configuration';
@@ -8,19 +8,17 @@ import { User } from './models/user';
 import { AuthService } from './services/auth.service';
 import { MessagingService } from './services/messaging.service';
 import { PwaService } from './services/pwa.service';
-import { Subscription } from 'rxjs';
 import { DrawerActionService } from './services/drawer-action.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { NavbarActionService } from './services/navbar-action.service';
+import { SubscriptionHandler } from './shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
-  private _subscriptions$: Subscription;
-
+export class AppComponent extends SubscriptionHandler implements OnInit, AfterViewInit {
   @ViewChild('drawer') private _drawer: MatDrawer;
 
   constructor(
@@ -34,7 +32,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     private _messagingService: MessagingService,
     private _snackbarService: SnackbarService
   ) {
-    this._subscriptions$ = new Subscription();
+    super();
   }
 
   ngOnInit(): void {
@@ -60,10 +58,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.drawerActionService.drawer = this._drawer;
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
   }
 
   installPwa(): void {

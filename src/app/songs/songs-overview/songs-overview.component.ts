@@ -1,14 +1,10 @@
+import { SubscriptionHandler } from '../../shared/helper/subscription-handler';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ClipboardService } from 'ngx-clipboard';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Song } from '../../models/song';
-import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
-import { Subscription } from 'rxjs';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 
@@ -18,11 +14,10 @@ import { fadeInOnEnterAnimation } from 'angular-animations';
   styleUrls: ['./songs-overview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class SongsOverviewComponent implements OnInit, OnDestroy {
+export class SongsOverviewComponent extends SubscriptionHandler implements OnInit {
   public filteredSongs: Song[];
 
   private _songs: Song[];
-  private _subscriptions$: Subscription;
 
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
@@ -32,7 +27,7 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
     private _navbarActionService: NavbarActionService,
     public configurationService: ConfigurationService
   ) {
-    this._subscriptions$ = new Subscription();
+    super();
     this._navbarActionService.registerActions([
       {
         order: 100,
@@ -49,10 +44,6 @@ export class SongsOverviewComponent implements OnInit, OnDestroy {
         this.filteredSongs = songs;
       })
     );
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
   }
 
   public createNewSong(): void {

@@ -1,30 +1,26 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Song } from '../../models/song';
-import { User } from 'src/app/models/user';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Injectable({ providedIn: 'root' })
-export class SongService implements OnDestroy {
-  private _subscriptions$: Subscription;
-
+export class SongService extends SubscriptionHandler implements OnDestroy {
   public selectedSong: Song;
 
   public songs$: Observable<Song[]>;
   public songs: Song[];
 
   constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
-    this._subscriptions$ = new Subscription();
-
+    super();
     this.songs$ = this.getSongsForUser(this._authService.user.uid);
-
     this._subscriptions$.add(this.songs$.subscribe((songs: Song[]) => (this.songs = songs)));
   }
 
   ngOnDestroy(): void {
     this.songs$ = null;
-    this._subscriptions$.unsubscribe();
+    super.ngOnDestroy();
   }
 
   public saveSong(song: Song): Promise<void> {

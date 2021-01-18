@@ -1,16 +1,15 @@
-import { tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { translate } from '@ngneat/transloco';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-band-edit',
@@ -18,8 +17,7 @@ import { translate } from '@ngneat/transloco';
   styleUrls: ['./band-edit.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class BandEditComponent implements OnInit, OnDestroy {
-  private _subscriptions$: Subscription;
+export class BandEditComponent extends SubscriptionHandler implements OnInit {
   private _currentUser: User;
 
   public band: Band;
@@ -41,6 +39,7 @@ export class BandEditComponent implements OnInit, OnDestroy {
     private _navbarActionService: NavbarActionService,
     private _snackbarService: SnackbarService
   ) {
+    super();
     this._navbarActionService.registerActions([
       {
         order: 100,
@@ -60,7 +59,6 @@ export class BandEditComponent implements OnInit, OnDestroy {
         }
       }
     ]);
-    this._subscriptions$ = new Subscription();
     this.band = new Band();
   }
 
@@ -77,9 +75,6 @@ export class BandEditComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
-  }
   public deleteMember(i: number): void {
     this.band.members.splice(i, 1);
   }

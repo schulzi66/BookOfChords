@@ -1,16 +1,14 @@
 import { translate } from '@ngneat/transloco';
-import { map, tap } from 'rxjs/operators';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { PopupDialogData } from 'src/app/shared/components/popup-dialog/popup-dialog-data';
 import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
 import { BandService } from '../services/band.service';
-import { Subscription } from 'rxjs';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-band-join',
@@ -18,10 +16,9 @@ import { fadeInOnEnterAnimation } from 'angular-animations';
   styleUrls: ['./band-join.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class BandJoinComponent implements OnInit, OnDestroy {
+export class BandJoinComponent extends SubscriptionHandler implements OnInit {
   private _currentUser: User;
   private _popupDialogData: PopupDialogData;
-  private _subscriptions$: Subscription;
 
   public bandId: string;
 
@@ -31,7 +28,7 @@ export class BandJoinComponent implements OnInit, OnDestroy {
     private _matDialog: MatDialog,
     private _navbarActionService: NavbarActionService
   ) {
-    this._subscriptions$ = new Subscription();
+    super();
     this._navbarActionService.registerActions([
       {
         order: 100,
@@ -43,10 +40,6 @@ export class BandJoinComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._currentUser = this._authService.user;
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
   }
 
   public joinBand(): void {

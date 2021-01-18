@@ -3,7 +3,7 @@ import { ConfigurationService } from 'src/app/configuration/services/configurati
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
 import { translate } from '@ngneat/transloco';
@@ -16,8 +16,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SongService } from 'src/app/songs/services/song.service';
 import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
-import { Subscription } from 'rxjs';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-band-setlist-edit',
@@ -25,10 +25,8 @@ import { fadeInOnEnterAnimation } from 'angular-animations';
   styleUrls: ['./band-setlist-edit.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class BandSetlistEditComponent implements OnInit, OnDestroy {
+export class BandSetlistEditComponent extends SubscriptionHandler implements OnInit {
   private _currentUser: User;
-
-  private _subscriptions$: Subscription;
 
   public band: Band;
   public setlist: Setlist;
@@ -48,7 +46,7 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
     private _snackbarService: SnackbarService,
     private _navbarActionService: NavbarActionService
   ) {
-    this._subscriptions$ = new Subscription();
+    super();
     this.setlist = new Setlist();
     this._navbarActionService.registerActions([
       {
@@ -102,10 +100,6 @@ export class BandSetlistEditComponent implements OnInit, OnDestroy {
         }
       })
     );
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptions$.unsubscribe();
   }
 
   public onNameChanged(): void {

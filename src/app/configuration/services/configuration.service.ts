@@ -1,3 +1,4 @@
+import { SubscriptionHandler } from './../../shared/helper/subscription-handler';
 import { AuthService } from 'src/app/services/auth.service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -7,9 +8,7 @@ import { Configuration } from '../../models/configuration';
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigurationService implements OnDestroy {
-  private _subscriptions$: Subscription;
-
+export class ConfigurationService extends SubscriptionHandler {
   public configuration$: Observable<Configuration> = of(null);
 
   public get useDarkMode(): boolean {
@@ -17,7 +16,7 @@ export class ConfigurationService implements OnDestroy {
   }
 
   constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
-    this._subscriptions$ = new Subscription();
+    super();
     this._subscriptions$.add(
       this._authService.user$.subscribe((user) => {
         if (user) {
@@ -29,7 +28,7 @@ export class ConfigurationService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.configuration$ = null;
-    this._subscriptions$.unsubscribe();
+    super.ngOnDestroy();
   }
 
   private loadConfigurationForUser(uid: string): Observable<Configuration> {
