@@ -51,5 +51,6 @@
     "saved": "Erfolgreich gespeichert",
     "no_band_found_title": "Keine Band gefunden",
     "no_band_found_content": "Es wurde keine Band mit der ID: {{value}} gefunden.",
-    "guest_note": "*Das Gastkonto ermöglicht keine permanente Speicherung"
+    "guest_note": "*Das Gastkonto ermöglicht keine permanente Speicherung",
+    "exercises": "Übungen"
 }

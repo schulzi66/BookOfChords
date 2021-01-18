@@ -7,7 +7,8 @@ export enum TITLEKEYS {
   gigs = 'gigs',
   band = 'band',
   configuration = 'settings',
-  demo = 'demo'
+  demo = 'demo',
+  exercises = 'exercises'
 }
 
 @Injectable({

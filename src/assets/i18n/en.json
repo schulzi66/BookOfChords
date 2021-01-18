@@ -51,5 +51,6 @@
     "saved": "Saved successfully",
     "no_band_found_title": "No band found",
     "no_band_found_content": "We could not find any band with the id: {{value}}.",
-    "guest_note": "*The guest account does not allow permanent storage"
+    "guest_note": "*The guest account does not allow permanent storage",
+    "exercises": "Exercises"
 }

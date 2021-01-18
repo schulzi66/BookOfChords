@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: 'songs',
     loadChildren: () => import('./songs/songs.module').then((m) => m.SongsModule),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'gigs',
@@ -46,6 +46,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     resolve: { key: TitleKeyResolver, band: BandResolver },
     data: { key: TITLEKEYS.band }
+  },
+  {
+    path: 'exercises',
+    loadChildren: () => import('./exercises/exercises.module').then((m) => m.ExercisesModule),
+    canActivate: [AuthGuard],
+    resolve: { key: TitleKeyResolver },
+    data: { key: TITLEKEYS.exercises }
   }
 ];
 
