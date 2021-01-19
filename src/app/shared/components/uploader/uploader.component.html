@@ -9,7 +9,7 @@
                   (onClick)="fileInput.click()">
     <input #fileInput
            type="file"
-           accept="image/*,.pdf"
+           accept="image/*,.pdf,audio/*"
            (change)="onDrop($event.target.files)"
            style="display:none;" />
   </shared-fab-btn>

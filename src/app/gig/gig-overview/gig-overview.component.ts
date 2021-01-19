@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Gig } from '../../models/gig';
-import { AuthService } from '../../services/auth.service';
 import { GigService } from '../services/gig.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
@@ -18,7 +17,6 @@ export class GigOverviewComponent extends SubscriptionHandler implements OnInit 
 
   constructor(
     private _gigService: GigService,
-    private _authService: AuthService,
     private _navbarActionService: NavbarActionService,
     private _router: Router
   ) {
@@ -34,7 +32,7 @@ export class GigOverviewComponent extends SubscriptionHandler implements OnInit 
 
   ngOnInit() {
     this._subscriptions$.add(
-      this._gigService.getGigsForUser(this._authService.user.uid).subscribe((gigs: Gig[]) => {
+      this._gigService.gigs$.subscribe((gigs: Gig[]) => {
         this.gigs = gigs;
       })
     );

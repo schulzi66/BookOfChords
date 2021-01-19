@@ -27,8 +27,6 @@ export class BandOverviewComponent extends SubscriptionHandler implements OnInit
   }
 
   public get isUserInBand(): boolean {
-    // this.;
-    // return this._activatedRoute.snapshot.data['band'] !== undefined;
     return this.band !== undefined;
   }
 }

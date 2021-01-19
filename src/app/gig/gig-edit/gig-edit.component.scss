@@ -1,7 +1,6 @@
 .gig-name {
-    //   margin: 0 10px 0 10px;
     height: 75px;
-    flex-grow: 8;
+    flex-grow: 1;
 }
 
 .flex-container {
@@ -11,23 +10,8 @@
 }
 
 .search-input {
-    flex-grow: 7;
+    flex-grow: 1;
     height: 75px;
-}
-
-.back-btn {
-    flex-grow: 1;
-    padding: 0 10px 0 0;
-}
-
-.delete-btn {
-    flex-grow: 1;
-    padding: 0 0 0 10px;
-}
-
-.filter-btn {
-    flex-grow: 1;
-    padding: 0 0 0 10px;
 }
 
 .song-list {

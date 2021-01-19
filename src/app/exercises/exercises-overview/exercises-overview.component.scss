@@ -1,0 +1,19 @@
+table {
+    width: 100%;
+}
+
+.exercise-detail {
+    overflow: hidden;
+    display: flex;
+}
+.table-cell {
+    text-align: left;
+}
+
+tr.exercise-detail-row {
+    height: 0;
+}
+
+.exercise-element-row td {
+    border-bottom-width: 0;
+}

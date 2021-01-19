@@ -30,7 +30,7 @@ export class GigService extends SubscriptionHandler {
       .set(Object.assign({}, JSON.parse(JSON.stringify(gig))));
   }
 
-  public getGigsForUser(uid: string): Observable<Gig[]> {
+  private getGigsForUser(uid: string): Observable<Gig[]> {
     return this._angularFirestore
       .collection<Gig>('gigs', (ref) => {
         return ref.where('uid', '==', uid);

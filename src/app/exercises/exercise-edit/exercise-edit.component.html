@@ -1,0 +1,30 @@
+<div class="flex-container"
+     [@fadeInOnEnter]>
+  <mat-form-field appearance="outline"
+                  class="item-full">
+    <mat-label>{{'exercise_name' | transloco}}</mat-label>
+    <input matInput
+           [(ngModel)]="exercise.name"
+           name="exerciseName">
+  </mat-form-field>
+  <mat-form-field appearance="outline"
+                  class="item-half">
+    <mat-label>{{'exercise_current_bpm' | transloco}}</mat-label>
+    <input matInput
+           [(ngModel)]="exercise.currentBpm"
+           type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline"
+                  class="item-half">
+    <mat-label>{{'exercise_next_bpm' | transloco}}</mat-label>
+    <input matInput
+           [(ngModel)]="exercise.nextBpm"
+           type="number">
+  </mat-form-field>
+  
+  <!-- <uploader class="item-full"
+            *ngIf="this.showUpload"
+            [storageBucketPrefix]="'exercises'"
+            (onUploadComplete)="onFileUploadCompleted($event)"></uploader> -->
+
+</div>

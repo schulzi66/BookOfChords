@@ -1,0 +1,11 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.item-full {
+    width: 100%;
+}
+.item-half {
+    width: 49%;
+}

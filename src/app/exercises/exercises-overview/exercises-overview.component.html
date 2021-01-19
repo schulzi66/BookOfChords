@@ -1,3 +1,36 @@
-<p>
-  Exercises-overview works!
-</p>
+<table mat-table
+       [dataSource]="exercises"
+       multiTemplateDataRows>
+  <ng-container matColumnDef="{{column}}"
+                *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell
+        *matHeaderCellDef> {{column}} </th>
+    <td mat-cell class="table-cell"
+        *matCellDef="let exercise"> {{exercise[column]}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell
+        *matCellDef="let exercise"
+        [attr.colspan]="columnsToDisplay.length">
+      <div class="exercise-detail"
+           [@detailExpand]="exercise == expandedExercise ? 'expanded' : 'collapsed'">
+        <div>{{exercise.name}}</div>
+        <div>{{exercise.currentBpm}}</div>
+        <div>{{exercise.nextBpm}}</div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row
+      *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row
+      *matRowDef="let exercise; columns: columnsToDisplay;"
+      class="exercise-element-row"
+      [class.exercise-expanded-row]="expandedExercise === exercise"
+      (click)="expandedExercise = expandedExercise === exercise ? null : exercise">
+  </tr>
+  <tr mat-row
+      *matRowDef="let row; columns: ['expandedDetail']"
+      class="exercise-detail-row"></tr>
+</table>

@@ -20,6 +20,9 @@ service cloud.firestore {
     match /bands/{id} {
         allow read, write: if isSignedIn()
     }
+    match /exercises/{id} {
+    	allow read, write : if isSignedIn()
+    }
     
     
     /// Functions ///
