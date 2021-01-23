@@ -1,3 +1,4 @@
+import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
 import { translate } from '@ngneat/transloco';
 import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
@@ -7,6 +8,7 @@ import { Exercise } from './../../models/exercise';
 import { Component, OnInit } from '@angular/core';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { BottomSheetUploaderAllowedTypes } from 'src/app/shared/components/bottom-sheet-uploader/bottom-sheet-uploader.component';
 
 @Component({
   selector: 'app-exercise-edit',
@@ -23,7 +25,8 @@ export class ExerciseEditComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _navbarActionService: NavbarActionService,
     private _snackbarService: SnackbarService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _bottomSheetUploaderService: BottomSheetUploaderService
   ) {
     this._navbarActionService.registerActions([
       {
@@ -35,7 +38,10 @@ export class ExerciseEditComponent implements OnInit {
         order: 200,
         icon: 'attach_file',
         action: () => {
-          this.showUpload = !this.showUpload;
+          this._bottomSheetUploaderService.show({
+            typesToUpload: [BottomSheetUploaderAllowedTypes.IMAGE, BottomSheetUploaderAllowedTypes.PDF]
+          });
+          //   this.showUpload = !this.showUpload;
         }
       }
     ]);
@@ -49,9 +55,7 @@ export class ExerciseEditComponent implements OnInit {
     }
   }
 
-  public onFileUploadCompleted($event: string): void {
-      
-  }
+  public onFileUploadCompleted($event: string): void {}
 
   private _saveExercise(): void {
     if (this.exercise.name && this._authService.user) {

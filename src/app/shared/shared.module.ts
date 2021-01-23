@@ -5,6 +5,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 import { AllMaterialModule } from '../material-module';
+import { BottomSheetUploaderComponent } from './components/bottom-sheet-uploader/bottom-sheet-uploader.component';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
 import { MetronomeComponent } from './components/metronome/metronome.component';
 import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.component';
@@ -25,7 +26,8 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     SearchComponent,
     PopupDialogComponent,
     MetronomeComponent,
-    RockNRollSnackbarComponent
+    RockNRollSnackbarComponent,
+    BottomSheetUploaderComponent
   ],
   imports: [CommonModule, AllMaterialModule, FormsModule, TranslocoModule, RouterModule],
   providers: [
@@ -40,7 +42,8 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     UploaderComponent,
     SearchComponent,
     PopupDialogComponent,
-    MetronomeComponent
+    MetronomeComponent,
+    BottomSheetUploaderComponent
   ]
 })
 export class SharedModule {}

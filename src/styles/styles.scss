@@ -37,3 +37,7 @@ body {
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
+
+.viewport {
+    height: calc(100vh - 163px);
+}

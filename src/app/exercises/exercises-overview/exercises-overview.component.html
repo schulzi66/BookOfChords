@@ -1,4 +1,57 @@
+<!-- <div [@fadeInOnEnter]>
+  <mat-selection-list [multiple]="false"
+                      class="selection-list">
+    <cdk-virtual-scroll-viewport itemSize=48
+                                 class="viewport">
+      <mat-list-option *cdkVirtualFor="let exercise of exercises"
+                       [value]="exercise"
+                       [routerLink]="['/exercises/details', exercise.id]"
+                       class="exercise-option">
+        <div class="exercise-row">
+          <span class="item">{{exercise.name}}</span>
+          <span class="item">{{exercise.currentBpm}}</span>
+          <span class="item">{{exercise.nextBpm}}</span>
+        </div>
+      </mat-list-option>
+    </cdk-virtual-scroll-viewport>
+  </mat-selection-list>
+</div> -->
+
 <table mat-table
+       [dataSource]="exercises">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell
+        *matHeaderCellDef>Name</th>
+    <td mat-cell
+        *matCellDef="let exercise">{{exercise.name}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="currentBpm">
+    <th mat-header-cell
+        *matHeaderCellDef>Current BPM</th>
+    <td mat-cell
+        *matCellDef="let exercise">{{exercise.currentBpm}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nextBpm">
+    <th mat-header-cell
+        *matHeaderCellDef>Next BPM</th>
+    <td mat-cell
+        *matCellDef="let exercise">{{exercise.nextBpm}}</td>
+  </ng-container>
+
+  <tr mat-header-row
+      *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row
+      *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+
+
+
+
+<!-- <table mat-table
        [dataSource]="exercises"
        multiTemplateDataRows>
   <ng-container matColumnDef="{{column}}"
@@ -33,4 +86,4 @@
   <tr mat-row
       *matRowDef="let row; columns: ['expandedDetail']"
       class="exercise-detail-row"></tr>
-</table>
+</table> -->

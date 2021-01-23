@@ -6,23 +6,26 @@ import { Component, OnInit } from '@angular/core';
 import { ExercisesService } from '../services/exercises.service';
 import { Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-exercises-overview',
   templateUrl: './exercises-overview.component.html',
   styleUrls: ['./exercises-overview.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
-    ])
-  ]
+  animations: [fadeInOnEnterAnimation({ duration: 700 })]
+  //   animations: [
+  //     trigger('detailExpand', [
+  //       state('collapsed', style({ height: '0px', minHeight: '0' })),
+  //       state('expanded', style({ height: '*' })),
+  //       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+  //     ])
+  //   ]
 })
 export class ExercisesOverviewComponent extends SubscriptionHandler implements OnInit {
   public exercises: Exercise[];
-  public expandedExercise: Exercise; 
-  public columnsToDisplay = ['name', 'currentBpm', 'nextBpm'];
+  public displayedColumns: string[] = ['name', 'currentBpm', 'nextBpm'];
+  //   public expandedExercise: Exercise;
+  //   public columnsToDisplay = ['name', 'currentBpm', 'nextBpm'];
 
   constructor(
     private _exercisesService: ExercisesService,
@@ -31,7 +34,7 @@ export class ExercisesOverviewComponent extends SubscriptionHandler implements O
   ) {
     super();
     console.log(Object.getOwnPropertyNames(Exercise));
-    
+
     this._navbarActionService.registerActions([
       {
         order: 100,

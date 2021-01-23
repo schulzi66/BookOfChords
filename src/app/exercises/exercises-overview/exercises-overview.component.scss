@@ -17,3 +17,19 @@ tr.exercise-detail-row {
 .exercise-element-row td {
     border-bottom-width: 0;
 }
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.exercise-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .item {
+        flex: 0 32%;
+        height: 100px;
+        margin-bottom: 2%;
+    }
+}
