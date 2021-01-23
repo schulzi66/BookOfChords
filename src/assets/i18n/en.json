@@ -52,5 +52,9 @@
     "no_band_found_title": "No band found",
     "no_band_found_content": "We could not find any band with the id: {{value}}.",
     "guest_note": "*The guest account does not allow permanent storage",
-    "exercises": "Exercises"
+    "exercises": "Exercises",
+    "upload_image/*": "Upload pictures",
+    "upload_application/pdf": "Upload PDF documents",
+    "upload_audio/*": "Upload audio",
+    "upload_*": "Upload any document"
 }

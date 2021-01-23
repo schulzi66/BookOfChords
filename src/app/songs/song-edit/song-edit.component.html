@@ -54,10 +54,4 @@
       <mat-icon>delete_outline</mat-icon>
     </button>
   </div>
-
-
-  <uploader *ngIf="this.showUpload"
-            [storageBucketPrefix]="'songs'"
-            (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
-
 </div>

@@ -52,5 +52,9 @@
     "no_band_found_title": "Keine Band gefunden",
     "no_band_found_content": "Es wurde keine Band mit der ID: {{value}} gefunden.",
     "guest_note": "*Das Gastkonto ermöglicht keine permanente Speicherung",
-    "exercises": "Übungen"
+    "exercises": "Übungen",
+    "upload_image/*": "Bilder hochladen",
+    "upload_application/pdf": "PDF Dokumente hochladen",
+    "upload_audio/*": "Audio Datein hochladen",
+    "upload_*": "Dateien hochladen"
 }

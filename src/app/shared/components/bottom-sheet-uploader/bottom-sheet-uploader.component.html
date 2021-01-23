@@ -1,38 +1,23 @@
 <mat-nav-list>
-  <a href="https://keep.google.com/"
-     mat-list-item
-     (click)="openLink($event)">
-    <span mat-line>Google Keep</span>
-    <span mat-line>Add to a note</span>
-  </a>
-
-  <a href="https://docs.google.com/"
-     mat-list-item
-     (click)="openLink($event)">
-    <span mat-line>Google Docs</span>
-    <span mat-line>Embed in a document</span>
-  </a>
-
-  <a href="https://plus.google.com/"
-     mat-list-item
-     (click)="openLink($event)">
-    <span mat-line>Google Plus</span>
-    <span mat-line>Share with your friends</span>
-  </a>
-
   <a mat-list-item
-     (click)="openLink($event)">
-    <span mat-line>Google Hangouts</span>
-    <span mat-line>Show to your coworkers</span>
-  </a>
-
-  <a *ngFor="let type of token.typesToUpload"
-     mat-list-item
+     *ngFor="let type of token.typesToUpload"
      (click)="fileInput.click()">
-    <span mat-line>{{type}}</span>
+
+    <span mat-line>{{ 'upload_' + type | transloco }}</span>
     <input #fileInput
            type="file"
+           multiple
            [accept]="type"
+           (change)="onChange($event.target.files, type)"
            style="display: none;" />
+
+    <span mat-line
+          *ngFor="let file of files[type]">
+      <upload-task [file]="file"
+                   [mediaType]="type"
+                   [storageBucketPrefix]="token.storageBucketPrefix"
+                   (onUploadComplete)="uploadComplete($event)">
+      </upload-task>
+    </span>
   </a>
 </mat-nav-list>

@@ -1,17 +1,17 @@
+import { UploadResult } from 'src/app/models/upload-result';
 import { translate } from '@ngneat/transloco';
 import { SnackbarService } from './../../services/snackbar.service';
 import { ActivatedRoute } from '@angular/router';
-import { INavbarAction } from '../../models/navbar-action';
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { GigService } from '../../gig/services/gig.service';
 import { Song } from '../../models/song';
 import { SongSection } from '../../models/song-section';
-import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { MediaTypes } from 'src/app/models/media-types.enum';
+import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
 
 @Component({
   selector: 'app-song-edit',
@@ -21,7 +21,6 @@ import { fadeInOnEnterAnimation } from 'angular-animations';
 })
 export class SongEditComponent implements OnInit {
   public song: Song;
-  public showUpload: boolean = false;
 
   constructor(
     private _songService: SongService,
@@ -29,7 +28,8 @@ export class SongEditComponent implements OnInit {
     private _gigService: GigService,
     private _activatedRoute: ActivatedRoute,
     private _navbarActionService: NavbarActionService,
-    private _snackbarService: SnackbarService
+    private _snackbarService: SnackbarService,
+    private _bottomSheetUploaderService: BottomSheetUploaderService
   ) {
     this._navbarActionService.registerActions([
       {
@@ -46,7 +46,11 @@ export class SongEditComponent implements OnInit {
         order: 300,
         icon: 'attach_file',
         action: () => {
-          this.showUpload = !this.showUpload;
+          this._bottomSheetUploaderService.show({
+            storageBucketPrefix: 'songs',
+            typesToUpload: [MediaTypes.IMAGE, MediaTypes.PDF],
+            onUploadCallback: (result) => this.onUploadCompleted(result)
+          });
         }
       }
     ]);
@@ -84,17 +88,17 @@ export class SongEditComponent implements OnInit {
     this.song.sections[index].value = value.split(/\r|\r\n|\n/);
   }
 
-  public onImageUploadCompleted($event: string): void {
-    if ($event.includes('.pdf?')) {
+  public onUploadCompleted(result: UploadResult): void {
+    if (result.mediaType === MediaTypes.PDF) {
       if (this.song.pdfs === undefined) {
         this.song.pdfs = [];
       }
-      this.song.pdfs.push($event);
-    } else {
+      this.song.pdfs.push(result.downloadUrl);
+    } else if (result.mediaType === MediaTypes.IMAGE) {
       if (this.song.pictures === undefined) {
         this.song.pictures = [];
       }
-      this.song.pictures.push($event);
+      this.song.pictures.push(result.downloadUrl);
     }
   }
 

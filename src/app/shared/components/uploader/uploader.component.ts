@@ -1,5 +1,6 @@
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { UploadResult } from 'src/app/models/upload-result';
 
 @Component({
   selector: 'uploader',
@@ -8,7 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class UploaderComponent implements OnInit {
   @Input('storageBucketPrefix') storageBucketPrefix: string;
-  @Output('onUploadComplete') onUploadComplete: EventEmitter<string> = new EventEmitter<string>();
+  @Output('onUploadComplete') onUploadComplete: EventEmitter<UploadResult> = new EventEmitter<UploadResult>();
 
   public isHovering: boolean;
   public files: File[] = [];
@@ -27,7 +28,7 @@ export class UploaderComponent implements OnInit {
     }
   }
 
-  public uploadComplete($event: string): void {
+  public uploadComplete($event: UploadResult): void {
     this.onUploadComplete.emit($event);
   }
 }

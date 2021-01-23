@@ -1,34 +1,8 @@
-<div *ngIf="percentage | async as pct">
+<span mat-line
+      class="progress-indicator"
+      *ngIf="percentage | async as pct">
+  {{pct | number:'1.0-0' }} %
   <mat-progress-bar mode="determinate"
+                    [color]="'accent'"
                     [value]="pct"></mat-progress-bar>
-</div>
-
-<div *ngIf="(snapshot | async) as snap">
-  <button mat-button
-          (click)="task.pause()"
-          class="button is-warning"
-          [disabled]="!isActive(snap)">
-    <ng-template transloco
-                 let-t>
-      {{ t('pause') }}
-    </ng-template>
-  </button>
-  <button mat-button
-          (click)="task.cancel()"
-          class="button is-danger"
-          [disabled]="!isActive(snap)">
-    <ng-template transloco
-                 let-t>
-      {{ t('cancel') }}
-    </ng-template>
-  </button>
-  <button mat-button
-          (click)="task.resume()"
-          class="button is-info"
-          [disabled]="!(snap?.state === 'paused')">
-    <ng-template transloco
-                 let-t>
-      {{ t('resume') }}
-    </ng-template>
-  </button>
-</div>
+</span>

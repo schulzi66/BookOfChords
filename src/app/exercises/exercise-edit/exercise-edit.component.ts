@@ -1,3 +1,4 @@
+import { UploadResult } from 'src/app/models/upload-result';
 import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
 import { translate } from '@ngneat/transloco';
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,7 +9,7 @@ import { Exercise } from './../../models/exercise';
 import { Component, OnInit } from '@angular/core';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { BottomSheetUploaderAllowedTypes } from 'src/app/shared/components/bottom-sheet-uploader/bottom-sheet-uploader.component';
+import { MediaTypes } from 'src/app/models/media-types.enum';
 
 @Component({
   selector: 'app-exercise-edit',
@@ -39,9 +40,10 @@ export class ExerciseEditComponent implements OnInit {
         icon: 'attach_file',
         action: () => {
           this._bottomSheetUploaderService.show({
-            typesToUpload: [BottomSheetUploaderAllowedTypes.IMAGE, BottomSheetUploaderAllowedTypes.PDF]
+            storageBucketPrefix: 'exercises',
+            typesToUpload: [MediaTypes.IMAGE, MediaTypes.SOUND, MediaTypes.PDF],
+            onUploadCallback: (result) => this.onFileUploadCompleted(result)
           });
-          //   this.showUpload = !this.showUpload;
         }
       }
     ]);
@@ -55,7 +57,9 @@ export class ExerciseEditComponent implements OnInit {
     }
   }
 
-  public onFileUploadCompleted($event: string): void {}
+  public onFileUploadCompleted(result: UploadResult): void {
+    console.log(result);
+  }
 
   private _saveExercise(): void {
     if (this.exercise.name && this._authService.user) {

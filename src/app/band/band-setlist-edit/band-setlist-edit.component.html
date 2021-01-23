@@ -23,9 +23,6 @@
                                useBrowserLocale="true"
                                height="80vh">
       </ngx-extended-pdf-viewer>
-      <uploader *ngIf="this.showUpload"
-                [storageBucketPrefix]="'setlists'"
-                (onUploadComplete)="onImageUploadCompleted($event)"></uploader>
     </div>
   </mat-tab>
   <mat-tab [label]="'songs' | transloco">

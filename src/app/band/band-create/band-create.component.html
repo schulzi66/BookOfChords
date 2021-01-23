@@ -11,6 +11,3 @@
 <img *ngIf="band.pictureUrl"
      [src]="band.pictureUrl"
      class="band-picture">
-<uploader *ngIf="this.showUpload"
-          [storageBucketPrefix]="'bands'"
-          (onUploadComplete)="onImageUploadCompleted($event)"></uploader>

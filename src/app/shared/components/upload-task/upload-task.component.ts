@@ -1,8 +1,10 @@
+import { MediaTypes } from 'src/app/models/media-types.enum';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
+import { UploadResult } from 'src/app/models/upload-result';
 
 @Component({
   selector: 'upload-task',
@@ -11,9 +13,12 @@ import { finalize } from 'rxjs/operators';
 })
 export class UploadTaskComponent implements OnInit {
   @Input('file') file: File;
+  @Input('mediaType') mediaType: MediaTypes;
+
   @Input('storageBucketPrefix') storageBucketPrefix: string;
 
-  @Output('onUploadComplete') onUploadComplete: EventEmitter<string> = new EventEmitter<string>();
+  @Output('onUploadComplete')
+  onUploadComplete: EventEmitter<UploadResult> = new EventEmitter<UploadResult>();
 
   public task: AngularFireUploadTask;
   public percentage: Observable<number>;
@@ -49,12 +54,13 @@ export class UploadTaskComponent implements OnInit {
           downloadUrl: this.downloadUrl,
           storagePath
         });
-        this.onUploadComplete.emit(this.downloadUrl);
+        this.onUploadComplete.emit({
+          downloadUrl: this.downloadUrl,
+          storagePath: storagePath,
+          mediaType: this.mediaType
+        });
       })
     );
-  }
-
-  public isActive(snapshot): boolean {
-    return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes;
+    this.snapshot.subscribe();
   }
 }

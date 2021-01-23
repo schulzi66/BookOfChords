@@ -18,6 +18,8 @@ import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { MediaTypes } from 'src/app/models/media-types.enum';
+import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
 
 @Component({
   selector: 'app-band-setlist-edit',
@@ -33,7 +35,6 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
   public allSongsOfCurrentUser: Song[];
   public selectedSongs: Song[];
   public filteredSongs: Song[];
-  public showUpload: boolean = false;
 
   public constructor(
     public configurationService: ConfigurationService,
@@ -44,7 +45,8 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
     private _songService: SongService,
     private _gigService: GigService,
     private _snackbarService: SnackbarService,
-    private _navbarActionService: NavbarActionService
+    private _navbarActionService: NavbarActionService,
+    private _bottomSheetUploaderService: BottomSheetUploaderService
   ) {
     super();
     this.setlist = new Setlist();
@@ -68,7 +70,14 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
         order: 300,
         icon: 'attach_file',
         action: () => {
-          this.showUpload = !this.showUpload;
+          this._bottomSheetUploaderService.show({
+            storageBucketPrefix: 'setlists',
+            typesToUpload: [MediaTypes.PDF],
+            onUploadCallback: (result) => {
+              this.setlist.pdfUrl = result.downloadUrl;
+              this.saveIfValid();
+            }
+          });
         }
       }
     ]);
@@ -139,13 +148,6 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
       );
     }
     this.saveIfValid();
-  }
-
-  public onImageUploadCompleted($event: string): void {
-    if ($event.includes('.pdf?')) {
-      this.setlist.pdfUrl = $event;
-      this.saveIfValid();
-    }
   }
 
   public exportSetlistAsGig(): void {

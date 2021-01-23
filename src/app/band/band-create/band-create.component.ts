@@ -1,3 +1,5 @@
+import { UploadResult } from 'src/app/models/upload-result';
+import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
 import { translate } from '@ngneat/transloco';
 import { SnackbarService } from './../../services/snackbar.service';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +9,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { MediaTypes } from 'src/app/models/media-types.enum';
 
 @Component({
   selector: 'app-band-create',
@@ -18,13 +21,13 @@ export class BandCreateComponent implements OnInit {
   private _currentUser: User;
 
   public band: Band;
-  public showUpload: boolean = false;
 
   public constructor(
     private _authService: AuthService,
     private _bandService: BandService,
     private _navbarActionService: NavbarActionService,
-    private _snackbarService: SnackbarService
+    private _snackbarService: SnackbarService,
+    private _bottomSheetUploaderService: BottomSheetUploaderService
   ) {
     this.band = new Band();
     this._navbarActionService.registerActions([
@@ -37,7 +40,11 @@ export class BandCreateComponent implements OnInit {
         order: 200,
         icon: 'attach_file',
         action: () => {
-          this.showUpload = !this.showUpload;
+          this._bottomSheetUploaderService.show({
+            storageBucketPrefix: 'bands',
+            typesToUpload: [MediaTypes.IMAGE],
+            onUploadCallback: (result) => (this.band.pictureUrl = result.downloadUrl)
+          });
         }
       }
     ]);
@@ -60,9 +67,5 @@ export class BandCreateComponent implements OnInit {
         this._navbarActionService.resetActions();
       });
     }
-  }
-
-  public onImageUploadCompleted($event: string): void {
-    this.band.pictureUrl = $event;
   }
 }

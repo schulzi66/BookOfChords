@@ -10,6 +10,8 @@ import { fadeInOnEnterAnimation } from 'angular-animations';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { translate } from '@ngneat/transloco';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
+import { MediaTypes } from 'src/app/models/media-types.enum';
 
 @Component({
   selector: 'app-band-edit',
@@ -21,7 +23,6 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
   private _currentUser: User;
 
   public band: Band;
-  public showUpload: boolean = false;
 
   public get isUserBandAdmin(): boolean {
     if (this.band && this._currentUser) {
@@ -37,7 +38,8 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
     private _authService: AuthService,
     private _location: Location,
     private _navbarActionService: NavbarActionService,
-    private _snackbarService: SnackbarService
+    private _snackbarService: SnackbarService,
+    private _bottomSheetUploaderService: BottomSheetUploaderService
   ) {
     super();
     this._navbarActionService.registerActions([
@@ -55,7 +57,11 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
         order: 200,
         icon: 'attach_file',
         action: () => {
-          this.showUpload = !this.showUpload;
+          this._bottomSheetUploaderService.show({
+            storageBucketPrefix: 'bands',
+            typesToUpload: [MediaTypes.IMAGE],
+            onUploadCallback: (result) => (this.band.pictureUrl = result.downloadUrl)
+          });
         }
       }
     ]);
@@ -77,9 +83,5 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
 
   public deleteMember(i: number): void {
     this.band.members.splice(i, 1);
-  }
-
-  public onImageUploadCompleted($event: string): void {
-    this.band.pictureUrl = $event;
   }
 }
