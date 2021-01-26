@@ -1,3 +1,4 @@
+import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 import { DrawerActionResolver } from '../shared/resolvers/drawer-action.resolver';
 import { Routes, RouterModule } from '@angular/router';
 import { ExercisesOverviewComponent } from './exercises-overview/exercises-overview.component';
@@ -22,6 +23,14 @@ const routes: Routes = [
       drawerAction: DrawerActionResolver,
       exercise: ExerciseResolver
     }
+  },
+  {
+      path: 'details/:id',
+      component: ExerciseDetailsComponent,
+      resolve: {
+          drawerAction: DrawerActionResolver,
+          exercise: ExerciseResolver
+      }
   }
 ];
 

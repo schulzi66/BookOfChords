@@ -20,4 +20,16 @@
       </upload-task>
     </span>
   </a>
+  <a mat-list-item
+     *ngIf="token.displayCameraOption"
+     (click)="cameraInput.click()">
+
+    <span mat-line>{{ 'upload_camera' | transloco }}</span>
+    <input #cameraInput
+           type="file"
+           accept="image/*"
+           capture="environment"
+           (change)="onChange($event.target.files, 'image/*')"
+           style="display:none;">
+  </a>
 </mat-nav-list>

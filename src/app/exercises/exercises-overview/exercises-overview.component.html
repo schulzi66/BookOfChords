@@ -8,6 +8,7 @@
     <cdk-virtual-scroll-viewport itemSize=48
                                  class="viewport">
       <mat-list-option *cdkVirtualFor="let exercise of filteredExercises"
+                       [routerLink]="['/exercises/details', exercise.id]"
                        [value]="exercise"
                        class="exercise-option">
         {{exercise.name}}
@@ -17,7 +18,7 @@
 </div>
 
 
-<!---[routerLink]="['/exercises/details', exercise.id]"-->
+<!----->
 
 
 <!-- 

@@ -1,3 +1,4 @@
+import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './../shared/shared.module';
@@ -19,6 +20,6 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     ExercisesRoutes,
     NgxExtendedPdfViewerModule
   ],
-  declarations: [ExercisesOverviewComponent, ExerciseEditComponent]
+  declarations: [ExercisesOverviewComponent, ExerciseEditComponent, ExerciseDetailsComponent]
 })
 export class ExercisesModule {}

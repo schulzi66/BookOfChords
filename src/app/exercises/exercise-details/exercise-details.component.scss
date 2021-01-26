@@ -1,0 +1,12 @@
+.grid {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.exercise-card {
+    margin: 2%;
+}
+
+.exercise-header {
+    text-align: left;
+}

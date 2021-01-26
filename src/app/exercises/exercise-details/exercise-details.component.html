@@ -1,0 +1,11 @@
+<mat-card class="exercise-card"
+          [@fadeInOnEnter]>
+  <mat-card-header class="exercise-header">
+    <mat-card-title>{{exercise.name}}</mat-card-title>
+    <mat-card-subtitle>{{'exercise_current_bpm' | transloco}}: {{exercise.currentBpm}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="exercise.pictureUrl">
+  <mat-card-content>
+
+  </mat-card-content>
+</mat-card>

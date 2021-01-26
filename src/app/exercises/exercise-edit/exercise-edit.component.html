@@ -1,23 +1,77 @@
-<div class="flex-container"
+<mat-vertical-stepper #stepper
+                      [@fadeInOnEnter]>
+  <mat-step label="{{'general_info_section' | transloco}}">
+    <div class="grid">
+      <mat-form-field appearance="outline">
+        <mat-label>{{'exercise_name' | transloco}}</mat-label>
+        <input matInput
+               required
+               [(ngModel)]="exercise.name"
+               name="exerciseName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <textarea matInput
+                  [placeholder]="'description' | transloco"
+                  [(ngModel)]="exercise.description"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"></textarea>
+      </mat-form-field>
+    </div>
+  </mat-step>
+  <mat-step label="{{'bpm_sound_section' | transloco}}">
+    <shared-metronome [bpm]="exercise.currentBpm"
+                      [showPlay]="false"
+                      [subtitle]="'exercise_current_bpm' | transloco"
+                      (onBpmChanged)="exercise.currentBpm = $event"></shared-metronome>
+
+    <audio class="sound"
+           controls>
+      <source *ngIf="exercise.sound"
+              [src]="exercise.sound">
+    </audio>
+  </mat-step>
+
+  <mat-step label="{{'image_section' | transloco}}">
+    <div *ngIf="!exercise.pictureUrl">{{'nothing_uploaded' | transloco}}</div>
+    <div class="image-container">
+      <img class="picture"
+           [src]="exercise?.pictureUrl">
+    </div>
+  </mat-step>
+
+  <mat-step label="{{'documents_section' | transloco}}">
+    <div *ngIf="!exercise.pdfUrl; else pdfViewer">{{'nothing_uploaded' | transloco}}</div>
+    <ng-template class="document-container" #pdfViewer>
+      <ngx-extended-pdf-viewer [src]="exercise?.pdfUrl"
+                               useBrowserLocale="true"
+                               height="80vh"></ngx-extended-pdf-viewer>
+    </ng-template>
+  </mat-step>
+</mat-vertical-stepper>
+
+
+
+
+<!-- 
+<div class="grid"
      [@fadeInOnEnter]>
-  <mat-form-field appearance="outline"
-                  class="item-full">
+  <mat-form-field appearance="outline">
     <mat-label>{{'exercise_name' | transloco}}</mat-label>
     <input matInput
            [(ngModel)]="exercise.name"
            name="exerciseName">
   </mat-form-field>
 
-  <mat-form-field appearance="outline"
-                  class="item-full">
+  <mat-form-field appearance="outline">
     <textarea matInput
               [placeholder]="'description' | transloco"
               [(ngModel)]="exercise.description"
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"></textarea>
-  </mat-form-field>
+  </mat-form-field> -->
 
-  <!-- <mat-form-field appearance="outline"
+<!-- <mat-form-field appearance="outline"
                   class="item-full">
     <mat-label>{{'exercise_description' | transloco}}</mat-label>
     <input matInput
@@ -26,7 +80,7 @@
   </mat-form-field> -->
 
 
-  <!-- <mat-form-field appearance="outline"
+<!-- <mat-form-field appearance="outline"
                   class="item-half">
     <mat-label>{{'exercise_current_bpm' | transloco}}</mat-label>
     <input matInput
@@ -40,20 +94,22 @@
            [(ngModel)]="exercise.nextBpm"
            type="number">
   </mat-form-field> -->
-  <shared-metronome class="item-half"
-                    [bpm]="exercise.currentBpm"
+<!-- <shared-metronome [bpm]="exercise.currentBpm"
                     [showPlay]="false"
                     [subtitle]="'exercise_current_bpm' | transloco"
                     (onBpmChanged)="exercise.currentBpm = $event"></shared-metronome>
-  <shared-metronome class="item-half"                    
-                    [bpm]="exercise.nextBpm"                    
-                    [showPlay]="false"
-                    [subtitle]="'exercise_next_bpm' | transloco"
-                    (onBpmChanged)="exercise.nextBpm = $event"></shared-metronome>
 
+  <div class="sound-section">
+    <h5>Sound:</h5>
+    <audio class="sound"
+           controls>
+      <source [src]="exercise.sound">
+    </audio>
+  </div>
 
-  <div *ngFor="let picture of exercise?.pictures">
-    <img class="picture"
+  <div class="image-container">
+    <img *ngFor="let picture of exercise?.pictures"
+         class="picture"
          [src]="picture">
   </div>
 
@@ -61,11 +117,5 @@
     <ngx-extended-pdf-viewer [src]="pdf"
                              useBrowserLocale="true"
                              height="80vh"></ngx-extended-pdf-viewer>
-  </div>
-
-  <audio class="item-full"
-         controls
-         *ngIf="exercise.sound">
-    <source [src]="exercise.sound">
-  </audio>
-</div>
+  </div> -->
+<!-- </div> -->

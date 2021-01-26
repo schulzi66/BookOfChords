@@ -5,12 +5,7 @@ export class Exercise {
   description: string;
   currentBpm: number;
   nextBpm: number;
-  pictures: string[];
-  pdfs: string[];
+  pictureUrl: string;
+  pdfUrl: string;
   sound: string;
-
-  constructor() {
-    this.pictures = [];
-    this.pdfs = [];
-  }
 }

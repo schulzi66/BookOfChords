@@ -19,16 +19,12 @@ export class ExercisesOverviewComponent extends SubscriptionHandler implements O
   public filteredExercises: Exercise[];
   private _exercises: Exercise[];
 
-  public displayedColumns: string[] = ['name', 'currentBpm', 'nextBpm'];
-
   constructor(
     private _exercisesService: ExercisesService,
     private _router: Router,
     private _navbarActionService: NavbarActionService
   ) {
     super();
-    console.log(Object.getOwnPropertyNames(Exercise));
-
     this._navbarActionService.registerActions([
       {
         order: 100,
@@ -56,7 +52,7 @@ export class ExercisesOverviewComponent extends SubscriptionHandler implements O
       exercise.name.toLowerCase().includes(searchString.toLowerCase())
     );
   }
-  
+
   public clearSearch(): void {
     this.filteredExercises = this._exercises;
   }

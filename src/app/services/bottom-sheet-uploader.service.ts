@@ -9,9 +9,9 @@ import {
   providedIn: 'root'
 })
 export class BottomSheetUploaderService {
-  public constructor(private _buttomSheet: MatBottomSheet) {}
+  public constructor(private _bottomSheet: MatBottomSheet) {}
 
   public show(token: BottomSheetUploaderConfigInjectionToken): MatBottomSheetRef<BottomSheetUploaderComponent> {
-    return this._buttomSheet.open(BottomSheetUploaderComponent, { data: token });
+    return this._bottomSheet.open(BottomSheetUploaderComponent, { data: token });
   }
 }

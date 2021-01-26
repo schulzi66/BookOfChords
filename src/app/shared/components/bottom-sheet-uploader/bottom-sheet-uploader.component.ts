@@ -6,6 +6,7 @@ import { MediaTypes } from 'src/app/models/media-types.enum';
 export interface BottomSheetUploaderConfigInjectionToken {
   storageBucketPrefix: string;
   typesToUpload: MediaTypes[];
+  displayCameraOption?: boolean;
   onUploadCallback?: (result: UploadResult) => void;
 }
 
