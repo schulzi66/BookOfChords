@@ -17,9 +17,10 @@ import {
   styleUrls: ['./metronome.component.scss']
 })
 export class MetronomeComponent implements OnInit, OnDestroy {
-  @Input('showPlay') showPlay: boolean;
+  @Input('showPlay') showPlay: boolean = true;
   @Input('bpm') bpm: number;
   @Input('sliderDisabled') sliderDisabled: boolean;
+  @Input('subtitle') _subtitle: string;
   private readonly defaultBpm: number = 40;
   private readonly minuteInMs: number = 60000;
   private timerHandle: number;
@@ -33,6 +34,10 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   public isPlayMode: boolean;
   public isTick: boolean;
 
+  public get subtitle(): string {
+    return this._subtitle === undefined ? 'BPM' : this._subtitle;
+  }
+
   constructor() {
     this.isPlayMode = false;
     this.isTick = false;
@@ -41,9 +46,6 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!this.bpm) {
       this.bpm = this.defaultBpm;
-    }
-    if (!this.showPlay) {
-      this.showPlay = true;
     }
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;

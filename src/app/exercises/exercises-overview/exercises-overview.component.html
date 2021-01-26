@@ -1,22 +1,26 @@
-<!-- <div [@fadeInOnEnter]>
+<div class="flex-container"
+     [@fadeInOnEnter]>
+  <app-search (onSearch)="searchForExercise($event)"
+              (onClear)="clearSearch()"
+              class="search-input"></app-search>
   <mat-selection-list [multiple]="false"
                       class="selection-list">
     <cdk-virtual-scroll-viewport itemSize=48
                                  class="viewport">
-      <mat-list-option *cdkVirtualFor="let exercise of exercises"
+      <mat-list-option *cdkVirtualFor="let exercise of filteredExercises"
                        [value]="exercise"
-                       [routerLink]="['/exercises/details', exercise.id]"
                        class="exercise-option">
-        <div class="exercise-row">
-          <span class="item">{{exercise.name}}</span>
-          <span class="item">{{exercise.currentBpm}}</span>
-          <span class="item">{{exercise.nextBpm}}</span>
-        </div>
+        {{exercise.name}}
       </mat-list-option>
     </cdk-virtual-scroll-viewport>
   </mat-selection-list>
-</div> -->
+</div>
 
+
+<!---[routerLink]="['/exercises/details', exercise.id]"-->
+
+
+<!-- 
 <table mat-table
        [dataSource]="exercises">
   <ng-container matColumnDef="name">
@@ -45,7 +49,7 @@
   <tr mat-row
       *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-
+ -->
 
 
 

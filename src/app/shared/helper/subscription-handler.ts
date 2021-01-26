@@ -1,7 +1,8 @@
-import { OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-export class SubscriptionHandler implements OnDestroy {
+@Injectable()
+export abstract class SubscriptionHandler implements OnDestroy {
   protected _subscriptions$: Subscription;
 
   constructor() {

@@ -19,7 +19,6 @@ import { MediaTypes } from 'src/app/models/media-types.enum';
 })
 export class ExerciseEditComponent implements OnInit {
   public exercise: Exercise;
-  public showUpload: boolean = true;
 
   constructor(
     private _exercisesService: ExercisesService,
@@ -58,8 +57,21 @@ export class ExerciseEditComponent implements OnInit {
   }
 
   public onFileUploadCompleted(result: UploadResult): void {
+    switch (result.mediaType) {
+      case MediaTypes.IMAGE:
+        this.exercise.pictures.push(result.downloadUrl);
+        break;
+      case MediaTypes.PDF:
+        this.exercise.pdfs.push(result.downloadUrl);
+        break;
+      case MediaTypes.SOUND:
+        this.exercise.sound = result.downloadUrl;
+        break;
+    }
     console.log(result);
   }
+
+  public onDescriptionChanged(description: string): void {}
 
   private _saveExercise(): void {
     if (this.exercise.name && this._authService.user) {

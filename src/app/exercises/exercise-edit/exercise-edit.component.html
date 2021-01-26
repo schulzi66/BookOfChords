@@ -7,7 +7,26 @@
            [(ngModel)]="exercise.name"
            name="exerciseName">
   </mat-form-field>
+
   <mat-form-field appearance="outline"
+                  class="item-full">
+    <textarea matInput
+              [placeholder]="'description' | transloco"
+              [(ngModel)]="exercise.description"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"></textarea>
+  </mat-form-field>
+
+  <!-- <mat-form-field appearance="outline"
+                  class="item-full">
+    <mat-label>{{'exercise_description' | transloco}}</mat-label>
+    <input matInput
+           [(ngModel)]="exercise.description"
+           name="exerciseDescription">
+  </mat-form-field> -->
+
+
+  <!-- <mat-form-field appearance="outline"
                   class="item-half">
     <mat-label>{{'exercise_current_bpm' | transloco}}</mat-label>
     <input matInput
@@ -20,11 +39,33 @@
     <input matInput
            [(ngModel)]="exercise.nextBpm"
            type="number">
-  </mat-form-field>
-  
-  <!-- <uploader class="item-full"
-            *ngIf="this.showUpload"
-            [storageBucketPrefix]="'exercises'"
-            (onUploadComplete)="onFileUploadCompleted($event)"></uploader> -->
+  </mat-form-field> -->
+  <shared-metronome class="item-half"
+                    [bpm]="exercise.currentBpm"
+                    [showPlay]="false"
+                    [subtitle]="'exercise_current_bpm' | transloco"
+                    (onBpmChanged)="exercise.currentBpm = $event"></shared-metronome>
+  <shared-metronome class="item-half"                    
+                    [bpm]="exercise.nextBpm"                    
+                    [showPlay]="false"
+                    [subtitle]="'exercise_next_bpm' | transloco"
+                    (onBpmChanged)="exercise.nextBpm = $event"></shared-metronome>
 
+
+  <div *ngFor="let picture of exercise?.pictures">
+    <img class="picture"
+         [src]="picture">
+  </div>
+
+  <div *ngFor="let pdf of exercise?.pdfs">
+    <ngx-extended-pdf-viewer [src]="pdf"
+                             useBrowserLocale="true"
+                             height="80vh"></ngx-extended-pdf-viewer>
+  </div>
+
+  <audio class="item-full"
+         controls
+         *ngIf="exercise.sound">
+    <source [src]="exercise.sound">
+  </audio>
 </div>

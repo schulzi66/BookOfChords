@@ -7,9 +7,18 @@ import { ExercisesRoutes } from './exercises.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExercisesOverviewComponent } from './exercises-overview/exercises-overview.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @NgModule({
-  imports: [CommonModule, AllMaterialModule, SharedModule, FormsModule, TranslocoModule, ExercisesRoutes],
+  imports: [
+    CommonModule,
+    AllMaterialModule,
+    SharedModule,
+    FormsModule,
+    TranslocoModule,
+    ExercisesRoutes,
+    NgxExtendedPdfViewerModule
+  ],
   declarations: [ExercisesOverviewComponent, ExerciseEditComponent]
 })
 export class ExercisesModule {}
