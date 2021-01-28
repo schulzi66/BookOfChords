@@ -1,58 +1,35 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 import { Subject } from 'rxjs';
 import { User } from './../models/user';
 
 @Injectable({ providedIn: 'root' })
 export class MessagingService {
-  private firebaseMessaging = firebase.messaging();
-
   private messageSource = new Subject();
   public currentMessage$ = this.messageSource.asObservable();
 
-  constructor(private angularFirestore: AngularFirestore) {}
+  constructor(private angularFirestore: AngularFirestore, private _angularFireMessaging: AngularFireMessaging) {}
 
   /**
    * getPermission
    */
   public getPermission(user: User): void {
-    this.firebaseMessaging
-      .requestPermission()
-      .then(() => {
-        return this.firebaseMessaging.getToken();
-      })
-      .then((token) => {
+    this._angularFireMessaging.requestToken.subscribe(
+      (token) => {
         this.saveToken(user, token);
-      })
-      .catch((error) => {
+      },
+      (error) => {
         console.log(error, 'Unable to get permisson to notify');
-      });
-  }
-
-  /**
-   * monitorRefresh
-   */
-  public monitorRefresh(user: User) {
-    this.firebaseMessaging.onTokenRefresh(() => {
-      this.firebaseMessaging
-        .getToken()
-        .then((refreshedToken) => {
-          this.saveToken(user, refreshedToken);
-        })
-        .catch((error) => {
-          console.log(error, 'Unable to retrieve new token');
-        });
-    });
+      }
+    );
   }
 
   /**
    * receiveMessages
    */
   public receiveMessages() {
-    this.firebaseMessaging.onMessage((payload) => {
-      this.messageSource.next(payload);
-    });
+    this._angularFireMessaging.onMessage((payload) => this.messageSource.next(payload));
   }
 
   private saveToken(user: User, token: string) {

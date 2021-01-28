@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { SnackbarService } from './services/snackbar.service';
 import { TitleKeyService } from './services/title-key.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
@@ -37,9 +38,8 @@ export class AppComponent extends SubscriptionHandler implements OnInit, AfterVi
 
   ngOnInit(): void {
     this._subscriptions$.add(
-      this.authService.user$.subscribe((user: User) => {
+      this.authService.user$.pipe(filter((user) => user != null)).subscribe((user: User) => {
         this._messagingService.getPermission(user);
-        this._messagingService.monitorRefresh(user);
         this._messagingService.receiveMessages();
         this._messagingService.currentMessage$.subscribe(() => {
           this._snackbarService.show({ message: translate<string>('notification_data'), route: 'band' });
