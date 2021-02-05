@@ -16,15 +16,15 @@ const routes: Routes = [
     data: { key: TITLEKEYS.default }
   },
   {
-    path: 'demo',
-    component: DemoComponent,
-    resolve: { key: TitleKeyResolver },
-    data: { key: TITLEKEYS.demo }
-  },
-  {
     path: 'songs',
     loadChildren: () => import('./songs/songs.module').then((m) => m.SongsModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'demo',
+    loadChildren: () => import('./demo/demo.module').then((m) => m.DemoModule),
+    resolve: { key: TitleKeyResolver },
+    data: { key: TITLEKEYS.demo }
   },
   {
     path: 'gigs',
@@ -57,7 +57,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

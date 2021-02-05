@@ -21,7 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { DemoComponent } from './demo/demo.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DemoComponent],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     SongsModule,
     SharedModule,

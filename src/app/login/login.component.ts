@@ -5,8 +5,7 @@ import { fadeInOnEnterAnimation } from 'angular-animations';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  animations: [fadeInOnEnterAnimation({ duration: 700 })]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   constructor(public authService: AuthService) {}
