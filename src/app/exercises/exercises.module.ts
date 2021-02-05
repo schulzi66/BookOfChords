@@ -1,3 +1,4 @@
+import { ExerciseModeSelectionComponent } from './exercise-mode-selection/exercise-mode-selection.component';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +21,6 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     ExercisesRoutes,
     NgxExtendedPdfViewerModule
   ],
-  declarations: [ExercisesOverviewComponent, ExerciseEditComponent, ExerciseDetailsComponent]
+  declarations: [ExercisesOverviewComponent, ExerciseEditComponent, ExerciseDetailsComponent, ExerciseModeSelectionComponent]
 })
 export class ExercisesModule {}

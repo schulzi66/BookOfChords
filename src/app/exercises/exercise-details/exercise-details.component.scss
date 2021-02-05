@@ -10,3 +10,26 @@
 .exercise-header {
     text-align: left;
 }
+
+.exercise-image {
+    max-width: 500px;
+}
+
+.exercise-grid {
+    display: grid;
+    height: 100vh;
+
+    grid-template-rows: auto auto 1fr auto auto;
+    gap: 8px;
+    padding: 0 16px;
+
+    .exercise-mode {
+        text-align: left;
+    }
+
+    .exercise-button-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 8px;
+    }
+}

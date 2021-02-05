@@ -1,0 +1,33 @@
+.mode-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 85vh;
+
+    .mode-option {
+        flex: 1 1 auto;
+        margin: 8px;
+        padding: 8px;
+        display: grid;
+        grid-template-columns: 33% auto;
+        place-items: center;
+
+        .mode-icon {
+            grid-row: 1 / span 2;
+            font-size: 34px;
+        }
+
+        .mode-title {
+            grid-column: 2 / span 1;
+            align-self: flex-end;
+            padding: 8px;
+            font-family: Arial;
+        }
+
+        .mode-description {
+            grid-column: 2 / span 1;
+            align-self: flex-start;
+            padding: 8px;
+        }
+    }
+}

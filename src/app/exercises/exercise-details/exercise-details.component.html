@@ -4,8 +4,65 @@
     <mat-card-title>{{exercise.name}}</mat-card-title>
     <mat-card-subtitle>{{'exercise_current_bpm' | transloco}}: {{exercise.currentBpm}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="exercise.pictureUrl">
+  <!-- <img mat-card-image class="exercise-image" [src]="exercise.pictureUrl"> -->
   <mat-card-content>
+    <div class="exercise-grid">
+      <div class="exercise-mode">Mode:</div>
 
+      <!-- <div class="exercise-button-group">
+        <button mat-icon-button (click)="this.currentMode = ExerciseModes.TIMEBASED">
+          <mat-icon fontSet="material-icons-outlined"
+                    color="accent">schedule</mat-icon>
+          Timebased
+        </button>
+        <button mat-icon-button (click)="this.currentMode = ExerciseModes.INTERVAL">
+          <mat-icon fontSet="material-icons-outlined"
+                    color="accent">timelapse</mat-icon>
+          Interval 
+        </button>
+        <button mat-icon-button (click)="this.currentMode = ExerciseModes.MANUAL">
+          Manual
+          <mat-icon fontSet="material-icons-outlined"
+                    color="accent">timelapse</mat-icon>
+        </button>
+      </div> -->
+
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="ExerciseModes.INTERVAL">Interval</mat-button-toggle>
+        <mat-button-toggle value="ExerciseModes.TIMEBASED">Timebased</mat-button-toggle>
+        <mat-button-toggle value="ExerciseModes.MANUAL">Manual</mat-button-toggle>
+      </mat-button-toggle-group>
+
+
+      <div class="exercise-mode-template"
+           [ngSwitch]="this.currentMode">
+        <ng-template [ngSwitchCase]="ExerciseModes.INTERVAL">
+          Interval
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="ExerciseModes.TIMEBASED">
+          TimeBased
+        </ng-template>
+
+        <ng-template ngSwitchDefault>
+          Manual
+        </ng-template>
+      </div>
+
+      <div class="exercise-description">
+        {{exercise.description}}
+      </div>
+
+
+      <div class="exercise-audio">
+        <audio class="sound"
+               controls>
+          <source *ngIf="exercise.sound"
+                  [src]="exercise.sound">
+        </audio>
+      </div>
+
+
+    </div>
   </mat-card-content>
 </mat-card>

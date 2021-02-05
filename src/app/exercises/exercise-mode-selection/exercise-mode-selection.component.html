@@ -1,0 +1,43 @@
+<div [@fadeInOnEnter]>
+
+  <div class="mode-list">
+    <div class="mode-option mat-card" [routerLink]="['/exercises/details', exercise.id, ExerciseModes.MANUAL]">
+      <mat-icon fontSet="material-icons-outlined"
+                color="accent"
+                class="mode-icon">schedule</mat-icon>
+      <h3 class="mode-title"
+          [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+        {{'mode_manual_title' | transloco}}</h3>
+      <span class="mode-description"
+            [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+        {{'mode_manual_description' | transloco}}</span>
+    </div>
+
+    <div class="mode-option mat-card" [routerLink]="['/exercises/details', exercise.id, ExerciseModes.INTERVAL]">
+      <mat-icon fontSet="material-icons-outlined"
+                color="accent"
+                class="mode-icon">speed</mat-icon>
+      <h3 class="mode-title"
+          [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+        {{'mode_interval_title' | transloco}}
+      </h3>
+      <span class="mode-description"
+            [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+        {{'mode_interval_description' | transloco}}</span>
+    </div>
+
+
+    <div class="mode-option mat-card" [routerLink]="['/exercises/details', exercise.id, ExerciseModes.TIMEBASED]">
+      <mat-icon fontSet="material-icons-outlined"
+                color="accent"
+                class="mode-icon">access_alarm</mat-icon>
+      <h3 class="mode-title"
+          [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+        {{'mode_timebased_title' | transloco}}</h3>
+      <span class="mode-description"
+            [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+        {{'mode_timebased_description' | transloco}}</span>
+    </div>
+
+  </div>
+</div>
