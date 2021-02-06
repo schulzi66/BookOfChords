@@ -64,8 +64,8 @@ export class ExerciseDetailsComponent implements OnInit {
       const end = new Date(start.getTime() + this.exerciseDuration * this._minuteInMs);
       this._timerHandle = window.setInterval(() => {
         this.handleTotalExerciseProgress(start, end);
-        if (current >= next) {
-          this.exercise.currentBpm += this.intervalBpm;
+        if (current >= next) {          
+          this.metronom.changeSpeed(this.exercise.currentBpm + this.intervalBpm);
           this.intervalDurationPercentage = 1000;
           next = new Date(current.getTime() + this.intervalTime * this._minuteInMs);
         } else {
