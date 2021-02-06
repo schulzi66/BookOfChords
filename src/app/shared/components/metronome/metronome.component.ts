@@ -17,18 +17,21 @@ import {
   styleUrls: ['./metronome.component.scss']
 })
 export class MetronomeComponent implements OnInit, OnDestroy {
+  private readonly defaultBpm: number = 40;
+  private readonly minuteInMs: number = 60000;
+  private timerHandle: number;
+
   @Input('showPlay') showPlay: boolean = true;
   @Input('bpm') bpm: number;
   @Input('sliderDisabled') sliderDisabled: boolean;
   @Input('subtitle') _subtitle: string;
-  private readonly defaultBpm: number = 40;
-  private readonly minuteInMs: number = 60000;
-  private timerHandle: number;
 
   @ViewChild('bpmSlider') bpmSlider: ElementRef;
   @ViewChild('playBtn') playBtn: ElementRef;
 
   @Output('onBpmChanged') onBpmChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output('onStart') onStart: EventEmitter<void> = new EventEmitter<void>();
+  @Output('onStop') onStop: EventEmitter<void> = new EventEmitter<void>();
 
   public playModeIcon: string = 'play_arrow';
   public isPlayMode: boolean;
@@ -58,7 +61,13 @@ export class MetronomeComponent implements OnInit, OnDestroy {
 
   public togglePlayMode(): void {
     this.isPlayMode = !this.isPlayMode;
-    this.isPlayMode ? this.startMetronome() : this.stopMetronome();
+    if (this.isPlayMode) {
+      this.onStart.emit();
+      this.startMetronome();
+    } else {
+      this.onStop.emit();
+      this.stopMetronome();
+    }
   }
 
   public changeSpeed(speed: number): void {

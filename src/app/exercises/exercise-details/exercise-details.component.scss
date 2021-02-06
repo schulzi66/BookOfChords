@@ -1,35 +1,113 @@
-.grid {
+.exercise-details-grid {
     display: grid;
-    grid-template-rows: auto 1fr auto;
-}
+    gap: 8px 0;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    grid-template-areas:
+        'name name'
+        'description description'
+        'template template'
+        'template template'
+        'audio audio'
+        'img img'
+        'pdf pdf';
 
-.exercise-card {
-    margin: 2%;
-}
-
-.exercise-header {
-    text-align: left;
-}
-
-.exercise-image {
-    max-width: 500px;
-}
-
-.exercise-grid {
-    display: grid;
-    height: 100vh;
-
-    grid-template-rows: auto auto 1fr auto auto;
-    gap: 8px;
-    padding: 0 16px;
-
-    .exercise-mode {
-        text-align: left;
+    .exercise-name {
+        grid-area: name;
+        justify-self: start;
+        padding: 8px;
+        margin: 0;
     }
 
-    .exercise-button-group {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 8px;
+    .exercise-description {
+        grid-area: description;
+        justify-self: start;
+        padding: 8px;
+    }
+
+    .exercise-mode-template {
+        grid-area: template;
+
+        .total-progress {
+            margin-bottom: 24px;
+            grid-area: progress;
+            text-align: left;
+        }
+
+        .timebased-template {
+            justify-self: stretch;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            > * {
+                flex: 1 1 100%;
+            }
+        }
+
+        .interval-template {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            grid-template-areas:
+                'input header'
+                'input spinner'
+                'input spinner'
+                'progress progress'
+                'metronom metronom';
+
+            .duration .increase-time .increase-bpm {
+                grid-area: input;
+            }
+            .interval-progress-header {
+                grid-area: header;
+            }
+
+            .spinner {
+                grid-area: spinner;
+                justify-self: center;
+            }
+            .metronom {
+                grid-area: metronom;
+            }
+        }
+    }
+
+    .exercise-audio {
+        grid-area: audio;
+
+        .audio {
+            width: 100%;
+        }
+    }
+
+    .exercise-image {
+        grid-area: img;
+
+        .img {
+            width: 100%;
+        }
+    }
+
+    .exercise-pdf {
+        grid-area: pdf;
+        height: 100%;
+    }
+}
+
+@media (min-width: 1020px) {
+    .exercise-details-grid {
+        grid-template-areas:
+            'name name'
+            'description description'
+            'template template'
+            'audio audio'
+            'img pdf';
+
+        align-items: center;
+
+        .exercise-pdf {
+            justify-self: center;
+            width: 95%;
+        }
     }
 }

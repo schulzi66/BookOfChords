@@ -13,7 +13,6 @@ import { ExerciseModes } from 'src/app/models/exercise-mode.enum';
 })
 export class ExerciseModeSelectionComponent implements OnInit {
   public exercise: Exercise;
-
   public ExerciseModes = ExerciseModes;
 
   constructor(private readonly _activatedRoute: ActivatedRoute, public configurationService: ConfigurationService) {}

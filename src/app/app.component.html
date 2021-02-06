@@ -17,16 +17,6 @@
               </ng-template>
             </mat-list-item>
             <mat-list-item class="navigation-item"
-                           [routerLink]="['./exercises']"
-                           (click)="drawer.close()">
-              <mat-icon fontSet="material-icons-outlined"
-                        color="accent">fitness_center</mat-icon>
-              <ng-template transloco
-                           let-t>
-                {{ t('exercises') }}
-              </ng-template>
-            </mat-list-item>
-            <mat-list-item class="navigation-item"
                            [routerLink]="['./gigs']"
                            (click)="drawer.close()">
               <mat-icon fontSet="material-icons-outlined"
@@ -44,6 +34,16 @@
               <ng-template transloco
                            let-t>
                 {{ t('band') }}
+              </ng-template>
+            </mat-list-item>
+            <mat-list-item class="navigation-item"
+                           [routerLink]="['./exercises']"
+                           (click)="drawer.close()">
+              <mat-icon fontSet="material-icons-outlined"
+                        color="accent">fitness_center</mat-icon>
+              <ng-template transloco
+                           let-t>
+                {{ t('exercises') }}
               </ng-template>
             </mat-list-item>
             <mat-list-item class="navigation-item"

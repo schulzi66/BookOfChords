@@ -4,7 +4,7 @@
 
 $custom-light-theme-primary: mat-palette($mat-blue-gray);
 $custom-light-theme-accent: mat-palette($mat-orange, 500, A200, A700);
-$custom-light-theme-warn: mat-palette($mat-blue);
+$custom-light-theme-warn: mat-palette($mat-red);
 
 $custom-light-theme: mat-light-theme($custom-light-theme-primary, $custom-light-theme-accent, $custom-light-theme-warn);
 
