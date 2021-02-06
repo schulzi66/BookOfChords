@@ -40,7 +40,7 @@ export class ExerciseDetailsComponent implements OnInit {
     this.exerciseDuration = 5;
     this.intervalTime = 1;
     this.intervalBpm = 5;
-    this.intervalDurationPercentage = 0;
+    this.intervalDurationPercentage = 100;
 
     this._navbarActionService.registerActions([
       {
@@ -66,13 +66,13 @@ export class ExerciseDetailsComponent implements OnInit {
         this.handleTotalExerciseProgress(start, end);
         if (current >= next) {
           this.exercise.currentBpm += this.intervalBpm;
-          this.intervalDurationPercentage = 0;
+          this.intervalDurationPercentage = 1000;
           next = new Date(current.getTime() + this.intervalTime * this._minuteInMs);
         } else {
-          this.intervalDurationPercentage = Math.round(
-            ((new Date().getTime() - current.getTime()) / (next.getTime() - current.getTime())) * 100
-          );
-          if (this.intervalDurationPercentage >= 100) {
+          this.intervalDurationPercentage =
+            100 - Math.round(((new Date().getTime() - current.getTime()) / (next.getTime() - current.getTime())) * 100);
+
+          if (this.intervalDurationPercentage <= 0) {
             current = new Date();
           }
         }

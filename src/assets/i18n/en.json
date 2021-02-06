@@ -59,5 +59,21 @@
     "upload_image/*": "Upload pictures",
     "upload_application/pdf": "Upload PDF documents",
     "upload_audio/*": "Upload audio",
-    "upload_*": "Upload any document"
+    "upload_*": "Upload any document",
+    "mode_manual_title": "Manual",
+    "mode_manual_description": "Practice freely only the metronome and you",
+    "mode_interval_title": "Interval",
+    "mode_interval_description": "Challenge yourself with increasing BPM",
+    "mode_timebased_title": "Timebased",
+    "mode_timebased_description": "Set a time you want to practice",
+    "exercise_duration": "Duration in minutes",
+    "exercise_increase_time": "Increase BPM every n minutes",
+    "exercise_increase_bpm": "Increase BPM by",
+    "exercise_interval_progress": "Next interval in",
+    "exercise_total_progress": "Total exercise progress",
+    "exercise_general_info_section": "General information",
+    "exercise_bpm_sound_section": "BPM and sound sample",
+    "exercise_image_section": "Upload an image",
+    "exercise_documents_section": "Upload a document",
+    "nothing_uploaded":  "Nothing uploaded yet"
 }

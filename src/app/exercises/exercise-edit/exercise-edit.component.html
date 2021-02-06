@@ -1,6 +1,6 @@
 <mat-vertical-stepper #stepper
                       [@fadeInOnEnter]>
-  <mat-step label="{{'general_info_section' | transloco}}">
+  <mat-step label="{{'exercise_general_info_section' | transloco}}">
     <div class="grid">
       <mat-form-field appearance="outline">
         <mat-label>{{'exercise_name' | transloco}}</mat-label>
@@ -19,7 +19,7 @@
       </mat-form-field>
     </div>
   </mat-step>
-  <mat-step label="{{'bpm_sound_section' | transloco}}">
+  <mat-step label="{{'exercise_bpm_sound_section' | transloco}}">
     <shared-metronome [bpm]="exercise.currentBpm"
                       [showPlay]="false"
                       [subtitle]="'exercise_current_bpm' | transloco"
@@ -32,7 +32,7 @@
     </audio>
   </mat-step>
 
-  <mat-step label="{{'image_section' | transloco}}">
+  <mat-step label="{{'exercise_image_section' | transloco}}">
     <div *ngIf="!exercise.pictureUrl">{{'nothing_uploaded' | transloco}}</div>
     <div class="image-container">
       <img class="picture"
@@ -40,7 +40,7 @@
     </div>
   </mat-step>
 
-  <mat-step label="{{'documents_section' | transloco}}">
+  <mat-step label="{{'exercise_documents_section' | transloco}}">
     <div *ngIf="!exercise.pdfUrl; else pdfViewer">{{'nothing_uploaded' | transloco}}</div>
     <ng-template class="document-container" #pdfViewer>
       <ngx-extended-pdf-viewer [src]="exercise?.pdfUrl"
