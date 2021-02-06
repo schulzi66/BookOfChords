@@ -58,6 +58,7 @@
                           #metronom
                           [bpm]="this.exercise.currentBpm"
                           [showPlay]="this.exerciseDuration"
+                          [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
                           (onStart)="this.startIntervalMode()"
                           (onStop)="this.stopExercise()"></shared-metronome>
@@ -86,6 +87,7 @@
         <shared-metronome #metronom
                           [bpm]="this.exercise.currentBpm"
                           [showPlay]="this.exerciseDuration"
+                          [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
                           (onStart)="this.startTimebasedMode()"
                           (onStop)="this.stopExercise()"></shared-metronome>
@@ -95,6 +97,7 @@
     <!-- Manual Mode -->
     <ng-template ngSwitchDefault>
       <shared-metronome [bpm]="this.exercise.currentBpm"
+                        [showSoundMode]="true"
                         (onBpmChanged)="this.exercise.currentBpm = $event"></shared-metronome>
     </ng-template>
   </div>

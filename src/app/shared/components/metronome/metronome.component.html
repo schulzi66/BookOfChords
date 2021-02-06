@@ -1,14 +1,22 @@
 <mat-card class="metronom-card"
           [ngClass]="{'hit-effect': isTick, 'hit-effect-remove': !isTick}">
   <mat-card-header class="card-header">
-    <mat-card-title>{{bpm}} BPM</mat-card-title>
+    <mat-card-title>{{bpm}}</mat-card-title>
     <mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
-    <button mat-icon-button
-            *ngIf="showPlay"
-            (click)="togglePlayMode()">
-      <mat-icon fontSet="material-icons-outlined"
-                color="accent">{{this.playModeIcon}}</mat-icon>
-    </button>
+    <div>
+      <button mat-icon-button
+              *ngIf="showSoundMode"
+              (click)="toggleSoundMode()">
+        <mat-icon fontSet="material-icons-outlined"
+                  color="accent">{{this.soundModeIcon}}</mat-icon>
+      </button>
+      <button mat-icon-button
+              *ngIf="showPlay"
+              (click)="togglePlayMode()">
+        <mat-icon fontSet="material-icons-outlined"
+                  color="accent">{{this.playModeIcon}}</mat-icon>
+      </button>
+    </div>
   </mat-card-header>
   <mat-card-content>
     <mat-slider class="beat-slider"

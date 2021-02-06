@@ -17,38 +17,44 @@ import {
   styleUrls: ['./metronome.component.scss']
 })
 export class MetronomeComponent implements OnInit, OnDestroy {
-  private readonly defaultBpm: number = 40;
-  private readonly minuteInMs: number = 60000;
-  private timerHandle: number;
+  @Input('subtitle') private _subtitle: string;
+  private readonly _defaultBpm: number = 40;
+  private readonly _minuteInMs: number = 60000;
+  private _timerHandle: number;
 
-  @Input('showPlay') showPlay: boolean = true;
-  @Input('bpm') bpm: number;
-  @Input('sliderDisabled') sliderDisabled: boolean;
-  @Input('subtitle') _subtitle: string;
+  @Input('showPlay') public showPlay: boolean = true;
+  @Input('showSoundMode') public showSoundMode: boolean = false;
+  @Input('bpm') public bpm: number;
+  @Input('sliderDisabled') public sliderDisabled: boolean;
 
-  @ViewChild('bpmSlider') bpmSlider: ElementRef;
-  @ViewChild('playBtn') playBtn: ElementRef;
+  @ViewChild('bpmSlider') public bpmSlider: ElementRef;
+  @ViewChild('playBtn') public playBtn: ElementRef;
 
-  @Output('onBpmChanged') onBpmChanged: EventEmitter<number> = new EventEmitter<number>();
-  @Output('onStart') onStart: EventEmitter<void> = new EventEmitter<void>();
-  @Output('onStop') onStop: EventEmitter<void> = new EventEmitter<void>();
+  @Output('onBpmChanged') public onBpmChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output('onStart') public onStart: EventEmitter<void> = new EventEmitter<void>();
+  @Output('onStop') public onStop: EventEmitter<void> = new EventEmitter<void>();
 
-  public playModeIcon: string = 'play_arrow';
+  public playModeIcon: string;
+  public soundModeIcon: string;
   public isPlayMode: boolean;
+  public isMuted: boolean;
   public isTick: boolean;
+
+  constructor() {
+    this.playModeIcon = 'play_arrow';
+    this.soundModeIcon = 'volume_up';
+    this.isPlayMode = false;
+    this.isTick = false;
+    this.isMuted = false;
+  }
 
   public get subtitle(): string {
     return this._subtitle === undefined ? 'BPM' : this._subtitle;
   }
 
-  constructor() {
-    this.isPlayMode = false;
-    this.isTick = false;
-  }
-
   ngOnInit(): void {
     if (!this.bpm) {
-      this.bpm = this.defaultBpm;
+      this.bpm = this._defaultBpm;
     }
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;
@@ -70,6 +76,11 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  public toggleSoundMode(): void {
+    this.isMuted = !this.isMuted;
+    this.isMuted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
+  }
+
   public changeSpeed(speed: number): void {
     if (this.isPlayMode) {
       this.stopMetronome();
@@ -82,14 +93,14 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   private startMetronome(): void {
-    this.timerHandle = window.setInterval(() => {
+    this._timerHandle = window.setInterval(() => {
       this.tick();
-    }, this.minuteInMs / this.bpm);
+    }, this._minuteInMs / this.bpm);
     this.playModeIcon = 'pause';
   }
 
   private stopMetronome(): void {
-    window.clearInterval(this.timerHandle);
+    window.clearInterval(this._timerHandle);
     this.playModeIcon = 'play_arrow';
   }
 
