@@ -7,7 +7,7 @@ import { ConfigurationService } from 'src/app/configuration/services/configurati
 import { ExerciseModes } from './../../models/exercise-mode.enum';
 import { Exercise } from 'src/app/models/exercise';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,7 +19,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
   styleUrls: ['./exercise-details.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class ExerciseDetailsComponent implements OnInit {
+export class ExerciseDetailsComponent implements OnInit, OnDestroy {
   private readonly _minuteInMs: number = 60000;
   private _timerHandle: number;
 
@@ -63,6 +63,10 @@ export class ExerciseDetailsComponent implements OnInit {
     this.initialBpm = this.exercise.currentBpm;
   }
 
+  ngOnDestroy() {
+    this.stopExercise();
+  }
+
   public startExercise(): void {
     switch (this.currentMode) {
       case ExerciseModes.INTERVAL:
@@ -87,6 +91,7 @@ export class ExerciseDetailsComponent implements OnInit {
 
   public stopExercise(): void {
     window.clearInterval(this._timerHandle);
+    this._metronomeRef.ngOnDestroy();
   }
 
   private startIntervalMode(): void {
