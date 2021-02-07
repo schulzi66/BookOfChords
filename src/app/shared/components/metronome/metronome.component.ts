@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { Player, start, Transport } from 'tone';
+import { ToneService } from 'src/app/services/tone.service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -12,7 +12,6 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   private readonly _defaultBpm: number = 40;
   private readonly _minuteInMs: number = 60000;
   private _timerHandle: number;
-  private _player: Player;
 
   @Input('showPlay') public showPlay: boolean = true;
   @Input('showSoundMode') public showSoundMode: boolean = false;
@@ -32,7 +31,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   public isMuted: boolean;
   public isTick: boolean;
 
-  constructor() {
+  constructor(private readonly _toneService: ToneService) {
     this.playModeIcon = 'play_arrow';
     this.soundModeIcon = 'volume_up';
     this.isPlayMode = false;
@@ -48,7 +47,6 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     if (!this.bpm) {
       this.bpm = this._defaultBpm;
     }
-    this.initializeTone();
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;
     }
@@ -71,6 +69,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
 
   public toggleSoundMode(): void {
     this.isMuted = !this.isMuted;
+    this._toneService.mute();
     this.isMuted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
   }
 
@@ -79,33 +78,16 @@ export class MetronomeComponent implements OnInit, OnDestroy {
       this.stopMetronome();
     }
     this.bpm = speed;
-    Transport.bpm.value = this.bpm;
+    this._toneService.changeSpeed(this.bpm);
     if (this.isPlayMode) {
       this.startMetronome();
     }
     this.onBpmChanged.emit(this.bpm);
   }
 
-  private initializeTone(): void {
-    if (this.showSoundMode) {
-      this._player = new Player('../../../../assets/sounds/up.wav').toDestination();
-      Transport.bpm.value = this.bpm;
-      Transport.scheduleRepeat(
-        (time) => {
-          if (!this.isMuted) {
-            this._player.start(time);
-          }
-        },
-        '4n',
-        '+.5'
-      );
-    }
-  }
-
   private startMetronome(): void {
     if (this.showSoundMode) {
-      start();
-      Transport.start();
+      this._toneService.start(this.bpm);
     }
     this._timerHandle = window.setInterval(() => {
       this.tick();
@@ -115,7 +97,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
 
   private stopMetronome(): void {
     if (this.showSoundMode) {
-      Transport.stop();
+      this._toneService.stop();
     }
     window.clearInterval(this._timerHandle);
     this.playModeIcon = 'play_arrow';

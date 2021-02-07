@@ -59,7 +59,7 @@ export class ExerciseDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.exercise = this._activatedRoute.snapshot.data['exercise'];
-    this.currentMode = this._activatedRoute.snapshot.params['mode'] as ExerciseModes;
+    this.currentMode = Number.parseInt(this._activatedRoute.snapshot.params['mode']) as ExerciseModes;
     this.initialBpm = this.exercise.currentBpm;
   }
 
