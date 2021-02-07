@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { loaded, Player, start, Transport } from 'tone';
+import { Player, start, Transport } from 'tone';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -48,21 +48,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     if (!this.bpm) {
       this.bpm = this._defaultBpm;
     }
-    if (this.showSoundMode) {
-      this._player = new Player('../../../../assets/sounds/up.wav').toDestination();
-      Transport.bpm.value = this.bpm;
-      loaded().then(() => {
-        Transport.scheduleRepeat(
-          (time) => {
-            if (!this.isMuted) {
-              this._player.start(time);
-            }
-          },
-          '4n',
-          '+.5'
-        );
-      });
-    }
+    this.initializeTone();
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;
     }
@@ -70,9 +56,6 @@ export class MetronomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.stopMetronome();
-    if (this.showSoundMode) {
-      this._player.dispose();
-    }
   }
 
   public togglePlayMode(): void {
@@ -101,6 +84,22 @@ export class MetronomeComponent implements OnInit, OnDestroy {
       this.startMetronome();
     }
     this.onBpmChanged.emit(this.bpm);
+  }
+
+  private initializeTone(): void {
+    if (this.showSoundMode) {
+      this._player = new Player('../../../../assets/sounds/up.wav').toDestination();
+      Transport.bpm.value = this.bpm;
+      Transport.scheduleRepeat(
+        (time) => {
+          if (!this.isMuted) {
+            this._player.start(time);
+          }
+        },
+        '4n',
+        '+.5'
+      );
+    }
   }
 
   private startMetronome(): void {

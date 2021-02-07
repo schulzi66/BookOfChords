@@ -8,7 +8,7 @@ import { ConfigurationService } from 'src/app/configuration/services/configurati
 import { ClipboardService } from 'ngx-clipboard';
 import { translate } from '@ngneat/transloco';
 import { MatDialog } from '@angular/material/dialog';
-import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
+import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
@@ -68,7 +68,7 @@ export class SongDetailsviewComponent implements OnInit {
   }
 
   public deleteSong(): void {
-    const dialogRef = this._matDialog.open(PopupDialogComponent, {
+    const dialogRef = this._matDialog.open(DeletePopupDialogComponent, {
       data: {
         title: 'Delete Song?',
         content: `Do you really want to delete the song: ${this.song.name} ?`
@@ -77,7 +77,9 @@ export class SongDetailsviewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: Boolean) => {
       if (result) {
-        this._songService.deleteSong(this.song.id);
+        this._songService.deleteSong(this.song.id).then(() => {
+          this._router.navigate(['./songs']);
+        });
       }
     });
   }

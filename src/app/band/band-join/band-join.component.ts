@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { PopupDialogData } from 'src/app/shared/components/popup-dialog/popup-dialog-data';
-import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
+import { DeletePopupDialogData } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog-data';
+import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
 import { BandService } from '../services/band.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
@@ -18,7 +18,7 @@ import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler'
 })
 export class BandJoinComponent extends SubscriptionHandler implements OnInit {
   private _currentUser: User;
-  private _popupDialogData: PopupDialogData;
+  private _popupDialogData: DeletePopupDialogData;
 
   public bandId: string;
 
@@ -55,7 +55,7 @@ export class BandJoinComponent extends SubscriptionHandler implements OnInit {
               title: translate<string>('no_band_found_title'),
               content: translate<string>('no_band_found_content', { value: this.bandId })
             };
-            this._matDialog.open(PopupDialogComponent, {
+            this._matDialog.open(DeletePopupDialogComponent, {
               data: this._popupDialogData
             });
           }

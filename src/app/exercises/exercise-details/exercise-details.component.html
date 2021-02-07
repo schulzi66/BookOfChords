@@ -55,12 +55,12 @@
         </div>
 
         <shared-metronome class="metronom"
-                          #metronom
+                          #metronome
                           [bpm]="this.exercise.currentBpm"
                           [showPlay]="this.exerciseDuration"
                           [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
-                          (onStart)="this.startIntervalMode()"
+                          (onStart)="this.startExercise()"
                           (onStop)="this.stopExercise()"></shared-metronome>
       </div>
     </ng-template>
@@ -84,21 +84,23 @@
                             [value]="this.exerciseDurationPercentage"></mat-progress-bar>
         </div>
 
-        <shared-metronome #metronom
+        <shared-metronome #metronome
                           [bpm]="this.exercise.currentBpm"
                           [showPlay]="this.exerciseDuration"
                           [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
-                          (onStart)="this.startTimebasedMode()"
+                          (onStart)="this.startExercise()"
                           (onStop)="this.stopExercise()"></shared-metronome>
       </div>
     </ng-template>
 
     <!-- Manual Mode -->
     <ng-template ngSwitchDefault>
-      <shared-metronome [bpm]="this.exercise.currentBpm"
+      <shared-metronome #metronome
+                        [bpm]="this.exercise.currentBpm"
                         [showSoundMode]="true"
-                        (onBpmChanged)="this.exercise.currentBpm = $event"></shared-metronome>
+                        (onBpmChanged)="this.exercise.currentBpm = $event"
+                        (onStart)="this.startExercise()"></shared-metronome>
     </ng-template>
   </div>
 
@@ -126,3 +128,39 @@
                            height="100%"></ngx-extended-pdf-viewer>
 
 </div>
+
+<ng-template #saveDialog>
+  <h1 matDialogTitle>{{'exercise_complete_title' | transloco}}</h1>
+  <mat-dialog-content>
+    <p>
+      {{'exercise_complete_content' | transloco: { initialBpm: this.initialBpm, currentBpm: this.exercise.currentBpm }
+      }}
+    </p>
+
+    <mat-form-field class="exercise-next-bpm"
+                    appearance="outline">
+      <mat-label>{{'exercise_next_bpm' | transloco}}</mat-label>
+      <input matInput
+             required
+             type="number"
+             name="nextBpm"
+             [(ngModel)]="this.exercise.nextBpm">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button
+            mat-dialog-close>
+      <ng-template transloco
+                   let-t>
+        {{ t('cancel') }}
+      </ng-template>
+    </button>
+    <button mat-button
+            [mat-dialog-close]="true">
+      <ng-template transloco
+                   let-t>
+        {{ t('confirm') }}
+      </ng-template>
+    </button>
+  </mat-dialog-actions>
+</ng-template>

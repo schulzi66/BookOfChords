@@ -45,29 +45,4 @@ export class SongService extends SubscriptionHandler implements OnDestroy {
   public deleteSong(songId: string): Promise<void> {
     return this._angularFirestore.collection<Song>('songs').doc(songId).delete();
   }
-
-  public updateAllSongDocs() {
-    // const sub = this._angularFirestore
-    // 	.collection<Song>('songs')
-    // 	.snapshotChanges()
-    // 	.pipe(
-    // 		map((changes) => {
-    // 			return changes.map((action) => {
-    // 				const data = action.payload.doc.data();
-    // 				const id = action.payload.doc.id;
-    // 				return { id, ...data };
-    // 			});
-    // 		})
-    // 	)
-    // 	.subscribe((items) => {
-    // 		items.forEach((song) => {
-    // 			console.log(song);
-    // 			song.name = song.name.trim();
-    // 			this._angularFirestore.doc(`songs/${song.id}`).update({ name: song.name });
-    // 			// this._angularFirestore.doc(`songs/${song.id}`)
-    // 			//                       .update({uid: 'e6Us6fvl2ZTPqJ3tFz4lP1IYVAo1'});
-    // 		});
-    // 		sub.unsubscribe();
-    // 	});
-  }
 }

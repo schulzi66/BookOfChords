@@ -8,7 +8,7 @@ import { AllMaterialModule } from '../material-module';
 import { BottomSheetUploaderComponent } from './components/bottom-sheet-uploader/bottom-sheet-uploader.component';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
 import { MetronomeComponent } from './components/metronome/metronome.component';
-import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.component';
+import { DeletePopupDialogComponent } from './components/delete-popup-dialog/delete-popup-dialog.component';
 import { RockNRollSnackbarComponent } from './components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { SearchComponent } from './components/search/search.component';
 import { UploadTaskComponent } from './components/upload-task/upload-task.component';
@@ -24,7 +24,7 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     UploaderComponent,
     UploadTaskComponent,
     SearchComponent,
-    PopupDialogComponent,
+    DeletePopupDialogComponent,
     MetronomeComponent,
     RockNRollSnackbarComponent,
     BottomSheetUploaderComponent
@@ -41,7 +41,7 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     StringArrayLinesPipe,
     UploaderComponent,
     SearchComponent,
-    PopupDialogComponent,
+    DeletePopupDialogComponent,
     MetronomeComponent,
     BottomSheetUploaderComponent
   ]

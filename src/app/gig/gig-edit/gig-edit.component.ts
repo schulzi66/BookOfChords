@@ -4,8 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { translate } from '@ngneat/transloco';
-import { PopupDialogData } from 'src/app/shared/components/popup-dialog/popup-dialog-data';
-import { PopupDialogComponent } from 'src/app/shared/components/popup-dialog/popup-dialog.component';
+import { DeletePopupDialogData } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog-data';
+import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
 import { Gig } from '../../models/gig';
 import { Song } from '../../models/song';
 import { User } from '../../models/user';
@@ -39,7 +39,7 @@ export class GigEditComponent extends SubscriptionHandler implements OnInit {
   @ViewChild(MatSelectionList) selection: MatSelectionList;
 
   private _currentUser: User;
-  private _popupDialogData: PopupDialogData;
+  private _popupDialogData: DeletePopupDialogData;
 
   constructor(
     private _gigService: GigService,
@@ -119,7 +119,7 @@ export class GigEditComponent extends SubscriptionHandler implements OnInit {
       title: translate<string>('delete_gig_title'),
       content: translate<string>('delete_gig_content', { value: this.gig.name })
     };
-    const dialogRef = this._matDialog.open(PopupDialogComponent, {
+    const dialogRef = this._matDialog.open(DeletePopupDialogComponent, {
       data: this._popupDialogData
     });
 

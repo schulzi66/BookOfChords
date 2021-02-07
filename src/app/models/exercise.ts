@@ -1,3 +1,5 @@
+import { ExerciseProgressHistoryStep } from './exercise-progress.enum';
+
 export class Exercise {
   id: string;
   uid: string;
@@ -8,4 +10,9 @@ export class Exercise {
   pictureUrl: string;
   pdfUrl: string;
   sound: string;
+  progress: ExerciseProgressHistoryStep[];
+
+  constructor() {
+      this.progress = [];
+  }
 }

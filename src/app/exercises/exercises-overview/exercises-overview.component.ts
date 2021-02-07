@@ -20,9 +20,9 @@ export class ExercisesOverviewComponent extends SubscriptionHandler implements O
   private _exercises: Exercise[];
 
   constructor(
-    private _exercisesService: ExercisesService,
-    private _router: Router,
-    private _navbarActionService: NavbarActionService
+    private readonly _exercisesService: ExercisesService,
+    private readonly _router: Router,
+    private readonly _navbarActionService: NavbarActionService
   ) {
     super();
     this._navbarActionService.registerActions([
