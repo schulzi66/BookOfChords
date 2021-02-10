@@ -1,3 +1,5 @@
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { DeletePopupDialogComponent } from './../../shared/components/delete-popup-dialog/delete-popup-dialog.component';
 import { INavbarAction } from './../../models/navbar-action';
 import { ExercisesService } from './../services/exercises.service';
 import { filter } from 'rxjs/operators';
@@ -12,6 +14,7 @@ import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { DeletePopupDialogData } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog-data';
 
 @Component({
   selector: 'app-exercise-details',
@@ -19,7 +22,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
   styleUrls: ['./exercise-details.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class ExerciseDetailsComponent implements OnInit, OnDestroy {
+export class ExerciseDetailsComponent extends SubscriptionHandler implements OnInit, OnDestroy {
   private readonly _minuteInMs: number = 60000;
   private _timerHandle: number;
 
@@ -49,6 +52,7 @@ export class ExerciseDetailsComponent implements OnInit, OnDestroy {
     private _snackbarService: SnackbarService,
     public readonly configurationService: ConfigurationService
   ) {
+    super();
     this.exerciseDuration = 5;
     this.intervalTime = 1;
     this.intervalBpm = 5;
@@ -161,6 +165,25 @@ export class ExerciseDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
+  private deleteExercise(): void {
+    const dialogRef = this._matDialog.open(DeletePopupDialogComponent, {
+      data: {
+        title: translate<string>('delete_exercise_title'),
+        content: translate<string>('delete_exercise_content', { value: this.exercise.name })
+      } as DeletePopupDialogData
+    });
+
+    this._subscriptions$.add(
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          this._exercisesService.deleteExercise(this.exercise.id).then(() => {
+            this._router.navigate(['/exercises']);
+          });
+        }
+      })
+    );
+  }
+
   private registerNavbarActions(didPractice: boolean): void {
     const doneAction: INavbarAction = {
       order: 100,
@@ -173,6 +196,14 @@ export class ExerciseDetailsComponent implements OnInit, OnDestroy {
       action: () => this._router.navigate(['/exercises/edit', this.exercise.id])
     };
 
-    this._navbarActionService.registerActions([...(didPractice ? [doneAction] : []), editAction]);
+    const deleteAction: INavbarAction = {
+      order: 300,
+      icon: 'delete',
+      action: () => {
+        this.deleteExercise();
+      }
+    };
+
+    this._navbarActionService.registerActions([...(didPractice ? [doneAction] : []), editAction, deleteAction]);
   }
 }

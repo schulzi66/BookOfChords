@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { FunctionCall } from '@angular/compiler';
 import { Router, NavigationStart } from '@angular/router';
 
 export const DEFAULT_DRAWER_ICON_KEY: string = 'menu';
@@ -35,10 +34,6 @@ export class DrawerActionService {
   private _drawer: MatDrawer;
 
   private _drawerAction: () => void;
-
-  onDrawerAction = () => {
-    this._drawerAction();
-  }
 
   public executeAction(): void {
     if (this._drawerAction) {

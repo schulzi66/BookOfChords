@@ -28,7 +28,6 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   public playModeIcon: string;
   public soundModeIcon: string;
   public isPlayMode: boolean;
-  public isMuted: boolean;
   public isTick: boolean;
 
   constructor(private readonly _toneService: ToneService) {
@@ -36,7 +35,6 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     this.soundModeIcon = 'volume_up';
     this.isPlayMode = false;
     this.isTick = false;
-    this.isMuted = false;
   }
 
   public get subtitle(): string {
@@ -50,6 +48,9 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;
     }
+    this._toneService.isMuted$.subscribe((muted: boolean) => {
+      muted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
+    });
   }
 
   ngOnDestroy(): void {
@@ -68,9 +69,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   public toggleSoundMode(): void {
-    this.isMuted = !this.isMuted;
-    this._toneService.mute();
-    this.isMuted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
+    this._toneService.toggleMute();
   }
 
   public changeSpeed(speed: number): void {

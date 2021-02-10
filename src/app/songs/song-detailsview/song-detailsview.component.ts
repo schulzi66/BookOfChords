@@ -1,3 +1,4 @@
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { SnackbarService } from './../../services/snackbar.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,7 +18,7 @@ import { fadeInOnEnterAnimation } from 'angular-animations';
   styleUrls: ['./song-detailsview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class SongDetailsviewComponent implements OnInit {
+export class SongDetailsviewComponent extends SubscriptionHandler implements OnInit {
   public song: Song;
 
   constructor(
@@ -30,6 +31,7 @@ export class SongDetailsviewComponent implements OnInit {
     private _snackbarService: SnackbarService,
     public configurationService: ConfigurationService
   ) {
+    super();
     this._navbarActionService.registerActions([
       {
         order: 100,
@@ -70,17 +72,19 @@ export class SongDetailsviewComponent implements OnInit {
   public deleteSong(): void {
     const dialogRef = this._matDialog.open(DeletePopupDialogComponent, {
       data: {
-        title: 'Delete Song?',
-        content: `Do you really want to delete the song: ${this.song.name} ?`
+        title: translate<string>('delete_song_title'),
+        content: translate<string>('delete_song_content', { value: this.song.name })
       }
     });
 
-    dialogRef.afterClosed().subscribe((result: Boolean) => {
-      if (result) {
-        this._songService.deleteSong(this.song.id).then(() => {
-          this._router.navigate(['./songs']);
-        });
-      }
-    });
+    this._subscriptions$.add(
+      dialogRef.afterClosed().subscribe((result: Boolean) => {
+        if (result) {
+          this._songService.deleteSong(this.song.id).then(() => {
+            this._router.navigate(['./songs']);
+          });
+        }
+      })
+    );
   }
 }

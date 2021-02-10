@@ -14,7 +14,7 @@ export class ExercisesService extends SubscriptionHandler implements OnDestroy {
 
   constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
     super();
-    this.exercises$ = this._getExercisesForUser(this._authService.user.uid);
+    this.exercises$ = this.getExercisesForUser(this._authService.user.uid);
     this._subscriptions$.add(this.exercises$.subscribe((exercises: Exercise[]) => (this.exercises = exercises)));
   }
 
@@ -33,7 +33,11 @@ export class ExercisesService extends SubscriptionHandler implements OnDestroy {
       .set(Object.assign({}, JSON.parse(JSON.stringify(exercise))));
   }
 
-  private _getExercisesForUser(uid: string): Observable<Exercise[]> {
+  public deleteExercise(exerciseId: string): Promise<void> {
+    return this._angularFirestore.collection<Exercise>('exercises').doc(exerciseId).delete();
+  }
+
+  private getExercisesForUser(uid: string): Observable<Exercise[]> {
     return this._angularFirestore
       .collection<Exercise>('exercises', (ref) => {
         return ref.where('uid', '==', uid);

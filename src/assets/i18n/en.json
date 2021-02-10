@@ -14,8 +14,6 @@
   "section": "Section",
   "search": "Search",
   "gig_name": "Name of the gig",
-  "delete_gig_title": "Delete Gig?",
-  "delete_gig_content": "Do you really want to delete the gig {{value}}",
   "cancel": "Cancel",
   "confirm": "Confirm",
   "font_size_header": "Font size of section headers",
@@ -77,5 +75,11 @@
   "exercise_documents_section": "Upload a document",
   "nothing_uploaded": "Nothing uploaded yet",
   "exercise_complete_title": "Exercise completed",
-  "exercise_complete_content": "You started with {{initialBpm}} BPM. Now you are at {{currentBpm}} BPM. Please set the BPM for next time."
+  "exercise_complete_content": "You started with {{initialBpm}} BPM. Now you are at {{currentBpm}} BPM. Please set the BPM for next time.",
+  "delete_gig_title": "Delete Gig?",
+  "delete_gig_content": "Do you really want to delete the gig {{value}}",
+  "delete_exercise_title": "Delete Exercise?",
+  "delete_exercise_content": "Do you really want to delete the exercise {{value}}",
+  "delete_song_title": "Delete Song?",
+  "delete_song_content": "Do you really want to delete the song {{value}}"
 }

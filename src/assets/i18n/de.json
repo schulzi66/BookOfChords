@@ -14,8 +14,6 @@
   "section": "Abschnitt",
   "search": "Suche",
   "gig_name": "Name des Auftritts",
-  "delete_gig_title": "Auftritt löschen?",
-  "delete_gig_content": "Willst du den Auftritt {{value}} wirklich löschen?",
   "cancel": "Abbrechen",
   "confirm": "Bestätigen",
   "font_size_header": "Schriftgröße der Überschriften der Abschnitte",
@@ -77,5 +75,11 @@
   "exercise_documents_section": "Lade ein Dokument hoch",
   "nothing_uploaded": "Noch nichts hochgeladen",
   "exercise_complete_title": "Übung abgeschlossen",
-  "exercise_complete_content": "Du hast mit {{initialBpm}} BPM angefangen. jetzt bist du bei {{currentBpm}} BPM. Mit wie vielen BPM willst du nächstes Mal üben?"
+  "exercise_complete_content": "Du hast mit {{initialBpm}} BPM angefangen. jetzt bist du bei {{currentBpm}} BPM. Mit wie vielen BPM willst du nächstes Mal üben?",
+  "delete_gig_title": "Auftritt löschen?",
+  "delete_gig_content": "Willst du den Auftritt {{value}} wirklich löschen?",
+  "delete_exercise_title": "Übung löschen?",
+  "delete_exercise_content": "Willst du die Übung {{value}} wirklich löschen?",
+  "delete_song_title": "Song löschen?",
+  "delete_song_content": "Willst du den Song {{value}} wirklich löschen?"
 }
