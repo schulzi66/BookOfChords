@@ -30,7 +30,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   public isPlayMode: boolean;
   public isTick: boolean;
 
-  constructor(private readonly _toneService: ToneService) {
+  constructor(public readonly toneService: ToneService) {
     this.playModeIcon = 'play_arrow';
     this.soundModeIcon = 'volume_up';
     this.isPlayMode = false;
@@ -48,9 +48,10 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;
     }
-    this._toneService.isMuted$.subscribe((muted: boolean) => {
+    this.toneService.isMuted$.subscribe((muted: boolean) => {
       muted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
     });
+    this.showSoundMode ? this.toneService.unmute() : this.toneService.mute();
   }
 
   ngOnDestroy(): void {
@@ -68,16 +69,12 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  public toggleSoundMode(): void {
-    this._toneService.toggleMute();
-  }
-
   public changeSpeed(speed: number): void {
     if (this.isPlayMode) {
       this.stopMetronome();
     }
     this.bpm = speed;
-    this._toneService.changeSpeed(this.bpm);
+    this.toneService.changeSpeed(this.bpm);
     if (this.isPlayMode) {
       this.startMetronome();
     }
@@ -85,9 +82,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   private startMetronome(): void {
-    if (this.showSoundMode) {
-      this._toneService.start(this.bpm);
-    }
+    this.toneService.start(this.bpm);
     this._timerHandle = window.setInterval(() => {
       this.tick();
     }, this._minuteInMs / this.bpm);
@@ -95,9 +90,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   private stopMetronome(): void {
-    if (this.showSoundMode) {
-      this._toneService.stop();
-    }
+    this.toneService.stop();
     window.clearInterval(this._timerHandle);
     this.playModeIcon = 'play_arrow';
   }

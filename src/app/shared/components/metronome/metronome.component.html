@@ -1,12 +1,13 @@
 <mat-card class="metronom-card"
-          [ngClass]="{'hit-effect': isTick, 'hit-effect-remove': !isTick}">
+          [ngClass]="{'hit-effect': (this.isPlayMode ? this.toneService.isTick : this.isTick),
+                      'hit-effect-remove': (this.isPlayMode ? !this.toneService.isTick : !this.isTick) }">
   <mat-card-header class="card-header">
     <mat-card-title>{{bpm}}</mat-card-title>
     <mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
     <div>
       <button mat-icon-button
               *ngIf="showSoundMode"
-              (click)="toggleSoundMode()">
+              (click)="this.toneService.toggleMute()">
         <mat-icon fontSet="material-icons-outlined"
                   color="accent">{{this.soundModeIcon}}</mat-icon>
       </button>
