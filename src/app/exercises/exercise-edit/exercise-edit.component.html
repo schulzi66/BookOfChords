@@ -1,5 +1,6 @@
 <mat-vertical-stepper #stepper
-                      [@fadeInOnEnter]>
+                      [@fadeInOnEnter]
+                      (selectionChange)="onSelectionChanged($event)">
   <mat-step label="{{'exercise_general_info_section' | transloco}}">
     <div class="grid">
       <mat-form-field appearance="outline">
@@ -33,89 +34,35 @@
   </mat-step>
 
   <mat-step label="{{'exercise_image_section' | transloco}}">
-    <div *ngIf="!exercise.pictureUrl">{{'nothing_uploaded' | transloco}}</div>
-    <div class="image-container">
+    <div class="upload-section"
+         *ngIf="!exercise.pictureUrl; else img">
+      <!-- <button mat-button
+              (click)="showFileUpload()">{{'upload' | transloco }}</button> -->
+      <span>
+        {{'nothing_uploaded' | transloco}}
+      </span>
+    </div>
+    <ng-template #img
+                 class="image-container">
       <img class="picture"
            [src]="exercise?.pictureUrl">
-    </div>
+    </ng-template>
   </mat-step>
 
   <mat-step label="{{'exercise_documents_section' | transloco}}">
-    <div *ngIf="!exercise.pdfUrl; else pdfViewer">{{'nothing_uploaded' | transloco}}</div>
-    <ng-template class="document-container" #pdfViewer>
+    <div class="upload-section"
+         *ngIf="!exercise.pdfUrl; else pdfViewer">
+      <!-- <button mat-button
+              (click)="showFileUpload()">{{'upload' | transloco }}</button> -->
+      <span>
+        {{'nothing_uploaded' | transloco}}
+      </span>
+    </div>
+    <ng-template #pdfViewer
+                 class="document-container">
       <ngx-extended-pdf-viewer [src]="exercise?.pdfUrl"
                                useBrowserLocale="true"
                                height="80vh"></ngx-extended-pdf-viewer>
     </ng-template>
   </mat-step>
 </mat-vertical-stepper>
-
-
-
-
-<!-- 
-<div class="grid"
-     [@fadeInOnEnter]>
-  <mat-form-field appearance="outline">
-    <mat-label>{{'exercise_name' | transloco}}</mat-label>
-    <input matInput
-           [(ngModel)]="exercise.name"
-           name="exerciseName">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <textarea matInput
-              [placeholder]="'description' | transloco"
-              [(ngModel)]="exercise.description"
-              cdkTextareaAutosize
-              #autosize="cdkTextareaAutosize"></textarea>
-  </mat-form-field> -->
-
-<!-- <mat-form-field appearance="outline"
-                  class="item-full">
-    <mat-label>{{'exercise_description' | transloco}}</mat-label>
-    <input matInput
-           [(ngModel)]="exercise.description"
-           name="exerciseDescription">
-  </mat-form-field> -->
-
-
-<!-- <mat-form-field appearance="outline"
-                  class="item-half">
-    <mat-label>{{'exercise_current_bpm' | transloco}}</mat-label>
-    <input matInput
-           [(ngModel)]="exercise.currentBpm"
-           type="number">
-  </mat-form-field>
-  <mat-form-field appearance="outline"
-                  class="item-half">
-    <mat-label>{{'exercise_next_bpm' | transloco}}</mat-label>
-    <input matInput
-           [(ngModel)]="exercise.nextBpm"
-           type="number">
-  </mat-form-field> -->
-<!-- <shared-metronome [bpm]="exercise.currentBpm"
-                    [showPlay]="false"
-                    [subtitle]="'exercise_current_bpm' | transloco"
-                    (onBpmChanged)="exercise.currentBpm = $event"></shared-metronome>
-
-  <div class="sound-section">
-    <h5>Sound:</h5>
-    <audio class="sound"
-           controls>
-      <source [src]="exercise.sound">
-    </audio>
-  </div>
-
-  <div class="image-container">
-    <img *ngFor="let picture of exercise?.pictures"
-         class="picture"
-         [src]="picture">
-  </div>
-
-  <div *ngFor="let pdf of exercise?.pdfs">
-    <ngx-extended-pdf-viewer [src]="pdf"
-                             useBrowserLocale="true"
-                             height="80vh"></ngx-extended-pdf-viewer>
-  </div> -->
-<!-- </div> -->

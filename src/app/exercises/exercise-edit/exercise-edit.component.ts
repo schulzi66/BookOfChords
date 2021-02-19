@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { MediaTypes } from 'src/app/models/media-types.enum';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-exercise-edit',
@@ -37,14 +38,7 @@ export class ExerciseEditComponent implements OnInit {
       {
         order: 200,
         icon: 'attach_file',
-        action: () => {
-          this._bottomSheetUploaderService.show({
-            storageBucketPrefix: 'exercises',
-            typesToUpload: [MediaTypes.IMAGE, MediaTypes.SOUND, MediaTypes.PDF],
-            displayCameraOption: true,
-            onUploadCallback: (result) => this.onFileUploadCompleted(result)
-          });
-        }
+        action: () => this.showFileUpload()
       }
     ]);
   }
@@ -57,7 +51,22 @@ export class ExerciseEditComponent implements OnInit {
     }
   }
 
-  public onFileUploadCompleted(result: UploadResult): void {
+  public showFileUpload(): void {
+    this._bottomSheetUploaderService.show({
+      storageBucketPrefix: 'exercises',
+      typesToUpload: [MediaTypes.IMAGE, MediaTypes.SOUND, MediaTypes.PDF],
+      displayCameraOption: true,
+      onUploadCallback: (result) => this._onFileUploadCompleted(result)
+    });
+  }
+
+  public onSelectionChanged($event: StepperSelectionEvent): void {
+    if (($event.selectedIndex == 2 || $event.selectedIndex == 3) && !$event.selectedStep.interacted) {
+      this.showFileUpload();
+    }
+  }
+
+  private _onFileUploadCompleted(result: UploadResult): void {
     switch (result.mediaType) {
       case MediaTypes.IMAGE:
         this.exercise.pictureUrl = result.downloadUrl;
