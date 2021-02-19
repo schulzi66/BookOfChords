@@ -37,7 +37,7 @@ export class ExerciseEditComponent implements OnInit {
       },
       {
         order: 200,
-        icon: 'attach_file',
+        icon: 'upload_file',
         action: () => this.showFileUpload()
       }
     ]);

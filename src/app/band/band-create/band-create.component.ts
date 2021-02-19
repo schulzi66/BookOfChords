@@ -38,7 +38,7 @@ export class BandCreateComponent implements OnInit {
       },
       {
         order: 200,
-        icon: 'attach_file',
+        icon: 'upload_file',
         action: () => {
           this._bottomSheetUploaderService.show({
             storageBucketPrefix: 'bands',

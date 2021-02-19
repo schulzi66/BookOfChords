@@ -44,7 +44,7 @@ export class SongEditComponent implements OnInit {
       },
       {
         order: 300,
-        icon: 'attach_file',
+        icon: 'upload_file',
         action: () => {
           this._bottomSheetUploaderService.show({
             storageBucketPrefix: 'songs',
