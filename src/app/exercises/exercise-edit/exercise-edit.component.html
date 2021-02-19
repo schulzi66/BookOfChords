@@ -23,7 +23,6 @@
   <mat-step label="{{'exercise_bpm_sound_section' | transloco}}">
     <shared-metronome [bpm]="exercise.currentBpm"
                       [showPlay]="false"
-                      [subtitle]="'exercise_current_bpm' | transloco"
                       (onBpmChanged)="exercise.currentBpm = $event"></shared-metronome>
 
     <audio class="sound"

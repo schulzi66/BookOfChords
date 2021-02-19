@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ToneService } from 'src/app/services/tone.service';
 
 @Component({
@@ -8,7 +9,6 @@ import { ToneService } from 'src/app/services/tone.service';
   styleUrls: ['./metronome.component.scss']
 })
 export class MetronomeComponent implements OnInit, OnDestroy {
-  @Input('subtitle') private _subtitle: string;
   private readonly _defaultBpm: number = 40;
   private readonly _minuteInMs: number = 60000;
   private _timerHandle: number;
@@ -30,15 +30,14 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   public isPlayMode: boolean;
   public isTick: boolean;
 
+  public bpmFormControl: FormControl;
+
   constructor(public readonly toneService: ToneService) {
     this.playModeIcon = 'play_arrow';
     this.soundModeIcon = 'volume_up';
     this.isPlayMode = false;
     this.isTick = false;
-  }
-
-  public get subtitle(): string {
-    return this._subtitle === undefined ? 'BPM' : this._subtitle;
+    
   }
 
   ngOnInit(): void {
@@ -48,6 +47,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;
     }
+    this.bpmFormControl = new FormControl({value: '', disabled: this.sliderDisabled}, [Validators.required, Validators.min(40), Validators.max(200)]);
     if (this.showSoundMode) {
       this.toneService.isMuted$.subscribe((muted: boolean) => {
         muted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');

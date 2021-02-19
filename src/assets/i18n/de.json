@@ -52,7 +52,6 @@
   "guest_note": "*Das Gastkonto ermöglicht keine permanente Speicherung",
   "exercises": "Übungen",
   "exercise_name": "Name der Übung",
-  "exercise_current_bpm": "Aktuelle BPM",
   "exercise_next_bpm": "Nächstes Mal",
   "upload": "Hochladen",
   "upload_image/*": "Bilder hochladen",
@@ -83,5 +82,6 @@
   "delete_exercise_title": "Übung löschen?",
   "delete_exercise_content": "Willst du die Übung {{value}} wirklich löschen?",
   "delete_song_title": "Song löschen?",
-  "delete_song_content": "Willst du den Song {{value}} wirklich löschen?"
+  "delete_song_content": "Willst du den Song {{value}} wirklich löschen?",
+  "metronome_hint": "40 - 200 BPM"
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -29,7 +29,7 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     RockNRollSnackbarComponent,
     BottomSheetUploaderComponent
   ],
-  imports: [CommonModule, AllMaterialModule, FormsModule, TranslocoModule, RouterModule],
+  imports: [CommonModule, AllMaterialModule, FormsModule, ReactiveFormsModule, TranslocoModule, RouterModule],
   providers: [
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
