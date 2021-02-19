@@ -48,10 +48,12 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;
     }
-    this.toneService.isMuted$.subscribe((muted: boolean) => {
-      muted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
-    });
-    this.showSoundMode ? this.toneService.unmute() : this.toneService.mute();
+    if (this.showSoundMode) {
+      this.toneService.isMuted$.subscribe((muted: boolean) => {
+        muted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
+      });
+      this.showSoundMode ? this.toneService.unmute() : this.toneService.mute();
+    }
   }
 
   ngOnDestroy(): void {
@@ -74,7 +76,9 @@ export class MetronomeComponent implements OnInit, OnDestroy {
       this.stopMetronome();
     }
     this.bpm = speed;
-    this.toneService.changeSpeed(this.bpm);
+    if (this.showSoundMode) {
+      this.toneService.changeSpeed(this.bpm);
+    }
     if (this.isPlayMode) {
       this.startMetronome();
     }
@@ -82,16 +86,18 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   private startMetronome(): void {
-    this.toneService.start(this.bpm);
-    this._timerHandle = window.setInterval(() => {
-      this.tick();
-    }, this._minuteInMs / this.bpm);
+    if (this.showSoundMode) {
+      this.toneService.start(this.bpm);
+    } else {
+      this._timerHandle = window.setInterval(() => {
+        this.tick();
+      }, this._minuteInMs / this.bpm);
+    }
     this.playModeIcon = 'pause';
   }
 
   private stopMetronome(): void {
-    this.toneService.stop();
-    window.clearInterval(this._timerHandle);
+    this.showSoundMode ? this.toneService.stop() : window.clearInterval(this._timerHandle);
     this.playModeIcon = 'play_arrow';
   }
 

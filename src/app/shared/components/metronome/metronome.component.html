@@ -1,6 +1,6 @@
 <mat-card class="metronom-card"
-          [ngClass]="{'hit-effect': (this.isPlayMode ? this.toneService.isTick : this.isTick),
-                      'hit-effect-remove': (this.isPlayMode ? !this.toneService.isTick : !this.isTick) }">
+          [ngClass]="{'hit-effect':  this.isTick,
+                      'hit-effect-remove':  !this.isTick }">
   <mat-card-header class="card-header">
     <mat-card-title>{{bpm}}</mat-card-title>
     <mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
