@@ -49,7 +49,7 @@
 
 
         <div class="total-progress">
-          <mat-label>{{'exercise_total_progress' | transloco}}:</mat-label>
+          <mat-label>{{'exercise_total_progress' | transloco}}: {{this.exerciseDurationTimeElapsed}}</mat-label>
           <mat-progress-bar mode="determinate"
                             [value]="this.exerciseDurationPercentage"></mat-progress-bar>
         </div>
@@ -79,7 +79,7 @@
         </mat-form-field>
 
         <div class="total-progress">
-          <mat-label>{{'exercise_total_progress' | transloco}}:</mat-label>
+          <mat-label>{{'exercise_total_progress' | transloco}}: {{this.exerciseDurationTimeElapsed}}</mat-label>
           <mat-progress-bar mode="determinate"
                             [value]="this.exerciseDurationPercentage"></mat-progress-bar>
         </div>

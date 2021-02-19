@@ -33,6 +33,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
   public exerciseDuration: number;
 
   public exerciseDurationPercentage: number;
+  public exerciseDurationTimeElapsed: string;
 
   public intervalDurationPercentage: number;
   public intervalTime: number;
@@ -49,7 +50,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     private readonly _router: Router,
     private readonly _matDialog: MatDialog,
     private readonly _exercisesService: ExercisesService,
-    private _snackbarService: SnackbarService,
+    private readonly _snackbarService: SnackbarService,
     public readonly configurationService: ConfigurationService
   ) {
     super();
@@ -57,6 +58,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     this.intervalTime = 1;
     this.intervalBpm = 5;
     this.intervalDurationPercentage = 100;
+    this.exerciseDurationTimeElapsed = '00:00';
 
     this.registerNavbarActions(false);
   }
@@ -107,7 +109,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
       this.handleTotalExerciseProgress(start, end);
       if (current >= next) {
         this._metronomeRef.changeSpeed(this.exercise.currentBpm + this.intervalBpm);
-        this.intervalDurationPercentage = 1000;
+        this.intervalDurationPercentage = 100;
         next = new Date(current.getTime() + this.intervalTime * this._minuteInMs);
       } else {
         this.intervalDurationPercentage =
@@ -129,6 +131,8 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
   }
 
   private handleTotalExerciseProgress(start: Date, end: Date): void {
+    this.calculateElapsedTime(start);
+
     this.exerciseDurationPercentage = Math.round(
       ((new Date().getTime() - start.getTime()) / (end.getTime() - start.getTime())) * 100
     );
@@ -136,6 +140,27 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
       this._metronomeRef.togglePlayMode();
       this.stopExercise();
     }
+  }
+
+  private calculateElapsedTime(start: Date): void {
+    // Compute time difference in milliseconds
+    let timeDiff = new Date().getTime() - start.getTime();
+
+    // Convert time difference from milliseconds to seconds
+    timeDiff = timeDiff / 1000;
+    // Extract integer seconds that dont form a minute using %
+    let seconds = Math.floor(timeDiff % 60); //ignoring uncomplete seconds (floor)
+    // Pad seconds with a zero if neccessary
+    let secondsAsString = seconds < 10 ? '0' + seconds : seconds + '';
+
+    // Convert time difference from seconds to minutes using %
+    timeDiff = Math.floor(timeDiff / 60);
+    // Extract integer minutes that don't form an hour using %
+    let minutes = timeDiff % 60; //no need to floor possible incomplete minutes, becase they've been handled as seconds
+    // Pad minutes with a zero if neccessary
+    let minutesAsString = minutes < 10 ? '0' + minutes : minutes + '';
+
+    this.exerciseDurationTimeElapsed = minutesAsString + ':' + secondsAsString;
   }
 
   private saveProgress(): void {
