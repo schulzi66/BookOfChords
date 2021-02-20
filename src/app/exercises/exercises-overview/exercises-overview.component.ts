@@ -30,6 +30,11 @@ export class ExercisesOverviewComponent extends SubscriptionHandler implements O
         order: 100,
         icon: 'add',
         action: () => this.createNewExercise()
+      },
+      {
+        order: 200,
+        icon: 'casino',
+        action: () => this.chooseRandomExercise()
       }
     ]);
   }
@@ -55,5 +60,9 @@ export class ExercisesOverviewComponent extends SubscriptionHandler implements O
 
   public clearSearch(): void {
     this.filteredExercises = this._exercises;
+  }
+
+  private chooseRandomExercise(): void {
+    this._router.navigate(['/exercises/mode', this._exercises[Math.floor(Math.random() * this._exercises.length)].id]);
   }
 }

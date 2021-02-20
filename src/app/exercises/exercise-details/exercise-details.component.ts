@@ -136,8 +136,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
       ((new Date().getTime() - start.getTime()) / (end.getTime() - start.getTime())) * 100
     );
     if (this.exerciseDurationPercentage >= 100) {
-      this._metronomeRef.togglePlayMode();
-      this.stopExercise();
+      this.completeExercise();
     }
   }
 
@@ -162,8 +161,10 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     this.exerciseDurationTimeElapsed = minutesAsString + ':' + secondsAsString;
   }
 
-  private saveProgress(): void {
+  private completeExercise(): void {
     this.exercise.nextBpm = this.exercise.currentBpm;
+    this._metronomeRef.stopMetronome();
+    this.stopExercise();
     const dialogRef = this._matDialog.open(this._saveDialogRef);
 
     dialogRef
@@ -179,7 +180,6 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
         });
         this.exercise.currentBpm = this.exercise.nextBpm;
         this._exercisesService.saveExercise(this.exercise).then(() => {
-          this._metronomeRef.togglePlayMode();
           this.stopExercise();
           this.registerNavbarActions(false);
           this._snackbarService.show({
@@ -212,7 +212,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     const doneAction: INavbarAction = {
       order: 100,
       icon: 'done',
-      action: () => this.saveProgress(),
+      action: () => this.completeExercise(),
       validator: () => this._metronomeRef.isValid
     };
     const editAction: INavbarAction = {

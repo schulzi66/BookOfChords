@@ -93,7 +93,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     this.onBpmChanged.emit(this.bpm);
   }
 
-  private startMetronome(): void {
+  public startMetronome(): void {
     if (this.showSoundMode) {
       this.toneService.start(this.bpm);
     } else {
@@ -104,7 +104,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     this.playModeIcon = 'pause';
   }
 
-  private stopMetronome(): void {
+  public stopMetronome(): void {
     this.showSoundMode ? this.toneService.stop() : window.clearInterval(this._timerHandle);
     this.playModeIcon = 'play_arrow';
   }

@@ -134,15 +134,26 @@
       }}
     </p>
 
-    <mat-form-field class="exercise-next-bpm"
-                    appearance="outline">
-      <mat-label>{{'exercise_next_bpm' | transloco}}</mat-label>
-      <input matInput
-             required
-             type="number"
-             name="nextBpm"
-             [(ngModel)]="this.exercise.nextBpm">
-    </mat-form-field>
+    <div class="dialog-content">
+      <button mat-icon-button
+              (click)="this.exercise.nextBpm = this.exercise.nextBpm - 5">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+      <mat-form-field class="exercise-next-bpm"
+                      appearance="outline">
+        <mat-label>{{'exercise_next_bpm' | transloco}}</mat-label>
+        <input matInput
+               required
+               autofocus
+               type="number"
+               name="nextBpm"
+               [(ngModel)]="this.exercise.nextBpm">
+      </mat-form-field>
+      <button mat-icon-button
+              (click)="this.exercise.nextBpm = this.exercise.nextBpm + 5">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button

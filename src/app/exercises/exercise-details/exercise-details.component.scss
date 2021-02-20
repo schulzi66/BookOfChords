@@ -94,6 +94,13 @@
     }
 }
 
+.dialog-content {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 5px;
+}
+
 @media (min-width: 1020px) {
     .exercise-details-grid {
         grid-template-areas:

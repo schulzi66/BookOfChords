@@ -19,11 +19,10 @@
         <mat-icon fontSet="material-icons-outlined"
                   color="accent">{{this.soundModeIcon}}</mat-icon>
       </button>
-      <button mat-icon-button
+      <button mat-mini-fab
               *ngIf="showPlay"
               (click)="togglePlayMode()">
-        <mat-icon fontSet="material-icons-outlined"
-                  color="accent">{{this.playModeIcon}}</mat-icon>
+        <mat-icon>{{this.playModeIcon}}</mat-icon>
       </button>
     </div>
   </mat-card-header>
