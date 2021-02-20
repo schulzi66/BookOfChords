@@ -9,8 +9,6 @@ import { map, first } from 'rxjs/operators';
 export class GigResolver implements Resolve<Gig> {
   constructor(private _gigService: GigService) {}
   resolve(route: ActivatedRouteSnapshot): Observable<Gig> | Promise<Gig> | Gig {
-    return this._gigService.gigs !== undefined
-      ? this._gigService.gigs.find((x) => x.id === route.params['id'])
-      : this._gigService.gigs$.pipe(map((gigs) => gigs.find((gig) => gig.id === route.params['id']))).pipe(first());
+    return this._gigService.gigs$.pipe(map((gigs) => gigs.find((gig) => gig.id === route.params['id']))).pipe(first());
   }
 }

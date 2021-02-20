@@ -55,7 +55,6 @@
         </div>
 
         <shared-metronome class="metronom"
-                          #metronome
                           [bpm]="this.exercise.currentBpm"
                           [showPlay]="this.exerciseDuration"
                           [showSoundMode]="true"
@@ -84,8 +83,7 @@
                             [value]="this.exerciseDurationPercentage"></mat-progress-bar>
         </div>
 
-        <shared-metronome #metronome
-                          [bpm]="this.exercise.currentBpm"
+        <shared-metronome [bpm]="this.exercise.currentBpm"
                           [showPlay]="this.exerciseDuration"
                           [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
@@ -96,8 +94,7 @@
 
     <!-- Manual Mode -->
     <ng-template ngSwitchDefault>
-      <shared-metronome #metronome
-                        [bpm]="this.exercise.currentBpm"
+      <shared-metronome [bpm]="this.exercise.currentBpm"
                         [showSoundMode]="true"
                         (onBpmChanged)="this.exercise.currentBpm = $event"
                         (onStart)="this.startExercise()"></shared-metronome>

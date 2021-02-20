@@ -8,8 +8,7 @@
         <mat-label>BPM</mat-label>
         <input matInput
                [formControl]="bpmFormControl"
-               required
-               [(ngModel)]="bpm">
+               required>
         <mat-error *ngIf="bpmFormControl.invalid">{{'metronome_hint' | transloco}}</mat-error>
       </mat-form-field>
     </mat-card-title>

@@ -5,7 +5,8 @@
     <div class="grid">
       <mat-form-field appearance="outline">
         <mat-label>{{'exercise_name' | transloco}}</mat-label>
-        <input matInput
+        <input #exerciseNameModel="ngModel"
+               matInput
                required
                [(ngModel)]="exercise.name"
                name="exerciseName">

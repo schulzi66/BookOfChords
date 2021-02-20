@@ -16,6 +16,7 @@ import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { INavbarAction } from 'src/app/models/navbar-action';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-gig-edit',
@@ -31,6 +32,8 @@ export class GigEditComponent extends SubscriptionHandler implements OnInit {
   public filterToggle: boolean = false;
   public filterIcon: string = 'search';
   public isNewGig: boolean = false;
+
+  @ViewChild('gigNameModel') gigNameModel: NgModel;
 
   public get isValidGig(): boolean {
     return this.gig.name && this.gig.songs.length > 0 && this._currentUser !== undefined;
@@ -57,7 +60,6 @@ export class GigEditComponent extends SubscriptionHandler implements OnInit {
       this.isNewGig = true;
       this.gig = new Gig('New Gig');
     }
-
     this.registerNavbarActions();
   }
 
@@ -140,7 +142,8 @@ export class GigEditComponent extends SubscriptionHandler implements OnInit {
       icon: 'save',
       action: () => {
         this.saveGig();
-      }
+      },
+      validator: () => this.gigNameModel && this.gigNameModel.valid
     };
     const deleteAction: INavbarAction = {
       order: 200,

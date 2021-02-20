@@ -14,7 +14,9 @@
                   class="gig-name"
                   *ngIf="!filterToggle; else filterTemplate">
     <mat-label>{{'gig_name' | transloco}}</mat-label>
-    <input matInput
+    <input #gigNameModel="ngModel"
+           matInput
+           required
            [(ngModel)]="gig.name"
            name="gigName">
   </mat-form-field>

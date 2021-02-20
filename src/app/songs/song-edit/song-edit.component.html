@@ -4,7 +4,8 @@
                   class="song-name">
     <mat-label>{{'song_name' | transloco}}
     </mat-label>
-    <input matInput
+    <input #songNameModel="ngModel"
+           matInput
            required
            [(ngModel)]="song.name"
            name="songName">

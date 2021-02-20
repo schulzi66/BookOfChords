@@ -9,13 +9,13 @@ export class NavbarActionService {
   private _actions: INavbarAction[];
 
   public get navbarActions$(): Observable<INavbarAction[]> {
-    return of(this._actions.sort((a, b) => a.order - b.order));
+    return of(this._actions.sort((a, b) => a.order - b.order).filter((x) => x.validator === undefined || x.validator()));
   }
 
   constructor(private _router: Router) {
     this._actions = [];
     this._router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
-       this.resetActions();
+      this.resetActions();
     });
   }
 
@@ -25,6 +25,6 @@ export class NavbarActionService {
   }
 
   public resetActions(): void {
-      this._actions = [];
+    this._actions = [];
   }
 }

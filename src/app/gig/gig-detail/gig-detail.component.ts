@@ -1,5 +1,5 @@
+import { FormControl, NgModel } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -25,8 +25,10 @@ export class GigDetailComponent implements OnInit {
   public songs: Song[];
   public isPlayMode: boolean;
   public playModeIcon: string = 'play_arrow';
+  public nameFormControl: FormControl;
 
   @ViewChild('songAccordion') songPanels: MatAccordion;
+  @ViewChild('gigNameModel') gigNameModel: NgModel;
 
   constructor(
     public configurationService: ConfigurationService,
@@ -89,7 +91,8 @@ export class GigDetailComponent implements OnInit {
                 message: translate<string>('saved')
               });
             });
-          }
+          },
+          validator: () => this.gigNameModel && this.gigNameModel.valid
         },
         {
           order: 200,

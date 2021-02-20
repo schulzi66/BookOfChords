@@ -21,6 +21,11 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     ExercisesRoutes,
     NgxExtendedPdfViewerModule
   ],
-  declarations: [ExercisesOverviewComponent, ExerciseEditComponent, ExerciseDetailsComponent, ExerciseModeSelectionComponent]
+  declarations: [
+    ExercisesOverviewComponent,
+    ExerciseEditComponent,
+    ExerciseDetailsComponent,
+    ExerciseModeSelectionComponent
+  ]
 })
 export class ExercisesModule {}

@@ -4,7 +4,9 @@
                   appearance="outline"
                   class="gig-name">
     <mat-label>{{'gig_name' | transloco}}</mat-label>
-    <input matInput
+    <input #gigNameModel="ngModel"
+           matInput
+           required
            [(ngModel)]="gig.name"
            name="gigName">
   </mat-form-field>

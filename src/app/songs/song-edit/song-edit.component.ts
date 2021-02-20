@@ -2,7 +2,7 @@ import { UploadResult } from 'src/app/models/upload-result';
 import { translate } from '@ngneat/transloco';
 import { SnackbarService } from './../../services/snackbar.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GigService } from '../../gig/services/gig.service';
 import { Song } from '../../models/song';
 import { SongSection } from '../../models/song-section';
@@ -12,6 +12,8 @@ import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { MediaTypes } from 'src/app/models/media-types.enum';
 import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
+import { MetronomeComponent } from 'src/app/shared/components/metronome/metronome.component';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-song-edit',
@@ -21,6 +23,9 @@ import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-upload
 })
 export class SongEditComponent implements OnInit {
   public song: Song;
+
+  @ViewChild(MetronomeComponent) private _metronomeRef: MetronomeComponent;
+  @ViewChild('songNameModel') private _songNameModel: NgModel;
 
   constructor(
     private _songService: SongService,
@@ -40,7 +45,8 @@ export class SongEditComponent implements OnInit {
       {
         order: 200,
         icon: 'save',
-        action: () => this.saveSong()
+        action: () => this.saveSong(),
+        validator: () => this._metronomeRef && this._metronomeRef.isValid && this._songNameModel && this._songNameModel.valid
       },
       {
         order: 300,

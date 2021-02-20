@@ -41,7 +41,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
 
   public initialBpm: number;
 
-  @ViewChild('metronome') private _metronomeRef: MetronomeComponent;
+  @ViewChild(MetronomeComponent) private _metronomeRef: MetronomeComponent;
   @ViewChild('saveDialog') private _saveDialogRef: TemplateRef<any>;
 
   constructor(
@@ -97,7 +97,6 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
 
   public stopExercise(): void {
     window.clearInterval(this._timerHandle);
-    this._metronomeRef.ngOnDestroy();
   }
 
   private startIntervalMode(): void {
@@ -213,7 +212,8 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     const doneAction: INavbarAction = {
       order: 100,
       icon: 'done',
-      action: () => this.saveProgress()
+      action: () => this.saveProgress(),
+      validator: () => this._metronomeRef.isValid
     };
     const editAction: INavbarAction = {
       order: 200,
