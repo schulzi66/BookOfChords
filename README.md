@@ -1,7 +1,6 @@
 ## 🎼 Book of Chords 📚
 Small mobile-optimized progressive web app to add and quickly edit chords/lyrics for songs so that you have them always in your pocket and not on paper. 
 
-Check it out: 👉 https://book-of-chords.firebaseapp.com/
 Check it out: 👉 https://www.bookofchords.com/
 
 ## Feature Overview
