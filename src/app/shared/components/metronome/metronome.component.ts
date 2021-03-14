@@ -53,8 +53,12 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     this.bpmFormControl = new FormControl({ value: this.bpm, disabled: this.sliderDisabled }, [
       Validators.required,
       Validators.min(40),
-      Validators.max(200)
+      Validators.max(240)
     ]);
+    this.bpmFormControl.valueChanges.subscribe((value) => {
+      this.bpm = value;
+      this.onBpmChanged.emit(this.bpm);
+    });
     if (this.showSoundMode) {
       this.toneService.isMuted$.subscribe((muted: boolean) => {
         muted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');

@@ -83,5 +83,5 @@
   "delete_exercise_content": "Do you really want to delete the exercise {{value}}",
   "delete_song_title": "Delete Song?",
   "delete_song_content": "Do you really want to delete the song {{value}}",
-  "metronome_hint": "40 - 200 BPM"
+  "metronome_hint": "40 - 240 BPM"
 }
