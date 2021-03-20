@@ -55,8 +55,8 @@ export class MetronomeComponent implements OnInit, OnDestroy {
       Validators.min(40),
       Validators.max(240)
     ]);
-    this.bpmFormControl.valueChanges.subscribe((value) => {
-      this.bpm = value;
+    this.bpmFormControl.valueChanges.subscribe((value: string) => {
+      this.bpm = parseInt(value);
       this.onBpmChanged.emit(this.bpm);
     });
     if (this.showSoundMode) {
