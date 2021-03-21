@@ -62,7 +62,12 @@
                  class="document-container">
       <ngx-extended-pdf-viewer [src]="exercise?.pdfUrl"
                                useBrowserLocale="true"
-                               height="80vh"></ngx-extended-pdf-viewer>
+                               [showPresentationModeButton]="true"
+                               [showBorders]="false"
+                               [enablePinchOnMobile]="true"
+                               [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'"
+                               height="80vh">
+      </ngx-extended-pdf-viewer>
     </ng-template>
   </mat-step>
 </mat-vertical-stepper>

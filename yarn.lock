@@ -6681,13 +6681,20 @@ ngx-clipboard@13.0.1:
   dependencies:
     ngx-window-token ">=3.0.0"
 
-ngx-extended-pdf-viewer@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/ngx-extended-pdf-viewer/-/ngx-extended-pdf-viewer-4.1.0.tgz#f53875cec3ef56a3c248be0f334939f1846b873e"
-  integrity sha512-uEogOQKVVe2K8WDGLNKJU72Js8ClAyvWnRZgB7RQN9Mo6nHM130IftLv14I8KBuesom1KCBBPFMmDkLUk7hONQ==
+ngx-extended-pdf-viewer@8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-extended-pdf-viewer/-/ngx-extended-pdf-viewer-8.2.0.tgz#c7d9bb3b3914a51751c7088a16face72c9591642"
+  integrity sha512-ZQcWmPUbVgyRB+JdmW6ECGv18RCSuOrzwDXY5dKftTytpFtdBDrm8Jd7EaTsTyfJbm3gk55/OF5dt1i2mTJgog==
   dependencies:
     lodash.deburr "^4.1.0"
     tslib "^1.9.0"
+
+ngx-pinch-zoom@^2.5.5:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/ngx-pinch-zoom/-/ngx-pinch-zoom-2.5.5.tgz#f27ca93db12b20d62c9cb0f3b650f851841d285a"
+  integrity sha512-uwkpxEhEnXf44LKrRe5Ed7KEuRaCEDcOy3DqscIwVjP1wHPavt63gxgxIgWtrYsNi+gbPVPhSzJuSj1IbLbQ1g==
+  dependencies:
+    tslib "^2.0.0"
 
 ngx-window-token@>=3.0.0:
   version "3.0.0"

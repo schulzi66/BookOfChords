@@ -21,7 +21,11 @@
       </mat-form-field>
       <ngx-extended-pdf-viewer [src]="setlist.pdfUrl"
                                useBrowserLocale="true"
-                               height="80vh">
+                               height="80vh"
+                               [showPresentationModeButton]="true"
+                               [showBorders]="false"
+                               [enablePinchOnMobile]="true"
+                               [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'">
       </ngx-extended-pdf-viewer>
     </div>
   </mat-tab>

@@ -1,3 +1,4 @@
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { NgModel } from '@angular/forms';
 import { UploadResult } from 'src/app/models/upload-result';
 import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
@@ -32,7 +33,8 @@ export class ExerciseEditComponent implements OnInit {
     private _navbarActionService: NavbarActionService,
     private _snackbarService: SnackbarService,
     private _authService: AuthService,
-    private _bottomSheetUploaderService: BottomSheetUploaderService
+    private _bottomSheetUploaderService: BottomSheetUploaderService,
+    public configurationService: ConfigurationService
   ) {
     this._navbarActionService.registerActions([
       {

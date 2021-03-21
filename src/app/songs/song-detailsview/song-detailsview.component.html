@@ -23,15 +23,20 @@
     </div>
     <div class="section-value"
          *ngFor="let picture of song.pictures">
-      <!-- <pinch-zoom [zoom-button]="false"> -->
-      <img class="picture"
-           [src]="picture">
-      <!-- </pinch-zoom> -->
+      <pinch-zoom>
+        <img class="picture"
+             [src]="picture">
+      </pinch-zoom>
     </div>
     <div *ngFor="let pdf of song?.pdfs">
       <ngx-extended-pdf-viewer [src]="pdf"
+                               [showPresentationModeButton]="true"
+                               [showBorders]="false"
+                               [enablePinchOnMobile]="true"
+                               [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'"
                                useBrowserLocale="true"
-                               height="80vh"></ngx-extended-pdf-viewer>
+                               height="80vh">
+      </ngx-extended-pdf-viewer>
     </div>
   </mat-card-content>
 </mat-card>

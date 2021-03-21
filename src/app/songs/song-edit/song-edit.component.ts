@@ -14,6 +14,7 @@ import { MediaTypes } from 'src/app/models/media-types.enum';
 import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
 import { MetronomeComponent } from 'src/app/shared/components/metronome/metronome.component';
 import { NgModel } from '@angular/forms';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 
 @Component({
   selector: 'app-song-edit',
@@ -34,7 +35,8 @@ export class SongEditComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _navbarActionService: NavbarActionService,
     private _snackbarService: SnackbarService,
-    private _bottomSheetUploaderService: BottomSheetUploaderService
+    private _bottomSheetUploaderService: BottomSheetUploaderService,
+    public configurationService: ConfigurationService
   ) {
     this._navbarActionService.registerActions([
       {
@@ -46,7 +48,8 @@ export class SongEditComponent implements OnInit {
         order: 200,
         icon: 'save',
         action: () => this.saveSong(),
-        validator: () => this._metronomeRef && this._metronomeRef.isValid && this._songNameModel && this._songNameModel.valid
+        validator: () =>
+          this._metronomeRef && this._metronomeRef.isValid && this._songNameModel && this._songNameModel.valid
       },
       {
         order: 300,

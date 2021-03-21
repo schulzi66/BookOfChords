@@ -122,7 +122,11 @@
                            *ngIf="this.exercise.pdfUrl"
                            [src]="exercise?.pdfUrl"
                            useBrowserLocale="true"
-                           height="100%"></ngx-extended-pdf-viewer>
+                           [showPresentationModeButton]="true"
+                           [showBorders]="false"
+                           [enablePinchOnMobile]="true"
+                           [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'"
+                           height="80vh"></ngx-extended-pdf-viewer>
 
 </div>
 
@@ -155,7 +159,7 @@
       </button>
     </div>
   </mat-dialog-content>
-  <mat-dialog-actions>
+  <mat-dialog-actions class="action-buttons">
     <button mat-button
             mat-dialog-close>
       <ng-template transloco

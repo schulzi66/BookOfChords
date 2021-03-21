@@ -182,6 +182,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
         this._exercisesService.saveExercise(this.exercise).then(() => {
           this.stopExercise();
           this.registerNavbarActions(false);
+          this._router.navigate(['/exercises']);
           this._snackbarService.show({
             message: translate<string>('saved')
           });

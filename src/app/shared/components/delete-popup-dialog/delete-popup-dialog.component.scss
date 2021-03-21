@@ -1,5 +1,10 @@
 @import '../../../../styles/colors';
 
 .mat-dialog-title {
-  color: red;
+    color: red;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
 }

@@ -29,17 +29,14 @@
                             "src/firebase-messaging-sw.js",
                             {
                                 "glob": "**/*",
-                                "input": "node_modules/ngx-extended-pdf-viewer/assets/locale",
-                                "output": "/assets/locale/"
+                                "input": "node_modules/ngx-extended-pdf-viewer/assets/",
+                                "output": "/assets/"
                             }
                         ],
                         "styles": [
                             "src/styles/styles.scss"
                         ],
-                        "scripts": ["node_modules/ngx-extended-pdf-viewer/assets/pdf.js",
-                            "node_modules/ngx-extended-pdf-viewer/assets/pdf.worker.js",
-                            "node_modules/ngx-extended-pdf-viewer/assets/viewer.js"
-                        ]
+                        "scripts": []
                     },
                     "configurations": {
                         "production": {

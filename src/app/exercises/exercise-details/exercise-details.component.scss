@@ -101,6 +101,11 @@
     gap: 5px;
 }
 
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
 @media (min-width: 1020px) {
     .exercise-details-grid {
         grid-template-areas:

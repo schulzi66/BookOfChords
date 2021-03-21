@@ -38,10 +38,10 @@
   <br>
 
   <div *ngFor="let picture of song?.pictures; index as i">
-    <!-- <pinch-zoom [zoom-button]="false"> -->
-    <img class="picture"
-         [src]="picture">
-    <!-- </pinch-zoom> -->
+    <pinch-zoom>
+      <img class="picture"
+           [src]="picture">
+    </pinch-zoom>
     <button mat-icon-button
             (click)="removePicture(i)">
       <mat-icon>delete_outline</mat-icon>
@@ -49,8 +49,13 @@
   </div>
   <div *ngFor="let pdf of song?.pdfs; index as i">
     <ngx-extended-pdf-viewer [src]="pdf"
+                             [showPresentationModeButton]="true"
+                             [showBorders]="false"
+                             [enablePinchOnMobile]="true"
+                             [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'"
                              useBrowserLocale="true"
-                             height="80vh"></ngx-extended-pdf-viewer>
+                             height="80vh">
+    </ngx-extended-pdf-viewer>
     <button mat-icon-button
             (click)="removePdf(i)">
       <mat-icon>delete_outline</mat-icon>
