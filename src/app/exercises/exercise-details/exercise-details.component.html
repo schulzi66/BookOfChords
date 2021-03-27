@@ -3,7 +3,8 @@
      [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
 
   <h4 class="exercise-name">{{exercise.name}}</h4>
-  <div class="exercise-description">{{exercise.description}}</div>
+  <div *ngIf="exercise.description"
+       class="exercise-description">{{exercise.description}}</div>
 
   <div class="exercise-mode-template"
        [ngSwitch]="this.currentMode">
@@ -11,42 +12,58 @@
     <!-- Intervall -->
     <ng-template [ngSwitchCase]="ExerciseModes.INTERVAL">
       <div class="interval-template">
-        <mat-form-field class="duration"
-                        appearance="outline">
-          <mat-label>{{'exercise_duration' | transloco}}</mat-label>
-          <input matInput
-                 required
-                 type="number"
-                 name="intervalDuration"
-                 [(ngModel)]="this.exerciseDuration">
-        </mat-form-field>
 
-        <mat-form-field class="increase-time"
-                        appearance="outline">
-          <mat-label>{{'exercise_increase_time' | transloco}}</mat-label>
-          <input matInput
-                 required
-                 type="number"
-                 name="intervalIncreaseTime"
-                 [(ngModel)]="this.intervalTime">
-        </mat-form-field>
+        <div class="main"
+             *ngIf="!this.isPracticing">
+          <mat-form-field class="duration"
+                          appearance="outline">
+            <mat-label>{{'exercise_duration' | transloco}}</mat-label>
+            <input matInput
+                   required
+                   type="number"
+                   name="intervalDuration"
+                   [(ngModel)]="this.exerciseDuration">
+          </mat-form-field>
 
-        <mat-form-field class="increase-bpm"
-                        appearance="outline">
-          <mat-label>{{'exercise_increase_bpm' | transloco}}</mat-label>
-          <input matInput
-                 required
-                 type="number"
-                 name="intervalIncreaseBpm"
-                 [(ngModel)]="this.intervalBpm">
-        </mat-form-field>
+          <mat-form-field class="interval-count"
+                          appearance="outline">
+            <mat-label>{{'exercise_interval_count' | transloco}}</mat-label>
+            <input matInput
+                   required
+                   type="number"
+                   name="intervalCount"
+                   [(ngModel)]="this.intervalCount">
+          </mat-form-field>
 
-        <mat-label class="interval-progress-header">{{'exercise_interval_progress' | transloco}}:</mat-label>
+          <mat-form-field class="start-bpm"
+                          appearance="outline">
+            <mat-label>{{'exercise_start_bpm' | transloco}}</mat-label>
+            <input matInput
+                   required
+                   type="number"
+                   name="startBpm"
+                   [(ngModel)]="this.exercise.currentBpm">
+          </mat-form-field>
 
-        <mat-progress-spinner class="spinner"
-                              mode="determinate"
-                              [value]="this.intervalDurationPercentage"></mat-progress-spinner>
+          <mat-form-field class="finish-bpm"
+                          appearance="outline">
+            <mat-label>{{'exercise_finish_bpm' | transloco}}</mat-label>
+            <input matInput
+                   required
+                   type="number"
+                   name="finishBpm"
+                   [(ngModel)]="this.exercise.nextBpm">
+          </mat-form-field>
+        </div>
 
+        <div class="main"
+             *ngIf="this.isPracticing">
+          <mat-label class="interval-progress-header">{{'exercise_interval_progress' | transloco}}:</mat-label>
+
+          <mat-progress-spinner class="spinner"
+                                mode="determinate"
+                                [value]="this.intervalDurationPercentage"></mat-progress-spinner>
+        </div>
 
         <div class="total-progress">
           <mat-label>{{'exercise_total_progress' | transloco}}: {{this.exerciseDurationTimeElapsed}}</mat-label>
@@ -56,7 +73,7 @@
 
         <shared-metronome class="metronom"
                           [bpm]="this.exercise.currentBpm"
-                          [showPlay]="this.exerciseDuration"
+                          [showPlay]="this.exerciseDuration && this.intervalCount && this.exercise.currentBpm && this.exercise.nextBpm"
                           [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
                           (onStart)="this.startExercise()"
@@ -129,50 +146,3 @@
                            height="80vh"></ngx-extended-pdf-viewer>
 
 </div>
-
-<ng-template #saveDialog>
-  <h1 matDialogTitle>{{'exercise_complete_title' | transloco}}</h1>
-  <mat-dialog-content>
-    <p>
-      {{'exercise_complete_content' | transloco: { initialBpm: this.initialBpm, currentBpm: this.exercise.currentBpm }
-      }}
-    </p>
-
-    <div class="dialog-content">
-      <button mat-icon-button
-              (click)="this.exercise.nextBpm = this.exercise.nextBpm - 5">
-        <mat-icon>remove_circle_outline</mat-icon>
-      </button>
-      <mat-form-field class="exercise-next-bpm"
-                      appearance="outline">
-        <mat-label>{{'exercise_next_bpm' | transloco}}</mat-label>
-        <input matInput
-               required
-               autofocus
-               type="number"
-               name="nextBpm"
-               [(ngModel)]="this.exercise.nextBpm">
-      </mat-form-field>
-      <button mat-icon-button
-              (click)="this.exercise.nextBpm = this.exercise.nextBpm + 5">
-        <mat-icon>add_circle_outline</mat-icon>
-      </button>
-    </div>
-  </mat-dialog-content>
-  <mat-dialog-actions class="action-buttons">
-    <button mat-button
-            mat-dialog-close>
-      <ng-template transloco
-                   let-t>
-        {{ t('cancel') }}
-      </ng-template>
-    </button>
-    <button mat-button
-            [mat-dialog-close]="true">
-      <ng-template transloco
-                   let-t>
-        {{ t('confirm') }}
-      </ng-template>
-    </button>
-  </mat-dialog-actions>
-</ng-template>

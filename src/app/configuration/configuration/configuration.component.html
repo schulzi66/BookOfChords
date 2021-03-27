@@ -57,6 +57,15 @@
     </mat-select>
   </mat-form-field>
 
+  <mat-form-field color="accent">
+    <mat-label>{{'countInBeats' | transloco}}</mat-label>
+    <input matInput
+           type="number"
+           name="countInBeats"
+           [value]="configuration?.countInBeats"
+           (change)="countInBeatsChanged($event.target.value)">
+  </mat-form-field>
+
   <mat-slide-toggle [checked]="configuration?.useDarkMode"
                     (change)="useDarkModeChanged($event)">
     {{'use_dark_mode' | transloco}}

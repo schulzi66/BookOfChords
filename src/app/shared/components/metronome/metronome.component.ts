@@ -1,5 +1,6 @@
+import { Configuration } from 'src/app/models/configuration';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { ToneService } from 'src/app/services/tone.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   private readonly _defaultBpm: number = 40;
   private readonly _minuteInMs: number = 60000;
   private _timerHandle: number;
+  private _countInBeats: number;
 
   @Input('showPlay') public showPlay: boolean = true;
   @Input('showSoundMode') public showSoundMode: boolean = false;
@@ -30,9 +32,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   public isPlayMode: boolean;
   public isTick: boolean;
 
-  public bpmFormControl: FormControl;
-
-  constructor(public readonly toneService: ToneService) {
+  constructor(public readonly toneService: ToneService, private _configurationService: ConfigurationService) {
     this.playModeIcon = 'play_arrow';
     this.soundModeIcon = 'volume_up';
     this.isPlayMode = false;
@@ -40,7 +40,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   public get isValid(): boolean {
-    return this.bpmFormControl.valid;
+    return this.bpm !== undefined && this.bpm !== null && this.bpm >= 40 && this.bpm <= 240;
   }
 
   ngOnInit(): void {
@@ -50,21 +50,15 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     if (!this.sliderDisabled) {
       this.sliderDisabled = false;
     }
-    this.bpmFormControl = new FormControl({ value: this.bpm, disabled: this.sliderDisabled }, [
-      Validators.required,
-      Validators.min(40),
-      Validators.max(240)
-    ]);
-    this.bpmFormControl.valueChanges.subscribe((value: string) => {
-      this.bpm = parseInt(value);
-      this.onBpmChanged.emit(this.bpm);
-    });
     if (this.showSoundMode) {
       this.toneService.isMuted$.subscribe((muted: boolean) => {
         muted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
       });
       this.showSoundMode ? this.toneService.unmute() : this.toneService.mute();
     }
+    this._configurationService.configuration$.subscribe((configuration: Configuration) => {
+      this._countInBeats = configuration.countInBeats;
+    });
   }
 
   ngOnDestroy(): void {
@@ -74,7 +68,6 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   public togglePlayMode(): void {
     this.isPlayMode = !this.isPlayMode;
     if (this.isPlayMode) {
-      this.onStart.emit();
       this.startMetronome();
     } else {
       this.onStop.emit();
@@ -87,7 +80,6 @@ export class MetronomeComponent implements OnInit, OnDestroy {
       this.stopMetronome();
     }
     this.bpm = speed;
-    this.bpmFormControl.setValue(this.bpm);
     if (this.showSoundMode) {
       this.toneService.changeSpeed(this.bpm);
     }
@@ -99,8 +91,9 @@ export class MetronomeComponent implements OnInit, OnDestroy {
 
   public startMetronome(): void {
     if (this.showSoundMode) {
-      this.toneService.start(this.bpm);
+      this.toneService.start(this.bpm, this._countInBeats / 2).then(() => this.onStart.emit());
     } else {
+      this.onStart.emit();
       this._timerHandle = window.setInterval(() => {
         this.tick();
       }, this._minuteInMs / this.bpm);

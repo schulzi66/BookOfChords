@@ -7,12 +7,19 @@
                       appearance="standard">
         <mat-label>BPM</mat-label>
         <input matInput
-               [formControl]="bpmFormControl"
-               required>
-        <mat-error *ngIf="bpmFormControl.invalid">{{'metronome_hint' | transloco}}</mat-error>
+               #bpmModel="ngModel"
+               [(ngModel)]="this.bpm"
+               (change)="this.changeSpeed(this.bpm)"
+               required
+               [min]="40"
+               [max]="240"
+               type="number"
+               [placeholder]="'metronome_hint' | transloco">
+        <mat-error *ngIf="bpmModel.invalid && (bpmModel.dirty || bpmModel.touched)">{{'metronome_hint' | transloco}}
+        </mat-error>
       </mat-form-field>
     </mat-card-title>
-    <div>
+    <div *ngIf="isValid">
       <button mat-icon-button
               *ngIf="showSoundMode"
               (click)="this.toneService.toggleMute()">

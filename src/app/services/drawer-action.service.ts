@@ -6,12 +6,28 @@ export const DEFAULT_DRAWER_ICON_KEY: string = 'menu';
 
 @Injectable({ providedIn: 'root' })
 export class DrawerActionService {
+  private _iconKey: string;
+  private _drawer: MatDrawer;
+  private _drawerAction: () => void;
+  private _preDrawerAction: () => void;
+
+  constructor(private _router: Router) {
+    this._router.events.subscribe((event: NavigationStart) => {
+      if (event.navigationTrigger === 'popstate') {
+        this.resetActions();
+        this.iconKey = DEFAULT_DRAWER_ICON_KEY;
+      }
+    });
+    this._iconKey = DEFAULT_DRAWER_ICON_KEY;
+  }
+
   public get iconKey(): string {
     return this._iconKey;
   }
   public set iconKey(v: string) {
     this._iconKey = v;
   }
+
   public set drawer(v: MatDrawer) {
     this._drawer = v;
   }
@@ -20,31 +36,24 @@ export class DrawerActionService {
     this._drawerAction = v;
   }
 
-  constructor(private _router: Router) {
-    this._router.events.subscribe((event: NavigationStart) => {
-      if (event.navigationTrigger === 'popstate') {
-        this._drawerAction = undefined;
-        this.iconKey = DEFAULT_DRAWER_ICON_KEY;
-      }
-    });
-    this._iconKey = DEFAULT_DRAWER_ICON_KEY;
+  public set preDrawerAction(v: () => void) {
+    this._preDrawerAction = v;
   }
-  private _iconKey: string;
-
-  private _drawer: MatDrawer;
-
-  private _drawerAction: () => void;
 
   public executeAction(): void {
     if (this._drawerAction) {
+      if (this._preDrawerAction) {
+        this._preDrawerAction();
+      }
       this._drawerAction();
-      this.resetDrawerAction();
+      this.resetActions();
     } else {
       this._drawer.toggle();
     }
   }
 
-  public resetDrawerAction(): void {
+  public resetActions(): void {
     this.drawerAction = undefined;
+    this.preDrawerAction = undefined;
   }
 }

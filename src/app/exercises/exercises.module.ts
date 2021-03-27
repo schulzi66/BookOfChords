@@ -1,3 +1,4 @@
+import { SaveExerciseProgressDialogComponent } from './exercise-details/save-exercise-progress-dialog/save-exercise-progress-dialog.component';
 import { ExerciseModeSelectionComponent } from './exercise-mode-selection/exercise-mode-selection.component';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -25,7 +26,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     ExercisesOverviewComponent,
     ExerciseEditComponent,
     ExerciseDetailsComponent,
-    ExerciseModeSelectionComponent
+    ExerciseModeSelectionComponent,
+    SaveExerciseProgressDialogComponent
   ]
 })
 export class ExercisesModule {}

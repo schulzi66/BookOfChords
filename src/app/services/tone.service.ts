@@ -8,13 +8,15 @@ import { Injectable } from '@angular/core';
 })
 export class ToneService extends SubscriptionHandler {
   private _player: Player;
+  private _countInPlayer: Player;
   private _isMuted$: BehaviorSubject<boolean>;
-  private _initialized: boolean;
+  private _mainScheduleId: number;
+  private _countInScheduleId: number;
 
   constructor() {
     super();
     this._player = new Player('../../assets/sounds/up.wav').toDestination();
-    this._initialized = false;
+    this._countInPlayer = new Player('../../assets/sounds/down.wav').toDestination();
     this._isMuted$ = new BehaviorSubject(false);
     this._subscriptions$.add(
       this.isMuted$.subscribe((value) => {
@@ -27,19 +29,44 @@ export class ToneService extends SubscriptionHandler {
     return this._isMuted$.asObservable();
   }
 
-  public async start(bpm: number): Promise<void> {
-    await start();
-    this.changeSpeed(bpm);
-    if (!this._initialized) {
-      Transport.scheduleRepeat((time: number) => {
-        this._player.start(time);
-      }, '4n');
-      this._initialized = true;
-    }
-    Transport.start();
+  public async start(bpm: number, countIn?: number): Promise<void> {
+    return new Promise<void>(async (resolve) => {
+      await start();
+      this.changeSpeed(bpm);
+      if (countIn) {
+        this._countInScheduleId = Transport.scheduleRepeat(
+          (time: number) => {
+            this._countInPlayer.start(time);
+          },
+          '4n',
+          0,
+          countIn
+        );
+
+        this._mainScheduleId = Transport.scheduleRepeat(
+          (time: number) => {
+            this._player.start(time);
+          },
+          '4n',
+          countIn
+        );
+
+        setTimeout(() => {
+          resolve();
+        }, countIn * 1000);
+      } else {
+        this._mainScheduleId = Transport.scheduleRepeat((time: number) => {
+          this._player.start(time);
+        }, '4n');
+        resolve();
+      }
+      Transport.start();
+    });
   }
 
   public stop(): void {
+    Transport.clear(this._mainScheduleId);
+    Transport.clear(this._countInScheduleId);
     Transport.stop();
   }
 

@@ -71,6 +71,10 @@ export class ConfigurationComponent extends SubscriptionHandler implements OnIni
     this.configuration.lang = event.value;
   }
 
+  public countInBeatsChanged(beats: string): void {
+    this.configuration.countInBeats = parseInt(beats);
+  }
+
   public useDarkModeChanged(event: MatSlideToggleChange): void {
     this.configuration.useDarkMode = event.checked;
     this._configurationService.saveConfigurationForUser(this.configuration);

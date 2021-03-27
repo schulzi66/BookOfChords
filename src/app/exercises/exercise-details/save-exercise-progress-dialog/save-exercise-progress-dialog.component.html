@@ -1,0 +1,88 @@
+<h1 matDialogTitle>{{'exercise_complete_title' | transloco}}</h1>
+<mat-dialog-content>
+  <p>
+    {{'exercise_complete_content' | transloco: { initialBpm: this.initialStartBpm, currentBpm:
+    this.data.exercise.currentBpm }
+    }}
+  </p>
+
+  <div class="dialog-input"
+       *ngIf="this.data.mode !== ExerciseModes.INTERVAL">
+    <button mat-icon-button
+            (click)="this.data.exercise.currentBpm = this.data.exercise.currentBpm - 5">
+      <mat-icon>remove_circle_outline</mat-icon>
+    </button>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'exercise_start_next_bpm' | transloco}}</mat-label>
+      <input matInput
+             required
+             autofocus
+             type="number"
+             name="currentBpm"
+             [(ngModel)]="this.data.exercise.currentBpm">
+    </mat-form-field>
+    <button mat-icon-button
+            (click)="this.data.exercise.currentBpm = this.data.exercise.currentBpm + 5">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="this.data.mode === ExerciseModes.INTERVAL">
+    <div class="dialog-input">
+      <button mat-icon-button
+              (click)="this.data.initialStartBpm = this.data.initialStartBpm - 5">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'exercise_start_next_bpm' | transloco}}</mat-label>
+        <input matInput
+               required
+               autofocus
+               type="number"
+               name="nextBpm"
+               [(ngModel)]="this.data.initialStartBpm">
+      </mat-form-field>
+      <button mat-icon-button
+              (click)="this.data.initialStartBpm = this.data.initialStartBpm + 5">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
+    <div class="dialog-input">
+      <button mat-icon-button
+              (click)="this.data.initialNextBpm = this.data.initialNextBpm - 5">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'exercise_finish_next_bpm' | transloco}}</mat-label>
+        <input matInput
+               required
+               autofocus
+               type="number"
+               name="nextBpm"
+               [(ngModel)]="this.data.initialNextBpm">
+      </mat-form-field>
+      <button mat-icon-button
+              (click)="this.data.initialNextBpm = this.data.initialNextBpm + 5">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="action-buttons">
+  <button mat-button
+          mat-dialog-close>
+    <ng-template transloco
+                 let-t>
+      {{ t('cancel') }}
+    </ng-template>
+  </button>
+  <button mat-button
+          [mat-dialog-close]="true">
+    <ng-template transloco
+                 let-t>
+      {{ t('confirm') }}
+    </ng-template>
+  </button>
+</mat-dialog-actions>

@@ -1,4 +1,3 @@
-import { SongService } from 'src/app/songs/services/song.service';
 import { Location } from '@angular/common';
 import { DrawerActionService, DEFAULT_DRAWER_ICON_KEY } from '../../services/drawer-action.service';
 import { Injectable, EventEmitter } from '@angular/core';
@@ -12,7 +11,7 @@ export class DrawerActionResolver implements Resolve<void> {
   resolve(route: ActivatedRouteSnapshot): Observable<void> | Promise<void> | void {
     if (route.data['isBaseDrawerAction']) {
       this._drawerActionService.iconKey = DEFAULT_DRAWER_ICON_KEY;
-      this._drawerActionService.resetDrawerAction();
+      this._drawerActionService.resetActions();
     } else {
       this._drawerActionService.iconKey = 'cancel';
       this._drawerActionService.drawerAction = () => {

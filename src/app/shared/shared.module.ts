@@ -15,12 +15,16 @@ import { UploadTaskComponent } from './components/upload-task/upload-task.compon
 import { UploaderComponent } from './components/uploader/uploader.component';
 import { DropzoneDirective } from './directives/dropzone.directive';
 import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
+import { MinDirective } from './directives/min.directive';
+import { MaxDirective } from './directives/max.directive';
 
 @NgModule({
   declarations: [
     FabBtnMatIcoComponent,
     StringArrayLinesPipe,
     DropzoneDirective,
+    MinDirective,
+    MaxDirective,
     UploaderComponent,
     UploadTaskComponent,
     SearchComponent,
