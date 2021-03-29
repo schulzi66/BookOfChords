@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExercisesOverviewComponent } from './exercises-overview/exercises-overview.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     FormsModule,
     TranslocoModule,
     ExercisesRoutes,
-    NgxExtendedPdfViewerModule
+    NgxExtendedPdfViewerModule,
+    PinchZoomModule
   ],
   declarations: [
     ExercisesOverviewComponent,

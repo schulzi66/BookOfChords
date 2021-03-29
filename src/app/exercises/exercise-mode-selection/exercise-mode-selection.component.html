@@ -1,5 +1,6 @@
 <div [@fadeInOnEnter]>
-
+  <div class="exercise-name"
+       [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{exercise.name}}</div>
   <div class="mode-list"
        [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
     <div class="mode-option mat-card"

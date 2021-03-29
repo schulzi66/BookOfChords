@@ -27,17 +27,19 @@
                       (onBpmChanged)="exercise.currentBpm = $event"></shared-metronome>
 
     <audio class="sound"
+           *ngIf="exercise.sound"
            controls>
-      <source *ngIf="exercise.sound"
-              [src]="exercise.sound">
+      <source [src]="exercise.sound">
     </audio>
+    <button mat-icon-button
+            (click)="removeAudio()">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
   </mat-step>
 
   <mat-step label="{{'exercise_image_section' | transloco}}">
     <div class="upload-section"
          *ngIf="!exercise.pictureUrl; else img">
-      <!-- <button mat-button
-              (click)="showFileUpload()">{{'upload' | transloco }}</button> -->
       <span>
         {{'nothing_uploaded' | transloco}}
       </span>
@@ -46,14 +48,16 @@
                  class="image-container">
       <img class="picture"
            [src]="exercise?.pictureUrl">
+      <button mat-icon-button
+              (click)="removePicture()">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
     </ng-template>
   </mat-step>
 
   <mat-step label="{{'exercise_documents_section' | transloco}}">
     <div class="upload-section"
          *ngIf="!exercise.pdfUrl; else pdfViewer">
-      <!-- <button mat-button
-              (click)="showFileUpload()">{{'upload' | transloco }}</button> -->
       <span>
         {{'nothing_uploaded' | transloco}}
       </span>
@@ -68,6 +72,10 @@
                                [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'"
                                height="80vh">
       </ngx-extended-pdf-viewer>
+      <button mat-icon-button
+              (click)="removePdf()">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
     </ng-template>
   </mat-step>
 </mat-vertical-stepper>

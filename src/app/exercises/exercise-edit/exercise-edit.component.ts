@@ -74,6 +74,18 @@ export class ExerciseEditComponent implements OnInit {
     }
   }
 
+  public removeAudio(): void {
+      this.exercise.sound = null;
+  }
+
+  public removePicture(): void {
+      this.exercise.pictureUrl = null;
+  }
+
+  public removePdf(): void {
+      this.exercise.pdfUrl = null;
+  }
+
   private _onFileUploadCompleted(result: UploadResult): void {
     switch (result.mediaType) {
       case MediaTypes.IMAGE:

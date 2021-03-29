@@ -130,8 +130,10 @@
 
   <div class="exercise-image"
        *ngIf="this.exercise.pictureUrl">
-    <img class="img"
-         [src]="this.exercise.pictureUrl">
+    <pinch-zoom>
+      <img class="img"
+           [src]="this.exercise.pictureUrl">
+    </pinch-zoom>
   </div>
 
 
