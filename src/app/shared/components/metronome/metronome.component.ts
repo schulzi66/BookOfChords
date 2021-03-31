@@ -76,22 +76,16 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   public changeSpeed(speed: number): void {
-    if (this.isPlayMode) {
-      this.stopMetronome();
-    }
     this.bpm = speed;
     if (this.showSoundMode) {
       this.toneService.changeSpeed(this.bpm);
     }
-    if (this.isPlayMode) {
-      this.startMetronome();
-    }
     this.onBpmChanged.emit(this.bpm);
   }
 
-  public startMetronome(): void {
+  public startMetronome(countIn: boolean = true): void {
     if (this.showSoundMode) {
-      this.toneService.start(this.bpm, this._countInBeats / 2).then(() => this.onStart.emit());
+      this.toneService.start(this.bpm, countIn ? this._countInBeats / 2 : null).then(() => this.onStart.emit());
     } else {
       this.onStart.emit();
       this._timerHandle = window.setInterval(() => {
