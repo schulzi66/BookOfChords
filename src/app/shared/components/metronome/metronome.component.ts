@@ -57,7 +57,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
       this.showSoundMode ? this.toneService.unmute() : this.toneService.mute();
     }
     this._configurationService.configuration$.subscribe((configuration: Configuration) => {
-      this._countInBeats = configuration.countInBeats;
+      this._countInBeats = configuration.countInBars;
     });
   }
 
@@ -83,9 +83,9 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     this.onBpmChanged.emit(this.bpm);
   }
 
-  public startMetronome(countIn: boolean = true): void {
+  public startMetronome(): void {
     if (this.showSoundMode) {
-      this.toneService.start(this.bpm, countIn ? this._countInBeats / 2 : null).then(() => this.onStart.emit());
+      this.toneService.start(this.bpm, this._countInBeats).then(() => this.onStart.emit());
     } else {
       this.onStart.emit();
       this._timerHandle = window.setInterval(() => {

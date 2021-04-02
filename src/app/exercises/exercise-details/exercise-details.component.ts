@@ -34,11 +34,10 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
   public currentMode: ExerciseModes;
   public ExerciseModes = ExerciseModes;
   public isPracticing: boolean;
-  public exerciseDuration: number;
   public exerciseDurationPercentage: number;
   public exerciseDurationTimeElapsed: string;
   public intervalDurationPercentage: number;
-  public intervalCount: number;
+
   public initialStartBpm: number;
   public initialNextBpm: number;
 
@@ -55,8 +54,6 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     public readonly configurationService: ConfigurationService
   ) {
     super();
-    this.exerciseDuration = 5;
-    this.intervalCount = 7;
     this.intervalDurationPercentage = 100;
     this.exerciseDurationTimeElapsed = '00:00';
     this._isDirty = false;
@@ -90,14 +87,19 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     this.isPracticing = true;
     switch (this.currentMode) {
       case ExerciseModes.INTERVAL:
-        if (this.exerciseDuration && this.intervalCount && this.exercise.currentBpm && this.exercise.nextBpm) {
+        if (
+          this.exercise.duration &&
+          this.exercise.intervalCount &&
+          this.exercise.currentBpm &&
+          this.exercise.nextBpm
+        ) {
           this.registerNavbarActions(true);
           this.startIntervalMode();
         }
         break;
 
       case ExerciseModes.TIMEBASED:
-        if (this.exerciseDuration) {
+        if (this.exercise.duration) {
           this.registerNavbarActions(true);
           this.startTimebasedMode();
         }
@@ -117,15 +119,16 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
   private startIntervalMode(): void {
     const start = new Date();
     let current = new Date();
-    const intervalDuration = (this.exerciseDuration * this._minuteInMs) / this.intervalCount;
+    const intervalDuration = (this.exercise.duration * this._minuteInMs) / this.exercise.intervalCount;
     let next = new Date(start.getTime() + intervalDuration);
-    const end = new Date(start.getTime() + this.exerciseDuration * this._minuteInMs);
+    const end = new Date(start.getTime() + this.exercise.duration * this._minuteInMs);
+    const increasePerInterval = Math.round(
+      (this.exercise.nextBpm - this.exercise.currentBpm) / (this.exercise.intervalCount - 1)
+    );
     this._timerHandle = window.setInterval(() => {
       this.handleTotalExerciseProgress(start, end);
       if (current >= next) {
-        this._metronomeRef.changeSpeed(
-          this.exercise.currentBpm + Math.round((this.exercise.nextBpm - this.exercise.currentBpm) / this.intervalCount)
-        );
+        this._metronomeRef.changeSpeed(this.exercise.currentBpm + increasePerInterval);
         this.intervalDurationPercentage = 100;
         next = new Date(current.getTime() + intervalDuration);
       } else {
@@ -141,7 +144,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
 
   private startTimebasedMode(): void {
     const start = new Date();
-    const end = new Date(start.getTime() + this.exerciseDuration * this._minuteInMs);
+    const end = new Date(start.getTime() + this.exercise.duration * this._minuteInMs);
     this._timerHandle = window.setInterval(() => {
       this.handleTotalExerciseProgress(start, end);
     }, 1000);
@@ -197,7 +200,6 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
         .afterClosed()
         .pipe(filter((saved) => saved))
         .subscribe(() => {
-          console.log(dialogRef.componentInstance.data);
           this.exercise.progress.push({
             date: new Date(),
             initialBpm: this.initialStartBpm,

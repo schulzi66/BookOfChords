@@ -7,6 +7,8 @@ export class Exercise {
   description: string;
   currentBpm: number;
   nextBpm: number;
+  duration: number;
+  intervalCount: number;
   pictureUrl: string;
   pdfUrl: string;
   sound: string;

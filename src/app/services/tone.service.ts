@@ -40,20 +40,20 @@ export class ToneService extends SubscriptionHandler {
           },
           '4n',
           0,
-          countIn
+          countIn + 'm'
         );
+
+        Transport.scheduleOnce(() => {
+          resolve();
+        }, countIn + 'm');
 
         this._mainScheduleId = Transport.scheduleRepeat(
           (time: number) => {
             this._player.start(time);
           },
           '4n',
-          countIn
+          countIn + 'm'
         );
-
-        setTimeout(() => {
-          resolve();
-        }, countIn * 1000);
       } else {
         this._mainScheduleId = Transport.scheduleRepeat((time: number) => {
           this._player.start(time);

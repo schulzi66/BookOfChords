@@ -5,7 +5,7 @@ export class Configuration {
   fontFamily: string;
   useDarkMode: boolean;
   lang: string;
-  countInBeats: number;
+  countInBars: number;
 
   constructor(uid: string) {
     this.uid = uid;

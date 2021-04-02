@@ -22,7 +22,7 @@
                    required
                    type="number"
                    name="intervalDuration"
-                   [(ngModel)]="this.exerciseDuration">
+                   [(ngModel)]="this.exercise.duration">
           </mat-form-field>
 
           <mat-form-field class="interval-count"
@@ -32,7 +32,7 @@
                    required
                    type="number"
                    name="intervalCount"
-                   [(ngModel)]="this.intervalCount">
+                   [(ngModel)]="this.exercise.intervalCount">
           </mat-form-field>
 
           <mat-form-field class="start-bpm"
@@ -73,7 +73,7 @@
 
         <shared-metronome class="metronom"
                           [bpm]="this.exercise.currentBpm"
-                          [showPlay]="this.exerciseDuration && this.intervalCount && this.exercise.currentBpm && this.exercise.nextBpm"
+                          [showPlay]="this.exercise.duration && this.exercise.intervalCount && this.exercise.currentBpm && this.exercise.nextBpm"
                           [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
                           (onStart)="this.startExercise()"
@@ -91,7 +91,7 @@
                  required
                  type="number"
                  name="timebasedDuration"
-                 [(ngModel)]="this.exerciseDuration">
+                 [(ngModel)]="this.exercise.duration">
         </mat-form-field>
 
         <div class="total-progress">
@@ -101,7 +101,7 @@
         </div>
 
         <shared-metronome [bpm]="this.exercise.currentBpm"
-                          [showPlay]="this.exerciseDuration"
+                          [showPlay]="this.exercise.duration"
                           [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
                           (onStart)="this.startExercise()"
