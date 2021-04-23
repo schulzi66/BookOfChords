@@ -6,6 +6,12 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
+
+    <shared-metronome [bpm]="song.bpm"
+                      [sliderDisabled]="true"
+                      [showSoundMode]="true"
+                      (onBpmChanged)="updateBpm($event)"></shared-metronome>
+
     <div class="song-panel-body"
          *ngFor="let section of song.sections; index as i">
       <h5 class="section-name"

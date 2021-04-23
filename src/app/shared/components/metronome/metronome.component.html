@@ -10,6 +10,7 @@
                #bpmModel="ngModel"
                [(ngModel)]="this.bpm"
                (change)="this.changeSpeed(this.bpm)"
+               [readonly]="sliderDisabled"
                required
                [min]="40"
                [max]="240"

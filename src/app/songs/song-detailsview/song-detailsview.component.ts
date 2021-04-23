@@ -87,4 +87,8 @@ export class SongDetailsviewComponent extends SubscriptionHandler implements OnI
       })
     );
   }
+
+  public updateBpm(newBpm: number): void {
+    this.song.bpm = newBpm;
+  }
 }
