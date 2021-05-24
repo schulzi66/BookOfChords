@@ -66,7 +66,14 @@
            (change)="countInBarsChanged($event.target.value)">
   </mat-form-field>
 
-  <mat-slide-toggle [checked]="configuration?.useDarkMode"
+  <mat-slide-toggle class="toggle"
+                    [checked]="configuration?.openDrawerInitially"
+                    (change)="openDrawerInitiallyChanged($event)">
+    {{'open_drawer_initially' | transloco}}
+  </mat-slide-toggle>
+
+  <mat-slide-toggle class="toggle"
+                    [checked]="configuration?.useDarkMode"
                     (change)="useDarkModeChanged($event)">
     {{'use_dark_mode' | transloco}}
   </mat-slide-toggle>

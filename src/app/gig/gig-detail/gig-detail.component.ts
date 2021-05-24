@@ -25,7 +25,7 @@ export class GigDetailComponent implements OnInit {
   public songs: Song[];
   public isPlayMode: boolean;
   public playModeIcon: string = 'play_arrow';
-  public nameFormControl: FormControl;
+  private _currentSongIndexPlayed: number;
 
   @ViewChild('songAccordion') songPanels: MatAccordion;
   @ViewChild('gigNameModel') gigNameModel: NgModel;
@@ -67,6 +67,22 @@ export class GigDetailComponent implements OnInit {
       this.playModeIcon = 'play_arrow';
     }
     this.registerNavbarActions();
+  }
+
+  public onStartPlaySong(index: number): void {
+    this._currentSongIndexPlayed = index;
+  }
+
+  public onStopPlaySong(): void {
+      this._currentSongIndexPlayed = undefined;
+  }
+
+  public showPlay(index: number): boolean {
+    if (this._currentSongIndexPlayed === undefined) {
+      return true;
+    } else {
+      return this._currentSongIndexPlayed === index;
+    }
   }
 
   private registerNavbarActions(): void {

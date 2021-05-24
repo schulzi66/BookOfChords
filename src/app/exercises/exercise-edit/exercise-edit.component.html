@@ -26,15 +26,16 @@
                       [showPlay]="false"
                       (onBpmChanged)="exercise.currentBpm = $event"></shared-metronome>
 
-    <audio class="sound"
-           *ngIf="exercise.sound"
-           controls>
-      <source [src]="exercise.sound">
-    </audio>
-    <button mat-icon-button
-            (click)="removeAudio()">
-      <mat-icon>delete_outline</mat-icon>
-    </button>
+    <div *ngIf="exercise.sound">
+      <audio class="sound"
+             controls>
+        <source [src]="exercise.sound">
+      </audio>
+      <button mat-icon-button
+              (click)="removeAudio()">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </div>
   </mat-step>
 
   <mat-step label="{{'exercise_image_section' | transloco}}">

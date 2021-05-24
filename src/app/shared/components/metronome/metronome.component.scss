@@ -1,11 +1,19 @@
 @import '../../../../styles/colors';
 
-.metronom-card {
+.metronome-card {
     outline: 0;
     border: 0px solid #fff;
     font-size: 14px;
     transition: all 0.2s ease-out;
     margin-bottom: 10px;
+}
+
+.bpm-field {
+    width: 140px;
+}
+
+.metronome-btn {
+    margin-left: 5px;
 }
 
 .card-header {

@@ -40,7 +40,7 @@ export class ExercisesService extends SubscriptionHandler implements OnDestroy {
   private getExercisesForUser(uid: string): Observable<Exercise[]> {
     return this._angularFirestore
       .collection<Exercise>('exercises', (ref) => {
-        return ref.where('uid', '==', uid);
+        return ref.where('uid', '==', uid).orderBy('name', 'asc');
       })
       .valueChanges();
   }

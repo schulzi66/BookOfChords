@@ -79,4 +79,8 @@ export class ConfigurationComponent extends SubscriptionHandler implements OnIni
     this.configuration.useDarkMode = event.checked;
     this._configurationService.saveConfigurationForUser(this.configuration);
   }
+
+  public openDrawerInitiallyChanged(event: MatSlideToggleChange): void {
+    this.configuration.openDrawerInitially = event.checked;
+  }
 }

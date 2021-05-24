@@ -12,6 +12,13 @@
                       [showSoundMode]="true"
                       (onBpmChanged)="updateBpm($event)"></shared-metronome>
 
+    <div class="sound"
+         *ngIf="song.sound">
+      <audio controls>
+        <source [src]="song.sound">
+      </audio>
+    </div>
+
     <div class="song-panel-body"
          *ngFor="let section of song.sections; index as i">
       <h5 class="section-name"

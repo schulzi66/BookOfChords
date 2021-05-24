@@ -33,6 +33,11 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
         order: 100,
         icon: 'add',
         action: () => this.createNewSong()
+      },
+      {
+        order: 200,
+        icon: 'casino',
+        action: () => this.chooseRandomSong()
       }
     ]);
   }
@@ -56,5 +61,9 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
 
   public clearSearch(): void {
     this.filteredSongs = this._songs;
+  }
+
+  public chooseRandomSong(): void {
+    this._router.navigate(['/songs/details', this._songs[Math.floor(Math.random() * this._songs.length)].id]);
   }
 }

@@ -1,9 +1,10 @@
-<mat-card class="metronom-card"
+<mat-card class="metronome-card"
           [ngClass]="{'hit-effect':  this.isTick,
                       'hit-effect-remove':  !this.isTick }">
   <mat-card-header class="card-header">
     <mat-card-title>
-      <mat-form-field [hintLabel]="sliderDisabled ? '' : 'metronome_hint' | transloco"
+      <mat-form-field class="bpm-field"
+                      [hintLabel]="sliderDisabled ? '' : 'metronome_hint' | transloco"
                       appearance="standard">
         <mat-label>BPM</mat-label>
         <input matInput
@@ -21,13 +22,21 @@
       </mat-form-field>
     </mat-card-title>
     <div *ngIf="isValid">
-      <button mat-icon-button
+      <button class="metronome-btn"
+              mat-icon-button
               *ngIf="showSoundMode"
               (click)="this.toneService.toggleMute()">
         <mat-icon fontSet="material-icons-outlined"
                   color="accent">{{this.soundModeIcon}}</mat-icon>
       </button>
-      <button mat-mini-fab
+      <button class="metronome-btn"
+              mat-mini-fab
+              *ngIf="isPlayMode"
+              (click)="stopMetronome()">
+        <mat-icon>stop</mat-icon>
+      </button>
+      <button class="metronome-btn"
+              mat-mini-fab
               *ngIf="showPlay"
               (click)="togglePlayMode()">
         <mat-icon>{{this.playModeIcon}}</mat-icon>

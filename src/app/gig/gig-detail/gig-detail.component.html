@@ -17,7 +17,7 @@
                (cdkDropListDropped)="drop($event)"
                [hideToggle]="true"
                multi="isPlayMode">
-  <mat-expansion-panel *ngFor="let song of gig?.songs; index as i"
+  <mat-expansion-panel *ngFor="let song of gig?.songs; index as index"
                        cdkDrag
                        [cdkDragDisabled]="isPlayMode"
                        [disabled]="isPlayMode"
@@ -43,7 +43,13 @@
       </button>
       <shared-metronome *ngIf="isPlayMode"
                         [bpm]="song.bpm"
-                        [sliderDisabled]="true"></shared-metronome>
+                        [sliderDisabled]="true"
+                        [showPlay]="showPlay(index)"
+                        [showSoundMode]="true"
+                        (onStart)="onStartPlaySong(index)"
+                        (onContinue)="onStartPlaySong(index)"
+                        (onStop)="onStopPlaySong()"
+                        (onPause)="onStopPlaySong()"></shared-metronome>
       <div class="song-panel-body"
            *ngFor="let section of song.sections">
         <h5 class="section-name"

@@ -20,6 +20,7 @@
   "font_size_section": "Font size of section content",
   "font_family": "Font family",
   "use_dark_mode": "Use dark mode",
+  "open_drawer_initially": "Open navigation initially",
   "create": "Create",
   "join": "Join",
   "band_name": "Band name",

@@ -77,6 +77,8 @@
                           [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
                           (onStart)="this.startExercise()"
+                          (onContinue)="this.startExercise()"
+                          (onPause)="this.pauseExercise()"
                           (onStop)="this.stopExercise()"></shared-metronome>
       </div>
     </ng-template>
@@ -105,6 +107,8 @@
                           [showSoundMode]="true"
                           (onBpmChanged)="this.exercise.currentBpm = $event"
                           (onStart)="this.startExercise()"
+                          (onPause)="this.pauseExercise()"
+                          (onContinue)="this.startExercise()"
                           (onStop)="this.stopExercise()"></shared-metronome>
       </div>
     </ng-template>
@@ -114,7 +118,9 @@
       <shared-metronome [bpm]="this.exercise.currentBpm"
                         [showSoundMode]="true"
                         (onBpmChanged)="this.exercise.currentBpm = $event"
-                        (onStart)="this.startExercise()"></shared-metronome>
+                        (onStart)="this.startExercise()"
+                        (onContinue)="this.startExercise()"
+                        (onPause)="this.pauseExercise()"></shared-metronome>
     </ng-template>
   </div>
 

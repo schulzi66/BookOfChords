@@ -14,6 +14,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   private readonly _minuteInMs: number = 60000;
   private _timerHandle: number;
   private _countInBeats: number;
+  private _started: boolean;
 
   @Input('showPlay') public showPlay: boolean = true;
   @Input('showSoundMode') public showSoundMode: boolean = false;
@@ -25,6 +26,8 @@ export class MetronomeComponent implements OnInit, OnDestroy {
 
   @Output('onBpmChanged') public onBpmChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output('onStart') public onStart: EventEmitter<void> = new EventEmitter<void>();
+  @Output('onPause') public onPause: EventEmitter<void> = new EventEmitter<void>();
+  @Output('onContinue') public onContinue: EventEmitter<void> = new EventEmitter<void>();
   @Output('onStop') public onStop: EventEmitter<void> = new EventEmitter<void>();
 
   public playModeIcon: string;
@@ -37,6 +40,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     this.soundModeIcon = 'volume_up';
     this.isPlayMode = false;
     this.isTick = false;
+    this._started = false;
   }
 
   public get isValid(): boolean {
@@ -67,11 +71,17 @@ export class MetronomeComponent implements OnInit, OnDestroy {
 
   public togglePlayMode(): void {
     this.isPlayMode = !this.isPlayMode;
-    if (this.isPlayMode) {
-      this.startMetronome();
+    if (!this._started) {
+      this.startMetronome(true);
+      this._started = true;
     } else {
-      this.onStop.emit();
-      this.stopMetronome();
+      if (this.isPlayMode) {
+        this.startMetronome(false);
+      } else {
+        this.onPause.emit();
+        this.showSoundMode ? this.toneService.stop() : window.clearInterval(this._timerHandle);
+        this.playModeIcon = 'play_arrow';
+      }
     }
   }
 
@@ -83,9 +93,15 @@ export class MetronomeComponent implements OnInit, OnDestroy {
     this.onBpmChanged.emit(this.bpm);
   }
 
-  public startMetronome(): void {
+  public startMetronome(emitStart: boolean): void {
     if (this.showSoundMode) {
-      this.toneService.start(this.bpm, this._countInBeats).then(() => this.onStart.emit());
+      this.toneService.start(this.bpm, this._countInBeats).then(() => {
+        if (emitStart) {
+          this.onStart.emit();
+        } else {
+          this.onContinue.emit();
+        }
+      });
     } else {
       this.onStart.emit();
       this._timerHandle = window.setInterval(() => {
@@ -96,8 +112,11 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   public stopMetronome(): void {
+    this.onStop.emit();
+    this.isPlayMode = false;
     this.showSoundMode ? this.toneService.stop() : window.clearInterval(this._timerHandle);
     this.playModeIcon = 'play_arrow';
+    this._started = false;
   }
 
   private tick(): void {

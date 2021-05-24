@@ -45,4 +45,8 @@ export class SongService extends SubscriptionHandler implements OnDestroy {
   public deleteSong(songId: string): Promise<void> {
     return this._angularFirestore.collection<Song>('songs').doc(songId).delete();
   }
+
+  public searchInSpotify(name: string): void {
+    window.open(`https://open.spotify.com/search/${name}`, '_blank');
+  }
 }

@@ -28,7 +28,7 @@ export class GigService {
   private getGigsForUser(uid: string): Observable<Gig[]> {
     return this._angularFirestore
       .collection<Gig>('gigs', (ref) => {
-        return ref.where('uid', '==', uid);
+        return ref.where('uid', '==', uid).orderBy('name', 'asc');
       })
       .valueChanges();
   }

@@ -20,6 +20,7 @@ import { SubscriptionHandler } from './shared/helper/subscription-handler';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends SubscriptionHandler implements OnInit, AfterViewInit {
+  private _initialized: boolean;
   @ViewChild('drawer') private _drawer: MatDrawer;
 
   constructor(
@@ -34,6 +35,7 @@ export class AppComponent extends SubscriptionHandler implements OnInit, AfterVi
     private _snackbarService: SnackbarService
   ) {
     super();
+    this._initialized = false;
   }
 
   ngOnInit(): void {
@@ -49,6 +51,12 @@ export class AppComponent extends SubscriptionHandler implements OnInit, AfterVi
           this.configurationService.configuration$.subscribe((configuration: Configuration) => {
             if (configuration) {
               this._translocoService.setActiveLang(configuration.lang);
+
+              if (!this._initialized) {
+                this._drawer.opened = configuration.openDrawerInitially;
+              }
+
+              this._initialized = true;
             }
           })
         );
@@ -60,7 +68,7 @@ export class AppComponent extends SubscriptionHandler implements OnInit, AfterVi
     this.drawerActionService.drawer = this._drawer;
   }
 
-  installPwa(): void {
+  public installPwa(): void {
     this.pwaService.promptEvent.prompt();
   }
 }

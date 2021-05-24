@@ -8,6 +8,7 @@ export class Song {
 	bpm: number;
 	pictures: string[];
 	pdfs: string[];
+    sound: string;
 
 	constructor(name: string) {
 		this.name = name;

@@ -6,6 +6,7 @@ export class Configuration {
   useDarkMode: boolean;
   lang: string;
   countInBars: number;
+  openDrawerInitially: boolean;
 
   constructor(uid: string) {
     this.uid = uid;

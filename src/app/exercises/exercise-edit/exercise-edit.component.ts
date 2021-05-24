@@ -62,7 +62,7 @@ export class ExerciseEditComponent implements OnInit {
   public showFileUpload(): void {
     this._bottomSheetUploaderService.show({
       storageBucketPrefix: 'exercises',
-      typesToUpload: [MediaTypes.IMAGE, MediaTypes.SOUND, MediaTypes.PDF],
+      typesToUpload: [MediaTypes.IMAGE, MediaTypes.PDF, MediaTypes.SOUND],
       displayCameraOption: true,
       onUploadCallback: (result) => this._onFileUploadCompleted(result)
     });
@@ -75,15 +75,15 @@ export class ExerciseEditComponent implements OnInit {
   }
 
   public removeAudio(): void {
-      this.exercise.sound = null;
+    this.exercise.sound = null;
   }
 
   public removePicture(): void {
-      this.exercise.pictureUrl = null;
+    this.exercise.pictureUrl = null;
   }
 
   public removePdf(): void {
-      this.exercise.pdfUrl = null;
+    this.exercise.pdfUrl = null;
   }
 
   private _onFileUploadCompleted(result: UploadResult): void {

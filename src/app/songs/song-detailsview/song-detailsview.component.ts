@@ -47,6 +47,11 @@ export class SongDetailsviewComponent extends SubscriptionHandler implements OnI
         order: 300,
         icon: 'delete_outline',
         action: () => this.deleteSong()
+      },
+      {
+        order: 400,
+        icon: 'radio',
+        action: () => this._songService.searchInSpotify(this.song.name)
       }
     ]);
   }

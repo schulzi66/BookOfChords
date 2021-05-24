@@ -15,6 +15,17 @@
                     [showSoundMode]="true"
                     (onBpmChanged)="updateBpm($event)"></shared-metronome>
 
+  <div class="sound"
+       *ngIf="song.sound">
+    <audio controls>
+      <source [src]="song.sound">
+    </audio>
+    <button mat-icon-button
+            (click)="removeAudio()">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+
   <div *ngFor="let section of song?.sections; index as i">
     <mat-form-field appearance="outline"
                     class="section-name">

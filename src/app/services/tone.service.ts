@@ -64,6 +64,14 @@ export class ToneService extends SubscriptionHandler {
     });
   }
 
+  public pause(): void {
+      Transport.pause();
+  }
+
+  public continue(): void {
+      Transport.start();
+  }
+
   public stop(): void {
     Transport.clear(this._mainScheduleId);
     Transport.clear(this._countInScheduleId);

@@ -29,6 +29,13 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
   private readonly _minuteInMs: number = 60000;
   private _timerHandle: number;
   private _isDirty: boolean;
+  private _start: Date;
+  private _current: Date;
+  private _pauseTime: number;
+  private _pauseIntervalTime: number;
+  private _next: Date;
+  private _end: Date;
+  private _timeDiff: number;
 
   public exercise: Exercise;
   public currentMode: ExerciseModes;
@@ -58,6 +65,9 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     this.exerciseDurationTimeElapsed = '00:00';
     this._isDirty = false;
     this.isPracticing = false;
+    this._timeDiff = 0;
+    this._pauseTime = 0;
+    this._pauseIntervalTime = 0;
 
     this.registerNavbarActions(false);
     this._drawerActionService.preDrawerAction = () => {
@@ -85,6 +95,9 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
 
   public startExercise(): void {
     this.isPracticing = true;
+    if (this._pauseTime > 0) {
+      this._pauseTime = this._pauseIntervalTime = new Date().getTime() - this._pauseTime;
+    }
     switch (this.currentMode) {
       case ExerciseModes.INTERVAL:
         if (
@@ -111,42 +124,60 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     }
   }
 
+  public pauseExercise(): void {
+    this._pauseTime = this._pauseIntervalTime = new Date().getTime() - this._pauseTime;
+    window.clearInterval(this._timerHandle);
+  }
+
   public stopExercise(): void {
     this.isPracticing = false;
+    this._start = undefined;
+    this._current = undefined;
+    this._next = undefined;
+    this._pauseTime = this._pauseIntervalTime = 0;
+    this._end = undefined;
+    this.exerciseDurationPercentage = 0;
+    this.exerciseDurationTimeElapsed = '00:00';
     window.clearInterval(this._timerHandle);
   }
 
   private startIntervalMode(): void {
-    const start = new Date();
-    let current = new Date();
+    this._start = this._start ? this._start : new Date();
+    this._current = this._current ? this._current : new Date();
     const intervalDuration = (this.exercise.duration * this._minuteInMs) / this.exercise.intervalCount;
-    let next = new Date(start.getTime() + intervalDuration);
-    const end = new Date(start.getTime() + this.exercise.duration * this._minuteInMs);
+    this._next = this._next ? this._next : new Date(this._start.getTime() + intervalDuration);
+    this._end = this._end ? this._end : new Date(this._start.getTime() + this.exercise.duration * this._minuteInMs);
     const increasePerInterval = Math.round(
       (this.exercise.nextBpm - this.exercise.currentBpm) / (this.exercise.intervalCount - 1)
     );
     this._timerHandle = window.setInterval(() => {
-      this.handleTotalExerciseProgress(start, end);
-      if (current >= next) {
+      this.handleTotalExerciseProgress(this._start, this._end);
+      if (this._current >= this._next) {
         this._metronomeRef.changeSpeed(this.exercise.currentBpm + increasePerInterval);
         this.intervalDurationPercentage = 100;
-        next = new Date(current.getTime() + intervalDuration);
+        this._next = new Date(this._current.getTime() + intervalDuration);
       } else {
         this.intervalDurationPercentage =
-          100 - Math.round(((new Date().getTime() - current.getTime()) / (next.getTime() - current.getTime())) * 100);
+          100 -
+          Math.round(
+            ((new Date().getTime() - this._current.getTime() - this._pauseIntervalTime) /
+              (this._next.getTime() - this._current.getTime())) *
+              100
+          );
 
         if (this.intervalDurationPercentage <= 0) {
-          current = new Date();
+          this._current = new Date();
+          this._pauseIntervalTime = 0;
         }
       }
     }, 1000);
   }
 
   private startTimebasedMode(): void {
-    const start = new Date();
-    const end = new Date(start.getTime() + this.exercise.duration * this._minuteInMs);
+    this._start = this._start ? this._start : new Date();
+    this._end = this._end ? this._end : new Date(this._start.getTime() + this.exercise.duration * this._minuteInMs);
     this._timerHandle = window.setInterval(() => {
-      this.handleTotalExerciseProgress(start, end);
+      this.handleTotalExerciseProgress(this._start, this._end);
     }, 1000);
   }
 
@@ -154,7 +185,7 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     this.calculateElapsedTime(start);
 
     this.exerciseDurationPercentage = Math.round(
-      ((new Date().getTime() - start.getTime()) / (end.getTime() - start.getTime())) * 100
+      ((new Date().getTime() - start.getTime() - this._pauseTime) / (end.getTime() - start.getTime())) * 100
     );
     if (this.exerciseDurationPercentage >= 100) {
       this.completeExercise();
@@ -163,19 +194,19 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
 
   private calculateElapsedTime(start: Date): void {
     // Compute time difference in milliseconds
-    let timeDiff = new Date().getTime() - start.getTime();
+    this._timeDiff = new Date().getTime() - start.getTime() - this._pauseTime;
 
     // Convert time difference from milliseconds to seconds
-    timeDiff = timeDiff / 1000;
+    this._timeDiff = this._timeDiff / 1000;
     // Extract integer seconds that dont form a minute using %
-    let seconds = Math.floor(timeDiff % 60); //ignoring uncomplete seconds (floor)
+    let seconds = Math.floor(this._timeDiff % 60); //ignoring uncomplete seconds (floor)
     // Pad seconds with a zero if neccessary
     let secondsAsString = seconds < 10 ? '0' + seconds : seconds + '';
 
     // Convert time difference from seconds to minutes using %
-    timeDiff = Math.floor(timeDiff / 60);
+    this._timeDiff = Math.floor(this._timeDiff / 60);
     // Extract integer minutes that don't form an hour using %
-    let minutes = timeDiff % 60; //no need to floor possible incomplete minutes, becase they've been handled as seconds
+    let minutes = this._timeDiff % 60; //no need to floor possible incomplete minutes, becase they've been handled as seconds
     // Pad minutes with a zero if neccessary
     let minutesAsString = minutes < 10 ? '0' + minutes : minutes + '';
 

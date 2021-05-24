@@ -57,7 +57,7 @@ export class SongEditComponent implements OnInit {
         action: () => {
           this._bottomSheetUploaderService.show({
             storageBucketPrefix: 'songs',
-            typesToUpload: [MediaTypes.IMAGE, MediaTypes.PDF],
+            typesToUpload: [MediaTypes.IMAGE, MediaTypes.PDF, MediaTypes.SOUND],
             onUploadCallback: (result) => this.onUploadCompleted(result)
           });
         }
@@ -98,17 +98,29 @@ export class SongEditComponent implements OnInit {
   }
 
   public onUploadCompleted(result: UploadResult): void {
-    if (result.mediaType === MediaTypes.PDF) {
-      if (this.song.pdfs === undefined) {
-        this.song.pdfs = [];
-      }
-      this.song.pdfs.push(result.downloadUrl);
-    } else if (result.mediaType === MediaTypes.IMAGE) {
-      if (this.song.pictures === undefined) {
-        this.song.pictures = [];
-      }
-      this.song.pictures.push(result.downloadUrl);
+    switch (result.mediaType) {
+      case MediaTypes.PDF:
+        if (this.song.pdfs === undefined) {
+          this.song.pdfs = [];
+        }
+        this.song.pdfs.push(result.downloadUrl);
+        break;
+
+      case MediaTypes.IMAGE:
+        if (this.song.pictures === undefined) {
+          this.song.pictures = [];
+        }
+        this.song.pictures.push(result.downloadUrl);
+        break;
+
+      case MediaTypes.SOUND:
+        this.song.sound = result.downloadUrl;
+        break;
     }
+  }
+
+  public removeAudio(): void {
+      this.song.sound = null;
   }
 
   public removePicture(index: number): void {
