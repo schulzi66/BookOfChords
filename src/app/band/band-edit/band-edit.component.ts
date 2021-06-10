@@ -72,8 +72,8 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
     this._currentUser = this._authService.user;
     this._subscriptions$.add(
       this._activatedRoute.params.subscribe((params: { id: string }) => {
-        if (params.id === this._currentUser.bandId) {
-          this._subscriptions$.add(this._bandService.band$.subscribe((band: Band) => (this.band = band)));
+        if (this._currentUser.bandIds?.includes(params.id)) {
+          this.band = this._bandService.selectedBand;
         } else {
           this._location.back();
         }

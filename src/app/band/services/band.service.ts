@@ -12,13 +12,17 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
   providedIn: 'root'
 })
 export class BandService {
-  public band$: Observable<Band> = of(undefined);
-  public band: Band;
+  public bands$: Observable<Array<Band>> = of(undefined);
+  public bands: Array<Band>;
+
+  public selectedBand: Band;
 
   constructor(private _angularFirestore: AngularFirestore, private _authService: AuthService) {
-    if (this._authService.user.bandId) {
-      this.band$ = this.getBandByBandId(this._authService.user.bandId);
-      this.band$.subscribe((band: Band) => (this.band = band));
+    if (this._authService.user.bandIds) {
+      this.bands$ = this.getBandsByBandIds(this._authService.user.bandIds);
+      this.bands$.subscribe((bands: Array<Band>) => {
+        this.bands = bands;
+      });
     }
   }
 
@@ -32,7 +36,7 @@ export class BandService {
       .set(Object.assign({}, JSON.parse(JSON.stringify(band))))
       .then(() => {
         return new Promise<string>((resolve) => {
-          this.band$ = of(band);
+          this.selectedBand = band; // check if needed
           resolve(band.id);
         });
       });
@@ -46,20 +50,34 @@ export class BandService {
     return this.saveBand(band);
   }
 
-  public getBandForCurrentUser(): Observable<Band> {
-    return this.getBandByBandId(this._authService.user.bandId);
-  }
+//   public getBandForCurrentUser(): Observable<Band> {
+//     return this.getBandByBandId(this._authService.user.bandId);
+//   }
 
-  public getBandByBandId(bandId: string): Observable<Band> {
+//   public getBandByBandId(bandId: string): Observable<Band> {
+//     return this._angularFirestore
+//       .collection<Band>('bands', (ref) => {
+//         return ref.where('id', '==', bandId);
+//       })
+//       .valueChanges()
+//       .pipe(
+//         map((band) => {
+//           return band[0];
+//         })
+//       );
+//   }
+
+public getBandIfExists(bandId: string): Band {
+    return this._angularFirestore.collection<Band>('bands', (ref) => {
+        return ref.where('id', '==', bandId);
+    }).doc<Band>()
+}
+
+  public getBandsByBandIds(bandIds: Array<string>): Observable<Array<Band>> {
     return this._angularFirestore
       .collection<Band>('bands', (ref) => {
-        return ref.where('id', '==', bandId);
+        return ref.where('id', 'in', bandIds);
       })
-      .valueChanges()
-      .pipe(
-        map((band) => {
-          return band[0];
-        })
-      );
+      .valueChanges();
   }
 }

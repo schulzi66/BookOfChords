@@ -1,4 +1,3 @@
-import { UploadResult } from 'src/app/models/upload-result';
 import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
 import { translate } from '@ngneat/transloco';
 import { SnackbarService } from './../../services/snackbar.service';
@@ -59,11 +58,11 @@ export class BandCreateComponent implements OnInit {
     if (this.band.name) {
       this.band.members.push(this._currentUser);
       this._bandService.saveBand(this.band).then((bandId: string) => {
-        this._currentUser.bandId = bandId;
+        this._currentUser.bandIds.push(bandId);
         this._snackbarService.show({
           message: translate<string>('saved')
         });
-        this._authService.updateBandIdForUserId(this._currentUser.uid, this._currentUser.bandId);
+        this._authService.updateBandIdsForUserId(this._currentUser.uid, this._currentUser.bandIds);
         this._navbarActionService.resetActions();
       });
     }

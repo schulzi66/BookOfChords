@@ -4,11 +4,16 @@ import { BandEditComponent } from './band-edit/band-edit.component';
 import { BandOverviewComponent } from './band-overview/band-overview.component';
 import { BandSetlistEditComponent } from './band-setlist-edit/band-setlist-edit.component';
 import { DrawerActionResolver } from '../shared/resolvers/drawer-action.resolver';
+import { BandSelectionComponent } from './band-selection/band-selection.component';
 
 const routes: Routes = [
   {
     path: '',
     component: BandOverviewComponent
+  },
+  {
+      path: 'selection',
+      component: BandSelectionComponent,
   },
   {
     path: 'edit/:id',

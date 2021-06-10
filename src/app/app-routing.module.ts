@@ -44,7 +44,9 @@ const routes: Routes = [
     path: 'band',
     loadChildren: () => import('./band/band.module').then((m) => m.BandModule),
     canActivate: [AuthGuard],
-    resolve: { key: TitleKeyResolver, band: BandResolver },
+    resolve: { key: TitleKeyResolver, 
+        // band: BandResolver 
+    },
     data: { key: TITLEKEYS.band }
   },
   {

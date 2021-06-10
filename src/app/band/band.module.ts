@@ -1,3 +1,4 @@
+import { BandSelectionComponent } from './band-selection/band-selection.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.com
   ],
   declarations: [
     BandOverviewComponent,
+    BandSelectionComponent,
     NoBandOverviewComponent,
     BandCreateComponent,
     BandJoinComponent,
@@ -37,6 +39,7 @@ import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.com
   ],
   exports: [
     BandOverviewComponent,
+    BandSelectionComponent,
     NoBandOverviewComponent,
     BandCreateComponent,
     BandJoinComponent,

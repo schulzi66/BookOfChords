@@ -4,6 +4,7 @@ export interface User {
 	photoURL?: string;
 	displayName?: string;
     bandId?: string;
+    bandIds?: Array<string>
     
     fcmTokens?: { [token: string]: true };
 }

@@ -34,23 +34,19 @@ export class BandDetailComponent extends SubscriptionHandler implements OnInit {
     private _router: Router
   ) {
     super();
-    this._subscriptions$.add(
-      this._bandService.band$.subscribe((band: Band) => {
-        this.band = band;
-        if (this.isUserBandAdmin) {
-          this._navbarActionService.registerActions([
-            {
-              order: 100,
-              icon: 'edit',
-              action: () => this._router.navigate(['band/edit', this.band.id])
-            }
-          ]);
-        }
-      })
-    );
   }
 
   ngOnInit(): void {
+    this.band = this._bandService.selectedBand;
+    if (this.isUserBandAdmin) {
+      this._navbarActionService.registerActions([
+        {
+          order: 100,
+          icon: 'edit',
+          action: () => this._router.navigate(['band/edit', this.band.id])
+        }
+      ]);
+    }
     this._currentUser = this._authService.user;
   }
 }
