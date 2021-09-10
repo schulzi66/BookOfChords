@@ -1,17 +1,17 @@
-import { filter } from 'rxjs/operators';
-import { SnackbarService } from './services/snackbar.service';
-import { TitleKeyService } from './services/title-key.service';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 import { translate, TranslocoService } from '@ngneat/transloco';
+import { filter } from 'rxjs/operators';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from './models/configuration';
 import { User } from './models/user';
 import { AuthService } from './services/auth.service';
-import { MessagingService } from './services/messaging.service';
-import { PwaService } from './services/pwa.service';
 import { DrawerActionService } from './services/drawer-action.service';
-import { MatDrawer } from '@angular/material/sidenav';
+import { MessagingService } from './services/messaging.service';
 import { NavbarActionService } from './services/navbar-action.service';
+import { PwaService } from './services/pwa.service';
+import { SnackbarService } from './services/snackbar.service';
+import { TitleKeyService } from './services/title-key.service';
 import { SubscriptionHandler } from './shared/helper/subscription-handler';
 
 @Component({

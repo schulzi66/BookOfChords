@@ -1,5 +1,5 @@
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { UploadResult } from 'src/app/models/upload-result';
 
 @Component({

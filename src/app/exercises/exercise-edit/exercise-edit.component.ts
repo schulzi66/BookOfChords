@@ -1,19 +1,19 @@
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { NgModel } from '@angular/forms';
-import { UploadResult } from 'src/app/models/upload-result';
-import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
-import { translate } from '@ngneat/transloco';
-import { AuthService } from 'src/app/services/auth.service';
-import { SnackbarService } from 'src/app/services/snackbar.service';
-import { ExercisesService } from 'src/app/exercises/services/exercises.service';
-import { ActivatedRoute } from '@angular/router';
-import { Exercise } from './../../models/exercise';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { fadeInOnEnterAnimation } from 'angular-animations';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { MediaTypes } from 'src/app/models/media-types.enum';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { translate } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { ExercisesService } from 'src/app/exercises/services/exercises.service';
+import { MediaTypes } from 'src/app/models/media-types.enum';
+import { UploadResult } from 'src/app/models/upload-result';
+import { AuthService } from 'src/app/services/auth.service';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 import { MetronomeComponent } from 'src/app/shared/components/metronome/metronome.component';
+import { Exercise } from './../../models/exercise';
+import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
 
 @Component({
   selector: 'app-exercise-edit',

@@ -1,9 +1,9 @@
-import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
-import { AuthService } from 'src/app/services/auth.service';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Injectable, OnDestroy } from '@angular/core';
 import { Exercise } from 'src/app/models/exercise';
+import { AuthService } from 'src/app/services/auth.service';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Injectable({
   providedIn: 'root'

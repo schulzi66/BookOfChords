@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Router, NavigationStart } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 
 export const DEFAULT_DRAWER_ICON_KEY: string = 'menu';
 

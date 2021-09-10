@@ -1,10 +1,10 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { fadeInOnEnterAnimation } from 'angular-animations';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { Gig } from '../../models/gig';
 import { GigService } from '../services/gig.service';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { fadeInOnEnterAnimation } from 'angular-animations';
-import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-gig-overview',

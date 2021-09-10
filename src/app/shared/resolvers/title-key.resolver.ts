@@ -1,8 +1,7 @@
-import { Location } from '@angular/common';
-import { TitleKeyService } from 'src/app/services/title-key.service';
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+import { TitleKeyService } from 'src/app/services/title-key.service';
 
 @Injectable({ providedIn: 'root' })
 export class TitleKeyResolver implements Resolve<any> {

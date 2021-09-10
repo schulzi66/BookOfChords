@@ -1,9 +1,9 @@
-import { GigResolver } from './../shared/resolvers/gig.resolver';
 import { RouterModule, Routes } from '@angular/router';
+import { DrawerActionResolver } from '../shared/resolvers/drawer-action.resolver';
+import { GigResolver } from './../shared/resolvers/gig.resolver';
 import { GigDetailComponent } from './gig-detail/gig-detail.component';
 import { GigEditComponent } from './gig-edit/gig-edit.component';
 import { GigOverviewComponent } from './gig-overview/gig-overview.component';
-import { DrawerActionResolver } from '../shared/resolvers/drawer-action.resolver';
 
 const routes: Routes = [
   {

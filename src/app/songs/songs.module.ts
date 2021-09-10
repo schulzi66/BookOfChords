@@ -8,10 +8,10 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { AllMaterialModule } from '../material-module';
 import { SharedModule } from '../shared/shared.module';
+import { SongDetailsviewComponent } from './song-detailsview/song-detailsview.component';
 import { SongEditComponent } from './song-edit/song-edit.component';
 import { SongsOverviewComponent } from './songs-overview/songs-overview.component';
 import { SongRoutes } from './songs.routing';
-import { SongDetailsviewComponent } from './song-detailsview/song-detailsview.component';
 
 @NgModule({
   declarations: [SongsOverviewComponent, SongEditComponent, SongDetailsviewComponent],

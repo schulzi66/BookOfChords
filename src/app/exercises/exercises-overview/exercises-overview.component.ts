@@ -1,13 +1,10 @@
-import { filter } from 'rxjs/operators';
-import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 import { Exercise } from 'src/app/models/exercise';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { ExercisesService } from '../services/exercises.service';
-import { Router } from '@angular/router';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-exercises-overview',

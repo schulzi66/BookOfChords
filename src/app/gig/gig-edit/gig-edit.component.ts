@@ -1,22 +1,22 @@
-import { SnackbarService } from './../../services/snackbar.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { translate } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
+import { INavbarAction } from 'src/app/models/navbar-action';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { DeletePopupDialogData } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog-data';
 import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { Gig } from '../../models/gig';
 import { Song } from '../../models/song';
 import { User } from '../../models/user';
 import { SongService } from '../../songs/services/song.service';
 import { GigService } from '../services/gig.service';
 import { AuthService } from './../../services/auth.service';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { fadeInOnEnterAnimation } from 'angular-animations';
-import { INavbarAction } from 'src/app/models/navbar-action';
-import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
-import { NgModel } from '@angular/forms';
+import { SnackbarService } from './../../services/snackbar.service';
 
 @Component({
   selector: 'app-gig-edit',

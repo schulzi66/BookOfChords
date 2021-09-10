@@ -1,9 +1,9 @@
-import { AuthService } from 'src/app/services/auth.service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Song } from '../../models/song';
+import { AuthService } from 'src/app/services/auth.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { Song } from '../../models/song';
 
 @Injectable({ providedIn: 'root' })
 export class SongService extends SubscriptionHandler implements OnDestroy {
@@ -18,7 +18,7 @@ export class SongService extends SubscriptionHandler implements OnDestroy {
     this._subscriptions$.add(this.songs$.subscribe((songs: Song[]) => (this.songs = songs)));
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.songs$ = null;
     super.ngOnDestroy();
   }

@@ -1,9 +1,9 @@
-import { INavbarAction } from 'src/app/models/navbar-action';
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Component } from '@angular/core';
-import { fadeInOnEnterAnimation } from 'angular-animations';
-import { NavbarActionService } from '../services/navbar-action.service';
 import { TranslocoService } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { INavbarAction } from 'src/app/models/navbar-action';
+import { NavbarActionService } from '../services/navbar-action.service';
 import { SnackbarService } from '../services/snackbar.service';
 
 @Component({

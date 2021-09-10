@@ -19,7 +19,7 @@
                multi="isPlayMode">
   <mat-expansion-panel *ngFor="let song of gig?.songs; index as index"
                        cdkDrag
-                       [cdkDragDisabled]="isPlayMode"
+                       [cdkDragDisabled]="isPlayMode || !isDragMode"
                        [disabled]="isPlayMode"
                        [expanded]="isPlayMode">
     <div class="placeholder"
@@ -29,7 +29,7 @@
         <h3>{{song.name}}</h3>
       </mat-panel-title>
       <mat-panel-description class="panel-description">
-        <mat-icon *ngIf="!this.isPlayMode"
+        <mat-icon *ngIf="!this.isPlayMode && this.isDragMode"
                   cdkDragHandle
                   color="accent">drag_handle</mat-icon>
       </mat-panel-description>

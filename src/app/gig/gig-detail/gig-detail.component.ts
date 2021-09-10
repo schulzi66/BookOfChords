@@ -1,17 +1,17 @@
-import { FormControl, NgModel } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { MatAccordion } from '@angular/material/expansion';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { translate } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Gig } from '../../models/gig';
 import { Song } from '../../models/song';
 import { GigService } from '../services/gig.service';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { fadeInOnEnterAnimation } from 'angular-animations';
-import { translate } from '@ngneat/transloco';
-import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-gig-detail',
@@ -24,6 +24,7 @@ export class GigDetailComponent implements OnInit {
   public gig: Gig;
   public songs: Song[];
   public isPlayMode: boolean;
+  public isDragMode: boolean;
   public playModeIcon: string = 'play_arrow';
   private _currentSongIndexPlayed: number;
 
@@ -40,6 +41,7 @@ export class GigDetailComponent implements OnInit {
   ) {
     this.registerNavbarActions();
     this.isPlayMode = false;
+    this.isDragMode = false;
   }
 
   ngOnInit() {
@@ -74,7 +76,7 @@ export class GigDetailComponent implements OnInit {
   }
 
   public onStopPlaySong(): void {
-      this._currentSongIndexPlayed = undefined;
+    this._currentSongIndexPlayed = undefined;
   }
 
   public showPlay(index: number): boolean {
@@ -123,6 +125,11 @@ export class GigDetailComponent implements OnInit {
           action: () => {
             this._router.navigate(['./gigs/edit', this.gig.id]);
           }
+        },
+        {
+          order: 400,
+          icon: 'drag_handle',
+          action: () => (this.isDragMode = !this.isDragMode)
         }
       ]);
     }

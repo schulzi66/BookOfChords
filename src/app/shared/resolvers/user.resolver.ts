@@ -1,9 +1,9 @@
-import { take } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserResolver implements Resolve<User> {

@@ -1,9 +1,9 @@
-import { GigService } from './../../gig/services/gig.service';
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { Gig } from 'src/app/models/gig';
-import { map, first } from 'rxjs/operators';
+import { GigService } from './../../gig/services/gig.service';
 
 @Injectable({ providedIn: 'root' })
 export class GigResolver implements Resolve<Gig> {

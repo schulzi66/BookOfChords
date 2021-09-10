@@ -1,8 +1,8 @@
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { SaveExerciseProgressData } from './save-exercise-progress-data';
-import { ExerciseModes } from 'src/app/models/exercise-mode.enum';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
+import { ExerciseModes } from 'src/app/models/exercise-mode.enum';
+import { SaveExerciseProgressData } from './save-exercise-progress-data';
 
 @Component({
   selector: 'app-save-exercise-progress-dialog',

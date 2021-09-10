@@ -1,10 +1,10 @@
-import { BandResolver } from './../shared/resolvers/band.resolver';
 import { RouterModule, Routes } from '@angular/router';
+import { DrawerActionResolver } from '../shared/resolvers/drawer-action.resolver';
 import { BandEditComponent } from './band-edit/band-edit.component';
 import { BandOverviewComponent } from './band-overview/band-overview.component';
-import { BandSetlistEditComponent } from './band-setlist-edit/band-setlist-edit.component';
-import { DrawerActionResolver } from '../shared/resolvers/drawer-action.resolver';
 import { BandSelectionComponent } from './band-selection/band-selection.component';
+import { BandSetlistEditComponent } from './band-setlist-edit/band-setlist-edit.component';
+import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.component';
 
 const routes: Routes = [
   {
@@ -12,8 +12,12 @@ const routes: Routes = [
     component: BandOverviewComponent
   },
   {
-      path: 'selection',
-      component: BandSelectionComponent,
+    path: 'selection',
+    component: BandSelectionComponent
+  },
+  {
+    path: 'noband',
+    component: NoBandOverviewComponent
   },
   {
     path: 'edit/:id',
@@ -26,8 +30,7 @@ const routes: Routes = [
     path: 'setlist/edit/:id',
     component: BandSetlistEditComponent,
     resolve: {
-      drawerAction: DrawerActionResolver,
-
+      drawerAction: DrawerActionResolver
     }
   }
 ];

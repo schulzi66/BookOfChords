@@ -1,12 +1,12 @@
-import { SubscriptionHandler } from './../shared/helper/subscription-handler';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../models/user';
-import { auth } from 'firebase/app';
+import { SubscriptionHandler } from './../shared/helper/subscription-handler';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends SubscriptionHandler implements OnDestroy {
@@ -31,7 +31,7 @@ export class AuthService extends SubscriptionHandler implements OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.user$ = null;
     super.ngOnDestroy();
   }
@@ -82,6 +82,7 @@ export class AuthService extends SubscriptionHandler implements OnDestroy {
 
   public async signOut() {
     await this.afAuth.signOut();
-    return this.router.navigate(['/login']);
+    void this.router.navigate(['/login']);
+    location.reload();
   }
 }
