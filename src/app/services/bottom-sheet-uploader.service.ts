@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import {
-  BottomSheetUploaderComponent,
-  BottomSheetUploaderConfigInjectionToken
+    BottomSheetUploaderComponent,
+    BottomSheetUploaderConfigInjectionToken
 } from '../shared/components/bottom-sheet-uploader/bottom-sheet-uploader.component';
 
 @Injectable({

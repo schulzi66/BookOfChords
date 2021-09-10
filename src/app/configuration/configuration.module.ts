@@ -8,8 +8,8 @@ import { ConfigurationRoutes } from './configuration.routing';
 import { ConfigurationComponent } from './configuration/configuration.component';
 
 @NgModule({
-	declarations: [ ConfigurationComponent ],
-	imports: [ CommonModule, FormsModule, SharedModule, AllMaterialModule, ConfigurationRoutes, TranslocoModule ],
-	exports: [ ConfigurationComponent ]
+  declarations: [ConfigurationComponent],
+  imports: [CommonModule, FormsModule, SharedModule, AllMaterialModule, ConfigurationRoutes, TranslocoModule],
+  exports: [ConfigurationComponent]
 })
 export class ConfigurationModule {}

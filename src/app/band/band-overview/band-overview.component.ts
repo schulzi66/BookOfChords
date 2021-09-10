@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
-import { Configuration } from './../../models/configuration';
-import { fadeInOnEnterAnimation } from 'angular-animations';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { Configuration } from './../../models/configuration';
+
 @Component({
   selector: 'app-band-overview',
   templateUrl: './band-overview.component.html',
@@ -14,16 +16,22 @@ export class BandOverviewComponent extends SubscriptionHandler implements OnInit
   public band: Band;
   public configuration: Configuration;
 
-  public constructor(public bandService: BandService) {
+  public constructor(public bandService: BandService, private _router: Router) {
     super();
+    this.bandService.bands$.subscribe((bands: Array<Band>) => {
+      if (bands.length === 0) {
+        this._router.navigate(['band/noband']);
+        return;
+      }
+      if (!this.bandService.selectedBand) {
+        this._router.navigate(['band/selection']);
+        return;
+      }
+    });
   }
 
   ngOnInit() {
-    this._subscriptions$.add(
-      this.bandService.band$.subscribe((band: Band) => {
-        this.band = band;
-      })
-    );
+    this.band = this.bandService.selectedBand;
   }
 
   public get isUserInBand(): boolean {

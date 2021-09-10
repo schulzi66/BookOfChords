@@ -1,6 +1,5 @@
-import { AuthService } from 'src/app/services/auth.service';
 import { Component } from '@angular/core';
-import { fadeInOnEnterAnimation } from 'angular-animations';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',

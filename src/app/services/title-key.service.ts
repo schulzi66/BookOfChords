@@ -1,5 +1,5 @@
-import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export enum TITLEKEYS {
   default = 'default_title',

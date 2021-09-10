@@ -1,16 +1,16 @@
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { translate } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
+import { ClipboardService } from 'ngx-clipboard';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { Song } from 'src/app/models/song';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { SnackbarService } from './../../services/snackbar.service';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SongService } from './../services/song.service';
-import { Component, OnInit } from '@angular/core';
-import { Song } from 'src/app/models/song';
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { ClipboardService } from 'ngx-clipboard';
-import { translate } from '@ngneat/transloco';
-import { MatDialog } from '@angular/material/dialog';
-import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
-import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-song-detailsview',

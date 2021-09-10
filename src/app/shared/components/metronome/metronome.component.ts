@@ -1,6 +1,6 @@
-import { Configuration } from 'src/app/models/configuration';
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { Configuration } from 'src/app/models/configuration';
 import { ToneService } from 'src/app/services/tone.service';
 
 @Component({

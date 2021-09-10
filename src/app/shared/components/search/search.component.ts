@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({

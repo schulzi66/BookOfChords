@@ -1,7 +1,7 @@
-import { UploadResult } from '../../../models/upload-result';
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { MediaTypes } from 'src/app/models/media-types.enum';
+import { UploadResult } from '../../../models/upload-result';
 
 export interface BottomSheetUploaderConfigInjectionToken {
   storageBucketPrefix: string;

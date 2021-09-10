@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
-import { DrawerActionService, DEFAULT_DRAWER_ICON_KEY } from '../../services/drawer-action.service';
-import { Injectable, EventEmitter } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DEFAULT_DRAWER_ICON_KEY, DrawerActionService } from '../../services/drawer-action.service';
 
 @Injectable({ providedIn: 'root' })
 export class DrawerActionResolver implements Resolve<void> {

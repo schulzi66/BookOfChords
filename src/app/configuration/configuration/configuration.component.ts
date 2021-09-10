@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { translate, TranslocoService } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { fadeInOnEnterAnimation } from 'angular-animations';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 

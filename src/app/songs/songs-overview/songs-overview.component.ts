@@ -1,12 +1,12 @@
-import { SubscriptionHandler } from '../../shared/helper/subscription-handler';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { Song } from '../../models/song';
-import { SongService } from '../services/song.service';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { Song } from '../../models/song';
+import { SubscriptionHandler } from '../../shared/helper/subscription-handler';
+import { SongService } from '../services/song.service';
 
 @Component({
   selector: 'app-songs-overview',
@@ -64,6 +64,8 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
   }
 
   public chooseRandomSong(): void {
-    this._router.navigate(['/songs/details', this._songs[Math.floor(Math.random() * this._songs.length)].id]);
+    if (this._songs.length > 0) {
+      this._router.navigate(['/songs/details', this._songs[Math.floor(Math.random() * this._songs.length)].id]);
+    }
   }
 }

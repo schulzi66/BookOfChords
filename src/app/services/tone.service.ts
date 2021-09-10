@@ -1,7 +1,7 @@
-import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { Player, Transport, start } from 'tone';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { Player, start, Transport } from 'tone';
 
 @Injectable({
   providedIn: 'root'

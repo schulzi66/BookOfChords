@@ -1,23 +1,23 @@
-import { SaveExerciseProgressDialogComponent } from './save-exercise-progress-dialog/save-exercise-progress-dialog.component';
-import { DrawerActionService } from './../../services/drawer-action.service';
-import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
-import { DeletePopupDialogComponent } from './../../shared/components/delete-popup-dialog/delete-popup-dialog.component';
-import { INavbarAction } from './../../models/navbar-action';
-import { ExercisesService } from './../services/exercises.service';
-import { filter } from 'rxjs/operators';
-import { translate } from '@ngneat/transloco';
-import { MetronomeComponent } from './../../shared/components/metronome/metronome.component';
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { ExerciseModes } from './../../models/exercise-mode.enum';
-import { Exercise } from 'src/app/models/exercise';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { fadeInOnEnterAnimation } from 'angular-animations';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { translate } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
+import { filter } from 'rxjs/operators';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { Exercise } from 'src/app/models/exercise';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { DeletePopupDialogData } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog-data';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { ExerciseModes } from './../../models/exercise-mode.enum';
+import { INavbarAction } from './../../models/navbar-action';
+import { DrawerActionService } from './../../services/drawer-action.service';
+import { DeletePopupDialogComponent } from './../../shared/components/delete-popup-dialog/delete-popup-dialog.component';
+import { MetronomeComponent } from './../../shared/components/metronome/metronome.component';
+import { ExercisesService } from './../services/exercises.service';
 import { SaveExerciseProgressData } from './save-exercise-progress-dialog/save-exercise-progress-data';
+import { SaveExerciseProgressDialogComponent } from './save-exercise-progress-dialog/save-exercise-progress-dialog.component';
 
 @Component({
   selector: 'app-exercise-details',
@@ -199,16 +199,16 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     // Convert time difference from milliseconds to seconds
     this._timeDiff = this._timeDiff / 1000;
     // Extract integer seconds that dont form a minute using %
-    let seconds = Math.floor(this._timeDiff % 60); //ignoring uncomplete seconds (floor)
+    const seconds = Math.floor(this._timeDiff % 60); // ignoring uncomplete seconds (floor)
     // Pad seconds with a zero if neccessary
-    let secondsAsString = seconds < 10 ? '0' + seconds : seconds + '';
+    const secondsAsString = seconds < 10 ? '0' + seconds : seconds + '';
 
     // Convert time difference from seconds to minutes using %
     this._timeDiff = Math.floor(this._timeDiff / 60);
     // Extract integer minutes that don't form an hour using %
-    let minutes = this._timeDiff % 60; //no need to floor possible incomplete minutes, becase they've been handled as seconds
+    const minutes = this._timeDiff % 60; // no need to floor possible incomplete minutes, becase they've been handled as seconds
     // Pad minutes with a zero if neccessary
-    let minutesAsString = minutes < 10 ? '0' + minutes : minutes + '';
+    const minutesAsString = minutes < 10 ? '0' + minutes : minutes + '';
 
     this.exerciseDurationTimeElapsed = minutesAsString + ':' + secondsAsString;
   }

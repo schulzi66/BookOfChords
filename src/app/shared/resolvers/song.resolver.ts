@@ -1,10 +1,9 @@
-import { take, find, first, map } from 'rxjs/operators';
-import { SongService } from 'src/app/songs/services/song.service';
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { Song } from 'src/app/models/song';
-import { AuthService } from 'src/app/services/auth.service';
+import { SongService } from 'src/app/songs/services/song.service';
 
 @Injectable({ providedIn: 'root' })
 export class SongResolver implements Resolve<Song> {

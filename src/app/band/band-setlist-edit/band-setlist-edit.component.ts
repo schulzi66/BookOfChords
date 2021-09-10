@@ -1,25 +1,25 @@
-import { SnackbarService } from './../../services/snackbar.service';
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
 import { translate } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Band } from 'src/app/models/band';
 import { Gig } from 'src/app/models/gig';
+import { MediaTypes } from 'src/app/models/media-types.enum';
 import { Setlist } from 'src/app/models/setlist';
 import { Song } from 'src/app/models/song';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { SongService } from 'src/app/songs/services/song.service';
 import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
-import { fadeInOnEnterAnimation } from 'angular-animations';
-import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
-import { MediaTypes } from 'src/app/models/media-types.enum';
-import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
+import { SnackbarService } from './../../services/snackbar.service';
 
 @Component({
   selector: 'app-band-setlist-edit',
@@ -87,25 +87,19 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
     this._currentUser = this._authService.user;
     this._subscriptions$.add(
       this._activatedRoute.params.subscribe((params: { id?: string }) => {
-        if (this._currentUser.bandId) {
+        if (this._bandService.selectedBand !== undefined) {
+          this.band = this._bandService.selectedBand;
+          if (params.id !== '-1') {
+            this.setlist = this.band.setlists.find((x) => x.id === params.id);
+          }
           this._subscriptions$.add(
-            this._bandService.band$.subscribe((band: Band) => {
-              if (band !== undefined) {
-                this.band = band;
-                if (params.id !== '-1') {
-                  this.setlist = this.band.setlists.find((x) => x.id === params.id);
-                }
-                this._subscriptions$.add(
-                  this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
-                    this.allSongsOfCurrentUser = songs;
-                    this.filteredSongs = songs;
-                  })
-                );
-              } else {
-                this._location.back();
-              }
+            this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
+              this.allSongsOfCurrentUser = songs;
+              this.filteredSongs = songs;
             })
           );
+        } else {
+          this._location.back();
         }
       })
     );

@@ -1,20 +1,21 @@
-import { UploadResult } from 'src/app/models/upload-result';
-import { translate } from '@ngneat/transloco';
-import { SnackbarService } from './../../services/snackbar.service';
-import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { translate } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
+import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { MediaTypes } from 'src/app/models/media-types.enum';
+import { UploadResult } from 'src/app/models/upload-result';
+import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
+import { DrawerActionService } from 'src/app/services/drawer-action.service';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { MetronomeComponent } from 'src/app/shared/components/metronome/metronome.component';
 import { GigService } from '../../gig/services/gig.service';
 import { Song } from '../../models/song';
 import { SongSection } from '../../models/song-section';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { fadeInOnEnterAnimation } from 'angular-animations';
-import { MediaTypes } from 'src/app/models/media-types.enum';
-import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
-import { MetronomeComponent } from 'src/app/shared/components/metronome/metronome.component';
-import { NgModel } from '@angular/forms';
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { SnackbarService } from './../../services/snackbar.service';
 
 @Component({
   selector: 'app-song-edit',
@@ -23,20 +24,23 @@ import { ConfigurationService } from 'src/app/configuration/services/configurati
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
 export class SongEditComponent implements OnInit {
+  private initialSong: Song;
+  private resetSong: boolean;
   public song: Song;
 
   @ViewChild(MetronomeComponent) private _metronomeRef: MetronomeComponent;
   @ViewChild('songNameModel') private _songNameModel: NgModel;
 
   constructor(
-    private _songService: SongService,
-    private _authService: AuthService,
-    private _gigService: GigService,
-    private _activatedRoute: ActivatedRoute,
-    private _navbarActionService: NavbarActionService,
-    private _snackbarService: SnackbarService,
-    private _bottomSheetUploaderService: BottomSheetUploaderService,
-    public configurationService: ConfigurationService
+    private readonly _songService: SongService,
+    private readonly _authService: AuthService,
+    private readonly _gigService: GigService,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _navbarActionService: NavbarActionService,
+    private readonly _snackbarService: SnackbarService,
+    private readonly _bottomSheetUploaderService: BottomSheetUploaderService,
+    private readonly _drawerActionService: DrawerActionService,
+    public readonly configurationService: ConfigurationService
   ) {
     this._navbarActionService.registerActions([
       {
@@ -63,6 +67,14 @@ export class SongEditComponent implements OnInit {
         }
       }
     ]);
+
+    this._drawerActionService.preDrawerAction = () => {
+      if (this.resetSong) {
+        const songIndex = this._songService.songs.findIndex((x: Song) => x.id === this.song.id);
+        this._songService.songs[songIndex] = this.initialSong;
+        this.resetSong = false;
+      }
+    };
   }
 
   ngOnInit() {
@@ -71,6 +83,8 @@ export class SongEditComponent implements OnInit {
     } else {
       this.song = new Song('');
     }
+    this.initialSong = JSON.parse(JSON.stringify(this.song));
+    this.resetSong = true;
   }
 
   public addNewSection(): void {
@@ -81,6 +95,7 @@ export class SongEditComponent implements OnInit {
     if (this.song.name && this._authService.user) {
       this.song.uid = this._authService.user.uid;
       this._songService.saveSong(this.song).then(() => {
+        this.resetSong = false;
         this._snackbarService.show({
           message: translate<string>('saved')
         });
@@ -120,7 +135,7 @@ export class SongEditComponent implements OnInit {
   }
 
   public removeAudio(): void {
-      this.song.sound = null;
+    this.song.sound = null;
   }
 
   public removePicture(index: number): void {

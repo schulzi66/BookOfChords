@@ -6,17 +6,17 @@ import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 import { AllMaterialModule } from '../material-module';
 import { BottomSheetUploaderComponent } from './components/bottom-sheet-uploader/bottom-sheet-uploader.component';
+import { DeletePopupDialogComponent } from './components/delete-popup-dialog/delete-popup-dialog.component';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
 import { MetronomeComponent } from './components/metronome/metronome.component';
-import { DeletePopupDialogComponent } from './components/delete-popup-dialog/delete-popup-dialog.component';
 import { RockNRollSnackbarComponent } from './components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { SearchComponent } from './components/search/search.component';
 import { UploadTaskComponent } from './components/upload-task/upload-task.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 import { DropzoneDirective } from './directives/dropzone.directive';
-import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
-import { MinDirective } from './directives/min.directive';
 import { MaxDirective } from './directives/max.directive';
+import { MinDirective } from './directives/min.directive';
+import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
 
 @NgModule({
   declarations: [

@@ -1,8 +1,8 @@
-import { INavbarAction } from './../models/navbar-action';
-import { Router, NavigationStart } from '@angular/router';
-import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { INavbarAction } from './../models/navbar-action';
 
 @Injectable({ providedIn: 'root' })
 export class NavbarActionService {

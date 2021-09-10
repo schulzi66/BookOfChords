@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PinchZoomModule } from 'ngx-pinch-zoom';

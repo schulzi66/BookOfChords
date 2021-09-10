@@ -1,14 +1,14 @@
-import { SubscriptionHandler } from './../../shared/helper/subscription-handler';
-import { AuthService } from 'src/app/services/auth.service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { Configuration } from '../../models/configuration';
+import { SubscriptionHandler } from './../../shared/helper/subscription-handler';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigurationService extends SubscriptionHandler {
+export class ConfigurationService extends SubscriptionHandler implements OnDestroy {
   public configuration$: Observable<Configuration> = of(null);
 
   public get useDarkMode(): boolean {

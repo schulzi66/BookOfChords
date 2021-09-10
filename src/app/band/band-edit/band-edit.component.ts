@@ -1,17 +1,19 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { translate } from '@ngneat/transloco';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
+import { MediaTypes } from 'src/app/models/media-types.enum';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { fadeInOnEnterAnimation } from 'angular-animations';
-import { SnackbarService } from 'src/app/services/snackbar.service';
-import { translate } from '@ngneat/transloco';
-import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
-import { MediaTypes } from 'src/app/models/media-types.enum';
+import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
+import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-band-edit',
@@ -37,6 +39,8 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
     private _bandService: BandService,
     private _authService: AuthService,
     private _location: Location,
+    private _matDialog: MatDialog,
+    private _router: Router,
     private _navbarActionService: NavbarActionService,
     private _snackbarService: SnackbarService,
     private _bottomSheetUploaderService: BottomSheetUploaderService
@@ -63,6 +67,13 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
             onUploadCallback: (result) => (this.band.pictureUrl = result.downloadUrl)
           });
         }
+      },
+      {
+        order: 300,
+        icon: 'delete_outline',
+        action: () => {
+          this.deleteBand();
+        }
       }
     ]);
     this.band = new Band();
@@ -72,8 +83,8 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
     this._currentUser = this._authService.user;
     this._subscriptions$.add(
       this._activatedRoute.params.subscribe((params: { id: string }) => {
-        if (params.id === this._currentUser.bandId) {
-          this._subscriptions$.add(this._bandService.band$.subscribe((band: Band) => (this.band = band)));
+        if (this._currentUser.bandIds.includes(params.id)) {
+          this.band = this._bandService.selectedBand;
         } else {
           this._location.back();
         }
@@ -83,5 +94,28 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
 
   public deleteMember(i: number): void {
     this.band.members.splice(i, 1);
+  }
+
+  public deleteBand(): void {
+    const dialogRef = this._matDialog.open(DeletePopupDialogComponent, {
+      data: {
+        title: translate<string>('delete_band_title'),
+        content: translate<string>('delete_band_content', { value: this.band.name })
+      }
+    });
+
+    this._subscriptions$.add(
+      dialogRef.afterClosed().subscribe((result: Boolean) => {
+        if (result) {
+          const x = this._currentUser.bandIds;
+          this._currentUser.bandIds.splice(this._currentUser.bandIds.indexOf(this.band.id), 1);
+          this._authService.updateBandIdsForUserId(this._currentUser.uid, this._currentUser.bandIds);
+          this._bandService.selectedBand = null;
+          this._bandService.deleteBand(this.band.id).then(() => {
+            this._router.navigate(['./band/selection']);
+          });
+        }
+      })
+    );
   }
 }

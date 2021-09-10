@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { Gig } from '../../models/gig';
 import { Song } from '../../models/song';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,14 +23,6 @@ export class GigService {
       .collection<Gig>('gigs')
       .doc(gig.id)
       .set(Object.assign({}, JSON.parse(JSON.stringify(gig))));
-  }
-
-  private getGigsForUser(uid: string): Observable<Gig[]> {
-    return this._angularFirestore
-      .collection<Gig>('gigs', (ref) => {
-        return ref.where('uid', '==', uid).orderBy('name', 'asc');
-      })
-      .valueChanges();
   }
 
   public deleteGig(gigId: string): Promise<void> {
@@ -61,5 +53,13 @@ export class GigService {
           this._angularFirestore.doc(`gigs/${gig.id}`).update({ songs: gig.songs });
         });
       });
+  }
+
+  private getGigsForUser(uid: string): Observable<Gig[]> {
+    return this._angularFirestore
+      .collection<Gig>('gigs', (ref) => {
+        return ref.where('uid', '==', uid).orderBy('name', 'asc');
+      })
+      .valueChanges();
   }
 }

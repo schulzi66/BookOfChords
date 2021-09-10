@@ -1,6 +1,6 @@
+import { RouterModule, Routes } from '@angular/router';
 import { DrawerActionResolver } from './../shared/resolvers/drawer-action.resolver';
 import { DemoComponent } from './demo.component';
-import { Routes, RouterModule } from '@angular/router';
 
 export const routes: Routes = [
   {

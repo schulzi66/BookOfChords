@@ -10,6 +10,7 @@ import { BandDetailComponent } from './band-detail/band-detail.component';
 import { BandEditComponent } from './band-edit/band-edit.component';
 import { BandJoinComponent } from './band-join/band-join.component';
 import { BandOverviewComponent } from './band-overview/band-overview.component';
+import { BandSelectionComponent } from './band-selection/band-selection.component';
 import { BandSetlistEditComponent } from './band-setlist-edit/band-setlist-edit.component';
 import { BandSetlistOverviewComponent } from './band-setlist-overview/band-setlist-overview.component';
 import { BandRoutes } from './band.routing';
@@ -27,6 +28,7 @@ import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.com
   ],
   declarations: [
     BandOverviewComponent,
+    BandSelectionComponent,
     NoBandOverviewComponent,
     BandCreateComponent,
     BandJoinComponent,
@@ -37,6 +39,7 @@ import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.com
   ],
   exports: [
     BandOverviewComponent,
+    BandSelectionComponent,
     NoBandOverviewComponent,
     BandCreateComponent,
     BandJoinComponent,

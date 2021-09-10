@@ -1,12 +1,12 @@
-import { SubscriptionHandler } from './../shared/helper/subscription-handler';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../models/user';
-import { auth } from 'firebase/app';
+import { SubscriptionHandler } from './../shared/helper/subscription-handler';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends SubscriptionHandler implements OnDestroy {
@@ -31,7 +31,7 @@ export class AuthService extends SubscriptionHandler implements OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.user$ = null;
     super.ngOnDestroy();
   }
@@ -61,7 +61,7 @@ export class AuthService extends SubscriptionHandler implements OnDestroy {
   }
 
   private updateUserData(uid: string, email: string, displayName: string, photoURL: string): Promise<void> {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`);
 
     const data = {
       uid,
@@ -73,16 +73,16 @@ export class AuthService extends SubscriptionHandler implements OnDestroy {
     return userRef.set(data, { merge: true });
   }
 
-  // Refactor to use the currentUserObject and not make another call!
-  public updateBandIdForUserId(uid: string, bandId: string): void {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
+  public updateBandIdsForUserId(uid: string, bandIds: Array<string>): void {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`);
     userRef.update({
-      bandId: bandId
+      bandIds: bandIds
     });
   }
 
   public async signOut() {
     await this.afAuth.signOut();
-    return this.router.navigate(['/login']);
+    void this.router.navigate(['/login']);
+    location.reload();
   }
 }

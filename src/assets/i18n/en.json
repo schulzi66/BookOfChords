@@ -10,6 +10,8 @@
   "login": "Sign In",
   "login_with_google": "Login with Google",
   "login_as_guest": "Login as guest",
+  "leave_band_title": "Leave Band",
+  "leave_band_content": "Do you really want to leave the band {{value}}?",
   "song_name": "Name of the song",
   "section": "Section",
   "search": "Search",
@@ -89,5 +91,7 @@
   "delete_exercise_content": "Do you really want to delete the exercise {{value}}",
   "delete_song_title": "Delete Song?",
   "delete_song_content": "Do you really want to delete the song {{value}}",
+  "delete_band_title": "Delete Band?",
+  "delete_band_content": "Do you really want to delete the band {{value}}",
   "metronome_hint": "40 - 240 BPM"
 }

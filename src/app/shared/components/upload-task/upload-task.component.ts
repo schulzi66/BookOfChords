@@ -1,9 +1,9 @@
-import { MediaTypes } from 'src/app/models/media-types.enum';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
-import { finalize, take } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
+import { MediaTypes } from 'src/app/models/media-types.enum';
 import { UploadResult } from 'src/app/models/upload-result';
 
 @Component({
