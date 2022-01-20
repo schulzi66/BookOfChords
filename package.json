@@ -32,7 +32,7 @@
     "core-js": "3.6.5",
     "firebase": "7.17.2",
     "ngx-clipboard": "14.0.2",
-    "ngx-extended-pdf-viewer": "8.2.0",
+    "ngx-extended-pdf-viewer": "11.1.2",
     "ngx-pinch-zoom": "^2.5.5",
     "rxjs": "~6.6.2",
     "tone": "^14.7.77",
