@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { MediaTypes } from 'src/app/models/media-types.enum';

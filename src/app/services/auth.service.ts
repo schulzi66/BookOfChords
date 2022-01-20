@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../models/user';
@@ -37,7 +37,7 @@ export class AuthService extends SubscriptionHandler implements OnDestroy {
   }
 
   public async googleSignIn() {
-    const provider = new auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     await this.oAuthLogin(provider);
     this.router.navigate(['/songs']);
   }

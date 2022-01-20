@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireMessaging } from '@angular/fire/messaging';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 import { Subject } from 'rxjs';
 import { User } from './../models/user';
 
