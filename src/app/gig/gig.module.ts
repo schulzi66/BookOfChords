@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { AllMaterialModule } from '../material-module';
 import { SharedModule } from '../shared/shared.module';
 import { GigDetailComponent } from './gig-detail/gig-detail.component';
@@ -20,7 +19,6 @@ import { GigRoutes } from './gig.routing';
     FormsModule,
     GigRoutes,
     NgxExtendedPdfViewerModule,
-    PinchZoomModule,
     TranslocoModule
   ],
   exports: [GigOverviewComponent, GigEditComponent, GigDetailComponent]

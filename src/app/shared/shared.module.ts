@@ -9,6 +9,7 @@ import { BottomSheetUploaderComponent } from './components/bottom-sheet-uploader
 import { DeletePopupDialogComponent } from './components/delete-popup-dialog/delete-popup-dialog.component';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
 import { MetronomeComponent } from './components/metronome/metronome.component';
+import { PinchZoomComponent } from './components/pinch-zoom/pinch-zoom.component';
 import { RockNRollSnackbarComponent } from './components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { SearchComponent } from './components/search/search.component';
 import { UploadTaskComponent } from './components/upload-task/upload-task.component';
@@ -31,7 +32,8 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     DeletePopupDialogComponent,
     MetronomeComponent,
     RockNRollSnackbarComponent,
-    BottomSheetUploaderComponent
+    BottomSheetUploaderComponent,
+    PinchZoomComponent
   ],
   imports: [CommonModule, AllMaterialModule, FormsModule, ReactiveFormsModule, TranslocoModule, RouterModule],
   providers: [
@@ -47,7 +49,8 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     SearchComponent,
     DeletePopupDialogComponent,
     MetronomeComponent,
-    BottomSheetUploaderComponent
+    BottomSheetUploaderComponent,
+    PinchZoomComponent
   ]
 })
 export class SharedModule {}
