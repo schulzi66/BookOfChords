@@ -9,6 +9,7 @@
         "module": "es2020",
         "moduleResolution": "node",
         "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
         "target": "ES6",
         "typeRoots": [
             "node_modules/@types"
