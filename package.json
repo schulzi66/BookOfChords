@@ -31,7 +31,7 @@
     "angular-animations": "^0.0.10",
     "core-js": "3.6.5",
     "firebase": "7.17.2",
-    "ngx-clipboard": "13.0.1",
+    "ngx-clipboard": "14.0.2",
     "ngx-extended-pdf-viewer": "8.2.0",
     "ngx-pinch-zoom": "^2.5.5",
     "rxjs": "~6.6.2",
