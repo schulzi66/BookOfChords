@@ -44,7 +44,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   public get isValid(): boolean {
-    return this.bpm !== undefined && this.bpm !== null && this.bpm >= 40 && this.bpm <= 240;
+    return this.toneService.isValidBpm(this.bpm);
   }
 
   ngOnInit(): void {

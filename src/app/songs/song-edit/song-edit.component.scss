@@ -1,3 +1,5 @@
+@import '../../../styles/colors';
+
 .flex-container {
     display: flex;
     flex-direction: column;
@@ -26,6 +28,11 @@ app-song-section {
     margin-right: 5px;
 }
 
+.section-drag-handle {
+    height: 40px;
+    width: 40px;
+}
+
 .edit-icon {
     margin-bottom: 2px;
 }
@@ -44,4 +51,37 @@ app-song-section {
     display: flex;
     align-items: center;
     width: 100%;
+}
+
+.bpm {
+    flex: 1;
+    margin-bottom: 1em;
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(2px) saturate(100%);
+    -webkit-backdrop-filter: blur(2px) saturate(100%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: $base-color;
+
+    mat-label {
+        color: $base-color;
+    }
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.song-sections-list.cdk-drop-list-dragging .song-sections-list:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

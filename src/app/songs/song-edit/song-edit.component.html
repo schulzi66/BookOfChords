@@ -2,8 +2,7 @@
      [@fadeInOnEnter]>
   <mat-form-field appearance="outline"
                   class="song-name">
-    <mat-label>{{'song_name' | transloco}}
-    </mat-label>
+    <mat-label>{{'song_name' | transloco}} </mat-label>
     <input #songNameModel="ngModel"
            matInput
            required
@@ -11,9 +10,15 @@
            name="songName">
   </mat-form-field>
 
-  <shared-metronome [bpm]="song.bpm"
-                    [showSoundMode]="true"
-                    (onBpmChanged)="updateBpm($event)"></shared-metronome>
+  <mat-form-field appearance="outline"
+                  class="bpm"
+                  [hintLabel]="'metronome_hint' | transloco">
+    <mat-label>{{'BPM'}}</mat-label>
+    <input matInput
+           [(ngModel)]="song.bpm"
+           name="bpm">
+  </mat-form-field>
+
 
   <div class="sound"
        *ngIf="song.sound">
@@ -26,25 +31,34 @@
     </button>
   </div>
 
-  <div *ngFor="let section of song?.sections; index as i">
-    <mat-form-field appearance="outline"
-                    class="section-name">
-      <mat-label>{{'section' | transloco}}</mat-label>
-      <input matInput
-             [(ngModel)]="section.name"
-             name="name">
-    </mat-form-field>
-    <mat-form-field class="section-value">
-      <textarea matInput
-                [value]="section?.value | StringArrayLines"
-                (change)="onTextAreaValueChanged(i, $event.target.value)"
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"></textarea>
-    </mat-form-field>
-    <button mat-icon-button
-            (click)="removeSection(i)">
-      <mat-icon>delete_outline</mat-icon>
-    </button>
+  <div class="song-sections-list"
+       cdkDropList
+       (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let section of song?.sections; index as i"
+         cdkDrag>
+      <mat-form-field appearance="outline"
+                      class="section-name">
+        <mat-label>{{'section' | transloco}}</mat-label>
+        <input matInput
+               [(ngModel)]="section.name"
+               name="name">
+      </mat-form-field>
+      <mat-form-field class="section-value">
+        <textarea matInput
+                  [value]="section?.value | StringArrayLines"
+                  (change)="onTextAreaValueChanged(i, $event.target.value)"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"></textarea>
+      </mat-form-field>
+      <button *ngIf="!isReoderingMode"
+              mat-icon-button
+              (click)="removeSection(i)">
+        <mat-icon color="accent">delete_outline</mat-icon>
+      </button>
+      <mat-icon class="section-drag-handle" *ngIf="isReoderingMode"
+                cdkDragHandle
+                color="accent">drag_handle</mat-icon>
+    </div>
   </div>
   <br>
 

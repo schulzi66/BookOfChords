@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +10,7 @@ import { UploadResult } from 'src/app/models/upload-result';
 import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
 import { DrawerActionService } from 'src/app/services/drawer-action.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
-import { MetronomeComponent } from 'src/app/shared/components/metronome/metronome.component';
+import { ToneService } from 'src/app/services/tone.service';
 import { GigService } from '../../gig/services/gig.service';
 import { Song } from '../../models/song';
 import { SongSection } from '../../models/song-section';
@@ -27,8 +28,8 @@ export class SongEditComponent implements OnInit {
   private initialSong: Song;
   private resetSong: boolean;
   public song: Song;
+  public isReoderingMode: boolean;
 
-  @ViewChild(MetronomeComponent) private _metronomeRef: MetronomeComponent;
   @ViewChild('songNameModel') private _songNameModel: NgModel;
 
   constructor(
@@ -40,6 +41,7 @@ export class SongEditComponent implements OnInit {
     private readonly _snackbarService: SnackbarService,
     private readonly _bottomSheetUploaderService: BottomSheetUploaderService,
     private readonly _drawerActionService: DrawerActionService,
+    private readonly _toneService: ToneService,
     public readonly configurationService: ConfigurationService
   ) {
     this._navbarActionService.registerActions([
@@ -50,13 +52,17 @@ export class SongEditComponent implements OnInit {
       },
       {
         order: 200,
-        icon: 'save',
-        action: () => this.saveSong(),
-        validator: () =>
-          this._metronomeRef && this._metronomeRef.isValid && this._songNameModel && this._songNameModel.valid
+        icon: 'drag_handle',
+        action: () => (this.isReoderingMode = !this.isReoderingMode)
       },
       {
         order: 300,
+        icon: 'save',
+        action: () => this.saveSong(),
+        validator: () => this._songNameModel && this._songNameModel.valid && this._toneService.isValidBpm(this.song.bpm)
+      },
+      {
+        order: 400,
         icon: 'upload_file',
         action: () => {
           this._bottomSheetUploaderService.show({
@@ -85,6 +91,7 @@ export class SongEditComponent implements OnInit {
     }
     this.initialSong = JSON.parse(JSON.stringify(this.song));
     this.resetSong = true;
+    this.isReoderingMode = false;
   }
 
   public addNewSection(): void {
@@ -148,5 +155,9 @@ export class SongEditComponent implements OnInit {
 
   public updateBpm(newBpm: number): void {
     this.song.bpm = newBpm;
+  }
+
+  public drop(event: CdkDragDrop<Song>) {
+    moveItemInArray(this.song.sections, event.previousIndex, event.currentIndex);
   }
 }

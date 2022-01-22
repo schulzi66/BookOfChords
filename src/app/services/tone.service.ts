@@ -93,4 +93,8 @@ export class ToneService extends SubscriptionHandler {
   public changeSpeed(bpm: number): void {
     Transport.bpm.value = bpm;
   }
+
+  public isValidBpm(bpm: number): boolean {
+    return bpm !== undefined && bpm !== null && bpm >= 40 && bpm <= 240;
+  }
 }
