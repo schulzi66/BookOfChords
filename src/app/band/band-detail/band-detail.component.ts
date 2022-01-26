@@ -41,6 +41,7 @@ export class BandDetailComponent extends SubscriptionHandler implements OnInit {
   }
 
   ngOnInit(): void {
+    this._currentUser = this._authService.user;
     this._subscriptions$.add(this._authService.user$.subscribe((user: User) => (this._currentUser = user)));
     this.band = this._bandService.selectedBand;
     if (this.isUserBandAdmin) {
