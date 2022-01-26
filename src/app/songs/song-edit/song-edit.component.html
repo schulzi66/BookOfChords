@@ -19,6 +19,29 @@
            name="bpm">
   </mat-form-field>
 
+  <div class="bands">
+    <ng-container *ngIf="!selectedBand; else bandSelection">
+      <div *ngFor="let band of bandService.bands$ | async"
+           class="band"
+           (click)="selectBand(band)">
+        <img [src]="band.pictureUrl"
+             class="band-picture"
+             [ngClass]="{'visible': band.pictureUrl}"> {{band.name}}
+      </div>
+    </ng-container>
+    <ng-template #bandSelection>
+      <div class="band">
+        <img [src]="selectedBand.pictureUrl"
+             class="band-picture"
+             [ngClass]="{'visible': selectedBand.pictureUrl}"> {{selectedBand.name}}
+        <button mat-icon-button
+                (click)="deselectBand()">
+          <mat-icon color="accent">highlight_off</mat-icon>
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
 
   <div class="sound"
        *ngIf="song.sound">
@@ -27,7 +50,7 @@
     </audio>
     <button mat-icon-button
             (click)="removeAudio()">
-      <mat-icon>delete_outline</mat-icon>
+      <mat-icon color="accent">delete_outline</mat-icon>
     </button>
   </div>
 
@@ -55,7 +78,8 @@
               (click)="removeSection(i)">
         <mat-icon color="accent">delete_outline</mat-icon>
       </button>
-      <mat-icon class="section-drag-handle" *ngIf="isReoderingMode"
+      <mat-icon class="section-drag-handle"
+                *ngIf="isReoderingMode"
                 cdkDragHandle
                 color="accent">drag_handle</mat-icon>
     </div>

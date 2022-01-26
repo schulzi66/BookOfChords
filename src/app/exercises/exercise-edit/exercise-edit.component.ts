@@ -1,6 +1,7 @@
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { ActivatedRoute } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
@@ -12,8 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { MetronomeComponent } from 'src/app/shared/components/metronome/metronome.component';
+import { BottomSheetService } from '../../services/bottom-sheet.service';
 import { Exercise } from './../../models/exercise';
-import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
 
 @Component({
   selector: 'app-exercise-edit',
@@ -33,7 +34,7 @@ export class ExerciseEditComponent implements OnInit {
     private _navbarActionService: NavbarActionService,
     private _snackbarService: SnackbarService,
     private _authService: AuthService,
-    private _bottomSheetUploaderService: BottomSheetUploaderService,
+    private _bottomSheetService: BottomSheetService,
     public configurationService: ConfigurationService
   ) {
     this._navbarActionService.registerActions([
@@ -60,11 +61,14 @@ export class ExerciseEditComponent implements OnInit {
   }
 
   public showFileUpload(): void {
-    this._bottomSheetUploaderService.show({
+    const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showUpload({
       storageBucketPrefix: 'exercises',
       typesToUpload: [MediaTypes.IMAGE, MediaTypes.PDF, MediaTypes.SOUND],
       displayCameraOption: true,
-      onUploadCallback: (result) => this._onFileUploadCompleted(result)
+      onUploadCallback: (result) => {
+        this._onFileUploadCompleted(result);
+        bottomSheetRef.dismiss();
+      }
     });
   }
 

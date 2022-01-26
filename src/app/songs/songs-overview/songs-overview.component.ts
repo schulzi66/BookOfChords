@@ -1,8 +1,14 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Router } from '@angular/router';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { take } from 'rxjs/operators';
+import { BandService } from 'src/app/band/services/band.service';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { Band } from 'src/app/models/band';
+import { AuthService } from 'src/app/services/auth.service';
+import { BottomSheetService } from 'src/app/services/bottom-sheet.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { Song } from '../../models/song';
 import { SubscriptionHandler } from '../../shared/helper/subscription-handler';
@@ -17,6 +23,7 @@ import { SongService } from '../services/song.service';
 export class SongsOverviewComponent extends SubscriptionHandler implements OnInit {
   public filteredSongs: Song[];
 
+  private _selectedBand: Band;
   private _songs: Song[];
 
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
@@ -25,6 +32,9 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
     public _songService: SongService,
     private _router: Router,
     private _navbarActionService: NavbarActionService,
+    private _bottomSheetService: BottomSheetService,
+    private _bandService: BandService,
+    private _authService: AuthService,
     public configurationService: ConfigurationService
   ) {
     super();
@@ -36,6 +46,12 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
       },
       {
         order: 200,
+        icon: 'group',
+        action: () => this.selectBand(),
+        validator: () => this._authService.user?.bandIds?.length > 0
+      },
+      {
+        order: 300,
         icon: 'casino',
         action: () => this.chooseRandomSong()
       }
@@ -43,12 +59,23 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
   }
 
   ngOnInit() {
-    this._subscriptions$.add(
-      this._songService.songs$.subscribe((songs: Song[]) => {
-        this._songs = songs;
-        this.filteredSongs = songs;
-      })
-    );
+    if (this._songService.selectedBandForOverview) {
+      this._selectedBand = this._songService.selectedBandForOverview;
+      this._songService
+        .getSongsForUserByBandId(this._authService.user.uid, this._selectedBand.id)
+        .pipe(take(1))
+        .subscribe((songs: Song[]) => {
+          this._songs = songs;
+          this.filteredSongs = songs;
+        });
+    } else {
+      this._subscriptions$.add(
+        this._songService.songs$.subscribe((songs: Song[]) => {
+          this._songs = songs;
+          this.filteredSongs = songs;
+        })
+      );
+    }
   }
 
   public createNewSong(): void {
@@ -67,5 +94,23 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
     if (this._songs.length > 0) {
       this._router.navigate(['/songs/details', this._songs[Math.floor(Math.random() * this._songs.length)].id]);
     }
+  }
+
+  public selectBand(): void {
+    const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showBandSelection({
+      bands: this._bandService.bandsSubject.value,
+      onSelectionCallback: (band: Band) => {
+        this._selectedBand = band;
+        this._songService.selectedBandForOverview = band;
+        this._songService
+          .getSongsForUserByBandId(this._authService.user.uid, band.id)
+          .pipe(take(1))
+          .subscribe((songs: Song[]) => {
+            this._songs = songs;
+            this.filteredSongs = songs;
+          });
+        bottomSheetRef.dismiss();
+      }
+    });
   }
 }

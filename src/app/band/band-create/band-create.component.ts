@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Router } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
@@ -9,7 +10,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
-import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
+import { BottomSheetService } from '../../services/bottom-sheet.service';
 import { SnackbarService } from './../../services/snackbar.service';
 
 @Component({
@@ -28,7 +29,7 @@ export class BandCreateComponent extends SubscriptionHandler implements OnInit {
     private _bandService: BandService,
     private _navbarActionService: NavbarActionService,
     private _snackbarService: SnackbarService,
-    private _bottomSheetUploaderService: BottomSheetUploaderService,
+    private _bottomSheetService: BottomSheetService,
     private _router: Router
   ) {
     super();
@@ -43,10 +44,13 @@ export class BandCreateComponent extends SubscriptionHandler implements OnInit {
         order: 200,
         icon: 'upload_file',
         action: () => {
-          this._bottomSheetUploaderService.show({
+          const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showUpload({
             storageBucketPrefix: 'bands',
             typesToUpload: [MediaTypes.IMAGE],
-            onUploadCallback: (result) => (this.band.pictureUrl = result.downloadUrl)
+            onUploadCallback: (result) => {
+              this.band.pictureUrl = result.downloadUrl;
+              bottomSheetRef.dismiss();
+            }
           });
         }
       }

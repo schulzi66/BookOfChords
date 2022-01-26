@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatSelectionListChange } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
 import { translate } from '@ngneat/transloco';
@@ -13,7 +14,7 @@ import { Setlist } from 'src/app/models/setlist';
 import { Song } from 'src/app/models/song';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
+import { BottomSheetService } from 'src/app/services/bottom-sheet.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { SongService } from 'src/app/songs/services/song.service';
@@ -46,7 +47,7 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
     private _gigService: GigService,
     private _snackbarService: SnackbarService,
     private _navbarActionService: NavbarActionService,
-    private _bottomSheetUploaderService: BottomSheetUploaderService
+    private _bottomSheetService: BottomSheetService
   ) {
     super();
     this.setlist = new Setlist();
@@ -70,12 +71,13 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
         order: 300,
         icon: 'upload_file',
         action: () => {
-          this._bottomSheetUploaderService.show({
+            const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showUpload({
             storageBucketPrefix: 'setlists',
             typesToUpload: [MediaTypes.PDF],
             onUploadCallback: (result) => {
               this.setlist.pdfUrl = result.downloadUrl;
               this.saveIfValid();
+              bottomSheetRef.dismiss();
             }
           });
         }

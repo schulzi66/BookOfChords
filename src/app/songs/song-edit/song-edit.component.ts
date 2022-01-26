@@ -4,10 +4,12 @@ import { NgModel } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { BandService } from 'src/app/band/services/band.service';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
+import { Band } from 'src/app/models/band';
 import { MediaTypes } from 'src/app/models/media-types.enum';
 import { UploadResult } from 'src/app/models/upload-result';
-import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
+import { BottomSheetService } from 'src/app/services/bottom-sheet.service';
 import { DrawerActionService } from 'src/app/services/drawer-action.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { ToneService } from 'src/app/services/tone.service';
@@ -29,6 +31,7 @@ export class SongEditComponent implements OnInit {
   private resetSong: boolean;
   public song: Song;
   public isReoderingMode: boolean;
+  public selectedBand: Band;
 
   @ViewChild('songNameModel') private _songNameModel: NgModel;
 
@@ -39,9 +42,10 @@ export class SongEditComponent implements OnInit {
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _navbarActionService: NavbarActionService,
     private readonly _snackbarService: SnackbarService,
-    private readonly _bottomSheetUploaderService: BottomSheetUploaderService,
+    private readonly _bottomSheetService: BottomSheetService,
     private readonly _drawerActionService: DrawerActionService,
     private readonly _toneService: ToneService,
+    public readonly bandService: BandService,
     public readonly configurationService: ConfigurationService
   ) {
     this._navbarActionService.registerActions([
@@ -65,7 +69,7 @@ export class SongEditComponent implements OnInit {
         order: 400,
         icon: 'upload_file',
         action: () => {
-          this._bottomSheetUploaderService.show({
+          this._bottomSheetService.showUpload({
             storageBucketPrefix: 'songs',
             typesToUpload: [MediaTypes.IMAGE, MediaTypes.PDF, MediaTypes.SOUND],
             onUploadCallback: (result) => this.onUploadCompleted(result)
@@ -89,9 +93,11 @@ export class SongEditComponent implements OnInit {
     } else {
       this.song = new Song('');
     }
+    this.song.bpm = this.song.bpm ?? 40;
     this.initialSong = JSON.parse(JSON.stringify(this.song));
     this.resetSong = true;
     this.isReoderingMode = false;
+    this.selectedBand = this.bandService.bandsSubject.value.find((band: Band) => band.id === this.song.bandId);
   }
 
   public addNewSection(): void {
@@ -157,7 +163,17 @@ export class SongEditComponent implements OnInit {
     this.song.bpm = newBpm;
   }
 
-  public drop(event: CdkDragDrop<Song>) {
+  public drop(event: CdkDragDrop<Song>): void {
     moveItemInArray(this.song.sections, event.previousIndex, event.currentIndex);
+  }
+
+  public selectBand(band: Band): void {
+    this.selectedBand = band;
+    this.song.bandId = band.id;
+  }
+
+  public deselectBand(): void {
+    this.selectedBand = undefined;
+    this.song.bandId = undefined;
   }
 }

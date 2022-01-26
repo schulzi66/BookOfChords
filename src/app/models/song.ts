@@ -9,6 +9,7 @@ export class Song {
   pictures: string[];
   pdfs: string[];
   sound: string;
+  bandId: string;
 
   constructor(name: string) {
     this.name = name;

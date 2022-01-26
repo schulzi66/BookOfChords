@@ -1,0 +1,10 @@
+<mat-nav-list>
+  <a mat-list-item
+     *ngFor="let band of token.bands"
+     (click)="onSelectBand(band)">
+    <img [src]="band.pictureUrl"
+         class="band-picture"
+         [ngClass]="{'visible': band.pictureUrl}">
+    {{band.name}}
+  </a>
+</mat-nav-list>

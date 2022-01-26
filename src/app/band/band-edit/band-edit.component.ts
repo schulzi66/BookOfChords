@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { translate } from '@ngneat/transloco';
@@ -9,7 +10,7 @@ import { Band } from 'src/app/models/band';
 import { MediaTypes } from 'src/app/models/media-types.enum';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { BottomSheetUploaderService } from 'src/app/services/bottom-sheet-uploader.service';
+import { BottomSheetService } from 'src/app/services/bottom-sheet.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
@@ -43,7 +44,7 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
     private _router: Router,
     private _navbarActionService: NavbarActionService,
     private _snackbarService: SnackbarService,
-    private _bottomSheetUploaderService: BottomSheetUploaderService
+    private _bottomSheetService: BottomSheetService
   ) {
     super();
     this._navbarActionService.registerActions([
@@ -61,10 +62,13 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
         order: 200,
         icon: 'upload_file',
         action: () => {
-          this._bottomSheetUploaderService.show({
+          const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showUpload({
             storageBucketPrefix: 'bands',
             typesToUpload: [MediaTypes.IMAGE],
-            onUploadCallback: (result) => (this.band.pictureUrl = result.downloadUrl)
+            onUploadCallback: (result) => {
+              this.band.pictureUrl = result.downloadUrl;
+              bottomSheetRef.dismiss();
+            }
           });
         }
       },

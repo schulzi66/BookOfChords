@@ -50,7 +50,7 @@ export class BandJoinComponent extends SubscriptionHandler implements OnInit {
       this._subscriptions$.add(
         this._bandService.getBandByBandId(this.bandId).subscribe((band: Band) => {
           if (band) {
-            if (this._currentUser.bandIds.find((id: string) => band.id === id) === undefined) {
+            if (this._currentUser.bandIds?.find((id: string) => band.id === id) === undefined) {
               this._authService.updateBandIdsForUserId(this._currentUser.uid, [
                 ...(this._currentUser.bandIds ?? []),
                 band.id

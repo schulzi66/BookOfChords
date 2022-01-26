@@ -5,6 +5,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 import { AllMaterialModule } from '../material-module';
+import { BottomSheetBandSelectionComponent } from './components/bottom-sheet-band-selection/bottom-sheet-band-selection.component';
 import { BottomSheetUploaderComponent } from './components/bottom-sheet-uploader/bottom-sheet-uploader.component';
 import { DeletePopupDialogComponent } from './components/delete-popup-dialog/delete-popup-dialog.component';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
@@ -32,6 +33,7 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     DeletePopupDialogComponent,
     MetronomeComponent,
     RockNRollSnackbarComponent,
+    BottomSheetBandSelectionComponent,
     BottomSheetUploaderComponent,
     PinchZoomComponent
   ],
@@ -49,6 +51,7 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
     SearchComponent,
     DeletePopupDialogComponent,
     MetronomeComponent,
+    BottomSheetBandSelectionComponent,
     BottomSheetUploaderComponent,
     PinchZoomComponent
   ]

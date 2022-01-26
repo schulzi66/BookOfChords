@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { Band } from 'src/app/models/band';
 import { AuthService } from 'src/app/services/auth.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { Song } from '../../models/song';
@@ -8,6 +9,7 @@ import { Song } from '../../models/song';
 @Injectable({ providedIn: 'root' })
 export class SongService extends SubscriptionHandler implements OnDestroy {
   public selectedSong: Song;
+  public selectedBandForOverview: Band;
 
   public songs$: Observable<Song[]>;
   public songs: Song[];
@@ -38,6 +40,14 @@ export class SongService extends SubscriptionHandler implements OnDestroy {
     return this._angularFirestore
       .collection<Song>('songs', (ref) => {
         return ref.where('uid', '==', uid).orderBy('name', 'asc');
+      })
+      .valueChanges();
+  }
+
+  public getSongsForUserByBandId(uid: string, bandId: string): Observable<Song[]> {
+    return this._angularFirestore
+      .collection<Song>('songs', (ref) => {
+        return ref.where('uid', '==', uid).orderBy('name', 'asc').where('bandId', '==', bandId);
       })
       .valueChanges();
   }
