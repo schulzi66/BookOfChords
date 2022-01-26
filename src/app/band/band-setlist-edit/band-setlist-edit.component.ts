@@ -86,6 +86,7 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
   }
 
   ngOnInit() {
+    this._currentUser = this._authService.user;
     this._subscriptions$.add(this._authService.user$.subscribe((user: User) => (this._currentUser = user)));
     this._subscriptions$.add(
       this._activatedRoute.params.subscribe((params: { id?: string }) => {
