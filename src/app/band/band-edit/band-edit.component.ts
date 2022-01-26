@@ -80,7 +80,7 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
   }
 
   ngOnInit() {
-    this._currentUser = this._authService.user;
+    this._subscriptions$.add(this._authService.user$.subscribe((user: User) => (this._currentUser = user)));
     this._subscriptions$.add(
       this._activatedRoute.params.subscribe((params: { id: string }) => {
         if (this._currentUser.bandIds.includes(params.id)) {

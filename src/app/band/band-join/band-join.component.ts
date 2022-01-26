@@ -42,7 +42,7 @@ export class BandJoinComponent extends SubscriptionHandler implements OnInit {
   }
 
   ngOnInit() {
-    this._currentUser = this._authService.user;
+    this._subscriptions$.add(this._authService.user$.subscribe((user: User) => (this._currentUser = user)));
   }
 
   public joinBand(): void {
@@ -50,11 +50,15 @@ export class BandJoinComponent extends SubscriptionHandler implements OnInit {
       this._subscriptions$.add(
         this._bandService.getBandByBandId(this.bandId).subscribe((band: Band) => {
           if (band) {
-            this._authService.updateBandIdsForUserId(this._currentUser.uid, [
-              ...(this._currentUser.bandIds ?? []),
-              band.id
-            ]);
-            band.members.push(this._currentUser);
+            if (this._currentUser.bandIds.find((id: string) => band.id === id) === undefined) {
+              this._authService.updateBandIdsForUserId(this._currentUser.uid, [
+                ...(this._currentUser.bandIds ?? []),
+                band.id
+              ]);
+            }
+            if (band.members.find((user: User) => user.uid === this._currentUser.uid) === undefined) {
+              band.members.push(this._currentUser);
+            }
             this._bandService.bandsSubject.next([...this._bandService.bands, band]);
             this._bandService.saveBand(band);
             this._bandService.selectedBand = band;

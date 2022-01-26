@@ -64,7 +64,7 @@ export class GigEditComponent extends SubscriptionHandler implements OnInit {
   }
 
   ngOnInit() {
-    this._currentUser = this._authService.user;
+    this._subscriptions$.add(this._authService.user$.subscribe((user: User) => (this._currentUser = user)));
     this._subscriptions$.add(
       this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
         this.allSongs = songs;

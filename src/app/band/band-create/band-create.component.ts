@@ -8,6 +8,7 @@ import { MediaTypes } from 'src/app/models/media-types.enum';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { BottomSheetUploaderService } from './../../services/bottom-sheet-uploader.service';
 import { SnackbarService } from './../../services/snackbar.service';
 
@@ -17,7 +18,7 @@ import { SnackbarService } from './../../services/snackbar.service';
   styleUrls: ['./band-create.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
 })
-export class BandCreateComponent implements OnInit {
+export class BandCreateComponent extends SubscriptionHandler implements OnInit {
   private _currentUser: User;
 
   public band: Band;
@@ -30,6 +31,7 @@ export class BandCreateComponent implements OnInit {
     private _bottomSheetUploaderService: BottomSheetUploaderService,
     private _router: Router
   ) {
+    super();
     this.band = new Band();
     this._navbarActionService.registerActions([
       {
@@ -52,7 +54,7 @@ export class BandCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._currentUser = this._authService.user;
+    this._subscriptions$.add(this._authService.user$.subscribe((user: User) => (this._currentUser = user)));
     this.band.adminId = this._currentUser.uid;
   }
 
