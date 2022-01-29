@@ -1,7 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
-import { Configuration } from 'src/app/models/configuration';
 import { ToneService } from 'src/app/services/tone.service';
+import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -9,11 +8,10 @@ import { ToneService } from 'src/app/services/tone.service';
   templateUrl: './metronome.component.html',
   styleUrls: ['./metronome.component.scss']
 })
-export class MetronomeComponent implements OnInit, OnDestroy {
+export class MetronomeComponent extends SubscriptionHandler implements OnInit, OnDestroy {
   private readonly _defaultBpm: number = 40;
   private readonly _minuteInMs: number = 60000;
   private _timerHandle: number;
-  private _countInBeats: number;
   private _started: boolean;
 
   @Input('showPlay') public showPlay: boolean = true;
@@ -35,7 +33,8 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   public isPlayMode: boolean;
   public isTick: boolean;
 
-  constructor(public readonly toneService: ToneService, private _configurationService: ConfigurationService) {
+  constructor(public readonly toneService: ToneService) {
+    super();
     this.playModeIcon = 'play_arrow';
     this.soundModeIcon = 'volume_up';
     this.isPlayMode = false;
@@ -55,14 +54,13 @@ export class MetronomeComponent implements OnInit, OnDestroy {
       this.sliderDisabled = false;
     }
     if (this.showSoundMode) {
-      this.toneService.isMuted$.subscribe((muted: boolean) => {
-        muted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
-      });
+      this._subscriptions$.add(
+        this.toneService.isMuted$.subscribe((muted: boolean) => {
+          muted ? (this.soundModeIcon = 'volume_off') : (this.soundModeIcon = 'volume_up');
+        })
+      );
       this.showSoundMode ? this.toneService.unmute() : this.toneService.mute();
     }
-    this._configurationService.configuration$.subscribe((configuration: Configuration) => {
-      this._countInBeats = configuration.countInBars;
-    });
   }
 
   ngOnDestroy(): void {
@@ -95,7 +93,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
 
   public startMetronome(emitStart: boolean): void {
     if (this.showSoundMode) {
-      this.toneService.start(this.bpm, this._countInBeats).then(() => {
+      this.toneService.start(this.bpm).then(() => {
         if (emitStart) {
           this.onStart.emit();
         } else {

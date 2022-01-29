@@ -57,15 +57,6 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field color="accent">
-    <mat-label>{{'countInBars' | transloco}}</mat-label>
-    <input matInput
-           type="number"
-           name="countInBars"
-           [value]="configuration?.countInBars"
-           (change)="countInBarsChanged($event.target.value)">
-  </mat-form-field>
-
   <mat-slide-toggle class="toggle"
                     [checked]="configuration?.openDrawerInitially"
                     (change)="openDrawerInitiallyChanged($event)">

@@ -58,7 +58,8 @@
        cdkDropList
        (cdkDropListDropped)="drop($event)">
     <div *ngFor="let section of song?.sections; index as i"
-         cdkDrag>
+         cdkDrag
+         [cdkDragDisabled]="!isReoderingMode">
       <mat-form-field appearance="outline"
                       class="section-name">
         <mat-label>{{'section' | transloco}}</mat-label>

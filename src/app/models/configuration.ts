@@ -5,7 +5,6 @@ export class Configuration {
   fontFamily: string;
   useDarkMode: boolean;
   lang: string;
-  countInBars: number;
   openDrawerInitially: boolean;
 
   constructor(uid: string) {
