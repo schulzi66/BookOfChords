@@ -8,18 +8,21 @@
     width: 25%;
     margin: 5px;
     text-align: left;
+    text-decoration: underline;
 }
 
 .section-value-flex-wrapper {
     display: flex;
     flex-direction: column;
     white-space: pre-wrap;
+    margin: 5px;
 }
 
 .section-value {
     align-self: center;
     font-size: 18px;
     margin: 4px;
+    width: 100%;
 }
 
 .sound {

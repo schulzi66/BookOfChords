@@ -39,6 +39,16 @@
   </mat-form-field>
 
   <mat-form-field color="accent">
+    <mat-label>{{'section_alignment' | transloco}}</mat-label>
+    <mat-select [value]="configuration?.sectionAlignment"
+                (selectionChange)="sectionAlignmentChanged($event)">
+      <mat-option value="start">{{'alignment_start' | transloco}}</mat-option>
+      <mat-option value="center">{{'alignment_center' | transloco}}</mat-option>
+      <mat-option value="end">{{'alignment_end' | transloco}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field color="accent">
     <mat-label>{{'lang' | transloco}}</mat-label>
     <mat-select [value]="configuration?.lang"
                 (selectionChange)="langChanged($event)">

@@ -67,6 +67,10 @@ export class ConfigurationComponent extends SubscriptionHandler implements OnIni
     this.configuration.fontFamily = event.value;
   }
 
+  public sectionAlignmentChanged(event: MatSelectChange): void {
+    this.configuration.sectionAlignment = event.value;
+  }
+
   public langChanged(event: MatSelectChange): void {
     this.configuration.lang = event.value;
   }

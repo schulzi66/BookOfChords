@@ -59,7 +59,8 @@
           <div class="section-value"
                *ngFor="let value of section.value"
                [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
-               [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{value}}</div>
+               [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
+               [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment">{{value}}</div>
         </div>
         <mat-divider></mat-divider>
       </div>
