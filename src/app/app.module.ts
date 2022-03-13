@@ -35,7 +35,10 @@ import { translocoLoader } from './transloco.loader';
     AngularFireStorageModule,
     HttpClientModule,
     AllMaterialModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('./ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
     TranslocoModule
   ],
   providers: [
