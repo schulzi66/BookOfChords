@@ -69,6 +69,8 @@
       </mat-form-field>
       <mat-form-field class="section-value">
         <textarea matInput
+                  [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
+                  [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment"
                   [value]="section?.value | StringArrayLines"
                   (change)="onTextAreaValueChanged(i, $event.target.value)"
                   cdkTextareaAutosize
