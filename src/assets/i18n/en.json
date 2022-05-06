@@ -27,6 +27,7 @@
   "alignment_end": "right-justified",
   "use_dark_mode": "Use dark mode",
   "open_drawer_initially": "Open navigation initially",
+  "show_metronome_in_gigs": "Show the metronome during a gig",
   "create": "Create",
   "join": "Join",
   "band_name": "Band name",

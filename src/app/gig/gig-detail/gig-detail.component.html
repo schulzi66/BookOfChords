@@ -41,7 +41,13 @@
         <mat-icon fontSet="material-icons-outlined"
                   color="accent">edit</mat-icon>
       </button>
-      <shared-metronome *ngIf="isPlayMode"
+      <div class="sound"
+           *ngIf="song.sound">
+        <audio controls>
+          <source [src]="song.sound">
+        </audio>
+      </div>
+      <shared-metronome *ngIf="isPlayMode && (this.configurationService.configuration$ | async)?.showMetronomeInGigs"
                         [bpm]="song.bpm"
                         [sliderDisabled]="true"
                         [showPlay]="showPlay(index)"

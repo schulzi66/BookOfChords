@@ -80,4 +80,10 @@
     {{'use_dark_mode' | transloco}}
   </mat-slide-toggle>
 
+  <mat-slide-toggle class="toggle"
+                    [checked]="configuration?.showMetronomeInGigs"
+                    (change)="showMetronomeInGigsChanged($event)">
+    {{'show_metronome_in_gigs' | transloco}}
+  </mat-slide-toggle>
+
 </div>

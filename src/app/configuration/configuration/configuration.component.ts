@@ -83,4 +83,8 @@ export class ConfigurationComponent extends SubscriptionHandler implements OnIni
   public openDrawerInitiallyChanged(event: MatSlideToggleChange): void {
     this.configuration.openDrawerInitially = event.checked;
   }
+
+  public showMetronomeInGigsChanged(event: MatSlideToggleChange): void {
+      this.configuration.showMetronomeInGigs = event.checked;
+  }
 }

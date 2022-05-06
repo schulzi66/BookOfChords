@@ -7,6 +7,7 @@ export class Configuration {
   lang: string;
   openDrawerInitially: boolean;
   sectionAlignment: 'start' | 'center' | 'end';
+  showMetronomeInGigs: boolean;
 
   constructor(uid: string) {
     this.uid = uid;
