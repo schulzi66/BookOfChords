@@ -42,15 +42,11 @@
              [src]="picture">
       </pinch-zoom>
     </div>
-    <div *ngFor="let pdf of song?.pdfs">
-      <ngx-extended-pdf-viewer [src]="pdf"
-                               [showPresentationModeButton]="true"
-                               [showBorders]="false"
-                               [enablePinchOnMobile]="true"
-                               [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'"
-                               useBrowserLocale="true"
-                               height="80vh">
-      </ngx-extended-pdf-viewer>
+    <div *ngFor="let pdf of song?.pdfs"
+         style="height: 80vh;">
+      <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
+                        [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+
     </div>
   </mat-card-content>
 </mat-card>

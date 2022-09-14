@@ -65,14 +65,11 @@
     </div>
     <ng-template #pdfViewer
                  class="document-container">
-      <ngx-extended-pdf-viewer [src]="exercise?.pdfUrl"
-                               useBrowserLocale="true"
-                               [showPresentationModeButton]="true"
-                               [showBorders]="false"
-                               [enablePinchOnMobile]="true"
-                               [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'"
-                               height="80vh">
-      </ngx-extended-pdf-viewer>
+
+      <div style="height: 80vh;">
+        <ng2-pdfjs-viewer [pdfSrc]="exercise?.pdfUrl | encode"
+                          [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+      </div>
       <button mat-icon-button
               (click)="removePdf()">
         <mat-icon>delete_outline</mat-icon>

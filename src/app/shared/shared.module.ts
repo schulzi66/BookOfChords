@@ -18,12 +18,14 @@ import { UploaderComponent } from './components/uploader/uploader.component';
 import { DropzoneDirective } from './directives/dropzone.directive';
 import { MaxDirective } from './directives/max.directive';
 import { MinDirective } from './directives/min.directive';
+import { EncodeUriPipe } from './pipes/safe.pipe';
 import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
 
 @NgModule({
   declarations: [
     FabBtnMatIcoComponent,
     StringArrayLinesPipe,
+    EncodeUriPipe,
     DropzoneDirective,
     MinDirective,
     MaxDirective,
@@ -47,6 +49,7 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
   exports: [
     FabBtnMatIcoComponent,
     StringArrayLinesPipe,
+    EncodeUriPipe,
     UploaderComponent,
     SearchComponent,
     DeletePopupDialogComponent,

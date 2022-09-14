@@ -142,15 +142,10 @@
     </pinch-zoom>
   </div>
 
-
-  <ngx-extended-pdf-viewer class="exercise-pdf"
-                           *ngIf="this.exercise.pdfUrl"
-                           [src]="exercise?.pdfUrl"
-                           useBrowserLocale="true"
-                           [showPresentationModeButton]="true"
-                           [showBorders]="false"
-                           [enablePinchOnMobile]="true"
-                           [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'"
-                           height="80vh"></ngx-extended-pdf-viewer>
-
+  <div *ngIf="this.exercise.pdfUrl"
+       style="height: 80vh;"
+       class="exercise-pdf">
+    <ng2-pdfjs-viewer [pdfSrc]="this.exercise.pdfUrl | encode"
+                      [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+  </div>
 </div>

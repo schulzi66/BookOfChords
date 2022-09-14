@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { AllMaterialModule } from './../material-module';
 import { SharedModule } from './../shared/shared.module';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
@@ -20,7 +20,7 @@ import { ExercisesRoutes } from './exercises.routing';
     FormsModule,
     TranslocoModule,
     ExercisesRoutes,
-    NgxExtendedPdfViewerModule,
+    PdfJsViewerModule,
   ],
   declarations: [
     ExercisesOverviewComponent,

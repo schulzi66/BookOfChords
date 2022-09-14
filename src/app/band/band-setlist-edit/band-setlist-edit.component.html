@@ -19,14 +19,10 @@
                   cdkTextareaAutosize
                   #autosize="cdkTextareaAutosize"></textarea>
       </mat-form-field>
-      <ngx-extended-pdf-viewer [src]="setlist.pdfUrl"
-                               useBrowserLocale="true"
-                               height="80vh"
-                               [showPresentationModeButton]="true"
-                               [showBorders]="false"
-                               [enablePinchOnMobile]="true"
-                               [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'">
-      </ngx-extended-pdf-viewer>
+      <div style="height: 80vh;">
+        <ng2-pdfjs-viewer [pdfSrc]="setlist.pdfUrl | encode"
+                          [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+      </div>
     </div>
   </mat-tab>
   <mat-tab [label]="'songs' | transloco">
