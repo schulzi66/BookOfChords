@@ -77,15 +77,10 @@
                [src]="picture">
         </pinch-zoom>
       </div>
-      <div *ngFor="let pdf of song?.pdfs">
-        <ngx-extended-pdf-viewer [src]="pdf"
-                                 useBrowserLocale="true"
-                                 [showPresentationModeButton]="true"
-                                 [showBorders]="false"
-                                 [enablePinchOnMobile]="true"
-                                 [theme]="this.configurationService.useDarkMode ? 'dark' : 'light'"
-                                 height="80vh">
-        </ngx-extended-pdf-viewer>
+      <div style="height: 80vh;"
+           *ngFor="let pdf of song?.pdfs">
+        <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
+                          [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
       </div>
     </ng-template>
   </mat-expansion-panel>

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { ClipboardModule } from 'ngx-clipboard';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AllMaterialModule } from '../material-module';
 import { SharedModule } from '../shared/shared.module';
 import { SongDetailsviewComponent } from './song-detailsview/song-detailsview.component';
@@ -20,7 +20,7 @@ import { SongRoutes } from './songs.routing';
     SharedModule,
     SongRoutes,
     AllMaterialModule,
-    NgxExtendedPdfViewerModule,
+    PdfJsViewerModule,
     TranslocoModule,
     ScrollingModule,
     ClipboardModule
