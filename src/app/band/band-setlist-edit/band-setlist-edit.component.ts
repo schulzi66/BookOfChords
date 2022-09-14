@@ -15,6 +15,7 @@ import { Song } from 'src/app/models/song';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { BottomSheetService } from 'src/app/services/bottom-sheet.service';
+import { DrawerActionService } from 'src/app/services/drawer-action.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { SongService } from 'src/app/songs/services/song.service';
@@ -36,18 +37,20 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
   public allSongsOfCurrentUser: Song[];
   public selectedSongs: Song[];
   public filteredSongs: Song[];
+  public isDragMode: boolean;
 
   public constructor(
     public configurationService: ConfigurationService,
-    private _activatedRoute: ActivatedRoute,
-    private _bandService: BandService,
-    private _authService: AuthService,
-    private _location: Location,
-    private _songService: SongService,
-    private _gigService: GigService,
-    private _snackbarService: SnackbarService,
-    private _navbarActionService: NavbarActionService,
-    private _bottomSheetService: BottomSheetService
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _bandService: BandService,
+    private readonly _authService: AuthService,
+    private readonly _location: Location,
+    private readonly _songService: SongService,
+    private readonly _gigService: GigService,
+    private readonly _snackbarService: SnackbarService,
+    private readonly _navbarActionService: NavbarActionService,
+    private readonly _bottomSheetService: BottomSheetService,
+    private readonly _drawerActionService: DrawerActionService
   ) {
     super();
     this.setlist = new Setlist();
@@ -71,7 +74,7 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
         order: 300,
         icon: 'upload_file',
         action: () => {
-            const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showUpload({
+          const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showUpload({
             storageBucketPrefix: 'setlists',
             typesToUpload: [MediaTypes.PDF],
             onUploadCallback: (result) => {
@@ -81,8 +84,15 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
             }
           });
         }
+      },
+      {
+        order: 400,
+        icon: 'drag_handle',
+        action: () => (this.isDragMode = !this.isDragMode)
       }
     ]);
+
+    this.isDragMode = false;
   }
 
   ngOnInit() {
@@ -95,6 +105,7 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
           if (params.id !== '-1') {
             this.setlist = this.band.setlists.find((x) => x.id === params.id);
           }
+
           this._subscriptions$.add(
             this._songService.getSongsForUser(this._currentUser.uid).subscribe((songs: Song[]) => {
               this.allSongsOfCurrentUser = songs;
@@ -148,16 +159,36 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
   }
 
   public exportSetlistAsGig(): void {
+    this._drawerActionService.disabled = true;
+
     const gig = new Gig(this.setlist.name);
     gig.uid = this._currentUser.uid;
 
     this.setlist.songs.forEach((setlistSong) => {
-      const song = this.allSongsOfCurrentUser.find(
-        (x) => x.name.toLowerCase().trim() === setlistSong.toLowerCase().trim()
-      );
-      if (song) {
+      let songMatches: Song[] = [];
+
+      // Find correct song if user has it multiple time for different bands
+      this.allSongsOfCurrentUser.forEach((song: Song) => {
+        if (song.name.toLocaleLowerCase().trim() === setlistSong.toLowerCase().trim()) {
+          songMatches.push(song);
+        }
+      });
+
+      let songToTake: Song | undefined = undefined;
+
+      if (songMatches.length > 1) {
+        songToTake = songMatches.find((s: Song) => s.bandId === this.band.id);
+
+        if (!songToTake) {
+          songToTake = songMatches[0];
+        }
+      } else {
+        songToTake = songMatches[0];
+      }
+
+      if (songToTake) {
         // User has already this song in his book of chords and song should be added to new gig
-        gig.songs.push(song);
+        gig.songs.push(songToTake);
       } else {
         // New song will be created and added to the gig without chords
         const newSong = new Song(setlistSong);
@@ -166,11 +197,13 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
         this._songService.saveSong(newSong);
       }
     });
+
     this._gigService.saveGig(gig).then(() => {
       this._snackbarService.show({
         message: translate<string>('new_gig_from_setlist'),
         route: 'gigs'
       });
+      this._drawerActionService.disabled = false;
     });
   }
 

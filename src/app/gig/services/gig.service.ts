@@ -29,7 +29,7 @@ export class GigService {
     return this._angularFirestore.collection<Gig>('gigs').doc(gigId).delete();
   }
 
-  public updateSongInGigsForUser(uid: string, song: Song): any {
+  public async updateSongInGigsForUser(uid: string, song: Song): Promise<void> {
     let gigsToUpdate: Gig[] = [];
     this._angularFirestore
       .collection<Gig>('gigs', (ref) => {

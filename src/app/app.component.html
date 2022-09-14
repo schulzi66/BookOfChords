@@ -104,8 +104,10 @@
 
     <mat-toolbar>
       <button mat-icon-button
+              [disabled]="this.drawerActionService.disabled"
               (click)="this.drawerActionService.executeAction()">
         <mat-icon fontSet="material-icons-outlined"
+                  [ngStyle]="{'opacity' : this.drawerActionService.disabled ? 0.5 : 1}"
                   color="accent">{{this.drawerActionService.iconKey}}</mat-icon>
       </button>
       <span class="title">{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>

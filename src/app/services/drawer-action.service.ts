@@ -10,6 +10,7 @@ export class DrawerActionService {
   private _drawer: MatDrawer;
   private _drawerAction: () => void;
   private _preDrawerAction: () => void;
+  private _disabled: boolean;
 
   constructor(private _router: Router) {
     this._router.events.subscribe((event: NavigationStart) => {
@@ -19,6 +20,7 @@ export class DrawerActionService {
       }
     });
     this._iconKey = DEFAULT_DRAWER_ICON_KEY;
+    this._disabled = false;
   }
 
   public get iconKey(): string {
@@ -40,7 +42,19 @@ export class DrawerActionService {
     this._preDrawerAction = v;
   }
 
+  public get disabled(): boolean {
+    return this._disabled;
+  }
+
+  public set disabled(v: boolean) {
+    this._disabled = v;
+  }
+
   public executeAction(): void {
+    if (this._disabled) {
+      return;
+    }
+
     if (this._drawerAction) {
       if (this._preDrawerAction) {
         this._preDrawerAction();
@@ -55,5 +69,6 @@ export class DrawerActionService {
   public resetActions(): void {
     this.drawerAction = undefined;
     this.preDrawerAction = undefined;
+    this.disabled = false;
   }
 }

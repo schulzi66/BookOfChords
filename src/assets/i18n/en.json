@@ -97,5 +97,5 @@
   "delete_song_content": "Do you really want to delete the song {{value}}",
   "delete_band_title": "Delete Band?",
   "delete_band_content": "Do you really want to delete the band {{value}}",
-  "metronome_hint": "40 - 240 BPM"
+  "metronome_hint": "40 - 300 BPM"
 }

@@ -5,6 +5,7 @@ export class Gig {
   id: string;
   name: string;
   songs: Song[];
+  bandId?: string;
 
   constructor(name: string) {
     this.name = name;

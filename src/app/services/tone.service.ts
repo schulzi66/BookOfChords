@@ -94,7 +94,7 @@ export class ToneService extends SubscriptionHandler {
   }
 
   public isValidBpm(bpm: number): boolean {
-    return bpm !== undefined && bpm !== null && bpm >= 40 && bpm <= 240;
+    return bpm !== undefined && bpm !== null && bpm >= 40 && bpm <= 300;
   }
 
   private scheduler(): void {
