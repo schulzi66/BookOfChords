@@ -101,19 +101,23 @@ export class SongEditComponent implements OnInit {
   }
 
   public addNewSection(): void {
-    this.song.sections.push(new SongSection());
+    this.song.sections.push(JSON.parse(JSON.stringify(new SongSection())));
   }
 
   public saveSong(): void {
+    this._drawerActionService.disabled = true;
+
     if (this.song.name && this._authService.user) {
       this.song.uid = this._authService.user.uid;
-      this._songService.saveSong(this.song).then(() => {
+      this._songService.saveSong(this.song).then(async () => {
+        await this._gigService.updateSongInGigsForUser(this._authService.user.uid, this.song);
+
         this.resetSong = false;
         this._snackbarService.show({
           message: translate<string>('saved')
         });
+        this._drawerActionService.disabled = false;
       });
-      this._gigService.updateSongInGigsForUser(this._authService.user.uid, this.song);
     }
   }
 

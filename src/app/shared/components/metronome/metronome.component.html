@@ -14,7 +14,7 @@
                [readonly]="sliderDisabled"
                required
                [min]="40"
-               [max]="240"
+               [max]="300"
                type="number"
                [placeholder]="'metronome_hint' | transloco">
         <mat-error *ngIf="bpmModel.invalid && (bpmModel.dirty || bpmModel.touched)">{{'metronome_hint' | transloco}}
@@ -47,7 +47,7 @@
     <mat-slider class="beat-slider"
                 [disabled]="sliderDisabled"
                 [min]="40"
-                [max]="240"
+                [max]="300"
                 [step]="1"
                 [(ngModel)]="bpm"
                 thumbLabel
