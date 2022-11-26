@@ -77,7 +77,7 @@ export class BandService {
         })
         .valueChanges();
     } else {
-        return of([]);
+      return of([]);
     }
   }
 
@@ -96,7 +96,10 @@ export class BandService {
         1
       );
       this.bandsSubject.next(this.bands);
-      this._angularFirestore.collection<Band>('bands').doc<Band>(band.id).set(band);
+      this._angularFirestore
+        .collection<Band>('bands')
+        .doc<Band>(band.id)
+        .set(Object.assign({}, JSON.parse(JSON.stringify(band))));
     }
   }
 }
