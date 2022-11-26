@@ -67,6 +67,9 @@ export class BandCreateComponent extends SubscriptionHandler implements OnInit {
     if (this.band.name) {
       this.band.members.push(this._currentUser);
       this._bandService.saveBand(this.band).then((bandId: string) => {
+        if (!this._currentUser.bandIds) {
+          this._currentUser.bandIds = [];
+        }
         this._currentUser.bandIds.push(bandId);
         this._snackbarService.show({
           message: translate<string>('saved')

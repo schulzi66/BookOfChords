@@ -116,6 +116,7 @@ export class BandEditComponent extends SubscriptionHandler implements OnInit {
           this._currentUser.bandIds.splice(this._currentUser.bandIds.indexOf(this.band.id), 1);
           this._authService.updateBandIdsForUserId(this._currentUser.uid, this._currentUser.bandIds);
           this._bandService.selectedBand = null;
+          this._bandService.leaveBand(this.band, this._currentUser.uid);
           this._bandService.deleteBand(this.band.id).then(() => {
             this._router.navigate(['./band/selection']);
           });
