@@ -80,12 +80,12 @@ export class GigEditComponent extends SubscriptionHandler implements OnInit {
 
   public onSelectionChange(event: MatSelectionListChange): void {
     // song was added
-    if (event.option.selected) {
-      this.gig.songs.push(event.option.value as Song);
+    if (event.options[0].selected) {
+      this.gig.songs.push(event.options[0].value as Song);
     } else {
       // song was removed
       this.gig.songs.splice(
-        this.gig.songs.findIndex((x) => x.id === event.option.value.id),
+        this.gig.songs.findIndex((x) => x.id === event.options[0].value.id),
         1
       );
     }

@@ -147,11 +147,11 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
   }
 
   public onSelectionChange(event: MatSelectionListChange) {
-    if (event.option.selected) {
-      this.setlist.songs.push((event.option.value as Song).name);
+    if (event.options[0].selected) {
+      this.setlist.songs.push((event.options[0].value as Song).name);
     } else {
       this.setlist.songs.splice(
-        this.setlist.songs.findIndex((x) => x === (event.option.value as Song).name),
+        this.setlist.songs.findIndex((x) => x === (event.options[0].value as Song).name),
         1
       );
     }
