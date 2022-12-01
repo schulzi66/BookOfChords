@@ -1,4 +1,4 @@
-@import '../styles/colors';
+@import "../styles/colors";
 
 .flex-container {
     display: flex;
@@ -24,6 +24,8 @@
         flex-direction: column;
 
         .navigation-item {
+            display: flex;
+
             mat-icon {
                 margin: 0 8px 0 0;
             }

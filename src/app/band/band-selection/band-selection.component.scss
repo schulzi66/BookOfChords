@@ -1,4 +1,8 @@
-.band-picture {
+.band {
+  display: flex;
+  align-items: center;
+
+  .band-picture {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -7,6 +11,7 @@
     visibility: hidden;
 
     &.visible {
-        visibility: visible;
+      visibility: visible;
     }
+  }
 }

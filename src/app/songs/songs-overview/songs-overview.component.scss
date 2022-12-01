@@ -1,20 +1,14 @@
 .flex-container {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
 }
 
 .search-input {
     flex-grow: 1;
-    height: 75px;
+    height: 55px;
 }
 
 .song-option {
     height: 48px;
     text-align: left;
 }
-// .selection-list {
-    // min-height: 100%;
-    // height: auto;
-// }

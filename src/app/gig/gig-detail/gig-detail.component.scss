@@ -44,6 +44,11 @@
 
 .sound {
     width: 100%;
+    text-align: center;
+}
+
+.edit-button {
+    text-align: center;
 }
 
 .placeholder {
@@ -53,9 +58,15 @@
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
+.panel-title {
+    margin-right: 0;
+}
+
 .panel-description {
     align-items: center;
     flex-direction: row-reverse;
+    flex-grow: 0;
+    margin-left: 16px
 }
 
 .panel-header {
