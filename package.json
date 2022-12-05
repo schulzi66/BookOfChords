@@ -30,7 +30,7 @@
     "@ngneat/transloco": "3.1.2",
     "angular-animations": "0.11.0",
     "core-js": "3.20.3",
-    "firebase": "9.6.3",
+    "firebase": "^9.14.0",
     "ng2-pdfjs-viewer": "^14.0.0",
     "ngx-clipboard": "15.0.1",
     "rxjs": "7.5.2",
