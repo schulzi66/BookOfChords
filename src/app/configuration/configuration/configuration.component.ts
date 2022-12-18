@@ -1,7 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { translate, TranslocoService } from '@ngneat/transloco';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { translate, TranslocoModule, TranslocoService } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
@@ -9,9 +12,20 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-configuration',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    SharedModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    TranslocoModule
+  ],
   templateUrl: './configuration.component.html',
   styleUrls: ['./configuration.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
@@ -85,6 +99,6 @@ export class ConfigurationComponent extends SubscriptionHandler implements OnIni
   }
 
   public showMetronomeInGigsChanged(event: MatSlideToggleChange): void {
-      this.configuration.showMetronomeInGigs = event.checked;
+    this.configuration.showMetronomeInGigs = event.checked;
   }
 }

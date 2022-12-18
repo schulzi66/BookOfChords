@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { TITLEKEYS } from './services/title-key.service';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { DrawerActionResolver } from './shared/resolvers/drawer-action.resolver';
 import { TitleKeyResolver } from './shared/resolvers/title-key.resolver';
 
 const routes: Routes = [
@@ -32,16 +33,19 @@ const routes: Routes = [
   },
   {
     path: 'configuration',
-    loadChildren: () => import('./configuration/configuration.module').then((m) => m.ConfigurationModule),
+    loadChildren: () => import('./configuration/routes'),
     canActivate: [AuthGuard],
-    resolve: { key: TitleKeyResolver },
+    resolve: {
+      key: TitleKeyResolver,
+      drawerAction: DrawerActionResolver
+    },
     data: { key: TITLEKEYS.configuration }
   },
   {
     path: 'band',
     loadChildren: () => import('./band/band.module').then((m) => m.BandModule),
     canActivate: [AuthGuard],
-    resolve: { key: TitleKeyResolver},
+    resolve: { key: TitleKeyResolver },
     data: { key: TITLEKEYS.band }
   },
   {
