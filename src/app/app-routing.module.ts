@@ -9,6 +9,7 @@ import { TitleKeyResolver } from './shared/resolvers/title-key.resolver';
 const routes: Routes = [
   {
     path: 'login',
+    loadChildren: () => import('./login/routes'),
     component: LoginComponent,
     resolve: { key: TitleKeyResolver },
     data: { key: TITLEKEYS.default }

@@ -13,14 +13,13 @@ import { firebaseConfig } from 'src/environments/environment';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { AllMaterialModule } from './material-module';
 import { SharedModule } from './shared/shared.module';
 import { SongsModule } from './songs/songs.module';
 import { translocoLoader } from './transloco.loader';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent],
   imports: [
     SongsModule,
     SharedModule,
