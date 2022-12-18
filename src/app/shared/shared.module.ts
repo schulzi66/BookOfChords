@@ -9,19 +9,16 @@ import { BottomSheetBandSelectionComponent } from './components/bottom-sheet-ban
 import { BottomSheetUploaderComponent } from './components/bottom-sheet-uploader/bottom-sheet-uploader.component';
 import { DeletePopupDialogComponent } from './components/delete-popup-dialog/delete-popup-dialog.component';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
-import { PinchZoomComponent } from './components/pinch-zoom/pinch-zoom.component';
 import { RockNRollSnackbarComponent } from './components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 import { UploadTaskComponent } from './components/upload-task/upload-task.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 import { DropzoneDirective } from './directives/dropzone.directive';
 import { MaxDirective } from './directives/max.directive';
 import { MinDirective } from './directives/min.directive';
-import { EncodeUriPipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
     FabBtnMatIcoComponent,
-    EncodeUriPipe,
     DropzoneDirective,
     MinDirective,
     MaxDirective,
@@ -30,8 +27,7 @@ import { EncodeUriPipe } from './pipes/safe.pipe';
     DeletePopupDialogComponent,
     RockNRollSnackbarComponent,
     BottomSheetBandSelectionComponent,
-    BottomSheetUploaderComponent,
-    PinchZoomComponent
+    BottomSheetUploaderComponent
   ],
   imports: [CommonModule, AllMaterialModule, FormsModule, ReactiveFormsModule, TranslocoModule, RouterModule],
   providers: [
@@ -42,12 +38,10 @@ import { EncodeUriPipe } from './pipes/safe.pipe';
   ],
   exports: [
     FabBtnMatIcoComponent,
-    EncodeUriPipe,
     UploaderComponent,
     DeletePopupDialogComponent,
     BottomSheetBandSelectionComponent,
     BottomSheetUploaderComponent,
-    PinchZoomComponent
   ]
 })
 export class SharedModule {}

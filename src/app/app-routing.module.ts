@@ -20,10 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'gigs',
-    loadChildren: () => import('./gig/gig.module').then((m) => m.GigModule),
-    canActivate: [AuthGuard],
-    resolve: { key: TitleKeyResolver },
-    data: { key: TITLEKEYS.gigs }
+    loadChildren: () => import('./gig/routes'),
+    canActivate: [AuthGuard]
   },
   {
     path: 'configuration',

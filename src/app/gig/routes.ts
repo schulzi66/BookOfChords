@@ -1,27 +1,25 @@
 import { Route } from '@angular/router';
 import { TITLEKEYS } from '../services/title-key.service';
 import { DrawerActionResolver } from '../shared/resolvers/drawer-action.resolver';
-import { SongResolver } from '../shared/resolvers/song.resolver';
+import { GigResolver } from '../shared/resolvers/gig.resolver';
 import { TitleKeyResolver } from '../shared/resolvers/title-key.resolver';
-import { UserResolver } from '../shared/resolvers/user.resolver';
-import { SongDetailsviewComponent } from './song-detailsview/song-detailsview.component';
-import { SongEditComponent } from './song-edit/song-edit.component';
-import { SongsOverviewComponent } from './songs-overview/songs-overview.component';
+import { GigDetailComponent } from './gig-detail/gig-detail.component';
+import { GigEditComponent } from './gig-edit/gig-edit.component';
+import { GigOverviewComponent } from './gig-overview/gig-overview.component';
 
 export default [
   {
     path: '',
     resolve: {
-      key: TitleKeyResolver,
-      user: UserResolver
+      key: TitleKeyResolver
     },
     data: {
-      key: TITLEKEYS.songs
+      key: TITLEKEYS.gigs
     },
     children: [
       {
         path: '',
-        component: SongsOverviewComponent,
+        component: GigOverviewComponent,
         resolve: {
           drawerAction: DrawerActionResolver
         },
@@ -30,19 +28,19 @@ export default [
         }
       },
       {
-        path: 'details/:id',
-        component: SongDetailsviewComponent,
+        path: 'edit/:id',
+        component: GigEditComponent,
         resolve: {
           drawerAction: DrawerActionResolver,
-          song: SongResolver
+          gig: GigResolver
         }
       },
       {
-        path: 'edit/:id',
-        component: SongEditComponent,
+        path: 'details/:id',
+        component: GigDetailComponent,
         resolve: {
           drawerAction: DrawerActionResolver,
-          song: SongResolver
+          gig: GigResolver
         }
       }
     ]

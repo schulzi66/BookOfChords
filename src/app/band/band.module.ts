@@ -6,6 +6,7 @@ import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { SearchComponent } from 'src/app/shared/components/search/search.component';
 import { AllMaterialModule } from '../material-module';
 import { SharedModule } from '../shared/shared.module';
+import { EncodeUriPipe } from './../shared/pipes/encode.pipe';
 import { BandCreateComponent } from './band-create/band-create.component';
 import { BandDetailComponent } from './band-detail/band-detail.component';
 import { BandEditComponent } from './band-edit/band-edit.component';
@@ -24,6 +25,7 @@ import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.com
     BandRoutes,
     SharedModule,
     AllMaterialModule,
+    EncodeUriPipe,
     FormsModule,
     PdfJsViewerModule,
     TranslocoModule

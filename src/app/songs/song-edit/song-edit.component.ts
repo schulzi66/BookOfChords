@@ -23,8 +23,10 @@ import { GigService } from '../../gig/services/gig.service';
 import { Song } from '../../models/song';
 import { SongSection } from '../../models/song-section';
 import { AuthService } from '../../services/auth.service';
+import { EncodeUriPipe } from '../../shared/pipes/encode.pipe';
 import { SongService } from '../services/song.service';
 import { SnackbarService } from './../../services/snackbar.service';
+import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
 import { StringArrayLinesPipe } from './../../shared/pipes/string-array-lines.pipe';
 
 @Component({
@@ -33,14 +35,16 @@ import { StringArrayLinesPipe } from './../../shared/pipes/string-array-lines.pi
   imports: [
     CommonModule,
     DragDropModule,
+    EncodeUriPipe,
     FormsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     PdfJsViewerModule,
+    PinchZoomComponent,
     StringArrayLinesPipe,
-    TranslocoModule,
+    TranslocoModule
   ],
   templateUrl: './song-edit.component.html',
   styleUrls: ['./song-edit.component.scss'],
