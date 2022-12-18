@@ -1,22 +1,53 @@
-@use '@angular/material' as mat;
-@import '../../node_modules/@angular/material/theming';
+@use "@angular/material" as mat;
+@import "../../node_modules/@angular/material/theming";
 
 @include mat.core();
 
 $custom-light-theme-primary: mat.define-palette(mat.$blue-gray-palette);
-$custom-light-theme-accent: mat.define-palette(mat.$orange-palette, 500, A200, A700);
+$custom-light-theme-accent: mat.define-palette(
+  mat.$orange-palette,
+  500,
+  A200,
+  A700
+);
 $custom-light-theme-warn: mat.define-palette(mat.$red-palette);
+$custom-typography: mat.define-typography-config(
+  $font-family: "Roboto,Helvetica Neue,sans-serif",
+);
 
-$custom-light-theme: mat.define-light-theme($custom-light-theme-primary, $custom-light-theme-accent, $custom-light-theme-warn);
+$custom-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $custom-light-theme-primary,
+      accent: $custom-light-theme-accent,
+      warn: $custom-light-theme-warn,
+    ),
+    typography: $custom-typography,
+  )
+);
 
 // Darktheme
 $custom-dark-theme-primary: mat.define-palette(mat.$blue-gray-palette);
-$custom-dark-theme-accent: mat.define-palette(mat.$orange-palette, 500, A200, A700);
+$custom-dark-theme-accent: mat.define-palette(
+  mat.$orange-palette,
+  500,
+  A200,
+  A700
+);
 $custom-dark-theme-warn: mat.define-palette(mat.$red-palette);
 
-$custom-dark-theme: mat.define-dark-theme($custom-dark-theme-primary, $custom-dark-theme-accent, $custom-dark-theme-warn);
+$custom-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $custom-dark-theme-primary,
+      accent: $custom-dark-theme-accent,
+      warn: $custom-dark-theme-warn,
+    ),
+    typography: $custom-typography,
+  )
+);
 
 @include mat.all-component-themes($custom-light-theme);
 .darkTheme {
-    @include mat.all-component-themes($custom-dark-theme);
+  @include mat.all-component-colors($custom-dark-theme);
 }

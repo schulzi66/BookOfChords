@@ -1,23 +1,24 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./",
-        "importHelpers": true,
-        "outDir": "./dist/out-tsc",
-        "sourceMap": true,
-        "declaration": false,
-        "skipLibCheck": true,
-        "module": "es2020",
-        "moduleResolution": "node",
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "ES6",
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "lib": [
-            "es2017",
-            "dom"
-        ]
+      "baseUrl": "./",
+      "importHelpers": true,
+      "outDir": "./dist/out-tsc",
+      "sourceMap": true,
+      "declaration": false,
+      "skipLibCheck": true,
+      "module": "es2020",
+      "moduleResolution": "node",
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true,
+      "target": "ES2022",
+      "typeRoots": [
+        "node_modules/@types"
+      ],
+      "lib": [
+        "es2017",
+        "dom"
+      ],
+      "useDefineForClassFields": false
     }
 }

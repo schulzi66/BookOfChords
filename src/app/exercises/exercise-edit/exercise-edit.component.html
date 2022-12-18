@@ -1,79 +1,81 @@
-<mat-vertical-stepper #stepper
-                      [@fadeInOnEnter]
-                      (selectionChange)="onSelectionChanged($event)">
-  <mat-step label="{{'exercise_general_info_section' | transloco}}">
-    <div class="grid">
-      <mat-form-field appearance="outline">
-        <mat-label>{{'exercise_name' | transloco}}</mat-label>
-        <input #exerciseNameModel="ngModel"
-               matInput
-               required
-               [(ngModel)]="exercise.name"
-               name="exerciseName">
-      </mat-form-field>
+<mat-stepper orientation="vertical"
+             #stepper
+             [@fadeInOnEnter]
+             (selectionChange)="onSelectionChanged($event)">
+    <mat-step label="{{'exercise_general_info_section' | transloco}}">
+        <div class="grid">
+            <mat-form-field appearance="outline">
+                <mat-label>{{'exercise_name' | transloco}}</mat-label>
+                <input #exerciseNameModel="ngModel"
+                       matInput
+                       required
+                       [(ngModel)]="exercise.name"
+                       name="exerciseName">
+            </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <textarea matInput
-                  [placeholder]="'description' | transloco"
-                  [(ngModel)]="exercise.description"
-                  cdkTextareaAutosize
-                  #autosize="cdkTextareaAutosize"></textarea>
-      </mat-form-field>
-    </div>
-  </mat-step>
-  <mat-step label="{{'exercise_bpm_sound_section' | transloco}}">
-    <shared-metronome [bpm]="exercise.currentBpm"
-                      [showPlay]="false"
-                      (onBpmChanged)="exercise.currentBpm = $event"></shared-metronome>
+            <mat-form-field appearance="outline">
+                <textarea matInput
+                          [placeholder]="'description' | transloco"
+                          [(ngModel)]="exercise.description"
+                          name="exerciseDescription"
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"></textarea>
+            </mat-form-field>
+        </div>
+    </mat-step>
+    <mat-step label="{{'exercise_bpm_sound_section' | transloco}}">
+        <shared-metronome [bpm]="exercise.currentBpm"
+                          [showPlay]="false"
+                          (onBpmChanged)="exercise.currentBpm = $event"></shared-metronome>
 
-    <div *ngIf="exercise.sound">
-      <audio class="sound"
-             controls>
-        <source [src]="exercise.sound">
-      </audio>
-      <button mat-icon-button
-              (click)="removeAudio()">
-        <mat-icon>delete_outline</mat-icon>
-      </button>
-    </div>
-  </mat-step>
+        <div *ngIf="exercise.sound">
+            <audio class="sound"
+                   controls>
+                <source [src]="exercise.sound">
+            </audio>
+            <button mat-icon-button
+                    (click)="removeAudio()">
+                <mat-icon>delete_outline</mat-icon>
+            </button>
+        </div>
+    </mat-step>
 
-  <mat-step label="{{'exercise_image_section' | transloco}}">
-    <div class="upload-section"
-         *ngIf="!exercise.pictureUrl; else img">
-      <span>
-        {{'nothing_uploaded' | transloco}}
-      </span>
-    </div>
-    <ng-template #img
-                 class="image-container">
-      <img class="picture"
-           [src]="exercise?.pictureUrl">
-      <button mat-icon-button
-              (click)="removePicture()">
-        <mat-icon>delete_outline</mat-icon>
-      </button>
-    </ng-template>
-  </mat-step>
+    <mat-step label="{{'exercise_image_section' | transloco}}">
+        <div class="upload-section"
+             *ngIf="!exercise.pictureUrl; else img">
+            <span>
+                {{'nothing_uploaded' | transloco}}
+            </span>
+        </div>
+        <ng-template #img
+                     class="image-container">
+            <img class="picture"
+                 [src]="exercise?.pictureUrl">
+            <button mat-icon-button
+                    (click)="removePicture()">
+                <mat-icon>delete_outline</mat-icon>
+            </button>
+        </ng-template>
+    </mat-step>
 
-  <mat-step label="{{'exercise_documents_section' | transloco}}">
-    <div class="upload-section"
-         *ngIf="!exercise.pdfUrl; else pdfViewer">
-      <span>
-        {{'nothing_uploaded' | transloco}}
-      </span>
-    </div>
-    <ng-template #pdfViewer
-                 class="document-container">
+    <mat-step label="{{'exercise_documents_section' | transloco}}">
+        <div class="upload-section"
+             *ngIf="!exercise.pdfUrl; else pdfViewer">
+            <span>
+                {{'nothing_uploaded' | transloco}}
+            </span>
+        </div>
+        <ng-template #pdfViewer
+                     class="document-container">
 
-      <div style="height: 80vh;">
-        <ng2-pdfjs-viewer [pdfSrc]="exercise?.pdfUrl | encode"
-                          [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
-      </div>
-      <button mat-icon-button
-              (click)="removePdf()">
-        <mat-icon>delete_outline</mat-icon>
-      </button>
-    </ng-template>
-  </mat-step>
-</mat-vertical-stepper>
+            <div style="height: 80vh;">
+                <ng2-pdfjs-viewer [pdfSrc]="exercise?.pdfUrl | encode"
+                                  [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+            </div>
+            <button mat-icon-button
+                    (click)="removePdf()">
+                <mat-icon>delete_outline</mat-icon>
+            </button>
+        </ng-template>
+    </mat-step>
+</mat-stepper>

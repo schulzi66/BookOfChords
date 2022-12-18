@@ -1,58 +1,63 @@
 <mat-card class="metronome-card"
           [ngClass]="{'hit-effect':  this.isTick,
                       'hit-effect-remove':  !this.isTick }">
-  <mat-card-header class="card-header">
-    <mat-card-title>
-      <mat-form-field class="bpm-field"
-                      [hintLabel]="sliderDisabled ? '' : 'metronome_hint' | transloco"
-                      appearance="standard">
-        <mat-label>BPM</mat-label>
-        <input matInput
-               #bpmModel="ngModel"
-               [(ngModel)]="this.bpm"
-               (change)="this.changeSpeed(this.bpm)"
-               [readonly]="sliderDisabled"
-               required
-               [min]="40"
-               [max]="300"
-               type="number"
-               [placeholder]="'metronome_hint' | transloco">
-        <mat-error *ngIf="bpmModel.invalid && (bpmModel.dirty || bpmModel.touched)">{{'metronome_hint' | transloco}}
-        </mat-error>
-      </mat-form-field>
-    </mat-card-title>
-    <div *ngIf="isValid">
-      <button class="metronome-btn"
-              mat-icon-button
-              *ngIf="showSoundMode"
-              (click)="this.toneService.toggleMute()">
-        <mat-icon fontSet="material-icons-outlined"
-                  color="accent">{{this.soundModeIcon}}</mat-icon>
-      </button>
-      <button class="metronome-btn"
-              mat-mini-fab
-              *ngIf="isPlayMode"
-              (click)="stopMetronome()">
-        <mat-icon>stop</mat-icon>
-      </button>
-      <button class="metronome-btn"
-              mat-mini-fab
-              *ngIf="showPlay"
-              (click)="togglePlayMode()">
-        <mat-icon>{{this.playModeIcon}}</mat-icon>
-      </button>
-    </div>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-slider class="beat-slider"
-                [disabled]="sliderDisabled"
-                [min]="40"
-                [max]="300"
-                [step]="1"
-                [(ngModel)]="bpm"
-                thumbLabel
-                (ngModelChange)="changeSpeed($event)">
-
-    </mat-slider>
-  </mat-card-content>
+    <mat-card-header class="card-header">
+        <mat-card-title>
+            <mat-form-field class="bpm-field"
+                            [hintLabel]="sliderDisabled ? '' : 'metronome_hint' | transloco"
+                            appearance="outline">
+                <mat-label>BPM</mat-label>
+                <input matInput
+                       #bpmModel="ngModel"
+                       [(ngModel)]="this.bpm"
+                       name="bpm"
+                       (change)="this.changeSpeed(this.bpm)"
+                       [readonly]="sliderDisabled"
+                       required
+                       [min]="40"
+                       [max]="300"
+                       type="number"
+                       [placeholder]="'metronome_hint' | transloco">
+                <mat-error *ngIf="bpmModel.invalid && (bpmModel.dirty || bpmModel.touched)">{{'metronome_hint' |
+                    transloco}}
+                </mat-error>
+            </mat-form-field>
+        </mat-card-title>
+        <div *ngIf="isValid">
+            <button class="metronome-btn"
+                    mat-icon-button
+                    *ngIf="showSoundMode"
+                    (click)="this.toneService.toggleMute()">
+                <mat-icon fontSet="material-icons-outlined"
+                          color="accent">{{this.soundModeIcon}}</mat-icon>
+            </button>
+            <button class="metronome-btn"
+                    mat-mini-fab
+                    *ngIf="isPlayMode"
+                    (click)="stopMetronome()">
+                <mat-icon>stop</mat-icon>
+            </button>
+            <button class="metronome-btn"
+                    mat-mini-fab
+                    *ngIf="showPlay"
+                    (click)="togglePlayMode()">
+                <mat-icon>{{this.playModeIcon}}</mat-icon>
+            </button>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-slider class="beat-slider"
+                    [disabled]="sliderDisabled"
+                    [min]="40"
+                    [max]="300"
+                    [step]="1"
+                    [(ngModel)]="bpm"
+                    name="slider"
+                    ngDefaultControl
+                    thumbLabel
+                    (ngModelChange)="changeSpeed($event)">
+            <input matSliderThumb
+                   [(ngModel)]="bpm">
+        </mat-slider>
+    </mat-card-content>
 </mat-card>

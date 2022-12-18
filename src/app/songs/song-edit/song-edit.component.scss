@@ -3,8 +3,6 @@
 .flex-container {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
 }
 
 app-song-section {
@@ -17,21 +15,21 @@ app-song-section {
     flex: 1;
 }
 
+.section {
+    display: flex;
+}
+
 .section-name {
     margin-right: 5px;
-    width: 25%;
     text-align: left;
+    flex-basis: 7rem;
 }
 
 .section-value {
-    width: 60%;
+    flex-grow: 1;
     margin-right: 5px;
 }
 
-.section-drag-handle {
-    height: 40px;
-    width: 40px;
-}
 
 .edit-icon {
     margin-bottom: 2px;
@@ -50,9 +48,12 @@ app-song-section {
 .sound {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    text-align: center;
     margin-bottom: 1em;
-    width: 100%;
+    .audio {
+        flex-grow: 1;
+    }
 }
 
 .bpm {

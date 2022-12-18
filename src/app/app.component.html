@@ -1,133 +1,142 @@
 <div [class.darkTheme]="this.configurationService.useDarkMode">
-  <mat-drawer-container class="drawer-container"
-                        autosize>
-    <mat-drawer #drawer
-                mode="over">
-      <div class="drawer-content">
-        <mat-nav-list>
-          <div *ngIf="authService.user$ | async as user">
-            <mat-list-item class="navigation-item"
-                           [routerLink]="['./songs']"
-                           (click)="drawer.close()">
-              <mat-icon fontSet="material-icons-outlined"
-                        color="accent">music_note</mat-icon>
-              <ng-template transloco
-                           let-t>
-                {{ t('songs') }}
-              </ng-template>
-            </mat-list-item>
-            <mat-list-item class="navigation-item"
-                           [routerLink]="['./gigs']"
-                           (click)="drawer.close()">
-              <mat-icon fontSet="material-icons-outlined"
-                        color="accent">queue_music</mat-icon>
-              <ng-template transloco
-                           let-t>
-                {{ t('gigs') }}
-              </ng-template>
-            </mat-list-item>
-            <mat-list-item class="navigation-item"
-                           [routerLink]="['./band']"
-                           (click)="drawer.close()">
-              <mat-icon fontSet="material-icons-outlined"
-                        color="accent">group</mat-icon>
-              <ng-template transloco
-                           let-t>
-                {{ t('band') }}
-              </ng-template>
-            </mat-list-item>
-            <mat-list-item class="navigation-item"
-                           [routerLink]="['./exercises']"
-                           (click)="drawer.close()">
-              <mat-icon fontSet="material-icons-outlined"
-                        color="accent">fitness_center</mat-icon>
-              <ng-template transloco
-                           let-t>
-                {{ t('exercises') }}
-              </ng-template>
-            </mat-list-item>
-            <mat-list-item class="navigation-item"
-                           [routerLink]="['./configuration']"
-                           (click)="drawer.close()">
-              <mat-icon fontSet="material-icons-outlined"
-                        color="accent">settings</mat-icon>
-              <ng-template transloco
-                           let-t>
-                {{ t('settings') }}
-              </ng-template>
-            </mat-list-item>
-          </div>
+    <mat-drawer-container class="drawer-container"
+                          autosize>
+        <mat-drawer #drawer
+                    mode="over">
+            <div class="drawer-content">
+                <mat-nav-list>
+                    <div *ngIf="authService.user$ | async as user">
+                        <mat-list-item [routerLink]="['./songs']"
+                                       (click)="drawer.close()">
+                            <div class="navigation-item">
+                                <mat-icon fontSet="material-icons-outlined"
+                                          color="accent">music_note</mat-icon>
+                                <ng-template transloco
+                                             let-t>
+                                    {{ t('songs') }}
+                                </ng-template>
+                            </div>
+                        </mat-list-item>
+                        <mat-list-item [routerLink]="['./gigs']"
+                                       (click)="drawer.close()">
+                            <div class="navigation-item">
+                                <mat-icon fontSet="material-icons-outlined"
+                                          color="accent">queue_music</mat-icon>
+                                <ng-template transloco
+                                             let-t>
+                                    {{ t('gigs') }}
+                                </ng-template>
+                            </div>
+                        </mat-list-item>
+                        <mat-list-item [routerLink]="['./band']"
+                                       (click)="drawer.close()">
+                            <div class="navigation-item">
+                                <mat-icon fontSet="material-icons-outlined"
+                                          color="accent">group</mat-icon>
+                                <ng-template transloco
+                                             let-t>
+                                    {{ t('band') }}
+                                </ng-template>
+                            </div>
+                        </mat-list-item>
+                        <mat-list-item [routerLink]="['./exercises']"
+                                       (click)="drawer.close()">
+                            <div class="navigation-item">
+                                <mat-icon fontSet="material-icons-outlined"
+                                          color="accent">fitness_center</mat-icon>
+                                <ng-template transloco
+                                             let-t>
+                                    {{ t('exercises') }}
+                                </ng-template>
+                            </div>
+                        </mat-list-item>
+                        <mat-list-item [routerLink]="['./configuration']"
+                                       (click)="drawer.close()">
+                            <div class="navigation-item">
+                                <mat-icon fontSet="material-icons-outlined"
+                                          color="accent">settings</mat-icon>
+                                <ng-template transloco
+                                             let-t>
+                                    {{ t('settings') }}
+                                </ng-template>
+                            </div>
+                        </mat-list-item>
+                    </div>
 
-          <mat-list-item class="navigation-item"
-                         [routerLink]="['./login']"
-                         (click)="drawer.close()"
-                         *ngIf="(this.authService.user$ | async) === null">
-            <mat-icon fontSet="material-icons-outlined"
-                      color="accent">lock_open</mat-icon>
-            <ng-template transloco
-                         let-t>
-              {{ t('login') }}
-            </ng-template>
-          </mat-list-item>
-          <mat-list-item class="navigation-item"
-                         [routerLink]="['./demo']"
-                         (click)="drawer.close()">
-            <mat-icon fontSet="material-icons-outlined"
-                      color="accent">play_circle_outline</mat-icon>
-            <ng-template transloco
-                         let-t>
-              {{ t('demo') }}
-            </ng-template>
-          </mat-list-item>
-          <mat-list-item class="navigation-item"
-                         (click)="authService.signOut(); drawer.close()"
-                         *ngIf="authService.user$ | async as user">
-            <mat-icon color="accent">logout</mat-icon>
-            <ng-template transloco
-                         let-t>
-              {{ t('logout') }}
-            </ng-template>
-          </mat-list-item>
-          <mat-list-item class="navigation-item"
-                         *ngIf="pwaService.promptEvent"
-                         (click)="installPwa(); drawer.close()">
-            <mat-icon fontSet="material-icons-outlined"
-                      color="accent">save_alt</mat-icon>
-            <ng-template transloco
-                         let-t>
-              {{ t('install') }}
-            </ng-template>
-          </mat-list-item>
-        </mat-nav-list>
-      </div>
-    </mat-drawer>
+                    <mat-list-item [routerLink]="['./login']"
+                                   (click)="drawer.close()"
+                                   *ngIf="(this.authService.user$ | async) === null">
+                        <div class="navigation-item">
+                            <mat-icon fontSet="material-icons-outlined"
+                                      color="accent">lock_open</mat-icon>
+                            <ng-template transloco
+                                         let-t>
+                                {{ t('login') }}
+                            </ng-template>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item [routerLink]="['./demo']"
+                                   (click)="drawer.close()">
+                        <div class="navigation-item">
+                            <mat-icon fontSet="material-icons-outlined"
+                                      color="accent">play_circle_outline</mat-icon>
+                            <ng-template transloco
+                                         let-t>
+                                {{ t('demo') }}
+                            </ng-template>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item (click)="authService.signOut(); drawer.close()"
+                                   *ngIf="authService.user$ | async as user">
+                        <div class="navigation-item">
+                            <mat-icon color="accent">logout</mat-icon>
+                            <ng-template transloco
+                                         let-t>
+                                {{ t('logout') }}
+                            </ng-template>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item *ngIf="pwaService.promptEvent"
+                                   (click)="installPwa(); drawer.close()">
+                        <div class="navigation-item">
+                            <mat-icon fontSet="material-icons-outlined"
+                                      color="accent">save_alt</mat-icon>
+                            <ng-template transloco
+                                         let-t>
+                                {{ t('install') }}
+                            </ng-template>
+                        </div>
+                    </mat-list-item>
+                </mat-nav-list>
+            </div>
+        </mat-drawer>
 
-    <mat-toolbar>
-      <button mat-icon-button
-              [disabled]="this.drawerActionService.disabled"
-              (click)="this.drawerActionService.executeAction()">
-        <mat-icon fontSet="material-icons-outlined"
-                  [ngStyle]="{'opacity' : this.drawerActionService.disabled ? 0.5 : 1}"
-                  color="accent">{{this.drawerActionService.iconKey}}</mat-icon>
-      </button>
-      <span class="title">{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
+        <mat-toolbar>
+            <button mat-icon-button
+                    [disabled]="this.drawerActionService.disabled"
+                    (click)="this.drawerActionService.executeAction()">
+                <mat-icon fontSet="material-icons-outlined"
+                          [ngStyle]="{'opacity' : this.drawerActionService.disabled ? 0.5 : 1}"
+                          color="accent">{{this.drawerActionService.iconKey}}</mat-icon>
+            </button>
+            <span class="title">{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
 
-      <div class="action-bar"
-           dir="rtl">
-        <div *ngFor="let action of (this.navbarActionService.navbarActions$ | async)">
-          <button mat-icon-button
-                  (click)="this.action.action()">
-            <mat-icon fontSet="material-icons-outlined"
-                      color="accent">{{action.icon}}</mat-icon>
-          </button>
+            <div class="action-bar"
+                 dir="rtl">
+                <div *ngFor="let action of (this.navbarActionService.navbarActions$ | async)">
+                    <button mat-icon-button
+                            (click)="this.action.action()">
+                        <mat-icon fontSet="material-icons-outlined"
+                                  color="accent">{{action.icon}}</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+        </mat-toolbar>
+
+        <div class="app-content">
+            <router-outlet></router-outlet>
         </div>
-      </div>
 
-    </mat-toolbar>
-
-    <div class="app-content">
-      <router-outlet></router-outlet>
-    </div>
-
-  </mat-drawer-container>
+    </mat-drawer-container>
 </div>

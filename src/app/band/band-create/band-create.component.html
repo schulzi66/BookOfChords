@@ -5,7 +5,8 @@
     <mat-label>{{'band_name' | transloco}}</mat-label>
     <input matInput
            required
-           [(ngModel)]="band.name">
+           [(ngModel)]="band.name"
+           name="bandName">
   </mat-form-field>
 </div>
 <img *ngIf="band.pictureUrl"

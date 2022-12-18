@@ -1,15 +1,15 @@
 <div class="flex-container"
      [@fadeInOnEnter]>
-  <mat-form-field *ngIf="!isPlayMode"
-                  appearance="outline"
-                  class="gig-name">
-    <mat-label>{{'gig_name' | transloco}}</mat-label>
-    <input #gigNameModel="ngModel"
-           matInput
-           required
-           [(ngModel)]="gig.name"
-           name="gigName">
-  </mat-form-field>
+    <mat-form-field *ngIf="!isPlayMode"
+                    appearance="outline"
+                    class="gig-name">
+        <mat-label>{{'gig_name' | transloco}}</mat-label>
+        <input #gigNameModel="ngModel"
+               matInput
+               required
+               [(ngModel)]="gig.name"
+               name="gigName">
+    </mat-form-field>
 </div>
 
 <mat-accordion #songAccordion="matAccordion"
@@ -17,71 +17,75 @@
                (cdkDropListDropped)="drop($event)"
                [hideToggle]="true"
                multi="isPlayMode">
-  <mat-expansion-panel *ngFor="let song of gig?.songs; index as index"
-                       cdkDrag
-                       [cdkDragDisabled]="isPlayMode || !isDragMode"
-                       [disabled]="isPlayMode"
-                       [expanded]="isPlayMode">
-    <div class="placeholder"
-         *cdkDragPlaceholder></div>
-    <mat-expansion-panel-header class="panel-header">
-      <mat-panel-title [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-        <h3>{{song.name}}</h3>
-      </mat-panel-title>
-      <mat-panel-description class="panel-description">
-        <mat-icon *ngIf="!this.isPlayMode && this.isDragMode"
-                  cdkDragHandle
-                  color="accent">drag_handle</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <button *ngIf="!isPlayMode"
-              mat-button
-              (click)="editSelectedSong(song.id)">
-        <mat-icon fontSet="material-icons-outlined"
-                  color="accent">edit</mat-icon>
-      </button>
-      <div class="sound"
-           *ngIf="song.sound">
-        <audio controls>
-          <source [src]="song.sound">
-        </audio>
-      </div>
-      <shared-metronome *ngIf="isPlayMode && (this.configurationService.configuration$ | async)?.showMetronomeInGigs"
-                        [bpm]="song.bpm"
-                        [sliderDisabled]="true"
-                        [showPlay]="showPlay(index)"
-                        [showSoundMode]="true"
-                        (onStart)="onStartPlaySong(index)"
-                        (onContinue)="onStartPlaySong(index)"
-                        (onStop)="onStopPlaySong()"
-                        (onPause)="onStopPlaySong()"></shared-metronome>
-      <div class="song-panel-body"
-           *ngFor="let section of song.sections">
-        <h5 class="section-name"
-            [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
-            [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{section.name}}</h5>
-        <div class="section-value-flex-wrapper">
-          <div class="section-value"
-               *ngFor="let value of section.value"
-               [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
-               [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
-               [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment">{{value}}</div>
-        </div>
-        <mat-divider></mat-divider>
-      </div>
-      <div class="section-value"
-           *ngFor="let picture of song?.pictures">
-        <pinch-zoom>
-          <img class="picture"
-               [src]="picture">
-        </pinch-zoom>
-      </div>
-      <div style="height: 80vh;"
-           *ngFor="let pdf of song?.pdfs">
-        <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
-                          [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
-      </div>
-    </ng-template>
-  </mat-expansion-panel>
+    <mat-expansion-panel *ngFor="let song of gig?.songs; index as index"
+                         cdkDrag
+                         [cdkDragDisabled]="isPlayMode || !isDragMode"
+                         [disabled]="isPlayMode"
+                         [expanded]="isPlayMode">
+        <div class="placeholder"
+             *cdkDragPlaceholder></div>
+        <mat-expansion-panel-header class="panel-header">
+            <mat-panel-title class="panel-title"
+                             [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+                <h3>{{song.name}}</h3>
+            </mat-panel-title>
+            <mat-panel-description class="panel-description">
+                <mat-icon *ngIf="!this.isPlayMode && this.isDragMode"
+                          cdkDragHandle
+                          color="accent">drag_handle</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+            <button *ngIf="!isPlayMode"
+                    mat-button
+                    class="edit-button"
+                    (click)="editSelectedSong(song.id)">
+                <mat-icon fontSet="material-icons-outlined"
+                          color="accent">edit</mat-icon>
+            </button>
+            <div class="sound"
+                 *ngIf="song.sound">
+                <audio controls>
+                    <source [src]="song.sound">
+                </audio>
+            </div>
+            <shared-metronome *ngIf="isPlayMode && (this.configurationService.configuration$ | async)?.showMetronomeInGigs"
+                              [bpm]="song.bpm"
+                              [sliderDisabled]="true"
+                              [showPlay]="showPlay(index)"
+                              [showSoundMode]="true"
+                              (onStart)="onStartPlaySong(index)"
+                              (onContinue)="onStartPlaySong(index)"
+                              (onStop)="onStopPlaySong()"
+                              (onPause)="onStopPlaySong()"></shared-metronome>
+            <div class="song-panel-body"
+                 *ngFor="let section of song.sections">
+                <h5 class="section-name"
+                    [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
+                    [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+                    {{section.name}}</h5>
+                <div class="section-value-flex-wrapper">
+                    <div class="section-value"
+                         *ngFor="let value of section.value"
+                         [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
+                         [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
+                         [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment">
+                        {{value}}</div>
+                </div>
+                <mat-divider></mat-divider>
+            </div>
+            <div class="section-value"
+                 *ngFor="let picture of song?.pictures">
+                <pinch-zoom>
+                    <img class="picture"
+                         [src]="picture">
+                </pinch-zoom>
+            </div>
+            <div style="height: 80vh;"
+                 *ngFor="let pdf of song?.pdfs">
+                <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
+                                  [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+            </div>
+        </ng-template>
+    </mat-expansion-panel>
 </mat-accordion>

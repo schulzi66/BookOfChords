@@ -3,7 +3,7 @@
        [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{exercise.name}}</div>
   <div class="mode-list"
        [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-    <div class="mode-option mat-card"
+    <div class="mode-option mat-mdc-card"
          [routerLink]="['/exercises/details', exercise.id, ExerciseModes.MANUAL]">
       <mat-icon fontSet="material-icons-outlined"
                 color="accent"
@@ -14,7 +14,7 @@
         {{'mode_manual_description' | transloco}}</span>
     </div>
 
-    <div class="mode-option mat-card"
+    <div class="mode-option mat-mdc-card"
          [routerLink]="['/exercises/details', exercise.id, ExerciseModes.INTERVAL]">
       <mat-icon fontSet="material-icons-outlined"
                 color="accent"
@@ -27,7 +27,7 @@
     </div>
 
 
-    <div class="mode-option mat-card"
+    <div class="mode-option mat-mdc-card"
          [routerLink]="['/exercises/details', exercise.id, ExerciseModes.TIMEBASED]">
       <mat-icon fontSet="material-icons-outlined"
                 color="accent"

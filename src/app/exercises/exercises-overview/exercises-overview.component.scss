@@ -1,6 +1,6 @@
 .search-input {
     flex-grow: 1;
-    height: 75px;
+    height: 55px;
 }
 .flex-container {
     display: flex;
@@ -10,38 +10,3 @@
     height: 48px;
     text-align: left;
 }
-// table {
-//     width: 100%;
-// }
-
-// .exercise-detail {
-//     overflow: hidden;
-//     display: flex;
-// }
-// .table-cell {
-//     text-align: left;
-// }
-
-// tr.exercise-detail-row {
-//     height: 0;
-// }
-
-// .exercise-element-row td {
-//     border-bottom-width: 0;
-// }
-
-// .flex-container {
-//     display: flex;
-//     justify-content: space-between;
-// }
-
-// .exercise-row {
-//     display: flex;
-//     flex-wrap: wrap;
-//     justify-content: space-between;
-//     .item {
-//         flex: 0 32%;
-//         height: 100px;
-//         margin-bottom: 2%;
-//     }
-// }
