@@ -20,9 +20,15 @@ const routes: Routes = [
   },
   {
     path: 'demo',
-    loadChildren: () => import('./demo/demo.module').then((m) => m.DemoModule),
-    resolve: { key: TitleKeyResolver },
-    data: { key: TITLEKEYS.demo }
+    loadChildren: () => import('./demo/routes'),
+    resolve: {
+      key: TitleKeyResolver,
+      drawerAction: DrawerActionResolver
+    },
+    data: {
+      key: TITLEKEYS.demo,
+      isBaseDrawerAction: true
+    }
   },
   {
     path: 'gigs',
