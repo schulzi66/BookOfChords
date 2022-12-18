@@ -20,6 +20,7 @@
 .login-card {
     width: 70vw;
     height: 30vh;
+    align-items: center;
 }
 
 .login-image {
@@ -29,9 +30,4 @@
 
 .spacer {
     flex: 1 1 auto;
-}
-
-.guest-note {
-    font-style: italic;
-    font-size: small;
 }

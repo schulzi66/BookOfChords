@@ -1,35 +1,25 @@
 <div class="flex-container h80">
 
-  <mat-card class="login-card">
-    <mat-card-header>
-      <div mat-card-avatar
-           class="login-image"></div>
-      <mat-card-title>{{'login' | transloco}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="flex-container h6">
-    </mat-card-content>
-    <mat-card-actions>
-      <div class="flex-container buttons">
-        <button mat-stroked-button
-                class="button"
-                (click)="authService.googleSignIn()">
-          <ng-template transloco
-                       let-t>
-            {{ t('login_with_google') }}
-          </ng-template>
-        </button>
-
-        <button mat-stroked-button
-                class="button"
-                (click)="authService.anonymSignIn()">
-          <ng-template transloco
-                       let-t>
-            {{ t('login_as_guest') }}
-          </ng-template>
-        </button>
-      </div>
-      <span class="guest-note">{{'guest_note' | transloco}}</span>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card class="login-card">
+        <mat-card-header>
+            <div mat-card-avatar
+                 class="login-image"></div>
+            <mat-card-title>{{'login' | transloco}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="flex-container h6">
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="flex-container buttons">
+                <button mat-stroked-button
+                        class="button"
+                        (click)="authService.googleSignIn()">
+                    <ng-template transloco
+                                 let-t>
+                        {{ t('login_with_google') }}
+                    </ng-template>
+                </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
 
 </div>
