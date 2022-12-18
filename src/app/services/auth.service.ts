@@ -42,12 +42,6 @@ export class AuthService extends SubscriptionHandler implements OnDestroy {
     this.router.navigate(['/songs']);
   }
 
-  public async anonymSignIn() {
-    const credential = await this.afAuth.signInAnonymously();
-    await this.updateUserData(credential.user.uid, null, 'Anonymous', null);
-    this.router.navigate(['/songs']);
-  }
-
   private async oAuthLogin(provider) {
     const credential = await this.afAuth.signInWithPopup(provider);
     return await this.updateUserData(
