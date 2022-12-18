@@ -5,6 +5,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { AllMaterialModule } from '../material-module';
 import { SharedModule } from '../shared/shared.module';
+import { SearchComponent } from './../shared/components/search/search.component';
 import { GigDetailComponent } from './gig-detail/gig-detail.component';
 import { GigEditComponent } from './gig-edit/gig-edit.component';
 import { GigOverviewComponent } from './gig-overview/gig-overview.component';
@@ -14,6 +15,7 @@ import { GigRoutes } from './gig.routing';
   declarations: [GigOverviewComponent, GigEditComponent, GigDetailComponent],
   imports: [
     CommonModule,
+    SearchComponent,
     SharedModule,
     AllMaterialModule,
     FormsModule,

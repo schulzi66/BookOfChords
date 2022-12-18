@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { SearchComponent } from 'src/app/shared/components/search/search.component';
 import { AllMaterialModule } from '../material-module';
 import { SharedModule } from '../shared/shared.module';
 import { BandCreateComponent } from './band-create/band-create.component';
@@ -19,6 +20,7 @@ import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.com
 @NgModule({
   imports: [
     CommonModule,
+    SearchComponent,
     BandRoutes,
     SharedModule,
     AllMaterialModule,

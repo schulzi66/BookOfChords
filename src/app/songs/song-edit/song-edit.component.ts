@@ -1,9 +1,15 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
-import { translate } from '@ngneat/transloco';
+import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { BandService } from 'src/app/band/services/band.service';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Band } from 'src/app/models/band';
@@ -19,9 +25,23 @@ import { SongSection } from '../../models/song-section';
 import { AuthService } from '../../services/auth.service';
 import { SongService } from '../services/song.service';
 import { SnackbarService } from './../../services/snackbar.service';
+import { StringArrayLinesPipe } from './../../shared/pipes/string-array-lines.pipe';
 
 @Component({
   selector: 'app-song-edit',
+  standalone: true,
+  imports: [
+    CommonModule,
+    DragDropModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    PdfJsViewerModule,
+    StringArrayLinesPipe,
+    TranslocoModule,
+  ],
   templateUrl: './song-edit.component.html',
   styleUrls: ['./song-edit.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

@@ -9,31 +9,25 @@ import { BottomSheetBandSelectionComponent } from './components/bottom-sheet-ban
 import { BottomSheetUploaderComponent } from './components/bottom-sheet-uploader/bottom-sheet-uploader.component';
 import { DeletePopupDialogComponent } from './components/delete-popup-dialog/delete-popup-dialog.component';
 import { FabBtnMatIcoComponent } from './components/fab-btn-mat-ico/fab-btn-mat-ico.component';
-import { MetronomeComponent } from './components/metronome/metronome.component';
 import { PinchZoomComponent } from './components/pinch-zoom/pinch-zoom.component';
 import { RockNRollSnackbarComponent } from './components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
-import { SearchComponent } from './components/search/search.component';
 import { UploadTaskComponent } from './components/upload-task/upload-task.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 import { DropzoneDirective } from './directives/dropzone.directive';
 import { MaxDirective } from './directives/max.directive';
 import { MinDirective } from './directives/min.directive';
 import { EncodeUriPipe } from './pipes/safe.pipe';
-import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
 
 @NgModule({
   declarations: [
     FabBtnMatIcoComponent,
-    StringArrayLinesPipe,
     EncodeUriPipe,
     DropzoneDirective,
     MinDirective,
     MaxDirective,
     UploaderComponent,
     UploadTaskComponent,
-    SearchComponent,
     DeletePopupDialogComponent,
-    MetronomeComponent,
     RockNRollSnackbarComponent,
     BottomSheetBandSelectionComponent,
     BottomSheetUploaderComponent,
@@ -48,12 +42,9 @@ import { StringArrayLinesPipe } from './pipes/string-array-lines.pipe';
   ],
   exports: [
     FabBtnMatIcoComponent,
-    StringArrayLinesPipe,
     EncodeUriPipe,
     UploaderComponent,
-    SearchComponent,
     DeletePopupDialogComponent,
-    MetronomeComponent,
     BottomSheetBandSelectionComponent,
     BottomSheetUploaderComponent,
     PinchZoomComponent

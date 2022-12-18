@@ -1,8 +1,25 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { TranslocoModule } from '@ngneat/transloco';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-search',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    TranslocoModule
+  ],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })

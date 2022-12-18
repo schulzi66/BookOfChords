@@ -1,35 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
 import { TITLEKEYS } from './services/title-key.service';
 import { AuthGuard } from './shared/guards/auth.guard';
-import { DrawerActionResolver } from './shared/resolvers/drawer-action.resolver';
 import { TitleKeyResolver } from './shared/resolvers/title-key.resolver';
 
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./login/routes'),
-    component: LoginComponent,
-    resolve: { key: TitleKeyResolver },
-    data: { key: TITLEKEYS.default }
+    loadChildren: () => import('./login/routes')
   },
   {
     path: 'songs',
-    loadChildren: () => import('./songs/songs.module').then((m) => m.SongsModule),
+    loadChildren: () => import('./songs/routes'),
     canActivate: [AuthGuard]
   },
   {
     path: 'demo',
-    loadChildren: () => import('./demo/routes'),
-    resolve: {
-      key: TitleKeyResolver,
-      drawerAction: DrawerActionResolver
-    },
-    data: {
-      key: TITLEKEYS.demo,
-      isBaseDrawerAction: true
-    }
+    loadChildren: () => import('./demo/routes')
   },
   {
     path: 'gigs',
@@ -41,12 +28,7 @@ const routes: Routes = [
   {
     path: 'configuration',
     loadChildren: () => import('./configuration/routes'),
-    canActivate: [AuthGuard],
-    resolve: {
-      key: TitleKeyResolver,
-      drawerAction: DrawerActionResolver
-    },
-    data: { key: TITLEKEYS.configuration }
+    canActivate: [AuthGuard]
   },
   {
     path: 'band',
