@@ -3,6 +3,7 @@ import { AbstractControl, NG_VALIDATORS, Validator, Validators } from '@angular/
 
 @Directive({
   selector: '[min]',
+  standalone: true,
   providers: [{ provide: NG_VALIDATORS, useExisting: MinDirective, multi: true }]
 })
 export class MinDirective implements Validator {

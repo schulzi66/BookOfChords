@@ -5,6 +5,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -14,13 +15,11 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AllMaterialModule } from './material-module';
-import { SharedModule } from './shared/shared.module';
 import { translocoLoader } from './transloco.loader';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    SharedModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -50,7 +49,11 @@ import { translocoLoader } from './transloco.loader';
         prodMode: environment.production
       })
     },
-    translocoLoader
+    translocoLoader,
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: { duration: 3000, panelClass: 'message-snackbar' }
+    }
   ],
   bootstrap: [AppComponent]
 })

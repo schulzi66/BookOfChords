@@ -10,6 +10,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ToneService } from 'src/app/services/tone.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { MaxDirective } from './../../directives/max.directive';
+import { MinDirective } from './../../directives/min.directive';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -24,6 +26,8 @@ import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler'
     MatIconModule,
     MatInputModule,
     MatSliderModule,
+    MaxDirective,
+    MinDirective,
     TranslocoModule,
   ],
   templateUrl: './metronome.component.html',

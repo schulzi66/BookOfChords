@@ -1,10 +1,18 @@
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
-import { translate } from '@ngneat/transloco';
+import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { ExercisesService } from 'src/app/exercises/services/exercises.service';
 import { MediaTypes } from 'src/app/models/media-types.enum';
@@ -13,11 +21,27 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { MetronomeComponent } from 'src/app/shared/components/metronome/metronome.component';
+import { EncodeUriPipe } from 'src/app/shared/pipes/encode.pipe';
 import { BottomSheetService } from '../../services/bottom-sheet.service';
 import { Exercise } from './../../models/exercise';
 
 @Component({
   selector: 'app-exercise-edit',
+  standalone: true,
+  imports: [
+    CommonModule,
+    EncodeUriPipe,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatStepperModule,
+    MetronomeComponent,
+    PdfJsViewerModule,
+    TextFieldModule,
+    TranslocoModule,
+  ],
   templateUrl: './exercise-edit.component.html',
   styleUrls: ['./exercise-edit.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

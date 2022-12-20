@@ -1,7 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { TranslocoModule } from '@ngneat/transloco';
 import { MediaTypes } from 'src/app/models/media-types.enum';
 import { UploadResult } from '../../../models/upload-result';
+import { UploadTaskComponent } from '../upload-task/upload-task.component';
 
 export interface BottomSheetUploaderConfigInjectionToken {
   storageBucketPrefix: string;
@@ -12,6 +17,8 @@ export interface BottomSheetUploaderConfigInjectionToken {
 
 @Component({
   selector: 'app-bottom-sheet-uploader',
+  standalone: true,
+  imports: [CommonModule, MatInputModule, MatListModule, TranslocoModule, UploadTaskComponent],
   templateUrl: './bottom-sheet-uploader.component.html',
   styleUrls: ['./bottom-sheet-uploader.component.scss']
 })

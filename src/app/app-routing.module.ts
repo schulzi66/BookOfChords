@@ -6,6 +6,11 @@ import { TitleKeyResolver } from './shared/resolvers/title-key.resolver';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'songs',
+    pathMatch: 'full'
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/routes')
   },
@@ -37,10 +42,8 @@ const routes: Routes = [
   },
   {
     path: 'exercises',
-    loadChildren: () => import('./exercises/exercises.module').then((m) => m.ExercisesModule),
-    canActivate: [AuthGuard],
-    resolve: { key: TitleKeyResolver },
-    data: { key: TITLEKEYS.exercises }
+    loadChildren: () => import('./exercises/routes'),
+    canActivate: [AuthGuard]
   }
 ];
 

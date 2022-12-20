@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-configuration',
@@ -20,7 +19,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule,
     MatInputModule,
     MatSelectModule,
     MatSlideToggleModule,
