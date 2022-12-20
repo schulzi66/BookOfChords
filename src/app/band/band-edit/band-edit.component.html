@@ -5,7 +5,7 @@
          mat-card-avatar
          [style.background-image]="'url(' + band?.pictureUrl +')'"
          class="band-image"></div>
-    <mat-form-field appearance="legacy"
+    <mat-form-field appearance="outline"
                     class="band-name">
       <mat-label>{{'band_name' | transloco}}</mat-label>
       <input matInput
@@ -17,11 +17,12 @@
   <mat-card-content>
     <mat-list>
       <mat-list-item *ngFor="let member of band?.members; index as i">
-        <img [src]="member.photoURL"
-             class="profile-picture">
         <div class="member-entry">
-          {{member.displayName}}
-          <button mat-button
+          <img [src]="member.photoURL"
+               class="profile-picture">
+          <div>{{member.displayName}}</div>
+          <button class="delete-button"
+                  mat-button
                   *ngIf="isUserBandAdmin"
                   (click)="this.deleteMember(i)">
             <mat-icon>delete_outline</mat-icon>

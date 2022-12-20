@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatListModule } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { Band } from 'src/app/models/band';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
@@ -7,6 +9,8 @@ import { BandService } from '../services/band.service';
 
 @Component({
   selector: 'app-band-selection',
+  standalone: true,
+  imports: [CommonModule, MatListModule],
   templateUrl: './band-selection.component.html',
   styleUrls: ['./band-selection.component.scss']
 })

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TITLEKEYS } from './services/title-key.service';
 import { AuthGuard } from './shared/guards/auth.guard';
-import { TitleKeyResolver } from './shared/resolvers/title-key.resolver';
 
 const routes: Routes = [
   {
@@ -35,10 +33,8 @@ const routes: Routes = [
   },
   {
     path: 'band',
-    loadChildren: () => import('./band/band.module').then((m) => m.BandModule),
-    canActivate: [AuthGuard],
-    resolve: { key: TitleKeyResolver },
-    data: { key: TITLEKEYS.band }
+    loadChildren: () => import('./band/routes'),
+    canActivate: [AuthGuard]
   },
   {
     path: 'exercises',

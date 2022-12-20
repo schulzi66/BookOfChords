@@ -4,6 +4,7 @@
     align-self: center;
     margin-right: 2vh;
 }
+
 .member-list {
     display: flex;
     align-items: center;
@@ -11,11 +12,15 @@
 
 .band-image {
     background-size: cover;
+    margin: 8px;
 }
 
 .member-entry {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+
+    .delete-button {
+        margin-left: auto;
+    }
 }

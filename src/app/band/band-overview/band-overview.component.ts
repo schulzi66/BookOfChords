@@ -1,13 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
+import { TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { BandDetailComponent } from '../band-detail/band-detail.component';
+import { BandSetlistOverviewComponent } from '../band-setlist-overview/band-setlist-overview.component';
 import { Configuration } from './../../models/configuration';
 
 @Component({
   selector: 'app-band-overview',
+  standalone: true,
+  imports: [
+    BandDetailComponent,
+    BandSetlistOverviewComponent,
+    MatTabsModule,
+    TranslocoModule,
+  ],
   templateUrl: './band-overview.component.html',
   styleUrls: ['./band-overview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

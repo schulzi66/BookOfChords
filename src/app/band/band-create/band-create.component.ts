@@ -1,7 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { translate } from '@ngneat/transloco';
+import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
@@ -15,6 +19,8 @@ import { SnackbarService } from './../../services/snackbar.service';
 
 @Component({
   selector: 'app-band-create',
+  standalone: true,
+  imports: [CommonModule, FormsModule, MatInputModule, MatFormFieldModule, TranslocoModule],
   templateUrl: './band-create.component.html',
   styleUrls: ['./band-create.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

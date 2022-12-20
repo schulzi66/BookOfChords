@@ -1,11 +1,18 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Location } from '@angular/common';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { MatSelectionListChange } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule, MatSelectionListChange } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
-import { translate } from '@ngneat/transloco';
+import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Band } from 'src/app/models/band';
 import { Gig } from 'src/app/models/gig';
@@ -17,14 +24,32 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BottomSheetService } from 'src/app/services/bottom-sheet.service';
 import { DrawerActionService } from 'src/app/services/drawer-action.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { SearchComponent } from 'src/app/shared/components/search/search.component';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { SongService } from 'src/app/songs/services/song.service';
 import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
 import { SnackbarService } from './../../services/snackbar.service';
+import { EncodeUriPipe } from './../../shared/pipes/encode.pipe';
 
 @Component({
   selector: 'app-band-setlist-edit',
+  standalone: true,
+  imports: [
+    CommonModule,
+    DragDropModule,
+    EncodeUriPipe,
+    FormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatTabsModule,
+    PdfJsViewerModule,
+    SearchComponent,
+    TextFieldModule,
+    TranslocoModule
+  ],
   templateUrl: './band-setlist-edit.component.html',
   styleUrls: ['./band-setlist-edit.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
@@ -100,7 +125,7 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
     this._subscriptions$.add(this._authService.user$.subscribe((user: User) => (this._currentUser = user)));
     this._subscriptions$.add(
       this._activatedRoute.params.subscribe((params: { id?: string }) => {
-        if (this._bandService.selectedBand !== undefined) {
+        if (!!this._bandService.selectedBand) {
           this.band = this._bandService.selectedBand;
           if (params.id !== '-1') {
             this.setlist = this.band.setlists.find((x) => x.id === params.id);

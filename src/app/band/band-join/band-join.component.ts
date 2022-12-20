@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { translate } from '@ngneat/transloco';
+import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { Band } from 'src/app/models/band';
 import { User } from 'src/app/models/user';
@@ -14,6 +17,13 @@ import { BandService } from '../services/band.service';
 
 @Component({
   selector: 'app-band-join',
+  standalone: true,
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    TranslocoModule,
+  ],
   templateUrl: './band-join.component.html',
   styleUrls: ['./band-join.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
@@ -36,7 +46,8 @@ export class BandJoinComponent extends SubscriptionHandler implements OnInit {
       {
         order: 100,
         icon: 'person_add',
-        action: () => this.joinBand()
+        action: () => this.joinBand(),
+        validator: () => !!this.bandId
       }
     ]);
   }

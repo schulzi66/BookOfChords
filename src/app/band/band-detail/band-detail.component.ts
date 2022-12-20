@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
@@ -13,6 +16,12 @@ import { BandService } from '../services/band.service';
 
 @Component({
   selector: 'app-band-detail',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatListModule
+  ],
   templateUrl: './band-detail.component.html',
   styleUrls: ['./band-detail.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
