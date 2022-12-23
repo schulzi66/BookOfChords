@@ -1,6 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
-import { translate, TranslocoService } from '@ngneat/transloco';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
+import { translate, TranslocoModule, TranslocoService } from '@ngneat/transloco';
 import { filter } from 'rxjs/operators';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from './models/configuration';
@@ -16,6 +22,17 @@ import { SubscriptionHandler } from './shared/helper/subscription-handler';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    RouterModule,
+    TranslocoModule
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

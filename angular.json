@@ -37,7 +37,7 @@
                             "src/styles/styles.scss"
                         ],
                         "scripts": [],
-                        "aot": false,
+                        "aot": true,
                         "vendorChunk": true,
                         "extractLicenses": false,
                         "buildOptimizer": false,
