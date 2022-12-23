@@ -55,6 +55,7 @@ export class SongEditComponent implements OnInit {
   private resetSong: boolean;
   public song: Song;
   public isReoderingMode: boolean;
+  public isDeletingMode: boolean;
   public selectedBand: Band;
 
   @ViewChild('songNameModel') private _songNameModel: NgModel;
@@ -75,22 +76,33 @@ export class SongEditComponent implements OnInit {
     this._navbarActionService.registerActions([
       {
         order: 100,
-        icon: 'add',
-        action: () => this.addNewSection()
-      },
-      {
-        order: 200,
-        icon: 'drag_handle',
-        action: () => (this.isReoderingMode = !this.isReoderingMode)
-      },
-      {
-        order: 300,
         icon: 'save',
         action: () => this.saveSong(),
         validator: () => this._songNameModel && this._songNameModel.valid && this._toneService.isValidBpm(this.song.bpm)
       },
       {
+        order: 200,
+        icon: 'add',
+        action: () => this.addNewSection()
+      },
+      {
+        order: 300,
+        icon: 'delete',
+        action: () => {
+          this.isDeletingMode = !this.isDeletingMode;
+          this.isReoderingMode = false;
+        }
+      },
+      {
         order: 400,
+        icon: 'drag_handle',
+        action: () => {
+          this.isReoderingMode = !this.isReoderingMode;
+          this.isDeletingMode = false;
+        }
+      },
+      {
+        order: 500,
         icon: 'upload_file',
         action: () => {
           this._bottomSheetService.showUpload({
@@ -121,6 +133,7 @@ export class SongEditComponent implements OnInit {
     this.initialSong = JSON.parse(JSON.stringify(this.song));
     this.resetSong = true;
     this.isReoderingMode = false;
+    this.isDeletingMode = false;
     this.selectedBand = this.bandService.bandsSubject.value.find((band: Band) => band.id === this.song.bandId);
   }
 
