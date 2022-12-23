@@ -34,7 +34,7 @@ export class BandSelectionComponent extends SubscriptionHandler implements OnIni
 
   ngOnInit() {
     this._subscriptions$.add(
-      this.bandService.bands$.subscribe((bands: Array<Band>) => {
+      this.bandService.getBands().subscribe((bands: Array<Band>) => {
         this.bands = bands;
       })
     );

@@ -13,12 +13,7 @@ import { Configuration } from './../../models/configuration';
 @Component({
   selector: 'app-band-overview',
   standalone: true,
-  imports: [
-    BandDetailComponent,
-    BandSetlistOverviewComponent,
-    MatTabsModule,
-    TranslocoModule,
-  ],
+  imports: [BandDetailComponent, BandSetlistOverviewComponent, MatTabsModule, TranslocoModule],
   templateUrl: './band-overview.component.html',
   styleUrls: ['./band-overview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
@@ -29,16 +24,18 @@ export class BandOverviewComponent extends SubscriptionHandler implements OnInit
 
   public constructor(public bandService: BandService, private _router: Router) {
     super();
-    this.bandService.bands$.subscribe((bands: Array<Band>) => {
-      if (bands.length === 0) {
-        this._router.navigate(['band/noband']);
-        return;
-      }
-      if (!this.bandService.selectedBand) {
-        this._router.navigate(['band/selection']);
-        return;
-      }
-    });
+    this._subscriptions$.add(
+      this.bandService.getBands().subscribe((bands: Array<Band>) => {
+        if (bands.length === 0) {
+          this._router.navigate(['band/noband']);
+          return;
+        }
+        if (!this.bandService.selectedBand) {
+          this._router.navigate(['band/selection']);
+          return;
+        }
+      })
+    );
   }
 
   ngOnInit() {
