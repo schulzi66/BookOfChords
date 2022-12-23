@@ -1,19 +1,37 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute, Router } from '@angular/router';
 import { translate } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
-import { ClipboardService } from 'ngx-clipboard';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { ClipboardModule, ClipboardService } from 'ngx-clipboard';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Song } from 'src/app/models/song';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { EncodeUriPipe } from '../../shared/pipes/encode.pipe';
 import { SnackbarService } from './../../services/snackbar.service';
+import { MetronomeComponent } from './../../shared/components/metronome/metronome.component';
+import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
 import { SongService } from './../services/song.service';
 
 @Component({
   selector: 'app-song-detailsview',
+  standalone: true,
+  imports: [
+    ClipboardModule,
+    CommonModule,
+    EncodeUriPipe,
+    MatCardModule,
+    MatDividerModule,
+    MetronomeComponent,
+    PdfJsViewerModule,
+    PinchZoomComponent,
+  ],
   templateUrl: './song-detailsview.component.html',
   styleUrls: ['./song-detailsview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

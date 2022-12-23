@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostBinding, Input, OnDestroy, SimpleChanges } from '@angular/core';
 import { Properties } from './interfaces';
 import { IvyPinch } from './ivypinch';
@@ -21,6 +22,8 @@ type PropertyName = keyof ComponentProperties;
 
 @Component({
 	selector: 'pinch-zoom, [pinch-zoom]',
+    standalone: true,
+    imports: [CommonModule],
     exportAs: 'pinchZoom',
     templateUrl: './pinch-zoom.component.html',
     styleUrls: ['./pinch-zoom.component.scss']

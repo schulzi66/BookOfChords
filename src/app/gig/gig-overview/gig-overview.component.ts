@@ -1,5 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { Router, RouterModule } from '@angular/router';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
@@ -8,6 +12,8 @@ import { GigService } from '../services/gig.service';
 
 @Component({
   selector: 'app-gig-overview',
+  standalone: true,
+  imports: [CommonModule, MatDividerModule, RouterModule, MatButtonModule, MatListModule],
   templateUrl: './gig-overview.component.html',
   styleUrls: ['./gig-overview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

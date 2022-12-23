@@ -1,15 +1,14 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Route } from '@angular/router';
 import { TITLEKEYS } from '../services/title-key.service';
+import { DrawerActionResolver } from '../shared/resolvers/drawer-action.resolver';
+import { SongResolver } from '../shared/resolvers/song.resolver';
 import { TitleKeyResolver } from '../shared/resolvers/title-key.resolver';
-import { AuthGuard } from './../shared/guards/auth.guard';
-import { DrawerActionResolver } from './../shared/resolvers/drawer-action.resolver';
-import { SongResolver } from './../shared/resolvers/song.resolver';
-import { UserResolver } from './../shared/resolvers/user.resolver';
+import { UserResolver } from '../shared/resolvers/user.resolver';
 import { SongDetailsviewComponent } from './song-detailsview/song-detailsview.component';
 import { SongEditComponent } from './song-edit/song-edit.component';
 import { SongsOverviewComponent } from './songs-overview/songs-overview.component';
 
-const routes: Routes = [
+export default [
   {
     path: '',
     resolve: {
@@ -22,13 +21,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'songs',
-        pathMatch: 'full'
-      },
-      {
-        path: 'songs',
         component: SongsOverviewComponent,
-        canActivate: [AuthGuard],
         resolve: {
           drawerAction: DrawerActionResolver
         },
@@ -37,16 +30,15 @@ const routes: Routes = [
         }
       },
       {
-        path: 'songs/details/:id',
+        path: 'details/:id',
         component: SongDetailsviewComponent,
-        canActivate: [AuthGuard],
         resolve: {
           drawerAction: DrawerActionResolver,
           song: SongResolver
         }
       },
       {
-        path: 'songs/edit/:id',
+        path: 'edit/:id',
         component: SongEditComponent,
         resolve: {
           drawerAction: DrawerActionResolver,
@@ -55,6 +47,4 @@ const routes: Routes = [
       }
     ]
   }
-];
-
-export const SongRoutes = RouterModule.forChild(routes);
+] as Route[];

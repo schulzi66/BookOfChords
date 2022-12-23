@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Exercise } from 'src/app/models/exercise';
@@ -8,6 +11,8 @@ import { NavbarActionService } from 'src/app/services/navbar-action.service';
 
 @Component({
   selector: 'app-exercise-mode-selection',
+  standalone: true,
+  imports: [TranslocoModule, MatIconModule, RouterModule, CommonModule],
   templateUrl: './exercise-mode-selection.component.html',
   styleUrls: ['./exercise-mode-selection.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

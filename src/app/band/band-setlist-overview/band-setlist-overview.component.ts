@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { Router, RouterModule } from '@angular/router';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { BandService } from 'src/app/band/services/band.service';
 import { Band } from 'src/app/models/band';
@@ -9,6 +12,8 @@ import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler'
 
 @Component({
   selector: 'app-band-setlist-overview',
+  standalone: true,
+  imports: [MatDividerModule, RouterModule, CommonModule, MatListModule],
   templateUrl: './band-setlist-overview.component.html',
   styleUrls: ['./band-setlist-overview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

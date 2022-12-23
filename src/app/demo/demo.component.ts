@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { INavbarAction } from 'src/app/models/navbar-action';
@@ -8,6 +8,8 @@ import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-demo',
+  standalone: true,
+  imports: [TranslocoModule],
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

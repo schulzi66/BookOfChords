@@ -1,9 +1,15 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
-import { translate } from '@ngneat/transloco';
+import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { BandService } from 'src/app/band/services/band.service';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Band } from 'src/app/models/band';
@@ -17,11 +23,29 @@ import { GigService } from '../../gig/services/gig.service';
 import { Song } from '../../models/song';
 import { SongSection } from '../../models/song-section';
 import { AuthService } from '../../services/auth.service';
+import { EncodeUriPipe } from '../../shared/pipes/encode.pipe';
 import { SongService } from '../services/song.service';
 import { SnackbarService } from './../../services/snackbar.service';
+import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
+import { StringArrayLinesPipe } from './../../shared/pipes/string-array-lines.pipe';
 
 @Component({
   selector: 'app-song-edit',
+  standalone: true,
+  imports: [
+    CommonModule,
+    DragDropModule,
+    EncodeUriPipe,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    PdfJsViewerModule,
+    PinchZoomComponent,
+    StringArrayLinesPipe,
+    TranslocoModule
+  ],
   templateUrl: './song-edit.component.html',
   styleUrls: ['./song-edit.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]
@@ -31,6 +55,7 @@ export class SongEditComponent implements OnInit {
   private resetSong: boolean;
   public song: Song;
   public isReoderingMode: boolean;
+  public isDeletingMode: boolean;
   public selectedBand: Band;
 
   @ViewChild('songNameModel') private _songNameModel: NgModel;
@@ -51,22 +76,33 @@ export class SongEditComponent implements OnInit {
     this._navbarActionService.registerActions([
       {
         order: 100,
-        icon: 'add',
-        action: () => this.addNewSection()
-      },
-      {
-        order: 200,
-        icon: 'drag_handle',
-        action: () => (this.isReoderingMode = !this.isReoderingMode)
-      },
-      {
-        order: 300,
         icon: 'save',
         action: () => this.saveSong(),
         validator: () => this._songNameModel && this._songNameModel.valid && this._toneService.isValidBpm(this.song.bpm)
       },
       {
+        order: 200,
+        icon: 'add',
+        action: () => this.addNewSection()
+      },
+      {
+        order: 300,
+        icon: 'delete',
+        action: () => {
+          this.isDeletingMode = !this.isDeletingMode;
+          this.isReoderingMode = false;
+        }
+      },
+      {
         order: 400,
+        icon: 'drag_handle',
+        action: () => {
+          this.isReoderingMode = !this.isReoderingMode;
+          this.isDeletingMode = false;
+        }
+      },
+      {
+        order: 500,
         icon: 'upload_file',
         action: () => {
           this._bottomSheetService.showUpload({
@@ -97,6 +133,7 @@ export class SongEditComponent implements OnInit {
     this.initialSong = JSON.parse(JSON.stringify(this.song));
     this.resetSong = true;
     this.isReoderingMode = false;
+    this.isDeletingMode = false;
     this.selectedBand = this.bandService.bandsSubject.value.find((band: Band) => band.id === this.song.bandId);
   }
 

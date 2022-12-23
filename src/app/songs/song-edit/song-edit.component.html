@@ -1,115 +1,118 @@
 <div class="flex-container"
      [@fadeInOnEnter]>
-    <mat-form-field appearance="outline"
-                    class="song-name">
-        <mat-label>{{'song_name' | transloco}} </mat-label>
-        <input #songNameModel="ngModel"
-               matInput
-               required
-               [(ngModel)]="song.name"
-               name="songName">
-    </mat-form-field>
+  <mat-form-field appearance="outline"
+                  class="song-name">
+    <mat-label>{{'song_name' | transloco}} </mat-label>
+    <input #songNameModel="ngModel"
+           matInput
+           required
+           [(ngModel)]="song.name"
+           name="songName">
+  </mat-form-field>
 
-    <mat-form-field appearance="outline"
-                    class="bpm"
-                    [hintLabel]="'metronome_hint' | transloco">
-        <mat-label>{{'BPM'}}</mat-label>
-        <input matInput
-               [(ngModel)]="song.bpm"
-               name="bpm">
-    </mat-form-field>
+  <mat-form-field appearance="outline"
+                  class="bpm"
+                  [hintLabel]="'metronome_hint' | transloco">
+    <mat-label>{{'BPM'}}</mat-label>
+    <input matInput
+           [(ngModel)]="song.bpm"
+           name="bpm">
+  </mat-form-field>
 
-    <div class="bands">
-        <ng-container *ngIf="!selectedBand; else bandSelection">
-            <div *ngFor="let band of bandService.bands$ | async"
-                 class="band"
-                 (click)="selectBand(band)">
-                <img [src]="band.pictureUrl"
-                     class="band-picture"
-                     [ngClass]="{'visible': band.pictureUrl}"> {{band.name}}
-            </div>
-        </ng-container>
-        <ng-template #bandSelection>
-            <div class="band">
-                <img [src]="selectedBand.pictureUrl"
-                     class="band-picture"
-                     [ngClass]="{'visible': selectedBand.pictureUrl}"> {{selectedBand.name}}
-                <button mat-icon-button
-                        (click)="deselectBand()">
-                    <mat-icon color="accent">highlight_off</mat-icon>
-                </button>
-            </div>
-        </ng-template>
-    </div>
-
-
-    <div class="sound"
-         *ngIf="song.sound">
-        <audio class="audio"
-               controls>
-            <source [src]="song.sound">
-        </audio>
+  <div class="bands">
+    <ng-container *ngIf="!selectedBand; else bandSelection">
+      <div *ngFor="let band of bandService.bands$ | async"
+           class="band"
+           (click)="selectBand(band)">
+        <img [src]="band.pictureUrl"
+             class="band-picture"
+             [ngClass]="{'visible': band.pictureUrl}"> {{band.name}}
+      </div>
+    </ng-container>
+    <ng-template #bandSelection>
+      <div class="band">
+        <img [src]="selectedBand.pictureUrl"
+             class="band-picture"
+             [ngClass]="{'visible': selectedBand.pictureUrl}"> {{selectedBand.name}}
         <button mat-icon-button
-                (click)="removeAudio()">
-            <mat-icon color="accent">delete_outline</mat-icon>
+                (click)="deselectBand()">
+          <mat-icon color="accent">highlight_off</mat-icon>
         </button>
-    </div>
+      </div>
+    </ng-template>
+  </div>
 
-    <div class="song-sections-list"
-         cdkDropList
-         (cdkDropListDropped)="drop($event)">
-        <div class="section"
-             *ngFor="let section of song?.sections; index as i"
-             cdkDrag
-             [cdkDragDisabled]="!isReoderingMode">
-            <mat-form-field appearance="outline"
-                            class="section-name">
-                <mat-label>{{'section' | transloco}}</mat-label>
-                <input matInput
-                       [(ngModel)]="section.name"
-                       name="name">
-            </mat-form-field>
-            <mat-form-field class="section-value">
-                <textarea matInput
-                          [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
-                          [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment"
-                          [value]="section?.value | StringArrayLines"
-                          (change)="onTextAreaValueChanged(i, $event.target.value)"
-                          cdkTextareaAutosize
-                          #autosize="cdkTextareaAutosize"></textarea>
-            </mat-form-field>
-            <button *ngIf="!isReoderingMode"
-                    mat-icon-button
-                    (click)="removeSection(i)">
-                <mat-icon color="accent">delete_outline</mat-icon>
-            </button>
-            <button *ngIf="isReoderingMode"
-                    mat-icon-button
-                    cdkDragHandle>
-                <mat-icon color="accent">drag_handle</mat-icon>
-            </button>
-        </div>
-    </div>
-    <br>
 
-    <div *ngFor="let picture of song?.pictures; index as i">
-        <pinch-zoom>
-            <img class="picture"
-                 [src]="picture">
-        </pinch-zoom>
-        <button mat-icon-button
-                (click)="removePicture(i)">
-            <mat-icon>delete_outline</mat-icon>
-        </button>
-    </div>
-    <div *ngFor="let pdf of song?.pdfs; index as i"
-         style="height: 80vh;">
-        <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
-                          [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+  <div class="sound"
+       *ngIf="song.sound">
+    <audio class="audio"
+           controls>
+      <source [src]="song.sound">
+    </audio>
+    <button mat-icon-button
+            (click)="removeAudio()">
+      <mat-icon color="accent">delete_outline</mat-icon>
+    </button>
+  </div>
 
-        <button mat-icon-button
-                (click)="removePdf(i)">
-            <mat-icon>delete_outline</mat-icon>
-        </button>
+  <div class="song-sections-list"
+       cdkDropList
+       (cdkDropListDropped)="drop($event)">
+    <div class="section"
+         *ngFor="let section of song?.sections; index as i"
+         cdkDrag
+         [cdkDragDisabled]="!isReoderingMode">
+      <div class="section-wrapper">
+        <mat-form-field appearance="outline"
+                        class="section-name">
+          <mat-label>{{'section' | transloco}}</mat-label>
+          <input matInput
+                 [(ngModel)]="section.name"
+                 name="name">
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput
+                    [placeholder]="'section_value' | transloco"
+                    [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
+                    [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment"
+                    [value]="section?.value | StringArrayLines"
+                    (change)="onTextAreaValueChanged(i, $event.target.value)"
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"></textarea>
+        </mat-form-field>
+      </div>
+      <button *ngIf="isDeletingMode"
+              mat-icon-button
+              (click)="removeSection(i)">
+        <mat-icon color="accent">delete_outline</mat-icon>
+      </button>
+      <button *ngIf="isReoderingMode"
+              mat-icon-button
+              cdkDragHandle>
+        <mat-icon color="accent">drag_handle</mat-icon>
+      </button>
     </div>
+  </div>
+  <br>
+
+  <div *ngFor="let picture of song?.pictures; index as i">
+    <pinch-zoom>
+      <img class="picture"
+           [src]="picture">
+    </pinch-zoom>
+    <button mat-icon-button
+            (click)="removePicture(i)">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+  <div *ngFor="let pdf of song?.pdfs; index as i"
+       style="height: 80vh;">
+    <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
+                      [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+
+    <button mat-icon-button
+            (click)="removePdf(i)">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
 </div>

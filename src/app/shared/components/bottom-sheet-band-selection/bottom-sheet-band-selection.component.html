@@ -2,9 +2,11 @@
   <a mat-list-item
      *ngFor="let band of token.bands"
      (click)="onSelectBand(band)">
-    <img [src]="band.pictureUrl"
-         class="band-picture"
-         [ngClass]="{'visible': band.pictureUrl}">
-    {{band.name}}
+    <div class="band-item">
+      <img [src]="band.pictureUrl"
+           class="band-picture"
+           [ngClass]="{'visible': band.pictureUrl}">
+      <div>{{band.name}}</div>
+    </div>
   </a>
 </mat-nav-list>

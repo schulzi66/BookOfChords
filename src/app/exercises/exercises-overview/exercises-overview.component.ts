@@ -1,13 +1,18 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
+import { Router, RouterModule } from '@angular/router';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { Exercise } from 'src/app/models/exercise';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { SearchComponent } from 'src/app/shared/components/search/search.component';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { ExercisesService } from '../services/exercises.service';
 
 @Component({
   selector: 'app-exercises-overview',
+  standalone: true,
+  imports: [RouterModule, ScrollingModule, MatListModule, SearchComponent],
   templateUrl: './exercises-overview.component.html',
   styleUrls: ['./exercises-overview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

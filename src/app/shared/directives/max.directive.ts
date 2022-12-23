@@ -3,6 +3,7 @@ import { AbstractControl, NG_VALIDATORS, Validator, Validators } from '@angular/
 
 @Directive({
   selector: '[max]',
+  standalone: true,
   providers: [{ provide: NG_VALIDATORS, useExisting: MaxDirective, multi: true }]
 })
 export class MaxDirective implements Validator {

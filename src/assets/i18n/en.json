@@ -14,6 +14,7 @@
   "leave_band_content": "Do you really want to leave the band {{value}}?",
   "song_name": "Name of the song",
   "section": "Section",
+  "section_value": "Your chords, notes or lyrics",
   "search": "Search",
   "gig_name": "Name of the gig",
   "cancel": "Cancel",

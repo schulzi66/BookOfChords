@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy": "ng build --configuration production && firebase deploy -P default",
-    "deploy:testing": "ng build --configuration production && firebase deploy -P testing",
+    "deploy:testing": "ng build --configuration production && firebase deploy -P testing --only hosting",
     "deploy:hosting": "ng build --configuration production && firebase deploy -P default --only hosting"
   },
   "private": true,

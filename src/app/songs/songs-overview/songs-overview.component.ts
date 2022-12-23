@@ -1,7 +1,8 @@
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { Router } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
+import { Router, RouterModule } from '@angular/router';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { take } from 'rxjs/operators';
 import { BandService } from 'src/app/band/services/band.service';
@@ -10,12 +11,15 @@ import { Band } from 'src/app/models/band';
 import { AuthService } from 'src/app/services/auth.service';
 import { BottomSheetService } from 'src/app/services/bottom-sheet.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { SearchComponent } from 'src/app/shared/components/search/search.component';
 import { Song } from '../../models/song';
 import { SubscriptionHandler } from '../../shared/helper/subscription-handler';
 import { SongService } from '../services/song.service';
 
 @Component({
   selector: 'app-songs-overview',
+  standalone: true,
+  imports: [SearchComponent, MatListModule, ScrollingModule, RouterModule],
   templateUrl: './songs-overview.component.html',
   styleUrls: ['./songs-overview.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

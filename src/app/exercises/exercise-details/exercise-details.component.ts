@@ -1,8 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
-import { translate } from '@ngneat/transloco';
+import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { filter } from 'rxjs/operators';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Exercise } from 'src/app/models/exercise';
@@ -15,12 +22,29 @@ import { INavbarAction } from './../../models/navbar-action';
 import { DrawerActionService } from './../../services/drawer-action.service';
 import { DeletePopupDialogComponent } from './../../shared/components/delete-popup-dialog/delete-popup-dialog.component';
 import { MetronomeComponent } from './../../shared/components/metronome/metronome.component';
+import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
+import { EncodeUriPipe } from './../../shared/pipes/encode.pipe';
 import { ExercisesService } from './../services/exercises.service';
 import { SaveExerciseProgressData } from './save-exercise-progress-dialog/save-exercise-progress-data';
 import { SaveExerciseProgressDialogComponent } from './save-exercise-progress-dialog/save-exercise-progress-dialog.component';
 
 @Component({
   selector: 'app-exercise-details',
+  standalone: true,
+  imports: [
+    CommonModule,
+    EncodeUriPipe,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MetronomeComponent,
+    PdfJsViewerModule,
+    PinchZoomComponent,
+    SaveExerciseProgressDialogComponent,
+    TranslocoModule,
+  ],
   templateUrl: './exercise-details.component.html',
   styleUrls: ['./exercise-details.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

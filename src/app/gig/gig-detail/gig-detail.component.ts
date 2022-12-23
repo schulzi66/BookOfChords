@@ -1,20 +1,47 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgModel } from '@angular/forms';
-import { MatAccordion } from '@angular/material/expansion';
+import { FormsModule, NgModel } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { translate } from '@ngneat/transloco';
+import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Configuration } from 'src/app/models/configuration';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { MetronomeComponent } from 'src/app/shared/components/metronome/metronome.component';
 import { Gig } from '../../models/gig';
 import { Song } from '../../models/song';
+import { EncodeUriPipe } from '../../shared/pipes/encode.pipe';
 import { GigService } from '../services/gig.service';
+import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
 
 @Component({
   selector: 'app-gig-detail',
+  standalone: true,
+  imports: [
+    CommonModule,
+    DragDropModule,
+    EncodeUriPipe,
+    FormsModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MetronomeComponent,
+    PdfJsViewerModule,
+    PinchZoomComponent,
+    TranslocoModule,
+  ],
   templateUrl: './gig-detail.component.html',
   styleUrls: ['./gig-detail.component.scss'],
   animations: [fadeInOnEnterAnimation({ duration: 700 })]

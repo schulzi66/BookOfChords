@@ -9,6 +9,7 @@ export interface RockNRollSnackbarConfigInjectionToken {
 
 @Component({
   selector: 'app-rock-n-roll-snackbar',
+  standalone: true,
   templateUrl: './rock-n-roll-snackbar.component.html',
   styleUrls: ['./rock-n-roll-snackbar.component.scss']
 })

@@ -1,6 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
+import { MatLineModule } from '@angular/material/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { MediaTypes } from 'src/app/models/media-types.enum';
@@ -8,6 +11,8 @@ import { UploadResult } from 'src/app/models/upload-result';
 
 @Component({
   selector: 'upload-task',
+  standalone: true,
+  imports: [CommonModule, MatLineModule, MatProgressBarModule],
   templateUrl: './upload-task.component.html',
   styleUrls: ['./upload-task.component.scss']
 })

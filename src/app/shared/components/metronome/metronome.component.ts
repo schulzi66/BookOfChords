@@ -1,10 +1,35 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSliderModule } from '@angular/material/slider';
+import { TranslocoModule } from '@ngneat/transloco';
 import { ToneService } from 'src/app/services/tone.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
+import { MaxDirective } from './../../directives/max.directive';
+import { MinDirective } from './../../directives/min.directive';
 
 @Component({
   // tslint:disable-next-line: component-selector
   selector: 'shared-metronome',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatSliderModule,
+    MaxDirective,
+    MinDirective,
+    TranslocoModule,
+  ],
   templateUrl: './metronome.component.html',
   styleUrls: ['./metronome.component.scss']
 })

@@ -1,5 +1,4 @@
 <div class="flex-container h80">
-
   <mat-card class="login-card">
     <mat-card-header>
       <div mat-card-avatar
@@ -18,18 +17,7 @@
             {{ t('login_with_google') }}
           </ng-template>
         </button>
-
-        <button mat-stroked-button
-                class="button"
-                (click)="authService.anonymSignIn()">
-          <ng-template transloco
-                       let-t>
-            {{ t('login_as_guest') }}
-          </ng-template>
-        </button>
       </div>
-      <span class="guest-note">{{'guest_note' | transloco}}</span>
     </mat-card-actions>
   </mat-card>
-
 </div>

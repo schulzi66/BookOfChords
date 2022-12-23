@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Band } from 'src/app/models/band';
 import { Setlist } from 'src/app/models/setlist';
 import { AuthService } from 'src/app/services/auth.service';
@@ -22,14 +22,9 @@ export class BandService {
     this.bandsSubject = new BehaviorSubject([]);
     this.bands = [];
     this.selectedBand = null;
-    if (this._authService.user.bandIds) {
-      this.getBandsByBandIds(this._authService.user.bandIds).subscribe((bands: Array<Band>) => {
-        this.bandsSubject.next(bands);
-      });
-      this.bands$.subscribe((bands: Array<Band>) => {
-        this.bands = bands;
-      });
-    }
+    this.bands$.subscribe((bands: Array<Band>) => {
+      this.bands = bands;
+    });
   }
 
   public saveBand(band: Band): Promise<string> {
@@ -54,6 +49,21 @@ export class BandService {
       band.setlists.push(setlist);
     }
     return this.saveBand(band);
+  }
+
+  public getBands(): Observable<Array<Band>> {
+    if (this.bands.length > 0) {
+      return this.bands$;
+    }
+
+    if (this._authService.user.bandIds) {
+      return this.getBandsByBandIds(this._authService.user.bandIds).pipe(
+        switchMap((bands: Array<Band>) => {
+          this.bandsSubject.next(bands);
+          return of(bands);
+        })
+      );
+    }
   }
 
   public getBandByBandId(bandId: string): Observable<Band> {

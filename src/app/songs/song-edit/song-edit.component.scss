@@ -17,19 +17,19 @@ app-song-section {
 
 .section {
     display: flex;
-}
 
-.section-name {
-    margin-right: 5px;
-    text-align: left;
-    flex-basis: 7rem;
-}
+    .section-wrapper {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
 
-.section-value {
-    flex-grow: 1;
-    margin-right: 5px;
-}
+        .section-name {
+            text-align: left;
+            margin-bottom: -1rem;
+        }
 
+    }
+}
 
 .edit-icon {
     margin-bottom: 2px;
