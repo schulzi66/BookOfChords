@@ -6,6 +6,7 @@ export class Configuration {
   useDarkMode: boolean;
   lang: string;
   openDrawerInitially: boolean;
+  filterArchivedSongsInitially: boolean;
   sectionAlignment: 'start' | 'center' | 'end';
   showMetronomeInGigs: boolean;
 

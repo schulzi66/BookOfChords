@@ -96,6 +96,10 @@ export class ConfigurationComponent extends SubscriptionHandler implements OnIni
     this.configuration.openDrawerInitially = event.checked;
   }
 
+  public filterArchivedSongsInitiallyChanged(event: MatSlideToggleChange): void {
+    this.configuration.filterArchivedSongsInitially = event.checked;
+  }
+
   public showMetronomeInGigsChanged(event: MatSlideToggleChange): void {
     this.configuration.showMetronomeInGigs = event.checked;
   }

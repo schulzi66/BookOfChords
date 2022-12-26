@@ -92,7 +92,7 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
       },
       {
         order: 200,
-        icon: 'unarchive',
+        icon: 'ios_share',
         action: () => this.exportSetlistAsGig()
       },
       {

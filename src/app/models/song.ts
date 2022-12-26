@@ -10,6 +10,7 @@ export class Song {
   pdfs: string[];
   sound: string;
   bandId: string;
+  isArchived: boolean;
 
   constructor(name: string) {
     this.name = name;

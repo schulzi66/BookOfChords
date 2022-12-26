@@ -10,6 +10,7 @@ import { Song } from '../../models/song';
 export class SongService extends SubscriptionHandler implements OnDestroy {
   public selectedSong: Song;
   public selectedBandForOverview: Band;
+  public filterArchivedSongs: boolean;
 
   public songs$: Observable<Song[]>;
   public songs: Song[];
@@ -18,6 +19,7 @@ export class SongService extends SubscriptionHandler implements OnDestroy {
     super();
     this.songs$ = this.getSongsForUser(this._authService.user.uid);
     this._subscriptions$.add(this.songs$.subscribe((songs: Song[]) => (this.songs = songs)));
+    this.filterArchivedSongs = true;
   }
 
   public ngOnDestroy(): void {
