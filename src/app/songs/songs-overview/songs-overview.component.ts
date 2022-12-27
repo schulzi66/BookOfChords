@@ -85,17 +85,13 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
                     .getSongsForUserByBandId(this._authService.user.uid, this._selectedBand.id)
                     .pipe(take(1))
                     .subscribe((songs: Song[]) => {
-                        this._songs = songs;
-                        this.filteredSongs = songs;
-                        this.loadConfigAndFilterArchivedSongs();
+                        this.storeAndFilterSongs(songs);
                     }),
             );
         } else {
             this._subscriptions$.add(
                 this._songService.songs$.subscribe((songs: Song[]) => {
-                    this._songs = songs;
-                    this.filteredSongs = songs;
-                    this.loadConfigAndFilterArchivedSongs();
+                    this.storeAndFilterSongs(songs);
                 }),
             );
         }
@@ -151,7 +147,7 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
 
     public selectBand(): void {
         const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showBandSelection({
-            bands: this._bandService.bandsSubject.value,
+            bands$: this._bandService.getBands(),
             onSelectionCallback: (band: Band) => {
                 this._selectedBand = band;
                 this._songService.selectedBandForOverview = band;
@@ -159,11 +155,16 @@ export class SongsOverviewComponent extends SubscriptionHandler implements OnIni
                     .getSongsForUserByBandId(this._authService.user.uid, band.id)
                     .pipe(take(1))
                     .subscribe((songs: Song[]) => {
-                        this._songs = songs;
-                        this.filteredSongs = songs;
+                        this.storeAndFilterSongs(songs);
                     });
                 bottomSheetRef.dismiss();
             },
         });
+    }
+
+    private storeAndFilterSongs(songs: Song[]) {
+        this._songs = songs;
+        this.filteredSongs = songs;
+        this.loadConfigAndFilterArchivedSongs();
     }
 }
