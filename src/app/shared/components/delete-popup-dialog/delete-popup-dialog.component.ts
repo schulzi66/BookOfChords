@@ -4,15 +4,12 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { TranslocoModule } from '@ngneat/transloco';
 import { DeletePopupDialogData } from './delete-popup-dialog-data';
 @Component({
-  selector: 'shared-popup-dialog',
-  standalone: true,
-  imports: [MatButtonModule, MatDialogModule, TranslocoModule],
-  templateUrl: './delete-popup-dialog.component.html',
-  styleUrls: ['./delete-popup-dialog.component.scss']
+    selector: 'shared-popup-dialog',
+    standalone: true,
+    imports: [MatButtonModule, MatDialogModule, TranslocoModule],
+    templateUrl: './delete-popup-dialog.component.html',
+    styleUrls: ['./delete-popup-dialog.component.scss'],
 })
 export class DeletePopupDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<DeletePopupDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DeletePopupDialogData
-  ) {}
+    constructor(public dialogRef: MatDialogRef<DeletePopupDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DeletePopupDialogData) {}
 }

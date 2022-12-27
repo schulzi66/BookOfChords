@@ -11,33 +11,33 @@ import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 
 @Component({
-  selector: 'app-band-setlist-overview',
-  standalone: true,
-  imports: [MatDividerModule, RouterModule, CommonModule, MatListModule],
-  templateUrl: './band-setlist-overview.component.html',
-  styleUrls: ['./band-setlist-overview.component.scss'],
-  animations: [fadeInOnEnterAnimation({ duration: 700 })]
+    selector: 'app-band-setlist-overview',
+    standalone: true,
+    imports: [MatDividerModule, RouterModule, CommonModule, MatListModule],
+    templateUrl: './band-setlist-overview.component.html',
+    styleUrls: ['./band-setlist-overview.component.scss'],
+    animations: [fadeInOnEnterAnimation({ duration: 700 })],
 })
 export class BandSetlistOverviewComponent extends SubscriptionHandler implements OnInit {
-  public band: Band;
+    public band: Band;
 
-  public constructor(
-    private _authService: AuthService,
-    private _bandService: BandService,
-    private _navbarActionService: NavbarActionService,
-    private _router: Router
-  ) {
-    super();
-    this._navbarActionService.registerActions([
-      {
-        order: 100,
-        icon: 'add',
-        action: () => this._router.navigate(['./band/setlist/edit', -1])
-      }
-    ]);
-  }
+    public constructor(
+        private _authService: AuthService,
+        private _bandService: BandService,
+        private _navbarActionService: NavbarActionService,
+        private _router: Router,
+    ) {
+        super();
+        this._navbarActionService.registerActions([
+            {
+                order: 100,
+                icon: 'add',
+                action: () => this._router.navigate(['./band/setlist/edit', -1]),
+            },
+        ]);
+    }
 
-  ngOnInit() {
-    this.band = this._bandService.selectedBand;
-  }
+    ngOnInit() {
+        this.band = this._bandService.selectedBand;
+    }
 }

@@ -9,59 +9,59 @@ import { BandSetlistEditComponent } from './band-setlist-edit/band-setlist-edit.
 import { NoBandOverviewComponent } from './no-band-overview/no-band-overview.component';
 
 export default [
-  {
-    path: '',
-    resolve: {
-      key: TitleKeyResolver
-    },
-    data: {
-      key: TITLEKEYS.band
-    },
-    children: [
-      {
+    {
         path: '',
-        component: BandOverviewComponent,
         resolve: {
-          drawerAction: DrawerActionResolver
+            key: TitleKeyResolver,
         },
         data: {
-          isBaseDrawerAction: true
-        }
-      },
-      {
-        path: 'selection',
-        component: BandSelectionComponent,
-        resolve: {
-          drawerAction: DrawerActionResolver
+            key: TITLEKEYS.band,
         },
-        data: {
-          isBaseDrawerAction: true
-        }
-      },
-      {
-        path: 'noband',
-        component: NoBandOverviewComponent,
-        resolve: {
-          drawerAction: DrawerActionResolver
-        },
-        data: {
-          isBaseDrawerAction: true
-        }
-      },
-      {
-        path: 'edit/:id',
-        component: BandEditComponent,
-        resolve: {
-          drawerAction: DrawerActionResolver
-        }
-      },
-      {
-        path: 'setlist/edit/:id',
-        component: BandSetlistEditComponent,
-        resolve: {
-          drawerAction: DrawerActionResolver
-        }
-      }
-    ]
-  }
+        children: [
+            {
+                path: '',
+                component: BandOverviewComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                },
+                data: {
+                    isBaseDrawerAction: true,
+                },
+            },
+            {
+                path: 'selection',
+                component: BandSelectionComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                },
+                data: {
+                    isBaseDrawerAction: true,
+                },
+            },
+            {
+                path: 'noband',
+                component: NoBandOverviewComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                },
+                data: {
+                    isBaseDrawerAction: true,
+                },
+            },
+            {
+                path: 'edit/:id',
+                component: BandEditComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                },
+            },
+            {
+                path: 'setlist/edit/:id',
+                component: BandSetlistEditComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                },
+            },
+        ],
+    },
 ] as Route[];

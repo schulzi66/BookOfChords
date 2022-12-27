@@ -4,12 +4,12 @@ import { RockNRollSnackbarComponent } from 'src/app/shared/components/rock-n-rol
 import { RockNRollSnackbarConfigInjectionToken } from './../shared/components/rock-n-roll-snackbar/rock-n-roll-snackbar.component';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class SnackbarService {
-  public constructor(private _snackBar: MatSnackBar) {}
+    public constructor(private _snackBar: MatSnackBar) {}
 
-  public show(token: RockNRollSnackbarConfigInjectionToken): MatSnackBarRef<RockNRollSnackbarComponent> {
-    return this._snackBar.openFromComponent(RockNRollSnackbarComponent, { data: token });
-  }
+    public show(token: RockNRollSnackbarConfigInjectionToken): MatSnackBarRef<RockNRollSnackbarComponent> {
+        return this._snackBar.openFromComponent(RockNRollSnackbarComponent, { data: token });
+    }
 }

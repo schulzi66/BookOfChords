@@ -6,18 +6,18 @@ import { DEFAULT_DRAWER_ICON_KEY, DrawerActionService } from '../../services/dra
 
 @Injectable({ providedIn: 'root' })
 export class DrawerActionResolver implements Resolve<void> {
-  constructor(private _drawerActionService: DrawerActionService, private _location: Location) {}
+    constructor(private _drawerActionService: DrawerActionService, private _location: Location) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<void> | Promise<void> | void {
-    if (route.data['isBaseDrawerAction']) {
-      this._drawerActionService.iconKey = DEFAULT_DRAWER_ICON_KEY;
-      this._drawerActionService.resetActions();
-    } else {
-      this._drawerActionService.iconKey = 'cancel';
-      this._drawerActionService.drawerAction = () => {
-        this._drawerActionService.iconKey = DEFAULT_DRAWER_ICON_KEY;
-        this._location.back();
-      };
+    resolve(route: ActivatedRouteSnapshot): Observable<void> | Promise<void> | void {
+        if (route.data['isBaseDrawerAction']) {
+            this._drawerActionService.iconKey = DEFAULT_DRAWER_ICON_KEY;
+            this._drawerActionService.resetActions();
+        } else {
+            this._drawerActionService.iconKey = 'cancel';
+            this._drawerActionService.drawerAction = () => {
+                this._drawerActionService.iconKey = DEFAULT_DRAWER_ICON_KEY;
+                this._location.back();
+            };
+        }
     }
-  }
 }

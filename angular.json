@@ -28,14 +28,12 @@
                             "src/manifest.webmanifest",
                             "src/firebase-messaging-sw.js",
                             {
-                                "glob": "**/*", 
-                                "input": "node_modules/ng2-pdfjs-viewer/pdfjs", 
-                                "output": "/assets/pdfjs" 
+                                "glob": "**/*",
+                                "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
+                                "output": "/assets/pdfjs"
                             }
                         ],
-                        "styles": [
-                            "src/styles/styles.scss"
-                        ],
+                        "styles": ["src/styles/styles.scss"],
                         "scripts": [],
                         "aot": true,
                         "vendorChunk": true,
@@ -91,15 +89,9 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "src/tsconfig.spec.json",
                         "karmaConfig": "src/karma.conf.js",
-                        "styles": [
-                            "src/styles/styles.scss"
-                        ],
+                        "styles": ["src/styles/styles.scss"],
                         "scripts": [],
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets",
-                            "src/manifest.webmanifest"
-                        ],
+                        "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
                         "webWorkerTsConfig": "tsconfig.worker.json"
                     }
                 }
@@ -107,6 +99,6 @@
         }
     },
     "cli": {
-      "analytics": false
+        "analytics": false
     }
 }

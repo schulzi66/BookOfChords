@@ -5,16 +5,16 @@ import { TitleKeyResolver } from '../shared/resolvers/title-key.resolver';
 import { DemoComponent } from './demo.component';
 
 export default [
-  {
-    path: '',
-    component: DemoComponent,
-    resolve: {
-      key: TitleKeyResolver,
-      drawerAction: DrawerActionResolver
+    {
+        path: '',
+        component: DemoComponent,
+        resolve: {
+            key: TitleKeyResolver,
+            drawerAction: DrawerActionResolver,
+        },
+        data: {
+            key: TITLEKEYS.demo,
+            isBaseDrawerAction: true,
+        },
     },
-    data: {
-      key: TITLEKEYS.demo,
-      isBaseDrawerAction: true
-    }
-  }
 ] as Route[];

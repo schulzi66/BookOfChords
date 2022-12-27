@@ -7,8 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserResolver implements Resolve<User> {
-  public constructor(private _authService: AuthService) {}
-  resolve(route: ActivatedRouteSnapshot): Observable<User> | Promise<User> | User {
-    return this._authService.user !== undefined ? this._authService.user : this._authService.user$.pipe(take(1));
-  }
+    public constructor(private _authService: AuthService) {}
+    resolve(route: ActivatedRouteSnapshot): Observable<User> | Promise<User> | User {
+        return this._authService.user !== undefined ? this._authService.user : this._authService.user$.pipe(take(1));
+    }
 }

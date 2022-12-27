@@ -26,120 +26,120 @@ import { BottomSheetService } from '../../services/bottom-sheet.service';
 import { Exercise } from './../../models/exercise';
 
 @Component({
-  selector: 'app-exercise-edit',
-  standalone: true,
-  imports: [
-    CommonModule,
-    EncodeUriPipe,
-    FormsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatStepperModule,
-    MetronomeComponent,
-    PdfJsViewerModule,
-    TextFieldModule,
-    TranslocoModule,
-  ],
-  templateUrl: './exercise-edit.component.html',
-  styleUrls: ['./exercise-edit.component.scss'],
-  animations: [fadeInOnEnterAnimation({ duration: 700 })]
+    selector: 'app-exercise-edit',
+    standalone: true,
+    imports: [
+        CommonModule,
+        EncodeUriPipe,
+        FormsModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatStepperModule,
+        MetronomeComponent,
+        PdfJsViewerModule,
+        TextFieldModule,
+        TranslocoModule,
+    ],
+    templateUrl: './exercise-edit.component.html',
+    styleUrls: ['./exercise-edit.component.scss'],
+    animations: [fadeInOnEnterAnimation({ duration: 700 })],
 })
 export class ExerciseEditComponent implements OnInit {
-  public exercise: Exercise;
+    public exercise: Exercise;
 
-  @ViewChild(MetronomeComponent) private _metronomeRef: MetronomeComponent;
-  @ViewChild('exerciseNameModel') private _exerciseNameModel: NgModel;
+    @ViewChild(MetronomeComponent) private _metronomeRef: MetronomeComponent;
+    @ViewChild('exerciseNameModel') private _exerciseNameModel: NgModel;
 
-  constructor(
-    private _exercisesService: ExercisesService,
-    private _activatedRoute: ActivatedRoute,
-    private _navbarActionService: NavbarActionService,
-    private _snackbarService: SnackbarService,
-    private _authService: AuthService,
-    private _bottomSheetService: BottomSheetService,
-    public configurationService: ConfigurationService
-  ) {
-    this._navbarActionService.registerActions([
-      {
-        order: 100,
-        icon: 'save',
-        action: () => this._saveExercise(),
-        validator: () => this.validate()
-      },
-      {
-        order: 200,
-        icon: 'upload_file',
-        action: () => this.showFileUpload()
-      }
-    ]);
-  }
-
-  ngOnInit() {
-    if (this._activatedRoute.snapshot.params['id'] !== '-1') {
-      this.exercise = this._activatedRoute.snapshot.data['exercise'];
-    } else {
-      this.exercise = new Exercise();
+    constructor(
+        private _exercisesService: ExercisesService,
+        private _activatedRoute: ActivatedRoute,
+        private _navbarActionService: NavbarActionService,
+        private _snackbarService: SnackbarService,
+        private _authService: AuthService,
+        private _bottomSheetService: BottomSheetService,
+        public configurationService: ConfigurationService,
+    ) {
+        this._navbarActionService.registerActions([
+            {
+                order: 100,
+                icon: 'save',
+                action: () => this._saveExercise(),
+                validator: () => this.validate(),
+            },
+            {
+                order: 200,
+                icon: 'upload_file',
+                action: () => this.showFileUpload(),
+            },
+        ]);
     }
-  }
 
-  public showFileUpload(): void {
-    const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showUpload({
-      storageBucketPrefix: 'exercises',
-      typesToUpload: [MediaTypes.IMAGE, MediaTypes.PDF, MediaTypes.SOUND],
-      displayCameraOption: true,
-      onUploadCallback: (result) => {
-        this._onFileUploadCompleted(result);
-        bottomSheetRef.dismiss();
-      }
-    });
-  }
-
-  public onSelectionChanged($event: StepperSelectionEvent): void {
-    if (($event.selectedIndex == 2 || $event.selectedIndex == 3) && !$event.selectedStep.interacted) {
-      this.showFileUpload();
+    ngOnInit() {
+        if (this._activatedRoute.snapshot.params['id'] !== '-1') {
+            this.exercise = this._activatedRoute.snapshot.data['exercise'];
+        } else {
+            this.exercise = new Exercise();
+        }
     }
-  }
 
-  public removeAudio(): void {
-    this.exercise.sound = null;
-  }
-
-  public removePicture(): void {
-    this.exercise.pictureUrl = null;
-  }
-
-  public removePdf(): void {
-    this.exercise.pdfUrl = null;
-  }
-
-  private _onFileUploadCompleted(result: UploadResult): void {
-    switch (result.mediaType) {
-      case MediaTypes.IMAGE:
-        this.exercise.pictureUrl = result.downloadUrl;
-        break;
-      case MediaTypes.PDF:
-        this.exercise.pdfUrl = result.downloadUrl;
-        break;
-      case MediaTypes.SOUND:
-        this.exercise.sound = result.downloadUrl;
-        break;
-    }
-  }
-
-  private _saveExercise(): void {
-    if (this.exercise.name && this._authService.user) {
-      this.exercise.uid = this._authService.user.uid;
-      this._exercisesService.saveExercise(this.exercise).then(() => {
-        this._snackbarService.show({
-          message: translate<string>('saved')
+    public showFileUpload(): void {
+        const bottomSheetRef: MatBottomSheetRef = this._bottomSheetService.showUpload({
+            storageBucketPrefix: 'exercises',
+            typesToUpload: [MediaTypes.IMAGE, MediaTypes.PDF, MediaTypes.SOUND],
+            displayCameraOption: true,
+            onUploadCallback: result => {
+                this._onFileUploadCompleted(result);
+                bottomSheetRef.dismiss();
+            },
         });
-      });
     }
-  }
 
-  private validate(): boolean {
-    return this._metronomeRef && this._metronomeRef.isValid && this._exerciseNameModel.valid;
-  }
+    public onSelectionChanged($event: StepperSelectionEvent): void {
+        if (($event.selectedIndex == 2 || $event.selectedIndex == 3) && !$event.selectedStep.interacted) {
+            this.showFileUpload();
+        }
+    }
+
+    public removeAudio(): void {
+        this.exercise.sound = null;
+    }
+
+    public removePicture(): void {
+        this.exercise.pictureUrl = null;
+    }
+
+    public removePdf(): void {
+        this.exercise.pdfUrl = null;
+    }
+
+    private _onFileUploadCompleted(result: UploadResult): void {
+        switch (result.mediaType) {
+            case MediaTypes.IMAGE:
+                this.exercise.pictureUrl = result.downloadUrl;
+                break;
+            case MediaTypes.PDF:
+                this.exercise.pdfUrl = result.downloadUrl;
+                break;
+            case MediaTypes.SOUND:
+                this.exercise.sound = result.downloadUrl;
+                break;
+        }
+    }
+
+    private _saveExercise(): void {
+        if (this.exercise.name && this._authService.user) {
+            this.exercise.uid = this._authService.user.uid;
+            this._exercisesService.saveExercise(this.exercise).then(() => {
+                this._snackbarService.show({
+                    message: translate<string>('saved'),
+                });
+            });
+        }
+    }
+
+    private validate(): boolean {
+        return this._metronomeRef && this._metronomeRef.isValid && this._exerciseNameModel.valid;
+    }
 }

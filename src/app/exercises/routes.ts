@@ -9,49 +9,49 @@ import { ExerciseModeSelectionComponent } from './exercise-mode-selection/exerci
 import { ExercisesOverviewComponent } from './exercises-overview/exercises-overview.component';
 
 export default [
-  {
-    path: '',
-    resolve: {
-      key: TitleKeyResolver
-    },
-    data: {
-      key: TITLEKEYS.exercises
-    },
-    children: [
-      {
+    {
         path: '',
-        component: ExercisesOverviewComponent,
         resolve: {
-          drawerAction: DrawerActionResolver
+            key: TitleKeyResolver,
         },
         data: {
-          isBaseDrawerAction: true
-        }
-      },
-      {
-        path: 'edit/:id',
-        component: ExerciseEditComponent,
-        resolve: {
-          drawerAction: DrawerActionResolver,
-          exercise: ExerciseResolver
-        }
-      },
-      {
-        path: 'mode/:id',
-        component: ExerciseModeSelectionComponent,
-        resolve: {
-          drawerAction: DrawerActionResolver,
-          exercise: ExerciseResolver
-        }
-      },
-      {
-        path: 'details/:id/:mode',
-        component: ExerciseDetailsComponent,
-        resolve: {
-          drawerAction: DrawerActionResolver,
-          exercise: ExerciseResolver
-        }
-      }
-    ]
-  }
+            key: TITLEKEYS.exercises,
+        },
+        children: [
+            {
+                path: '',
+                component: ExercisesOverviewComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                },
+                data: {
+                    isBaseDrawerAction: true,
+                },
+            },
+            {
+                path: 'edit/:id',
+                component: ExerciseEditComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                    exercise: ExerciseResolver,
+                },
+            },
+            {
+                path: 'mode/:id',
+                component: ExerciseModeSelectionComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                    exercise: ExerciseResolver,
+                },
+            },
+            {
+                path: 'details/:id/:mode',
+                component: ExerciseDetailsComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                    exercise: ExerciseResolver,
+                },
+            },
+        ],
+    },
 ] as Route[];

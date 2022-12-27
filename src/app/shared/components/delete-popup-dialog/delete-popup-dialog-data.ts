@@ -1,4 +1,4 @@
 export interface DeletePopupDialogData {
-  title: string;
-  content: string;
+    title: string;
+    content: string;
 }
