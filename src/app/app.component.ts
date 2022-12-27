@@ -21,71 +21,71 @@ import { TitleKeyService } from './services/title-key.service';
 import { SubscriptionHandler } from './shared/helper/subscription-handler';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    MatListModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    RouterModule,
-    TranslocoModule
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    standalone: true,
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatIconModule,
+        MatListModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        RouterModule,
+        TranslocoModule,
+    ],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent extends SubscriptionHandler implements OnInit, AfterViewInit {
-  private _initialized: boolean;
-  @ViewChild('drawer') private _drawer: MatDrawer;
+    private _initialized: boolean;
+    @ViewChild('drawer') private _drawer: MatDrawer;
 
-  constructor(
-    public authService: AuthService,
-    public pwaService: PwaService,
-    public titleService: TitleKeyService,
-    public navbarActionService: NavbarActionService,
-    public drawerActionService: DrawerActionService,
-    public configurationService: ConfigurationService,
-    private _translocoService: TranslocoService,
-    private _messagingService: MessagingService,
-    private _snackbarService: SnackbarService
-  ) {
-    super();
-    this._initialized = false;
-  }
+    constructor(
+        public authService: AuthService,
+        public pwaService: PwaService,
+        public titleService: TitleKeyService,
+        public navbarActionService: NavbarActionService,
+        public drawerActionService: DrawerActionService,
+        public configurationService: ConfigurationService,
+        private _translocoService: TranslocoService,
+        private _messagingService: MessagingService,
+        private _snackbarService: SnackbarService,
+    ) {
+        super();
+        this._initialized = false;
+    }
 
-  ngOnInit(): void {
-    this._subscriptions$.add(
-      this.authService.user$.pipe(filter((user) => user != null)).subscribe((user: User) => {
-        this._messagingService.getPermission(user);
-        this._messagingService.receiveMessages();
-        this._messagingService.currentMessage$.subscribe(() => {
-          this._snackbarService.show({ message: translate<string>('notification_data'), route: 'band' });
-        });
-
+    ngOnInit(): void {
         this._subscriptions$.add(
-          this.configurationService.configuration$.subscribe((configuration: Configuration) => {
-            if (configuration) {
-              this._translocoService.setActiveLang(configuration.lang);
+            this.authService.user$.pipe(filter(user => user != null)).subscribe((user: User) => {
+                this._messagingService.getPermission(user);
+                this._messagingService.receiveMessages();
+                this._messagingService.currentMessage$.subscribe(() => {
+                    this._snackbarService.show({ message: translate<string>('notification_data'), route: 'band' });
+                });
 
-              if (!this._initialized) {
-                this._drawer.opened = configuration.openDrawerInitially;
-              }
+                this._subscriptions$.add(
+                    this.configurationService.configuration$.subscribe((configuration: Configuration) => {
+                        if (configuration) {
+                            this._translocoService.setActiveLang(configuration.lang);
 
-              this._initialized = true;
-            }
-          })
+                            if (!this._initialized) {
+                                this._drawer.opened = configuration.openDrawerInitially;
+                            }
+
+                            this._initialized = true;
+                        }
+                    }),
+                );
+            }),
         );
-      })
-    );
-  }
+    }
 
-  ngAfterViewInit(): void {
-    this.drawerActionService.drawer = this._drawer;
-  }
+    ngAfterViewInit(): void {
+        this.drawerActionService.drawer = this._drawer;
+    }
 
-  public installPwa(): void {
-    this.pwaService.promptEvent.prompt();
-  }
+    public installPwa(): void {
+        this.pwaService.promptEvent.prompt();
+    }
 }

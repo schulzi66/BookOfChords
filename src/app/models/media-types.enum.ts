@@ -1,6 +1,6 @@
 export enum MediaTypes {
-  PDF = 'application/pdf',
-  SOUND = 'audio/*',
-  IMAGE = 'image/*',
-  ANY = '*'
+    PDF = 'application/pdf',
+    SOUND = 'audio/*',
+    IMAGE = 'image/*',
+    ANY = '*',
 }

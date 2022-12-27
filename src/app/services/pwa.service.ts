@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class PwaService {
-  public promptEvent: any;
+    public promptEvent: any;
 
-  constructor() {
-    window.addEventListener('beforeinstallprompt', (event) => {
-      this.promptEvent = event;
-    });
-  }
+    constructor() {
+        window.addEventListener('beforeinstallprompt', event => {
+            this.promptEvent = event;
+        });
+    }
 }

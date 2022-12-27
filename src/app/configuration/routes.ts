@@ -5,13 +5,13 @@ import { TitleKeyResolver } from '../shared/resolvers/title-key.resolver';
 import { ConfigurationComponent } from './configuration/configuration.component';
 
 export default [
-  {
-    path: '',
-    component: ConfigurationComponent,
-    resolve: {
-      key: TitleKeyResolver,
-      drawerAction: DrawerActionResolver
+    {
+        path: '',
+        component: ConfigurationComponent,
+        resolve: {
+            key: TitleKeyResolver,
+            drawerAction: DrawerActionResolver,
+        },
+        data: { key: TITLEKEYS.configuration },
     },
-    data: { key: TITLEKEYS.configuration }
-  }
 ] as Route[];

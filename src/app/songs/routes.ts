@@ -9,42 +9,42 @@ import { SongEditComponent } from './song-edit/song-edit.component';
 import { SongsOverviewComponent } from './songs-overview/songs-overview.component';
 
 export default [
-  {
-    path: '',
-    resolve: {
-      key: TitleKeyResolver,
-      user: UserResolver
-    },
-    data: {
-      key: TITLEKEYS.songs
-    },
-    children: [
-      {
+    {
         path: '',
-        component: SongsOverviewComponent,
         resolve: {
-          drawerAction: DrawerActionResolver
+            key: TitleKeyResolver,
+            user: UserResolver,
         },
         data: {
-          isBaseDrawerAction: true
-        }
-      },
-      {
-        path: 'details/:id',
-        component: SongDetailsviewComponent,
-        resolve: {
-          drawerAction: DrawerActionResolver,
-          song: SongResolver
-        }
-      },
-      {
-        path: 'edit/:id',
-        component: SongEditComponent,
-        resolve: {
-          drawerAction: DrawerActionResolver,
-          song: SongResolver
-        }
-      }
-    ]
-  }
+            key: TITLEKEYS.songs,
+        },
+        children: [
+            {
+                path: '',
+                component: SongsOverviewComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                },
+                data: {
+                    isBaseDrawerAction: true,
+                },
+            },
+            {
+                path: 'details/:id',
+                component: SongDetailsviewComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                    song: SongResolver,
+                },
+            },
+            {
+                path: 'edit/:id',
+                component: SongEditComponent,
+                resolve: {
+                    drawerAction: DrawerActionResolver,
+                    song: SongResolver,
+                },
+            },
+        ],
+    },
 ] as Route[];

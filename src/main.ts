@@ -14,46 +14,46 @@ import { AppComponent } from './app/app.component';
 import { appRoutes } from './app/routes';
 import { translocoLoader } from './app/transloco.loader';
 import { environment, firebaseConfig } from './environments/environment';
-    
+
 if (environment.production) {
-  enableProdMode();
+    enableProdMode();
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    importProvidersFrom(
-      BrowserAnimationsModule,
-      MatSnackBarModule,
-      MatBottomSheetModule,
-      MatDialogModule,
-      TranslocoModule,
-      ServiceWorkerModule.register('./ngsw-worker.js', {
-        enabled: environment.production,
-        registrationStrategy: 'registerWhenStable:30000'
-      }),
-      AngularFireModule.initializeApp(firebaseConfig)
-      //TODO https://github.com/angular/angularfire/tree/master/samples/modular/src/app
-      //   provideFirebaseApp(() => initializeApp(firebaseConfig)),
-      //   provideFirestore(() => getFirestore()),
-      //   provideAuth(() => getAuth())
-    ),
-    provideHttpClient(),
-    provideRouter(appRoutes),
-    { provide: SETTINGS, useValue: {} },
-    {
-      provide: TRANSLOCO_CONFIG,
-      useValue: translocoConfig({
-        availableLangs: ['en', 'de'],
-        defaultLang: 'en',
-        fallbackLang: 'en',
-        reRenderOnLangChange: true,
-        prodMode: environment.production
-      })
-    },
-    translocoLoader,
-    {
-      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: { duration: 3000, panelClass: 'message-snackbar' }
-    }
-  ]
-}).catch((err) => console.error(err));
+    providers: [
+        importProvidersFrom(
+            BrowserAnimationsModule,
+            MatSnackBarModule,
+            MatBottomSheetModule,
+            MatDialogModule,
+            TranslocoModule,
+            ServiceWorkerModule.register('./ngsw-worker.js', {
+                enabled: environment.production,
+                registrationStrategy: 'registerWhenStable:30000',
+            }),
+            AngularFireModule.initializeApp(firebaseConfig),
+            //TODO https://github.com/angular/angularfire/tree/master/samples/modular/src/app
+            //   provideFirebaseApp(() => initializeApp(firebaseConfig)),
+            //   provideFirestore(() => getFirestore()),
+            //   provideAuth(() => getAuth())
+        ),
+        provideHttpClient(),
+        provideRouter(appRoutes),
+        { provide: SETTINGS, useValue: {} },
+        {
+            provide: TRANSLOCO_CONFIG,
+            useValue: translocoConfig({
+                availableLangs: ['en', 'de'],
+                defaultLang: 'en',
+                fallbackLang: 'en',
+                reRenderOnLangChange: true,
+                prodMode: environment.production,
+            }),
+        },
+        translocoLoader,
+        {
+            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+            useValue: { duration: 3000, panelClass: 'message-snackbar' },
+        },
+    ],
+}).catch(err => console.error(err));

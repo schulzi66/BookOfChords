@@ -6,25 +6,25 @@ import { INavbarAction } from './../models/navbar-action';
 
 @Injectable({ providedIn: 'root' })
 export class NavbarActionService {
-  private _actions: INavbarAction[];
+    private _actions: INavbarAction[];
 
-  public get navbarActions$(): Observable<INavbarAction[]> {
-    return of(this._actions.sort((a, b) => a.order - b.order).filter((x) => x.validator === undefined || x.validator()));
-  }
+    public get navbarActions$(): Observable<INavbarAction[]> {
+        return of(this._actions.sort((a, b) => a.order - b.order).filter(x => x.validator === undefined || x.validator()));
+    }
 
-  constructor(private _router: Router) {
-    this._actions = [];
-    this._router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
-      this.resetActions();
-    });
-  }
+    constructor(private _router: Router) {
+        this._actions = [];
+        this._router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
+            this.resetActions();
+        });
+    }
 
-  public registerActions(actions: INavbarAction[]): number {
-    this.resetActions();
-    return this._actions.push(...actions);
-  }
+    public registerActions(actions: INavbarAction[]): number {
+        this.resetActions();
+        return this._actions.push(...actions);
+    }
 
-  public resetActions(): void {
-    this._actions = [];
-  }
+    public resetActions(): void {
+        this._actions = [];
+    }
 }

@@ -1,19 +1,20 @@
 <div class="flex-container"
      [@fadeInOnEnter]>
-  <app-search (onSearch)="searchForSong($event)"
-              (onClear)="clearSearch()"
-              class="search-input"></app-search>
+    <app-search (onSearch)="searchForSong($event)"
+                (onClear)="clearSearch()"
+                class="search-input"></app-search>
 
-  <mat-selection-list [multiple]="false"
-                      class="selection-list">
-    <cdk-virtual-scroll-viewport itemSize=48
-                                 class="viewport">
-      <mat-list-option *cdkVirtualFor="let song of filteredSongs"
-                       [value]="song"
-                       [routerLink]="['/songs/details', song.id]"
-                       class="song-option">
-        {{song.name}}
-      </mat-list-option>
-    </cdk-virtual-scroll-viewport>
-  </mat-selection-list>
+    <mat-selection-list [multiple]="false"
+                        class="selection-list">
+        <cdk-virtual-scroll-viewport itemSize=48
+                                     class="viewport">
+            <mat-list-option *cdkVirtualFor="let song of filteredSongs"
+                             [value]="song"
+                             [routerLink]="['/songs/details', song.id]"
+                             [ngClass]="{'archived': song.isArchived}"
+                             class="song-option">
+                {{song.name}}
+            </mat-list-option>
+        </cdk-virtual-scroll-viewport>
+    </mat-selection-list>
 </div>
