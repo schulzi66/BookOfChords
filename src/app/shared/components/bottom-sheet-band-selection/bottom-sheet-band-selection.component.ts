@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { MatListModule } from '@angular/material/list';
+import { Observable } from 'rxjs';
 import { Band } from 'src/app/models/band';
 
 export interface BottomSheetBandSelectionConfigInjectionToken {
-    bands: Band[];
+    bands$: Observable<Band[]>;
     onSelectionCallback?: (selectedBand: Band) => void;
 }
 
