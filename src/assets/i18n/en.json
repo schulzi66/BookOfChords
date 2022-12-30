@@ -18,6 +18,7 @@
     "gig_name": "Name of the gig",
     "cancel": "Cancel",
     "confirm": "Confirm",
+    "filter_archived_songs_initially": "Filter out archived songs per default",
     "song_archived": "Song archived",
     "song_unarchived": "Song restored",
     "font_size_header": "Font size of section headers",
