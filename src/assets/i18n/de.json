@@ -18,6 +18,7 @@
     "gig_name": "Name des Auftritts",
     "cancel": "Abbrechen",
     "confirm": "Bestätigen",
+    "filter_archived_songs_initially": "Archivierte Songs standardmäßig rausfiltern",
     "song_archived": "Song archiviert",
     "song_unarchived": "Song wiederhergestellt",
     "font_size_header": "Schriftgröße der Überschriften der Abschnitte",
