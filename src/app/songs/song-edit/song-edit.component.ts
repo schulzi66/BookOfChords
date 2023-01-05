@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { Observable } from 'rxjs';
 import { BandService } from 'src/app/band/services/band.service';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Band } from 'src/app/models/band';
@@ -57,6 +58,7 @@ export class SongEditComponent implements OnInit {
     public isReoderingMode: boolean;
     public isDeletingMode: boolean;
     public selectedBand: Band;
+    public bands$: Observable<Array<Band>>
 
     @ViewChild('songNameModel') private _songNameModel: NgModel;
 
@@ -129,6 +131,7 @@ export class SongEditComponent implements OnInit {
         } else {
             this.song = new Song('');
         }
+        this.bands$ = this.bandService.getBands();
         this.song.bpm = this.song.bpm ?? 40;
         this.initialSong = JSON.parse(JSON.stringify(this.song));
         this.resetSong = true;

@@ -21,7 +21,7 @@
 
   <div class="bands">
     <ng-container *ngIf="!selectedBand; else bandSelection">
-      <div *ngFor="let band of bandService.bands$ | async"
+      <div *ngFor="let band of bands$ | async"
            class="band"
            (click)="selectBand(band)">
         <img [src]="band.pictureUrl"
