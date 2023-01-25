@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -32,6 +33,7 @@ import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-z
         EncodeUriPipe,
         FormsModule,
         MatButtonModule,
+        MatCardModule,
         MatDividerModule,
         MatExpansionModule,
         MatFormFieldModule,
@@ -55,7 +57,6 @@ export class GigDetailComponent implements OnInit {
     public playModeIcon: string = 'play_arrow';
     private _currentSongIndexPlayed: number;
 
-    @ViewChild('songAccordion') songPanels: MatAccordion;
     @ViewChild('gigNameModel') gigNameModel: NgModel;
 
     constructor(
@@ -88,13 +89,7 @@ export class GigDetailComponent implements OnInit {
 
     public togglePlayMode(): void {
         this.isPlayMode = !this.isPlayMode;
-        if (this.isPlayMode) {
-            this.songPanels.openAll();
-            this.playModeIcon = 'pause';
-        } else {
-            this.songPanels.closeAll();
-            this.playModeIcon = 'play_arrow';
-        }
+        this.playModeIcon = this.isPlayMode ? 'pause' : 'play_arrow';
         this.registerNavbarActions();
     }
 

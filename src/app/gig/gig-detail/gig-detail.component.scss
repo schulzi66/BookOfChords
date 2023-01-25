@@ -17,10 +17,37 @@
 }
 
 //Song section
+.song{
+    margin: 12px 0;
+}
+
+.song-title {
+    margin-left: 5px;
+}
+
+.metronome-wrapper {
+    margin: 5px;
+}
+
+.song-panel-body-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+
+    }
+}
+
 .song-panel-body {
     display: flex;
     margin: 5px;
+    width: 100%;
     flex-direction: column;
+
+    @media (min-width: 768px) {
+        flex: 1 1 45%;
+    }
 }
 
 .section-name {
@@ -44,6 +71,7 @@
 
 .sound {
     width: 100%;
+    margin-bottom: 12px;
     text-align: center;
 }
 
@@ -74,5 +102,5 @@
 }
 
 mat-divider {
-    margin: 5px;
+    margin: 12px 5px;
 }

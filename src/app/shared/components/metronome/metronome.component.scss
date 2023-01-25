@@ -33,6 +33,10 @@
 
 .beat-slider {
     width: 100%;
+    
+    ::ng-deep input {
+        width: 100% !important;
+    }
 }
 
 /* Styles the adjustable knob of the slider */

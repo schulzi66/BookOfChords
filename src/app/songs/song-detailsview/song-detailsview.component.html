@@ -1,40 +1,45 @@
-<mat-card class="song-card"
-          [@fadeInOnEnter]>
-  <mat-card-header class="song-header">
-    <mat-card-title [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-      {{this.song.name}}
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+<div [@fadeInOnEnter]>
+  <h3 class="song-title mat-mdc-card-title"
+      [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+    {{this.song.name}}
+  </h3>
+  <div>
+    <div class="metronome-wrapper">
+      <shared-metronome [bpm]="song.bpm"
+                        [sliderDisabled]="true"
+                        [showSoundMode]="true"
+                        (onBpmChanged)="updateBpm($event)"></shared-metronome>
 
-    <shared-metronome [bpm]="song.bpm"
-                      [sliderDisabled]="true"
-                      [showSoundMode]="true"
-                      (onBpmChanged)="updateBpm($event)"></shared-metronome>
-
-    <div class="sound"
-         *ngIf="song.sound">
-      <audio controls>
-        <source [src]="song.sound">
-      </audio>
-    </div>
-
-    <div class="song-panel-body"
-         *ngFor="let section of song.sections; index as i">
-      <h5 class="section-name"
-          [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
-          [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{section.name}}
-      </h5>
-      <div class="section-value-flex-wrapper">
-        <div class="section-value"
-             *ngFor="let value of section.value"
-             [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
-             [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
-             [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment">{{value}}
-        </div>
+      <div class="sound"
+           *ngIf="song.sound">
+        <audio controls>
+          <source [src]="song.sound">
+        </audio>
       </div>
-      <mat-divider></mat-divider>
     </div>
+
+    <div class="song-panel-body-wrapper">
+      <mat-card class="song-panel-body"
+                *ngFor="let section of song.sections; index as i">
+        <mat-card-header>
+          <mat-card-title [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
+                          [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+            {{section.name}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="section-value-flex-wrapper">
+            <div class="section-value"
+                 *ngFor="let value of section.value"
+                 [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
+                 [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
+                 [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment">{{value}}
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
     <div class="section-value"
          *ngFor="let picture of song.pictures">
       <pinch-zoom>
@@ -48,5 +53,5 @@
                         [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
 
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
