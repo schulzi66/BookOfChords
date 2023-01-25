@@ -1,11 +1,33 @@
+.song-title {
+    margin-left: 5px;
+}
+
+.metronome-wrapper {
+    margin: 5px;
+}
+
+.song-panel-body-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+
+    }
+}
+
 .song-panel-body {
     display: flex;
     margin: 5px;
+    width: 100%;
     flex-direction: column;
+
+    @media (min-width: 768px) {
+        flex: 1 1 45%;
+    }
 }
 
 .section-name {
-    width: 25%;
     margin: 5px;
     text-align: left;
     text-decoration: underline;
