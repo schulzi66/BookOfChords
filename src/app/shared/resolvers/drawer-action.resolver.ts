@@ -1,11 +1,11 @@
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DEFAULT_DRAWER_ICON_KEY, DrawerActionService } from '../../services/drawer-action.service';
 
 @Injectable({ providedIn: 'root' })
-export class DrawerActionResolver implements Resolve<void> {
+export class DrawerActionResolver  {
     constructor(private _drawerActionService: DrawerActionService, private _location: Location) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<void> | Promise<void> | void {
