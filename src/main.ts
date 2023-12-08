@@ -9,10 +9,10 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { translocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
+import { TranslocoModule, provideTransloco } from '@ngneat/transloco';
 import { AppComponent } from './app/app.component';
 import { appRoutes } from './app/routes';
-import { translocoLoader } from './app/transloco.loader';
+import { HttpLoader } from './app/transloco.loader';
 import { environment, firebaseConfig } from './environments/environment';
 
 if (environment.production) {
@@ -40,17 +40,16 @@ bootstrapApplication(AppComponent, {
         provideHttpClient(),
         provideRouter(appRoutes),
         { provide: SETTINGS, useValue: {} },
-        {
-            provide: TRANSLOCO_CONFIG,
-            useValue: translocoConfig({
-                availableLangs: ['en', 'de'],
+        provideTransloco({
+            config: {
+                        availableLangs: ['en', 'de'],
                 defaultLang: 'en',
                 fallbackLang: 'en',
                 reRenderOnLangChange: true,
                 prodMode: environment.production,
-            }),
-        },
-        translocoLoader,
+            },
+            loader: HttpLoader
+        }),
         {
             provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
             useValue: { duration: 3000, panelClass: 'message-snackbar' },

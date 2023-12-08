@@ -4,17 +4,16 @@
                 (onClear)="clearSearch()"
                 class="search-input"></app-search>
 
-    <mat-selection-list [multiple]="false"
-                        class="selection-list">
+    <mat-list class="selection-list">
         <cdk-virtual-scroll-viewport itemSize=48
                                      class="viewport">
-            <mat-list-option *cdkVirtualFor="let song of filteredSongs"
-                             [value]="song"
-                             [routerLink]="['/songs/details', song.id]"
-                             [ngClass]="{'archived': song.isArchived}"
-                             class="song-option">
+            <mat-list-item *cdkVirtualFor="let song of filteredSongs"
+                           [value]="song"
+                           [routerLink]="['/songs/details', song.id]"
+                           [ngClass]="{'archived': song.isArchived}"
+                           class="song-option">
                 {{song.name}}
-            </mat-list-option>
+            </mat-list-item>
         </cdk-virtual-scroll-viewport>
-    </mat-selection-list>
+    </mat-list>
 </div>
