@@ -33,6 +33,7 @@
         "firebase": "^10.7.1",
         "ng2-pdfjs-viewer": "^16.0.4",
         "ngx-clipboard": "16.0.0",
+        "pdfmake": "^0.2.8",
         "rxjs": "7.8.1",
         "tslib": "^2.6.2",
         "zone.js": "~0.14.2"

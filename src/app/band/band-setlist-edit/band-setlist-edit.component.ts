@@ -31,6 +31,7 @@ import { BandService } from '../services/band.service';
 import { GigService } from './../../gig/services/gig.service';
 import { SnackbarService } from './../../services/snackbar.service';
 import { EncodeUriPipe } from './../../shared/pipes/encode.pipe';
+import { PdfService } from 'src/app/services/pdf.service';
 
 @Component({
     selector: 'app-band-setlist-edit',
@@ -76,6 +77,7 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
         private readonly _navbarActionService: NavbarActionService,
         private readonly _bottomSheetService: BottomSheetService,
         private readonly _drawerActionService: DrawerActionService,
+        private readonly _pdfService: PdfService,
     ) {
         super();
         this.setlist = new Setlist();
@@ -92,7 +94,7 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
             },
             {
                 order: 200,
-                icon: 'ios_share',
+                icon: 'publish',
                 action: () => this.exportSetlistAsGig(),
             },
             {
@@ -115,6 +117,22 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
                 icon: 'drag_handle',
                 action: () => (this.isDragMode = !this.isDragMode),
             },
+            {
+                order: 500,
+                icon: 'picture_as_pdf',
+                action: () => {
+                    const content = [
+                        { text: `${this.setlist.name}\n\n`, style: 'header' },
+                        {
+                            ol: [
+                                ...this.setlist.songs.map(songName => songName)
+                            ]
+                        }
+                    ]
+
+                    this._pdfService.createPdf(this.setlist.name, content);
+                }
+            }
         ]);
 
         this.isDragMode = false;
