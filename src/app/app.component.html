@@ -1,6 +1,5 @@
 <div [class.darkTheme]="this.configurationService.useDarkMode">
-    <mat-drawer-container class="drawer-container"
-                          autosize>
+    <mat-drawer-container class="drawer-container">
         <mat-drawer #drawer
                     mode="over">
             <div class="drawer-content">
@@ -111,32 +110,35 @@
             </div>
         </mat-drawer>
 
-        <mat-toolbar>
-            <button mat-icon-button
-                    [disabled]="this.drawerActionService.disabled"
-                    (click)="this.drawerActionService.executeAction()">
-                <mat-icon fontSet="material-icons-outlined"
-                          [ngStyle]="{'opacity' : this.drawerActionService.disabled ? 0.5 : 1}"
-                          color="accent">{{this.drawerActionService.iconKey}}</mat-icon>
-            </button>
-            <span class="title">{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
+        <mat-drawer-content class="drawer-content">
 
-            <div class="action-bar"
-                 dir="rtl">
-                <div *ngFor="let action of (this.navbarActionService.navbarActions$ | async)">
-                    <button mat-icon-button
-                            (click)="this.action.action()">
-                        <mat-icon fontSet="material-icons-outlined"
-                                  color="accent">{{action.icon}}</mat-icon>
-                    </button>
+            <mat-toolbar>
+                <button mat-icon-button
+                        [disabled]="this.drawerActionService.disabled"
+                        (click)="this.drawerActionService.executeAction()">
+                    <mat-icon fontSet="material-icons-outlined"
+                              [ngStyle]="{'opacity' : this.drawerActionService.disabled ? 0.5 : 1}"
+                              color="accent">{{this.drawerActionService.iconKey}}</mat-icon>
+                </button>
+                <span class="title">{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
+
+                <div class="action-bar"
+                     dir="rtl">
+                    <div *ngFor="let action of (this.navbarActionService.navbarActions$ | async)">
+                        <button mat-icon-button
+                                (click)="this.action.action()">
+                            <mat-icon fontSet="material-icons-outlined"
+                                      color="accent">{{action.icon}}</mat-icon>
+                        </button>
+                    </div>
                 </div>
+
+            </mat-toolbar>
+
+            <div class="app-content">
+                <router-outlet></router-outlet>
             </div>
-
-        </mat-toolbar>
-
-        <div class="app-content">
-            <router-outlet></router-outlet>
-        </div>
+        </mat-drawer-content>
 
     </mat-drawer-container>
 </div>

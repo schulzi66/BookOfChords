@@ -18,6 +18,7 @@ import { SnackbarService } from './../../services/snackbar.service';
 import { MetronomeComponent } from './../../shared/components/metronome/metronome.component';
 import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
 import { SongService } from './../services/song.service';
+import { PdfService } from 'src/app/services/pdf.service';
 
 @Component({
     selector: 'app-song-detailsview',
@@ -48,6 +49,7 @@ export class SongDetailsviewComponent extends SubscriptionHandler implements OnI
         private _matDialog: MatDialog,
         private _clipboardService: ClipboardService,
         private _snackbarService: SnackbarService,
+        private _pdfService: PdfService,
         public configurationService: ConfigurationService,
     ) {
         super();
@@ -79,11 +81,31 @@ export class SongDetailsviewComponent extends SubscriptionHandler implements OnI
                 icon: 'delete_outline',
                 action: () => this.deleteSong(),
             },
+            // {
+            //     order: 500,
+            //     icon: 'radio',
+            //     action: () => this._songService.searchInSpotify(this.song.name),
+            // },
             {
-                order: 500,
-                icon: 'radio',
-                action: () => this._songService.searchInSpotify(this.song.name),
-            },
+                order: 600,
+                icon: 'picture_as_pdf',
+                action: () => {
+                    const content = [
+                        { text: `${this.song.name}\n`, style: 'header' },
+                        { text: `BPM: ${this.song.bpm}\n` },
+                        {
+                            ul: [
+                                ...this.song.sections.map(x => {
+                                    return [x.name, { ul: x.value }]
+                                })
+                            ]
+                        },
+                        { text: '\n'}
+                    ]
+
+                    this._pdfService.createPdf(this.song.name, content);
+                }
+            }
         ]);
     }
 

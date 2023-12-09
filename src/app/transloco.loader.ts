@@ -11,4 +11,3 @@ export class HttpLoader implements TranslocoLoader {
     }
 }
 
-export const translocoLoader = { provide: TRANSLOCO_LOADER, useClass: HttpLoader };

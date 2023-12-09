@@ -23,6 +23,7 @@ import { Song } from '../../models/song';
 import { EncodeUriPipe } from '../../shared/pipes/encode.pipe';
 import { GigService } from '../services/gig.service';
 import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
+import { PdfService } from 'src/app/services/pdf.service';
 
 @Component({
     selector: 'app-gig-detail',
@@ -66,6 +67,7 @@ export class GigDetailComponent implements OnInit {
         private _navbarActionService: NavbarActionService,
         private _activatedRoute: ActivatedRoute,
         private _snackbarService: SnackbarService,
+        private _pdfService: PdfService,
     ) {
         this.registerNavbarActions();
         this.isPlayMode = false;
@@ -153,6 +155,30 @@ export class GigDetailComponent implements OnInit {
                     icon: 'drag_handle',
                     action: () => (this.isDragMode = !this.isDragMode),
                 },
+                {
+                    order: 500,
+                    icon: 'picture_as_pdf',
+                    action: () => {
+                        const content = [
+                            { text: `${this.gig.name}\n\n`, style: 'header' },
+                            ...this.gig.songs.map(song => {
+                                return [
+                                    { text: `${song.name}`, style: 'header' },
+                                    { text: `BPM: ${song.bpm}` },
+                                    {
+                                        ul: [
+                                            ...song.sections.map(x => {
+                                                return [x.name, { ul: x.value }]
+                                            })
+                                        ]
+                                    },
+                                    { text: '\n'}
+                                ]
+                            })]
+
+                        this._pdfService.createPdf(this.gig.name, content);
+                    }
+                }
             ]);
         }
     }

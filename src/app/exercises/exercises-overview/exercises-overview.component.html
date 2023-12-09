@@ -1,18 +1,17 @@
 <div class="flex-container"
      [@fadeInOnEnter]>
-  <app-search (onSearch)="searchForExercise($event)"
-              (onClear)="clearSearch()"
-              class="search-input"></app-search>
-  <mat-selection-list [multiple]="false"
-                      class="selection-list">
-    <cdk-virtual-scroll-viewport itemSize=48
-                                 class="viewport">
-      <mat-list-option *cdkVirtualFor="let exercise of filteredExercises"
-                       [routerLink]="['/exercises/mode', exercise.id]"
-                       [value]="exercise"
-                       class="exercise-option">
-        {{exercise.name}}
-      </mat-list-option>
-    </cdk-virtual-scroll-viewport>
-  </mat-selection-list>
+    <app-search (onSearch)="searchForExercise($event)"
+                (onClear)="clearSearch()"
+                class="search-input"></app-search>
+    <mat-list class="selection-list">
+        <cdk-virtual-scroll-viewport itemSize=48
+                                     class="viewport">
+            <mat-list-item *cdkVirtualFor="let exercise of filteredExercises"
+                           [routerLink]="['/exercises/mode', exercise.id]"
+                           [value]="exercise"
+                           class="exercise-option">
+                {{exercise.name}}
+            </mat-list-item>
+        </cdk-virtual-scroll-viewport>
+    </mat-list>
 </div>
