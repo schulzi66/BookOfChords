@@ -24,6 +24,7 @@ import { EncodeUriPipe } from '../../shared/pipes/encode.pipe';
 import { GigService } from '../services/gig.service';
 import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
 import { PdfService } from 'src/app/services/pdf.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-gig-detail',
@@ -44,6 +45,7 @@ import { PdfService } from 'src/app/services/pdf.service';
         PdfJsViewerModule,
         PinchZoomComponent,
         TranslocoModule,
+        ScrollingModule,
     ],
     templateUrl: './gig-detail.component.html',
     styleUrls: ['./gig-detail.component.scss'],

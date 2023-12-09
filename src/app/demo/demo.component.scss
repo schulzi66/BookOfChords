@@ -5,6 +5,10 @@
     flex-direction: column;
 }
 
+.demo-viewport {
+    height: calc(100vh - 72px);
+}
+
 .demo-row {
     margin: 16px;
     display: flex;

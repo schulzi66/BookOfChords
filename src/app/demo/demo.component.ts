@@ -5,11 +5,12 @@ import { ConfigurationService } from 'src/app/configuration/services/configurati
 import { INavbarAction } from 'src/app/models/navbar-action';
 import { NavbarActionService } from '../services/navbar-action.service';
 import { SnackbarService } from '../services/snackbar.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-demo',
     standalone: true,
-    imports: [TranslocoModule],
+    imports: [TranslocoModule, ScrollingModule],
     templateUrl: './demo.component.html',
     styleUrls: ['./demo.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],

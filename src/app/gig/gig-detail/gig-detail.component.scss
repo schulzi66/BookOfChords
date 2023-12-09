@@ -2,11 +2,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 1vh 0 -1vh 0;
+}
+
+.playmode-viewport {
+    height: calc(100vh - 72px);
 }
 
 .gig-name {
-    height: 75px;
-    flex-grow: 7;
+    flex-grow: 1;
 }
 
 .section-value-flex-wrapper {

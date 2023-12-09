@@ -6,6 +6,10 @@
     margin: 5px;
 }
 
+.song-details-viewport {
+    height: calc(100vh - 96px);
+}
+
 .song-panel-body-wrapper {
     display: flex;
     flex-wrap: wrap;

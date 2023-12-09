@@ -1,151 +1,157 @@
-<div class="exercise-details-grid"
-     [@fadeInOnEnter]
-     [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+<cdk-virtual-scroll-viewport itemSize="48"
+                             class="exercise-viewport">
+    <div class="exercise-details-grid"
+         [@fadeInOnEnter]
+         [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
 
-  <h4 class="exercise-name">{{exercise.name}}</h4>
-  <div *ngIf="exercise.description"
-       class="exercise-description">{{exercise.description}}</div>
+        <h4 class="exercise-name">{{exercise.name}}</h4>
+        <div *ngIf="exercise.description"
+             class="exercise-description">{{exercise.description}}</div>
 
-  <div class="exercise-mode-template"
-       [ngSwitch]="this.currentMode">
+        <div class="exercise-mode-template"
+             [ngSwitch]="this.currentMode">
 
-    <!-- Intervall -->
-    <ng-template [ngSwitchCase]="ExerciseModes.INTERVAL">
-      <div class="interval-template">
+            <!-- Intervall -->
+            <ng-template [ngSwitchCase]="ExerciseModes.INTERVAL">
+                <div class="interval-template">
 
-        <div class="main"
-             *ngIf="!this.isPracticing">
-          <mat-form-field class="duration"
-                          appearance="outline">
-            <mat-label>{{'exercise_duration' | transloco}}</mat-label>
-            <input matInput
-                   required
-                   type="number"
-                   name="intervalDuration"
-                   [(ngModel)]="this.exercise.duration">
-          </mat-form-field>
+                    <div class="main"
+                         *ngIf="!this.isPracticing">
+                        <mat-form-field class="duration"
+                                        appearance="outline">
+                            <mat-label>{{'exercise_duration' | transloco}}</mat-label>
+                            <input matInput
+                                   required
+                                   type="number"
+                                   name="intervalDuration"
+                                   [(ngModel)]="this.exercise.duration">
+                        </mat-form-field>
 
-          <mat-form-field class="interval-count"
-                          appearance="outline">
-            <mat-label>{{'exercise_interval_count' | transloco}}</mat-label>
-            <input matInput
-                   required
-                   type="number"
-                   name="intervalCount"
-                   [(ngModel)]="this.exercise.intervalCount">
-          </mat-form-field>
+                        <mat-form-field class="interval-count"
+                                        appearance="outline">
+                            <mat-label>{{'exercise_interval_count' | transloco}}</mat-label>
+                            <input matInput
+                                   required
+                                   type="number"
+                                   name="intervalCount"
+                                   [(ngModel)]="this.exercise.intervalCount">
+                        </mat-form-field>
 
-          <mat-form-field class="start-bpm"
-                          appearance="outline">
-            <mat-label>{{'exercise_start_bpm' | transloco}}</mat-label>
-            <input matInput
-                   required
-                   type="number"
-                   name="startBpm"
-                   [(ngModel)]="this.exercise.currentBpm">
-          </mat-form-field>
+                        <mat-form-field class="start-bpm"
+                                        appearance="outline">
+                            <mat-label>{{'exercise_start_bpm' | transloco}}</mat-label>
+                            <input matInput
+                                   required
+                                   type="number"
+                                   name="startBpm"
+                                   [(ngModel)]="this.exercise.currentBpm">
+                        </mat-form-field>
 
-          <mat-form-field class="finish-bpm"
-                          appearance="outline">
-            <mat-label>{{'exercise_finish_bpm' | transloco}}</mat-label>
-            <input matInput
-                   required
-                   type="number"
-                   name="finishBpm"
-                   [(ngModel)]="this.exercise.nextBpm">
-          </mat-form-field>
+                        <mat-form-field class="finish-bpm"
+                                        appearance="outline">
+                            <mat-label>{{'exercise_finish_bpm' | transloco}}</mat-label>
+                            <input matInput
+                                   required
+                                   type="number"
+                                   name="finishBpm"
+                                   [(ngModel)]="this.exercise.nextBpm">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="main"
+                         *ngIf="this.isPracticing">
+                        <mat-label class="interval-progress-header">{{'exercise_interval_progress' |
+                            transloco}}:</mat-label>
+
+                        <mat-progress-spinner class="spinner"
+                                              mode="determinate"
+                                              [value]="this.intervalDurationPercentage"></mat-progress-spinner>
+                    </div>
+
+                    <div class="total-progress">
+                        <mat-label>{{'exercise_total_progress' | transloco}}:
+                            {{this.exerciseDurationTimeElapsed}}</mat-label>
+                        <mat-progress-bar mode="determinate"
+                                          [value]="this.exerciseDurationPercentage"></mat-progress-bar>
+                    </div>
+
+                    <shared-metronome class="metronom"
+                                      [bpm]="this.exercise.currentBpm"
+                                      [showPlay]="this.exercise.duration && this.exercise.intervalCount && this.exercise.currentBpm && this.exercise.nextBpm"
+                                      [showSoundMode]="true"
+                                      (onBpmChanged)="this.exercise.currentBpm = $event"
+                                      (onStart)="this.startExercise()"
+                                      (onContinue)="this.startExercise()"
+                                      (onPause)="this.pauseExercise()"
+                                      (onStop)="this.stopExercise()"></shared-metronome>
+                </div>
+            </ng-template>
+
+            <!-- Timebased -->
+            <ng-template [ngSwitchCase]="ExerciseModes.TIMEBASED">
+
+                <div class="timebased-template">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'exercise_duration' | transloco}}</mat-label>
+                        <input matInput
+                               required
+                               type="number"
+                               name="timebasedDuration"
+                               [(ngModel)]="this.exercise.duration">
+                    </mat-form-field>
+
+                    <div class="total-progress">
+                        <mat-label>{{'exercise_total_progress' | transloco}}:
+                            {{this.exerciseDurationTimeElapsed}}</mat-label>
+                        <mat-progress-bar mode="determinate"
+                                          [value]="this.exerciseDurationPercentage"></mat-progress-bar>
+                    </div>
+
+                    <shared-metronome [bpm]="this.exercise.currentBpm"
+                                      [showPlay]="this.exercise.duration"
+                                      [showSoundMode]="true"
+                                      (onBpmChanged)="this.exercise.currentBpm = $event"
+                                      (onStart)="this.startExercise()"
+                                      (onPause)="this.pauseExercise()"
+                                      (onContinue)="this.startExercise()"
+                                      (onStop)="this.stopExercise()"></shared-metronome>
+                </div>
+            </ng-template>
+
+            <!-- Manual Mode -->
+            <ng-template ngSwitchDefault>
+                <shared-metronome [bpm]="this.exercise.currentBpm"
+                                  [showSoundMode]="true"
+                                  (onBpmChanged)="this.exercise.currentBpm = $event"
+                                  (onStart)="this.startExercise()"
+                                  (onContinue)="this.startExercise()"
+                                  (onPause)="this.pauseExercise()"></shared-metronome>
+            </ng-template>
         </div>
 
-        <div class="main"
-             *ngIf="this.isPracticing">
-          <mat-label class="interval-progress-header">{{'exercise_interval_progress' | transloco}}:</mat-label>
+        <div class="exercise-audio"
+             *ngIf="this.exercise.sound">
 
-          <mat-progress-spinner class="spinner"
-                                mode="determinate"
-                                [value]="this.intervalDurationPercentage"></mat-progress-spinner>
+            <audio class="audio"
+                   controls>
+                <source *ngIf="exercise.sound"
+                        [src]="exercise.sound">
+            </audio>
         </div>
 
-        <div class="total-progress">
-          <mat-label>{{'exercise_total_progress' | transloco}}: {{this.exerciseDurationTimeElapsed}}</mat-label>
-          <mat-progress-bar mode="determinate"
-                            [value]="this.exerciseDurationPercentage"></mat-progress-bar>
+        <div class="exercise-image"
+             *ngIf="this.exercise.pictureUrl">
+            <pinch-zoom>
+                <img class="img"
+                     [src]="this.exercise.pictureUrl">
+            </pinch-zoom>
         </div>
 
-        <shared-metronome class="metronom"
-                          [bpm]="this.exercise.currentBpm"
-                          [showPlay]="this.exercise.duration && this.exercise.intervalCount && this.exercise.currentBpm && this.exercise.nextBpm"
-                          [showSoundMode]="true"
-                          (onBpmChanged)="this.exercise.currentBpm = $event"
-                          (onStart)="this.startExercise()"
-                          (onContinue)="this.startExercise()"
-                          (onPause)="this.pauseExercise()"
-                          (onStop)="this.stopExercise()"></shared-metronome>
-      </div>
-    </ng-template>
-
-    <!-- Timebased -->
-    <ng-template [ngSwitchCase]="ExerciseModes.TIMEBASED">
-
-      <div class="timebased-template">
-        <mat-form-field appearance="outline">
-          <mat-label>{{'exercise_duration' | transloco}}</mat-label>
-          <input matInput
-                 required
-                 type="number"
-                 name="timebasedDuration"
-                 [(ngModel)]="this.exercise.duration">
-        </mat-form-field>
-
-        <div class="total-progress">
-          <mat-label>{{'exercise_total_progress' | transloco}}: {{this.exerciseDurationTimeElapsed}}</mat-label>
-          <mat-progress-bar mode="determinate"
-                            [value]="this.exerciseDurationPercentage"></mat-progress-bar>
+        <div *ngIf="this.exercise.pdfUrl"
+             style="height: 80vh;"
+             class="exercise-pdf">
+            <ng2-pdfjs-viewer [pdfSrc]="this.exercise.pdfUrl | encode"
+                              [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
         </div>
-
-        <shared-metronome [bpm]="this.exercise.currentBpm"
-                          [showPlay]="this.exercise.duration"
-                          [showSoundMode]="true"
-                          (onBpmChanged)="this.exercise.currentBpm = $event"
-                          (onStart)="this.startExercise()"
-                          (onPause)="this.pauseExercise()"
-                          (onContinue)="this.startExercise()"
-                          (onStop)="this.stopExercise()"></shared-metronome>
-      </div>
-    </ng-template>
-
-    <!-- Manual Mode -->
-    <ng-template ngSwitchDefault>
-      <shared-metronome [bpm]="this.exercise.currentBpm"
-                        [showSoundMode]="true"
-                        (onBpmChanged)="this.exercise.currentBpm = $event"
-                        (onStart)="this.startExercise()"
-                        (onContinue)="this.startExercise()"
-                        (onPause)="this.pauseExercise()"></shared-metronome>
-    </ng-template>
-  </div>
-
-  <div class="exercise-audio"
-       *ngIf="this.exercise.sound">
-
-    <audio class="audio"
-           controls>
-      <source *ngIf="exercise.sound"
-              [src]="exercise.sound">
-    </audio>
-  </div>
-
-  <div class="exercise-image"
-       *ngIf="this.exercise.pictureUrl">
-    <pinch-zoom>
-      <img class="img"
-           [src]="this.exercise.pictureUrl">
-    </pinch-zoom>
-  </div>
-
-  <div *ngIf="this.exercise.pdfUrl"
-       style="height: 80vh;"
-       class="exercise-pdf">
-    <ng2-pdfjs-viewer [pdfSrc]="this.exercise.pdfUrl | encode"
-                      [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
-  </div>
-</div>
+    </div>
+</cdk-virtual-scroll-viewport>

@@ -1,6 +1,9 @@
-<mat-action-list *ngFor="let gig of gigs"
-                 [@fadeInOnEnter]>
-  <button mat-list-item
-          [routerLink]="['./details', gig.id]">{{gig.name}}</button>
-  <mat-divider></mat-divider>
+<mat-action-list [@fadeInOnEnter]>
+    <cdk-virtual-scroll-viewport itemSize=48
+                                 class="gigs-viewport">
+        <button mat-list-item
+                *cdkVirtualFor="let gig of gigs"
+                [routerLink]="['./details', gig.id]">{{gig.name}}
+        </button>
+    </cdk-virtual-scroll-viewport>
 </mat-action-list>

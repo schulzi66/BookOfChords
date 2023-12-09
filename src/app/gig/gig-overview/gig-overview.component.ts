@@ -9,11 +9,12 @@ import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { Gig } from '../../models/gig';
 import { GigService } from '../services/gig.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-gig-overview',
     standalone: true,
-    imports: [CommonModule, MatDividerModule, RouterModule, MatButtonModule, MatListModule],
+    imports: [CommonModule, MatDividerModule, RouterModule, MatButtonModule, MatListModule, ScrollingModule],
     templateUrl: './gig-overview.component.html',
     styleUrls: ['./gig-overview.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],

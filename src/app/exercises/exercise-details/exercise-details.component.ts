@@ -27,6 +27,7 @@ import { EncodeUriPipe } from './../../shared/pipes/encode.pipe';
 import { ExercisesService } from './../services/exercises.service';
 import { SaveExerciseProgressData } from './save-exercise-progress-dialog/save-exercise-progress-data';
 import { SaveExerciseProgressDialogComponent } from './save-exercise-progress-dialog/save-exercise-progress-dialog.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-exercise-details',
@@ -44,6 +45,7 @@ import { SaveExerciseProgressDialogComponent } from './save-exercise-progress-di
         PinchZoomComponent,
         SaveExerciseProgressDialogComponent,
         TranslocoModule,
+        ScrollingModule
     ],
     templateUrl: './exercise-details.component.html',
     styleUrls: ['./exercise-details.component.scss'],

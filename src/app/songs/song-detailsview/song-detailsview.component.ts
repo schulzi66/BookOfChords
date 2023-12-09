@@ -19,6 +19,7 @@ import { MetronomeComponent } from './../../shared/components/metronome/metronom
 import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
 import { SongService } from './../services/song.service';
 import { PdfService } from 'src/app/services/pdf.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-song-detailsview',
@@ -32,6 +33,7 @@ import { PdfService } from 'src/app/services/pdf.service';
         MetronomeComponent,
         PdfJsViewerModule,
         PinchZoomComponent,
+        ScrollingModule
     ],
     templateUrl: './song-detailsview.component.html',
     styleUrls: ['./song-detailsview.component.scss'],
