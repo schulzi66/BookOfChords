@@ -1,38 +1,41 @@
-<div class="demo-flex-container"
-     [@fadeInOnEnter]>
-  <div class="demo-row">
-    <h2 class="row-el-1 first">{{ 'demo_overview' | transloco }}</h2>
-    <img class="row-el-2 second"
-         src='{{ "../assets/demo/overview_" + mode + ".png" }}'>
-  </div>
-  <div class="demo-row">
-    <h2 class="row-el-1 second">{{ 'demo_song_detailsview' | transloco }}</h2>
-    <img class="row-el-2 first"
-         src='{{ "../assets/demo/song_detailsview_" + mode + ".png" }}'>
-  </div>
-  <div class="demo-row">
-    <h2 class="row-el-1 first">{{ 'demo_song_editview' | transloco }}</h2>
-    <img class="row-el-2 second"
-         src='{{ "../assets/demo/song_editview_" + mode + ".png" }}'>
-  </div>
-  <div class="demo-row">
-    <h2 class="row-el-1 second">{{ 'demo_gig_detailsview' | transloco }}</h2>
-    <img class="row-el-2 first"
-         src='{{ "../assets/demo/gig_detailsview_" + mode + ".png" }}'>
-  </div>
-  <div class="demo-row">
-    <h2 class="row-el-1 first">{{ 'demo_band_overview' | transloco }}</h2>
-    <img class="row-el-2 second"
-         src='{{ "../assets/demo/band_overview_" + mode + ".png" }}'>
-  </div>
-  <div class="demo-row">
-    <h2 class="row-el-1 second">{{ 'demo_band_setlistinfo' | transloco }}</h2>
-    <img class="row-el-2 first"
-         src='{{ "../assets/demo/band_setlistinfo_creategig_" + mode + ".png" }}'>
-  </div>
-  <div class="demo-row">
-    <h2 class="row-el-1 first">{{ 'demo_settings' | transloco }}</h2>
-    <img class="row-el-2 second"
-         src='{{ "../assets/demo/settings_" + mode + ".png" }}'>
-  </div>
-</div>
+<cdk-virtual-scroll-viewport itemSize="48"
+                             class="demo-viewport">
+    <div class="demo-flex-container"
+         [@fadeInOnEnter]>
+        <div class="demo-row">
+            <h2 class="row-el-1 first">{{ 'demo_overview' | transloco }}</h2>
+            <img class="row-el-2 second"
+                 src='{{ "../assets/demo/overview_" + mode + ".png" }}'>
+        </div>
+        <div class="demo-row">
+            <h2 class="row-el-1 second">{{ 'demo_song_detailsview' | transloco }}</h2>
+            <img class="row-el-2 first"
+                 src='{{ "../assets/demo/song_detailsview_" + mode + ".png" }}'>
+        </div>
+        <div class="demo-row">
+            <h2 class="row-el-1 first">{{ 'demo_song_editview' | transloco }}</h2>
+            <img class="row-el-2 second"
+                 src='{{ "../assets/demo/song_editview_" + mode + ".png" }}'>
+        </div>
+        <div class="demo-row">
+            <h2 class="row-el-1 second">{{ 'demo_gig_detailsview' | transloco }}</h2>
+            <img class="row-el-2 first"
+                 src='{{ "../assets/demo/gig_detailsview_" + mode + ".png" }}'>
+        </div>
+        <div class="demo-row">
+            <h2 class="row-el-1 first">{{ 'demo_band_overview' | transloco }}</h2>
+            <img class="row-el-2 second"
+                 src='{{ "../assets/demo/band_overview_" + mode + ".png" }}'>
+        </div>
+        <div class="demo-row">
+            <h2 class="row-el-1 second">{{ 'demo_band_setlistinfo' | transloco }}</h2>
+            <img class="row-el-2 first"
+                 src='{{ "../assets/demo/band_setlistinfo_creategig_" + mode + ".png" }}'>
+        </div>
+        <div class="demo-row">
+            <h2 class="row-el-1 first">{{ 'demo_settings' | transloco }}</h2>
+            <img class="row-el-2 second"
+                 src='{{ "../assets/demo/settings_" + mode + ".png" }}'>
+        </div>
+    </div>
+</cdk-virtual-scroll-viewport>

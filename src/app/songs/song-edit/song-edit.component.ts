@@ -1,6 +1,6 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { BandService } from 'src/app/band/services/band.service';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Band } from 'src/app/models/band';
@@ -29,6 +29,8 @@ import { SongService } from '../services/song.service';
 import { SnackbarService } from './../../services/snackbar.service';
 import { PinchZoomComponent } from './../../shared/components/pinch-zoom/pinch-zoom.component';
 import { StringArrayLinesPipe } from './../../shared/pipes/string-array-lines.pipe';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 
 @Component({
     selector: 'app-song-edit',
@@ -46,6 +48,7 @@ import { StringArrayLinesPipe } from './../../shared/pipes/string-array-lines.pi
         PinchZoomComponent,
         StringArrayLinesPipe,
         TranslocoModule,
+        ScrollingModule
     ],
     templateUrl: './song-edit.component.html',
     styleUrls: ['./song-edit.component.scss'],
@@ -61,6 +64,7 @@ export class SongEditComponent implements OnInit {
     public bands$: Observable<Array<Band>>
 
     @ViewChild('songNameModel') private _songNameModel: NgModel;
+    @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
     constructor(
         private readonly _songService: SongService,
@@ -72,6 +76,7 @@ export class SongEditComponent implements OnInit {
         private readonly _bottomSheetService: BottomSheetService,
         private readonly _drawerActionService: DrawerActionService,
         private readonly _toneService: ToneService,
+        private readonly _ngZone: NgZone,
         public readonly bandService: BandService,
         public readonly configurationService: ConfigurationService,
     ) {
@@ -138,6 +143,7 @@ export class SongEditComponent implements OnInit {
         this.isReoderingMode = false;
         this.isDeletingMode = false;
         this.selectedBand = this.bandService.bandsSubject.value.find((band: Band) => band.id === this.song.bandId);
+        this.triggerResize();
     }
 
     public addNewSection(): void {
@@ -219,5 +225,10 @@ export class SongEditComponent implements OnInit {
     public deselectBand(): void {
         this.selectedBand = undefined;
         this.song.bandId = undefined;
+    }
+
+    private triggerResize() {
+        // Wait for changes to be applied, then trigger textarea resize.
+        this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
     }
 }

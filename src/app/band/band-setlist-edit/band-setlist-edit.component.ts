@@ -32,6 +32,7 @@ import { GigService } from './../../gig/services/gig.service';
 import { SnackbarService } from './../../services/snackbar.service';
 import { EncodeUriPipe } from './../../shared/pipes/encode.pipe';
 import { PdfService } from 'src/app/services/pdf.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-band-setlist-edit',
@@ -50,6 +51,7 @@ import { PdfService } from 'src/app/services/pdf.service';
         SearchComponent,
         TextFieldModule,
         TranslocoModule,
+        ScrollingModule,
     ],
     templateUrl: './band-setlist-edit.component.html',
     styleUrls: ['./band-setlist-edit.component.scss'],

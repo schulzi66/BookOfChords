@@ -24,6 +24,7 @@ import { MetronomeComponent } from 'src/app/shared/components/metronome/metronom
 import { EncodeUriPipe } from 'src/app/shared/pipes/encode.pipe';
 import { BottomSheetService } from '../../services/bottom-sheet.service';
 import { Exercise } from './../../models/exercise';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-exercise-edit',
@@ -41,6 +42,7 @@ import { Exercise } from './../../models/exercise';
         PdfJsViewerModule,
         TextFieldModule,
         TranslocoModule,
+        ScrollingModule
     ],
     templateUrl: './exercise-edit.component.html',
     styleUrls: ['./exercise-edit.component.scss'],

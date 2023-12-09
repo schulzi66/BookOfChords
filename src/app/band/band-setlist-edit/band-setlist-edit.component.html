@@ -1,63 +1,72 @@
 <mat-tab-group mat-stretch-tabs
                [@fadeInOnEnter]>
-  <mat-tab [label]="'info' | transloco">
-    <div class="flex-container">
-      <mat-form-field appearance="outline"
-                      class="setlist-name">
-        <mat-label>{{'setlist_name' | transloco}}</mat-label>
-        <input matInput
-               required
-               [(ngModel)]="setlist.name"
-               name="setlisteName"
-               (change)="onNameChanged()">
-      </mat-form-field>
-      <mat-form-field appearance="outline"
-                      class="setlist-description">
-        <textarea matInput
-                  [placeholder]="'description' | transloco"
-                  [value]="setlist?.description"
-                  (change)="onDescriptionChanged($event.target.value)"
-                  cdkTextareaAutosize
-                  #autosize="cdkTextareaAutosize"></textarea>
-      </mat-form-field>
-      <div style="height: 80vh;">
-        <ng2-pdfjs-viewer [pdfSrc]="setlist.pdfUrl | encode"
-                          [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
-      </div>
-    </div>
-  </mat-tab>
-  <mat-tab [label]="'songs' | transloco">
-    <div cdkDropList
-         (cdkDropListDropped)="drop($event)"
-         class="setlist-songs">
-      <div class="song-box"
-           [style.color]="this.configurationService.useDarkMode ? 'white' : 'rgba(0, 0, 0, 0.87)'"
-           *ngFor="let song of setlist.songs"
-           cdkDrag
-           [cdkDragDisabled]="!isDragMode">
-        <div>
-          {{song}}
-        </div>
-        <mat-icon *ngIf="isDragMode"
-                  cdkDragHandle
-                  color="accent">drag_handle</mat-icon>
-      </div>
-    </div>
-  </mat-tab>
-  <mat-tab [label]="'add_songs' | transloco">
-    <div class="flex-container">
-      <app-search (onSearch)="searchForSong($event)"
-                  (onClear)="clearSearch()"
-                  class="search-input"></app-search>
-      <mat-selection-list #songs
-                          class="user-song-list"
-                          (selectionChange)="onSelectionChange($event)">
-        <mat-list-option *ngFor="let song of filteredSongs"
-                         [selected]="checkSelected(song)"
-                         [value]="song">
-          {{song.name}}
-        </mat-list-option>
-      </mat-selection-list>
-    </div>
-  </mat-tab>
+    <mat-tab [label]="'info' | transloco">
+        <cdk-virtual-scroll-viewport itemSize=48
+                                     class="viewport">
+            <div class="flex-container">
+                <mat-form-field appearance="outline"
+                                class="setlist-name">
+                    <mat-label>{{'setlist_name' | transloco}}</mat-label>
+                    <input matInput
+                           required
+                           [(ngModel)]="setlist.name"
+                           name="setlisteName"
+                           (change)="onNameChanged()">
+                </mat-form-field>
+                <mat-form-field appearance="outline"
+                                class="setlist-description">
+                    <textarea matInput
+                              [placeholder]="'description' | transloco"
+                              [value]="setlist?.description"
+                              (change)="onDescriptionChanged($event.target.value)"
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"></textarea>
+                </mat-form-field>
+                <div style="height: 80vh;">
+                    <ng2-pdfjs-viewer [pdfSrc]="setlist.pdfUrl | encode"
+                                      [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+                </div>
+            </div>
+        </cdk-virtual-scroll-viewport>
+    </mat-tab>
+    <mat-tab [label]="'songs' | transloco">
+        <cdk-virtual-scroll-viewport itemSize=48
+                                     class="viewport">
+            <div cdkDropList
+                 (cdkDropListDropped)="drop($event)"
+                 class="setlist-songs">
+                <div class="song-box"
+                     [style.color]="this.configurationService.useDarkMode ? 'white' : 'rgba(0, 0, 0, 0.87)'"
+                     *ngFor="let song of setlist.songs"
+                     cdkDrag
+                     [cdkDragDisabled]="!isDragMode">
+                    <div>
+                        {{song}}
+                    </div>
+                    <mat-icon *ngIf="isDragMode"
+                              cdkDragHandle
+                              color="accent">drag_handle</mat-icon>
+                </div>
+            </div>
+        </cdk-virtual-scroll-viewport>
+    </mat-tab>
+    <mat-tab [label]="'add_songs' | transloco">
+        <cdk-virtual-scroll-viewport itemSize=48
+                                     class="viewport">
+            <div class="flex-container">
+                <app-search (onSearch)="searchForSong($event)"
+                            (onClear)="clearSearch()"
+                            class="search-input"></app-search>
+                <mat-selection-list #songs
+                                    class="user-song-list"
+                                    (selectionChange)="onSelectionChange($event)">
+                    <mat-list-option *ngFor="let song of filteredSongs"
+                                     [selected]="checkSelected(song)"
+                                     [value]="song">
+                        {{song.name}}
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+        </cdk-virtual-scroll-viewport>
+    </mat-tab>
 </mat-tab-group>

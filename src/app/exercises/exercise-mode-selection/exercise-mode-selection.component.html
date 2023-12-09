@@ -1,42 +1,42 @@
 <div [@fadeInOnEnter]>
-  <div class="exercise-name"
-       [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{exercise.name}}</div>
-  <div class="mode-list"
-       [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-    <div class="mode-option mat-mdc-card"
-         [routerLink]="['/exercises/details', exercise.id, ExerciseModes.MANUAL]">
-      <mat-icon fontSet="material-icons-outlined"
-                color="accent"
-                class="mode-icon">schedule</mat-icon>
-      <h3 class="mode-title">
-        {{'mode_manual_title' | transloco}}</h3>
-      <span class="mode-description">
-        {{'mode_manual_description' | transloco}}</span>
+    <div class="exercise-name"
+         [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">{{exercise.name}}</div>
+    <div class="mode-list"
+         [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+        <div class="mode-option"
+             [routerLink]="['/exercises/details', exercise.id, ExerciseModes.MANUAL]">
+            <mat-icon fontSet="material-icons-outlined"
+                      color="accent"
+                      class="mode-icon">schedule</mat-icon>
+            <h3 class="mode-title">
+                {{'mode_manual_title' | transloco}}</h3>
+            <span class="mode-description">
+                {{'mode_manual_description' | transloco}}</span>
+        </div>
+
+        <div class="mode-option"
+             [routerLink]="['/exercises/details', exercise.id, ExerciseModes.INTERVAL]">
+            <mat-icon fontSet="material-icons-outlined"
+                      color="accent"
+                      class="mode-icon">speed</mat-icon>
+            <h3 class="mode-title">
+                {{'mode_interval_title' | transloco}}
+            </h3>
+            <span class="mode-description">
+                {{'mode_interval_description' | transloco}}</span>
+        </div>
+
+
+        <div class="mode-option"
+             [routerLink]="['/exercises/details', exercise.id, ExerciseModes.TIMEBASED]">
+            <mat-icon fontSet="material-icons-outlined"
+                      color="accent"
+                      class="mode-icon">access_alarm</mat-icon>
+            <h3 class="mode-title">
+                {{'mode_timebased_title' | transloco}}</h3>
+            <span class="mode-description">
+                {{'mode_timebased_description' | transloco}}</span>
+        </div>
+
     </div>
-
-    <div class="mode-option mat-mdc-card"
-         [routerLink]="['/exercises/details', exercise.id, ExerciseModes.INTERVAL]">
-      <mat-icon fontSet="material-icons-outlined"
-                color="accent"
-                class="mode-icon">speed</mat-icon>
-      <h3 class="mode-title">
-        {{'mode_interval_title' | transloco}}
-      </h3>
-      <span class="mode-description">
-        {{'mode_interval_description' | transloco}}</span>
-    </div>
-
-
-    <div class="mode-option mat-mdc-card"
-         [routerLink]="['/exercises/details', exercise.id, ExerciseModes.TIMEBASED]">
-      <mat-icon fontSet="material-icons-outlined"
-                color="accent"
-                class="mode-icon">access_alarm</mat-icon>
-      <h3 class="mode-title">
-        {{'mode_timebased_title' | transloco}}</h3>
-      <span class="mode-description">
-        {{'mode_timebased_description' | transloco}}</span>
-    </div>
-
-  </div>
 </div>

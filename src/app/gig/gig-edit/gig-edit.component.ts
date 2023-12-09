@@ -21,11 +21,12 @@ import { SongService } from '../../songs/services/song.service';
 import { GigService } from '../services/gig.service';
 import { AuthService } from './../../services/auth.service';
 import { SnackbarService } from './../../services/snackbar.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-gig-edit',
     standalone: true,
-    imports: [MatListModule, CommonModule, SearchComponent, MatFormFieldModule, MatInputModule, FormsModule, TranslocoModule],
+    imports: [MatListModule, CommonModule, SearchComponent, MatFormFieldModule, MatInputModule, FormsModule, TranslocoModule, ScrollingModule],
     templateUrl: './gig-edit.component.html',
     styleUrls: ['./gig-edit.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],

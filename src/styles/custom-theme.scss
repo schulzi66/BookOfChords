@@ -21,14 +21,14 @@ $custom-light-theme: mat.define-light-theme(
 );
 
 // Darktheme
-$custom-dark-theme-primary: mat.define-palette(mat.$blue-gray-palette);
+// $custom-dark-theme-primary: mat.define-palette(mat.$blue-gray-palette, 300);
 $custom-dark-theme-accent: mat.define-palette(mat.$orange-palette, 500, A200, A700);
 $custom-dark-theme-warn: mat.define-palette(mat.$red-palette);
 
 $custom-dark-theme: mat.define-dark-theme(
     (
         color: (
-            primary: $custom-dark-theme-primary,
+            primary: $custom-dark-theme-accent,
             accent: $custom-dark-theme-accent,
             warn: $custom-dark-theme-warn,
         ),

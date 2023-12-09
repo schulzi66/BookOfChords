@@ -1,6 +1,8 @@
-<mat-action-list *ngFor="let setlist of band?.setlists"
-                 [@fadeInOnEnter]>
-  <button mat-list-item
-          [routerLink]="['./setlist/edit', setlist.id]">{{setlist?.name}}</button>
-  <mat-divider></mat-divider>
+<mat-action-list [@fadeInOnEnter]>
+    <cdk-virtual-scroll-viewport itemSize=48
+                                 class="viewport">
+        <button mat-list-item
+                *cdkVirtualFor="let setlist of band?.setlists"
+                [routerLink]="['./setlist/edit', setlist.id]">{{setlist?.name}}</button>
+    </cdk-virtual-scroll-viewport>
 </mat-action-list>
