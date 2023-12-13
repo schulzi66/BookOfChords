@@ -1,12 +1,13 @@
 <mat-nav-list>
-  <a mat-list-item
-     *ngFor="let band of token.bands$ | async"
-     (click)="onSelectBand(band)">
-    <div class="band-item">
-      <img [src]="band.pictureUrl"
-           class="band-picture"
-           [ngClass]="{'visible': band.pictureUrl}">
-      <div>{{band.name}}</div>
-    </div>
-  </a>
+    @for (band of token.bands$ | async; track band) {
+    <a mat-list-item
+       (click)="onSelectBand(band)">
+        <div class="band-item">
+            <img [src]="band.pictureUrl"
+                 class="band-picture"
+                 [ngClass]="{'visible': band.pictureUrl}">
+            <div>{{band.name}}</div>
+        </div>
+    </a>
+    }
 </mat-nav-list>

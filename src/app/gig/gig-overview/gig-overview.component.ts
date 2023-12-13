@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -14,7 +13,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 @Component({
     selector: 'app-gig-overview',
     standalone: true,
-    imports: [CommonModule, MatDividerModule, RouterModule, MatButtonModule, MatListModule, ScrollingModule],
+    imports: [MatDividerModule, RouterModule, MatButtonModule, MatListModule, ScrollingModule],
     templateUrl: './gig-overview.component.html',
     styleUrls: ['./gig-overview.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],
@@ -22,7 +21,11 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 export class GigOverviewComponent extends SubscriptionHandler implements OnInit {
     public gigs: Gig[];
 
-    constructor(private _gigService: GigService, private _navbarActionService: NavbarActionService, private _router: Router) {
+    constructor(
+        private _gigService: GigService,
+        private _navbarActionService: NavbarActionService,
+        private _router: Router,
+    ) {
         super();
         this._navbarActionService.registerActions([
             {

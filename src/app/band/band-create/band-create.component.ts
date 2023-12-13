@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -20,7 +19,7 @@ import { SnackbarService } from './../../services/snackbar.service';
 @Component({
     selector: 'app-band-create',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatInputModule, MatFormFieldModule, TranslocoModule],
+    imports: [FormsModule, MatInputModule, MatFormFieldModule, TranslocoModule],
     templateUrl: './band-create.component.html',
     styleUrls: ['./band-create.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],

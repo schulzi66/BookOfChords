@@ -10,18 +10,17 @@
                               [sliderDisabled]="true"
                               [showSoundMode]="true"
                               (onBpmChanged)="updateBpm($event)"></shared-metronome>
-
-            <div class="sound"
-                 *ngIf="song.sound">
+            @if (song.sound) {
+            <div class="sound">
                 <audio controls>
                     <source [src]="song.sound">
                 </audio>
             </div>
+            }
         </div>
-
         <div class="song-panel-body-wrapper">
-            <mat-card class="song-panel-body"
-                      *ngFor="let section of song.sections; index as i">
+            @for (section of song.sections; track section; let i = $index) {
+            <mat-card class="song-panel-body">
                 <mat-card-header>
                     <mat-card-title [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
                                     [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
@@ -30,30 +29,32 @@
                 </mat-card-header>
                 <mat-card-content>
                     <div class="section-value-flex-wrapper">
+                        @for (value of section.value; track value) {
                         <div class="section-value"
-                             *ngFor="let value of section.value"
                              [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
                              [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
                              [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment">
                             {{value}}
                         </div>
+                        }
                     </div>
                 </mat-card-content>
             </mat-card>
+            }
         </div>
-
-        <div class="section-value"
-             *ngFor="let picture of song.pictures">
+        @for (picture of song.pictures; track picture) {
+        <div class="section-value">
             <pinch-zoom>
                 <img class="picture"
                      [src]="picture">
             </pinch-zoom>
         </div>
-        <div *ngFor="let pdf of song?.pdfs"
-             style="height: 80vh;">
+        }
+        @for (pdf of song?.pdfs; track pdf) {
+        <div style="height: 80vh;">
             <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
                               [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
-
         </div>
+        }
     </cdk-virtual-scroll-viewport>
 </div>

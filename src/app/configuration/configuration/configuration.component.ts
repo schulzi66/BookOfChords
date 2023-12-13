@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -16,7 +15,7 @@ import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler'
 @Component({
     selector: 'app-configuration',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatInputModule, MatSelectModule, MatSlideToggleModule, TranslocoModule],
+    imports: [FormsModule, MatInputModule, MatSelectModule, MatSlideToggleModule, TranslocoModule],
     templateUrl: './configuration.component.html',
     styleUrls: ['./configuration.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],

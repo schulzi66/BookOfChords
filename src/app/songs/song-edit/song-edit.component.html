@@ -11,7 +11,6 @@
                    [(ngModel)]="song.name"
                    name="songName">
         </mat-form-field>
-
         <mat-form-field appearance="outline"
                         class="bpm"
                         [hintLabel]="'metronome_hint' | transloco">
@@ -20,33 +19,30 @@
                    [(ngModel)]="song.bpm"
                    name="bpm">
         </mat-form-field>
-
         <div class="bands">
-            <ng-container *ngIf="!selectedBand; else bandSelection">
-                <div *ngFor="let band of bands$ | async"
-                     class="band"
-                     (click)="selectBand(band)">
-                    <img [src]="band.pictureUrl"
-                         class="band-picture"
-                         [ngClass]="{'visible': band.pictureUrl}"> {{band.name}}
-                </div>
-            </ng-container>
-            <ng-template #bandSelection>
-                <div class="band">
-                    <img [src]="selectedBand.pictureUrl"
-                         class="band-picture"
-                         [ngClass]="{'visible': selectedBand.pictureUrl}"> {{selectedBand.name}}
-                    <button mat-icon-button
-                            (click)="deselectBand()">
-                        <mat-icon color="accent">highlight_off</mat-icon>
-                    </button>
-                </div>
-            </ng-template>
+            @if (!selectedBand) {
+            @for (band of bands$ | async; track band) {
+            <div class="band"
+                 (click)="selectBand(band)">
+                <img [src]="band.pictureUrl"
+                     class="band-picture"
+                     [ngClass]="{'visible': band.pictureUrl}"> {{band.name}}
+            </div>
+            }
+            } @else {
+            <div class="band">
+                <img [src]="selectedBand.pictureUrl"
+                     class="band-picture"
+                     [ngClass]="{'visible': selectedBand.pictureUrl}"> {{selectedBand.name}}
+                <button mat-icon-button
+                        (click)="deselectBand()">
+                    <mat-icon color="accent">highlight_off</mat-icon>
+                </button>
+            </div>
+            }
         </div>
-
-
-        <div class="sound"
-             *ngIf="song.sound">
+        @if (song.sound) {
+        <div class="sound">
             <audio class="audio"
                    controls>
                 <source [src]="song.sound">
@@ -56,12 +52,12 @@
                 <mat-icon color="accent">delete_outline</mat-icon>
             </button>
         </div>
-
+        }
         <div class="song-sections-list"
              cdkDropList
              (cdkDropListDropped)="drop($event)">
+            @for (section of song?.sections; track section; let i = $index) {
             <div class="section"
-                 *ngFor="let section of song?.sections; index as i"
                  cdkDrag
                  [cdkDragDisabled]="!isReoderingMode">
                 <div class="section-wrapper">
@@ -83,21 +79,24 @@
                                   #autosize="cdkTextareaAutosize"></textarea>
                     </mat-form-field>
                 </div>
-                <button *ngIf="isDeletingMode"
-                        mat-icon-button
+                @if (isDeletingMode) {
+                <button mat-icon-button
                         (click)="removeSection(i)">
                     <mat-icon color="accent">delete_outline</mat-icon>
                 </button>
-                <button *ngIf="isReoderingMode"
-                        mat-icon-button
+                }
+                @if (isReoderingMode) {
+                <button mat-icon-button
                         cdkDragHandle>
                     <mat-icon color="accent">drag_handle</mat-icon>
                 </button>
+                }
             </div>
+            }
         </div>
         <br>
-
-        <div *ngFor="let picture of song?.pictures; index as i">
+        @for (picture of song?.pictures; track picture; let i = $index) {
+        <div>
             <pinch-zoom>
                 <img class="picture"
                      [src]="picture">
@@ -107,15 +106,16 @@
                 <mat-icon>delete_outline</mat-icon>
             </button>
         </div>
-        <div *ngFor="let pdf of song?.pdfs; index as i"
-             style="height: 80vh;">
+        }
+        @for (pdf of song?.pdfs; track pdf; let i = $index) {
+        <div style="height: 80vh;">
             <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
                               [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
-
             <button mat-icon-button
                     (click)="removePdf(i)">
                 <mat-icon>delete_outline</mat-icon>
             </button>
         </div>
+        }
     </div>
 </cdk-virtual-scroll-viewport>

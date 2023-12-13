@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,16 +13,7 @@ import { SaveExerciseProgressData } from './save-exercise-progress-data';
 @Component({
     selector: 'app-save-exercise-progress-dialog',
     standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        MatButtonModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        TranslocoModule,
-    ],
+    imports: [FormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, TranslocoModule],
     templateUrl: './save-exercise-progress-dialog.component.html',
     styleUrls: ['./save-exercise-progress-dialog.component.scss'],
 })

@@ -1,7 +1,7 @@
 <div [@fadeInOnEnter]>
     <div class="flex-container">
-        <mat-form-field *ngIf="!isPlayMode"
-                        appearance="outline"
+        @if (!isPlayMode) {
+        <mat-form-field appearance="outline"
                         class="gig-name">
             <mat-label>{{'gig_name' | transloco}}</mat-label>
             <input #gigNameModel="ngModel"
@@ -10,17 +10,17 @@
                    [(ngModel)]="gig.name"
                    name="gigName">
         </mat-form-field>
+        }
     </div>
     <cdk-virtual-scroll-viewport itemSize=48
                                  [ngClass]="isPlayMode ? 'playmode-viewport' : 'viewport'">
-
-        <mat-accordion *ngIf="!isPlayMode"
-                       cdkDropList
+        @if (!isPlayMode) {
+        <mat-accordion cdkDropList
                        (cdkDropListDropped)="drop($event)"
                        [hideToggle]="true"
                        multi="isPlayMode">
-            <mat-expansion-panel *ngFor="let song of gig?.songs; index as index"
-                                 cdkDrag
+            @for (song of gig?.songs; track song; let index = $index) {
+            <mat-expansion-panel cdkDrag
                                  [cdkDragDisabled]="isPlayMode || !isDragMode"
                                  [disabled]="isPlayMode"
                                  [expanded]="isPlayMode">
@@ -32,27 +32,30 @@
                         <h3>{{song.name}}</h3>
                     </mat-panel-title>
                     <mat-panel-description class="panel-description">
-                        <mat-icon *ngIf="!this.isPlayMode && this.isDragMode"
-                                  cdkDragHandle
+                        @if (!this.isPlayMode && this.isDragMode) {
+                        <mat-icon cdkDragHandle
                                   color="accent">drag_handle</mat-icon>
+                        }
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <ng-template matExpansionPanelContent>
-                    <button *ngIf="!isPlayMode"
-                            mat-button
+                    @if (!isPlayMode) {
+                    <button mat-button
                             class="edit-button"
                             (click)="editSelectedSong(song.id)">
                         <mat-icon fontSet="material-icons-outlined"
                                   color="accent">edit</mat-icon>
                     </button>
-                    <div class="sound"
-                         *ngIf="song.sound">
+                    }
+                    @if (song.sound) {
+                    <div class="sound">
                         <audio controls>
                             <source [src]="song.sound">
                         </audio>
                     </div>
-                    <shared-metronome *ngIf="isPlayMode && (this.configurationService.configuration$ | async)?.showMetronomeInGigs"
-                                      [bpm]="song.bpm"
+                    }
+                    @if (isPlayMode && (this.configurationService.configuration$ | async)?.showMetronomeInGigs) {
+                    <shared-metronome [bpm]="song.bpm"
                                       [sliderDisabled]="true"
                                       [showPlay]="showPlay(index)"
                                       [showSoundMode]="true"
@@ -60,102 +63,111 @@
                                       (onContinue)="onStartPlaySong(index)"
                                       (onStop)="onStopPlaySong()"
                                       (onPause)="onStopPlaySong()"></shared-metronome>
-                    <div class="song-panel-body"
-                         *ngFor="let section of song.sections">
+                    }
+                    @for (section of song.sections; track section) {
+                    <div class="song-panel-body">
                         <h5 class="section-name"
                             [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
                             [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
                             {{section.name}}</h5>
                         <div class="section-value-flex-wrapper">
+                            @for (value of section.value; track value) {
                             <div class="section-value"
-                                 *ngFor="let value of section.value"
                                  [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
                                  [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
                                  [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment">
                                 {{value}}</div>
+                            }
                         </div>
                         <mat-divider></mat-divider>
                     </div>
-                    <div class="section-value"
-                         *ngFor="let picture of song?.pictures">
+                    }
+                    @for (picture of song?.pictures; track picture) {
+                    <div class="section-value">
                         <pinch-zoom>
                             <img class="picture"
                                  [src]="picture">
                         </pinch-zoom>
                     </div>
-                    <div style="height: 80vh;"
-                         *ngFor="let pdf of song?.pdfs">
+                    }
+                    @for (pdf of song?.pdfs; track pdf) {
+                    <div style="height: 80vh;">
                         <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
                                           [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
                     </div>
+                    }
                 </ng-template>
             </mat-expansion-panel>
+            }
         </mat-accordion>
-
-        <ng-container *ngIf="isPlayMode">
-            <div class="song"
-                 *ngFor="let song of gig?.songs; index as index">
-                <h3 class="song-title mat-mdc-card-title"
-                    [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-                    {{this.song.name}}
-                </h3>
-
-                <div class="metronome-wrapper">
-                    <div class="sound"
-                         *ngIf="song.sound">
-                        <audio controls>
-                            <source [src]="song.sound">
-                        </audio>
-                    </div>
-                    <shared-metronome *ngIf="isPlayMode && (this.configurationService.configuration$ | async)?.showMetronomeInGigs"
-                                      [bpm]="song.bpm"
-                                      [sliderDisabled]="true"
-                                      [showPlay]="showPlay(index)"
-                                      [showSoundMode]="true"
-                                      (onStart)="onStartPlaySong(index)"
-                                      (onContinue)="onStartPlaySong(index)"
-                                      (onStop)="onStopPlaySong()"
-                                      (onPause)="onStopPlaySong()"></shared-metronome>
+        }
+        @if (isPlayMode) {
+        @for (song of gig?.songs; track song; let index = $index) {
+        <div class="song">
+            <h3 class="song-title mat-mdc-card-title"
+                [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+                {{this.song.name}}
+            </h3>
+            <div class="metronome-wrapper">
+                @if (song.sound) {
+                <div class="sound">
+                    <audio controls>
+                        <source [src]="song.sound">
+                    </audio>
                 </div>
-
-                <div class="song-panel-body-wrapper">
-                    <mat-card class="song-panel-body"
-                              *ngFor="let section of song.sections; index as i">
-                        <mat-card-header>
-                            <mat-card-title [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
-                                            [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-                                {{section.name}}
-                            </mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="section-value-flex-wrapper">
-                                <div class="section-value"
-                                     *ngFor="let value of section.value"
-                                     [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
-                                     [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
-                                     [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment">
-                                    {{value}}
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-
-                <div class="section-value"
-                     *ngFor="let picture of song?.pictures">
-                    <pinch-zoom>
-                        <img class="picture"
-                             [src]="picture">
-                    </pinch-zoom>
-                </div>
-                <div style="height: 80vh;"
-                     *ngFor="let pdf of song?.pdfs">
-                    <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
-                                      [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
-                </div>
-                <mat-divider></mat-divider>
+                }
+                @if (isPlayMode && (this.configurationService.configuration$ | async)?.showMetronomeInGigs) {
+                <shared-metronome [bpm]="song.bpm"
+                                  [sliderDisabled]="true"
+                                  [showPlay]="showPlay(index)"
+                                  [showSoundMode]="true"
+                                  (onStart)="onStartPlaySong(index)"
+                                  (onContinue)="onStartPlaySong(index)"
+                                  (onStop)="onStopPlaySong()"
+                                  (onPause)="onStopPlaySong()"></shared-metronome>
+                }
             </div>
-        </ng-container>
-
+            <div class="song-panel-body-wrapper">
+                @for (section of song.sections; track section; let i = $index) {
+                <mat-card class="song-panel-body">
+                    <mat-card-header>
+                        <mat-card-title [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeHeader"
+                                        [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+                            {{section.name}}
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="section-value-flex-wrapper">
+                            @for (value of section.value; track value) {
+                            <div class="section-value"
+                                 [style.fontSize]="(this.configurationService.configuration$ | async)?.fontSizeSection"
+                                 [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily"
+                                 [style.text-align]="(this.configurationService.configuration$ | async)?.sectionAlignment">
+                                {{value}}
+                            </div>
+                            }
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                }
+            </div>
+            @for (picture of song?.pictures; track picture) {
+            <div class="section-value">
+                <pinch-zoom>
+                    <img class="picture"
+                         [src]="picture">
+                </pinch-zoom>
+            </div>
+            }
+            @for (pdf of song?.pdfs; track pdf) {
+            <div style="height: 80vh;">
+                <ng2-pdfjs-viewer [pdfSrc]="pdf | encode"
+                                  [useOnlyCssZoom]="true"></ng2-pdfjs-viewer>
+            </div>
+            }
+            <mat-divider></mat-divider>
+        </div>
+        }
+        }
     </cdk-virtual-scroll-viewport>
 </div>

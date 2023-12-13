@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,7 +16,7 @@ import { BandService } from '../services/band.service';
 @Component({
     selector: 'app-band-detail',
     standalone: true,
-    imports: [CommonModule, MatCardModule, MatListModule],
+    imports: [MatCardModule, MatListModule],
     templateUrl: './band-detail.component.html',
     styleUrls: ['./band-detail.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],

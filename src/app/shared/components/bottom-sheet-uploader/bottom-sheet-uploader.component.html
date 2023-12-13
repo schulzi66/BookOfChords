@@ -1,35 +1,36 @@
 <mat-nav-list>
-  <a mat-list-item
-     *ngFor="let type of token.typesToUpload"
-     (click)="fileInput.click()">
-
-    <span mat-line>{{ 'upload_' + type | transloco }}</span>
-    <input #fileInput
-           type="file"
-           multiple
-           [accept]="type"
-           (change)="onChange($event.target.files, type)"
-           style="display: none;" />
-
-    <span mat-line
-          *ngFor="let file of files[type]">
-      <upload-task [file]="file"
-                   [mediaType]="type"
-                   [storageBucketPrefix]="token.storageBucketPrefix"
-                   (onUploadComplete)="uploadComplete($event)">
-      </upload-task>
-    </span>
-  </a>
-  <a mat-list-item
-     *ngIf="token.displayCameraOption"
-     (click)="cameraInput.click()">
-
-    <span mat-line>{{ 'upload_camera' | transloco }}</span>
-    <input #cameraInput
-           type="file"
-           accept="image/*"
-           capture="environment"
-           (change)="onChange($event.target.files, 'image/*')"
-           style="display:none;">
-  </a>
-</mat-nav-list>
+  @for (type of token.typesToUpload; track type) {
+    <a mat-list-item
+      (click)="fileInput.click()">
+      <span mat-line>{{ 'upload_' + type | transloco }}</span>
+      <input #fileInput
+        type="file"
+        multiple
+        [accept]="type"
+        (change)="onChange($event.target.files, type)"
+        style="display: none;" />
+        @for (file of files[type]; track file) {
+          <span mat-line
+            >
+            <upload-task [file]="file"
+              [mediaType]="type"
+              [storageBucketPrefix]="token.storageBucketPrefix"
+              (onUploadComplete)="uploadComplete($event)">
+            </upload-task>
+          </span>
+        }
+      </a>
+    }
+    @if (token.displayCameraOption) {
+      <a mat-list-item
+        (click)="cameraInput.click()">
+        <span mat-line>{{ 'upload_camera' | transloco }}</span>
+        <input #cameraInput
+          type="file"
+          accept="image/*"
+          capture="environment"
+          (change)="onChange($event.target.files, MediaTypes.IMAGE)"
+          style="display:none;">
+        </a>
+      }
+    </mat-nav-list>

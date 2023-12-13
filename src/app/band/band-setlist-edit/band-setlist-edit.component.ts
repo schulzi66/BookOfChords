@@ -1,6 +1,6 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { CommonModule, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -38,7 +38,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     selector: 'app-band-setlist-edit',
     standalone: true,
     imports: [
-        CommonModule,
         DragDropModule,
         EncodeUriPipe,
         FormsModule,
@@ -126,15 +125,13 @@ export class BandSetlistEditComponent extends SubscriptionHandler implements OnI
                     const content = [
                         { text: `${this.setlist.name}\n\n`, style: 'header' },
                         {
-                            ol: [
-                                ...this.setlist.songs.map(songName => songName)
-                            ]
-                        }
-                    ]
+                            ol: [...this.setlist.songs.map(songName => songName)],
+                        },
+                    ];
 
                     this._pdfService.createPdf(this.setlist.name, content);
-                }
-            }
+                },
+            },
         ]);
 
         this.isDragMode = false;

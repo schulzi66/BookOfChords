@@ -1,18 +1,8 @@
-<!-- #region Templates-->
-
-<ng-template #filterTemplate>
-    <app-search (onSearch)="searchForSong($event)"
-                (onClear)="clearSearch()"
-                class="search-input"></app-search>
-</ng-template>
-
-<!-- #endregion-->
-
 <div class="flex-container"
      [@fadeInOnEnter]>
+    @if (!filterToggle) {
     <mat-form-field appearance="outline"
-                    class="gig-name"
-                    *ngIf="!filterToggle; else filterTemplate">
+                    class="gig-name">
         <mat-label>{{'gig_name' | transloco}}</mat-label>
         <input #gigNameModel="ngModel"
                matInput
@@ -20,18 +10,22 @@
                [(ngModel)]="gig.name"
                name="gigName">
     </mat-form-field>
+    } @else {
+    <app-search (onSearch)="searchForSong($event)"
+                (onClear)="clearSearch()"
+                class="search-input"></app-search>
+    }
 </div>
-
 <mat-selection-list #songs
                     class="song-list"
                     (selectionChange)="onSelectionChange($event)">
     <cdk-virtual-scroll-viewport itemSize=48
                                  class="viewport">
-        <mat-list-option *ngFor="let song of filteredSongs"
-                         [selected]="checkSelected(song)"
+        @for (song of filteredSongs; track song) {
+        <mat-list-option [selected]="checkSelected(song)"
                          [value]="song">
             {{song.name}}
         </mat-list-option>
-
+        }
     </cdk-virtual-scroll-viewport>
 </mat-selection-list>

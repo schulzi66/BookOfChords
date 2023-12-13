@@ -35,18 +35,20 @@
             <div cdkDropList
                  (cdkDropListDropped)="drop($event)"
                  class="setlist-songs">
+                @for (song of setlist.songs; track song) {
                 <div class="song-box"
                      [style.color]="this.configurationService.useDarkMode ? 'white' : 'rgba(0, 0, 0, 0.87)'"
-                     *ngFor="let song of setlist.songs"
                      cdkDrag
                      [cdkDragDisabled]="!isDragMode">
                     <div>
                         {{song}}
                     </div>
-                    <mat-icon *ngIf="isDragMode"
-                              cdkDragHandle
+                    @if (isDragMode) {
+                    <mat-icon cdkDragHandle
                               color="accent">drag_handle</mat-icon>
+                    }
                 </div>
+                }
             </div>
         </cdk-virtual-scroll-viewport>
     </mat-tab>
@@ -60,11 +62,12 @@
                 <mat-selection-list #songs
                                     class="user-song-list"
                                     (selectionChange)="onSelectionChange($event)">
-                    <mat-list-option *ngFor="let song of filteredSongs"
-                                     [selected]="checkSelected(song)"
+                    @for (song of filteredSongs; track song) {
+                    <mat-list-option [selected]="checkSelected(song)"
                                      [value]="song">
                         {{song.name}}
                     </mat-list-option>
+                    }
                 </mat-selection-list>
             </div>
         </cdk-virtual-scroll-viewport>

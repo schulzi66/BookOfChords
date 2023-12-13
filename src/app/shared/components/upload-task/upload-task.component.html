@@ -1,8 +1,9 @@
+@if (percentage | async; as pct) {
 <span mat-line
-      class="progress-indicator"
-      *ngIf="percentage | async as pct">
-  {{pct | number:'1.0-0' }} %
-  <mat-progress-bar mode="determinate"
-                    [color]="'accent'"
-                    [value]="pct"></mat-progress-bar>
+      class="progress-indicator">
+    {{pct | number:'1.0-0' }} %
+    <mat-progress-bar mode="determinate"
+                      [color]="'accent'"
+                      [value]="pct"></mat-progress-bar>
 </span>
+}

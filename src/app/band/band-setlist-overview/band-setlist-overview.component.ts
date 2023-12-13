@@ -1,5 +1,4 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
@@ -14,7 +13,7 @@ import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler'
 @Component({
     selector: 'app-band-setlist-overview',
     standalone: true,
-    imports: [MatDividerModule, RouterModule, ScrollingModule, CommonModule, MatListModule],
+    imports: [MatDividerModule, RouterModule, ScrollingModule, MatListModule],
     templateUrl: './band-setlist-overview.component.html',
     styleUrls: ['./band-setlist-overview.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],

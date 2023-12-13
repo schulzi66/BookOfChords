@@ -1,4 +1,4 @@
-import { CommonModule, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -27,7 +27,6 @@ import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler'
     selector: 'app-band-edit',
     standalone: true,
     imports: [
-        CommonModule,
         FormsModule,
         MatButtonModule,
         MatCardModule,

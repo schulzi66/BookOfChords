@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,7 +25,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 @Component({
     selector: 'app-gig-edit',
     standalone: true,
-    imports: [MatListModule, CommonModule, SearchComponent, MatFormFieldModule, MatInputModule, FormsModule, TranslocoModule, ScrollingModule],
+    imports: [MatListModule, SearchComponent, MatFormFieldModule, MatInputModule, FormsModule, TranslocoModule, ScrollingModule],
     templateUrl: './gig-edit.component.html',
     styleUrls: ['./gig-edit.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],

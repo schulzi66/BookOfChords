@@ -1,6 +1,6 @@
 <mat-list>
-    <mat-list-item *ngFor="let band of bands"
-                   (click)="onBandSelected(band)">
+    @for (band of bands; track band) {
+    <mat-list-item (click)="onBandSelected(band)">
         <div class="band">
             <img [src]="band.pictureUrl"
                  class="band-picture"
@@ -8,4 +8,5 @@
             {{band.name}}
         </div>
     </mat-list-item>
+    }
 </mat-list>

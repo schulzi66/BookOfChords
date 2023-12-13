@@ -1,6 +1,5 @@
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -30,7 +29,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     selector: 'app-exercise-edit',
     standalone: true,
     imports: [
-        CommonModule,
         EncodeUriPipe,
         FormsModule,
         MatButtonModule,
@@ -42,7 +40,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         PdfJsViewerModule,
         TextFieldModule,
         TranslocoModule,
-        ScrollingModule
+        ScrollingModule,
     ],
     templateUrl: './exercise-edit.component.html',
     styleUrls: ['./exercise-edit.component.scss'],

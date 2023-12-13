@@ -1,14 +1,15 @@
 <div class="flex-container"
      [@fadeInOnEnter]>
-  <mat-form-field appearance="outline"
-                  class="band-name">
-    <mat-label>{{'band_name' | transloco}}</mat-label>
-    <input matInput
-           required
-           [(ngModel)]="band.name"
-           name="bandName">
-  </mat-form-field>
+    <mat-form-field appearance="outline"
+                    class="band-name">
+        <mat-label>{{'band_name' | transloco}}</mat-label>
+        <input matInput
+               required
+               [(ngModel)]="band.name"
+               name="bandName">
+    </mat-form-field>
 </div>
-<img *ngIf="band.pictureUrl"
-     [src]="band.pictureUrl"
+@if (band.pictureUrl) {
+<img [src]="band.pictureUrl"
      class="band-picture">
+}

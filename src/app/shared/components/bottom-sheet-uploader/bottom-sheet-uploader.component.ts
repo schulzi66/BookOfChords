@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { MatInputModule } from '@angular/material/input';
@@ -18,12 +17,13 @@ export interface BottomSheetUploaderConfigInjectionToken {
 @Component({
     selector: 'app-bottom-sheet-uploader',
     standalone: true,
-    imports: [CommonModule, MatInputModule, MatListModule, TranslocoModule, UploadTaskComponent],
+    imports: [MatInputModule, MatListModule, TranslocoModule, UploadTaskComponent],
     templateUrl: './bottom-sheet-uploader.component.html',
     styleUrls: ['./bottom-sheet-uploader.component.scss'],
 })
 export class BottomSheetUploaderComponent {
     public files: { [key: string]: File[] };
+    public MediaTypes: typeof MediaTypes;
 
     public constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public token: BottomSheetUploaderConfigInjectionToken) {
         this.files = {};

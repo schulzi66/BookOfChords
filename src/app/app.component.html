@@ -4,7 +4,8 @@
                     mode="over">
             <div class="drawer-content">
                 <mat-nav-list>
-                    <div *ngIf="authService.user$ | async as user">
+                    @if (authService.user$ | async; as user) {
+                    <div>
                         <mat-list-item [routerLink]="['./songs']"
                                        (click)="drawer.close()">
                             <div class="navigation-item">
@@ -61,10 +62,10 @@
                             </div>
                         </mat-list-item>
                     </div>
-
+                    }
+                    @if ((this.authService.user$ | async) === null) {
                     <mat-list-item [routerLink]="['./login']"
-                                   (click)="drawer.close()"
-                                   *ngIf="(this.authService.user$ | async) === null">
+                                   (click)="drawer.close()">
                         <div class="navigation-item">
                             <mat-icon fontSet="material-icons-outlined"
                                       color="accent">lock_open</mat-icon>
@@ -74,6 +75,7 @@
                             </ng-template>
                         </div>
                     </mat-list-item>
+                    }
                     <mat-list-item [routerLink]="['./demo']"
                                    (click)="drawer.close()">
                         <div class="navigation-item">
@@ -85,8 +87,8 @@
                             </ng-template>
                         </div>
                     </mat-list-item>
-                    <mat-list-item (click)="authService.signOut(); drawer.close()"
-                                   *ngIf="authService.user$ | async as user">
+                    @if (authService.user$ | async; as user) {
+                    <mat-list-item (click)="authService.signOut(); drawer.close()">
                         <div class="navigation-item">
                             <mat-icon color="accent">logout</mat-icon>
                             <ng-template transloco
@@ -95,8 +97,9 @@
                             </ng-template>
                         </div>
                     </mat-list-item>
-                    <mat-list-item *ngIf="pwaService.promptEvent"
-                                   (click)="installPwa(); drawer.close()">
+                    }
+                    @if (pwaService.promptEvent) {
+                    <mat-list-item (click)="installPwa(); drawer.close()">
                         <div class="navigation-item">
                             <mat-icon fontSet="material-icons-outlined"
                                       color="accent">save_alt</mat-icon>
@@ -106,12 +109,11 @@
                             </ng-template>
                         </div>
                     </mat-list-item>
+                    }
                 </mat-nav-list>
             </div>
         </mat-drawer>
-
         <mat-drawer-content class="drawer-content">
-
             <mat-toolbar>
                 <button mat-icon-button
                         [disabled]="this.drawerActionService.disabled"
@@ -121,24 +123,22 @@
                               color="accent">{{this.drawerActionService.iconKey}}</mat-icon>
                 </button>
                 <span class="title">{{(this.titleService.currentTitleKey$ | async)| transloco}}</span>
-
                 <div class="action-bar"
                      dir="rtl">
-                    <div *ngFor="let action of (this.navbarActionService.navbarActions$ | async)">
+                    @for (action of (this.navbarActionService.navbarActions$ | async); track action) {
+                    <div>
                         <button mat-icon-button
                                 (click)="this.action.action()">
                             <mat-icon fontSet="material-icons-outlined"
                                       color="accent">{{action.icon}}</mat-icon>
                         </button>
                     </div>
+                    }
                 </div>
-
             </mat-toolbar>
-
             <div class="app-content">
                 <router-outlet></router-outlet>
             </div>
         </mat-drawer-content>
-
     </mat-drawer-container>
 </div>

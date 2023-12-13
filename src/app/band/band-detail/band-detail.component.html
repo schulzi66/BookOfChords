@@ -1,20 +1,23 @@
 <mat-card class="band-card"
           [@fadeInOnEnter]>
-  <mat-card-header class="band-header">
-    <div *ngIf="band?.pictureUrl"
-         mat-card-avatar
-         [style.background-image]="'url(' + band?.pictureUrl +')'"
-         class="band-image"></div>
-    <mat-card-title>{{band?.name}}</mat-card-title>
-    <mat-card-subtitle>{{band?.id}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-list>
-      <mat-list-item *ngFor="let member of band?.members">
-        <img [src]="member.photoURL"
-             class="profile-picture">
-        {{member.displayName}}
-      </mat-list-item>
-    </mat-list>
-  </mat-card-content>
+    <mat-card-header class="band-header">
+        @if (band?.pictureUrl) {
+        <div mat-card-avatar
+             [style.background-image]="'url(' + band?.pictureUrl +')'"
+             class="band-image"></div>
+        }
+        <mat-card-title>{{band?.name}}</mat-card-title>
+        <mat-card-subtitle>{{band?.id}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list>
+            @for (member of band?.members; track member) {
+            <mat-list-item>
+                <img [src]="member.photoURL"
+                     class="profile-picture">
+                {{member.displayName}}
+            </mat-list-item>
+            }
+        </mat-list>
+    </mat-card-content>
 </mat-card>
