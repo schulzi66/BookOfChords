@@ -1,7 +1,7 @@
 <div [@fadeInOnEnter]>
     <h3 class="song-title mat-mdc-card-title"
         [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-        {{this.song.name}}
+        {{ songName }}
     </h3>
     <cdk-virtual-scroll-viewport itemSize="48"
                                  class="song-details-viewport">

@@ -142,7 +142,7 @@ export class SongEditComponent implements OnInit {
         this.resetSong = true;
         this.isReoderingMode = false;
         this.isDeletingMode = false;
-        this.selectedBand = this.bandService.bandsSubject.value.find((band: Band) => band.id === this.song.bandId);
+        this.bands$.subscribe(band => this.selectedBand = band.find((band: Band) => band.id === this.song.bandId))
         this.triggerResize();
     }
 

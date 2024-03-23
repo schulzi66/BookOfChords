@@ -29,7 +29,13 @@
                 <mat-expansion-panel-header class="panel-header">
                     <mat-panel-title class="panel-title"
                                      [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-                        <h3>{{song.name}}</h3>
+                        <ng-container
+                                      *ngIf="(this.configurationService.configuration$ | async)?.enableCustomSongId && song.customId; else defaultSongTitle">
+                            <h3>{{song.customId}} - {{song.name}}</h3>
+                        </ng-container>
+                        <ng-template #defaultSongTitle>
+                            <h3>{{song.name}}</h3>
+                        </ng-template>
                     </mat-panel-title>
                     <mat-panel-description class="panel-description">
                         <mat-icon *ngIf="!this.isPlayMode && this.isDragMode"
@@ -97,7 +103,7 @@
                  *ngFor="let song of gig?.songs; index as index">
                 <h3 class="song-title mat-mdc-card-title"
                     [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-                    {{this.song.name}}
+                    {{song.name}}
                 </h3>
 
                 <div class="metronome-wrapper">

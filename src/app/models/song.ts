@@ -2,6 +2,7 @@ import { SongSection } from './song-section';
 
 export class Song {
     id: string;
+    customId: string;
     uid: string;
     name: string;
     sections: SongSection[];

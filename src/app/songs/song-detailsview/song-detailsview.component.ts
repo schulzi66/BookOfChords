@@ -33,7 +33,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         MetronomeComponent,
         PdfJsViewerModule,
         PinchZoomComponent,
-        ScrollingModule
+        ScrollingModule,
     ],
     templateUrl: './song-detailsview.component.html',
     styleUrls: ['./song-detailsview.component.scss'],
@@ -42,6 +42,12 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 export class SongDetailsviewComponent extends SubscriptionHandler implements OnInit {
     public song: Song;
     public isArchived: boolean = false;
+
+    public get songName(): string {
+        return this.configurationService.configuration.enableCustomSongId && this.song.customId
+            ? `${this.song.customId} - ${this.song.name}`
+            : this.song.name;
+    }
 
     constructor(
         private _songService: SongService,
@@ -98,16 +104,16 @@ export class SongDetailsviewComponent extends SubscriptionHandler implements OnI
                         {
                             ul: [
                                 ...this.song.sections.map(x => {
-                                    return [x.name, { ul: x.value }]
-                                })
-                            ]
+                                    return [x.name, { ul: x.value }];
+                                }),
+                            ],
                         },
-                        { text: '\n'}
-                    ]
+                        { text: '\n' },
+                    ];
 
                     this._pdfService.createPdf(this.song.name, content);
-                }
-            }
+                },
+            },
         ]);
     }
 
