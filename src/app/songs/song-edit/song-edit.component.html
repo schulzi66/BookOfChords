@@ -12,8 +12,17 @@
                    name="songName">
         </mat-form-field>
 
+        <mat-form-field *ngIf="(this.configurationService.configuration$ | async)?.enableCustomSongId"
+                        appearance="outline"
+                        class="metadata">
+            <mat-label>{{'custom_id' | transloco}}</mat-label>
+            <input matInput
+                   [(ngModel)]="song.customId"
+                   name="customId">
+        </mat-form-field>
+
         <mat-form-field appearance="outline"
-                        class="bpm"
+                        class="metadata"
                         [hintLabel]="'metronome_hint' | transloco">
             <mat-label>{{'BPM'}}</mat-label>
             <input matInput

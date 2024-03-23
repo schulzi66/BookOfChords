@@ -93,4 +93,10 @@
         {{'show_metronome_in_gigs' | transloco}}
     </mat-slide-toggle>
 
+    <mat-slide-toggle class="toggle"
+                      [checked]="configuration?.enableCustomSongId"
+                      (change)="enableCustomSongIdChanged($event)">
+        {{'enable_custom_song_id' | transloco}}
+    </mat-slide-toggle>
+
 </div>

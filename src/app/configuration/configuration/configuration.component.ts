@@ -96,4 +96,8 @@ export class ConfigurationComponent extends SubscriptionHandler implements OnIni
     public showMetronomeInGigsChanged(event: MatSlideToggleChange): void {
         this.configuration.showMetronomeInGigs = event.checked;
     }
+
+    public enableCustomSongIdChanged(event: MatSlideToggleChange): void {
+        this.configuration.enableCustomSongId = event.checked;
+    }
 }

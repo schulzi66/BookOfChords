@@ -9,6 +9,7 @@ export class Configuration {
     filterArchivedSongsInitially: boolean;
     sectionAlignment: 'start' | 'center' | 'end';
     showMetronomeInGigs: boolean;
+    enableCustomSongId: boolean;
 
     constructor(uid: string) {
         this.uid = uid;
