@@ -101,10 +101,20 @@
         <ng-container *ngIf="isPlayMode">
             <div class="song"
                  *ngFor="let song of gig?.songs; index as index">
-                <h3 class="song-title mat-mdc-card-title"
-                    [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
-                    {{song.name}}
-                </h3>
+
+                <ng-container
+                              *ngIf="(this.configurationService.configuration$ | async)?.enableCustomSongId && song.customId; else defaultSongTitle">
+                    <h3 class="song-title mat-mdc-card-title"
+                        [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+                        {{song.customId}} - {{song.name}}
+                    </h3>
+                </ng-container>
+                <ng-template #defaultSongTitle>
+                    <h3 class="song-title mat-mdc-card-title"
+                        [style.font-family]="(this.configurationService.configuration$ | async)?.fontFamily">
+                        {{song.name}}
+                    </h3>
+                </ng-template>
 
                 <div class="metronome-wrapper">
                     <div class="sound"
