@@ -4,7 +4,9 @@ import { MatListModule } from '@angular/material/list';
 import { Router, RouterModule } from '@angular/router';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { Exercise } from 'src/app/models/exercise';
+import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { StatsService } from 'src/app/services/stats.service';
 import { SearchComponent } from 'src/app/shared/components/search/search.component';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { ExercisesService } from '../services/exercises.service';
@@ -25,6 +27,8 @@ export class ExercisesOverviewComponent extends SubscriptionHandler implements O
         private readonly _exercisesService: ExercisesService,
         private readonly _router: Router,
         private readonly _navbarActionService: NavbarActionService,
+        private readonly _statsService: StatsService,
+        private readonly _authService: AuthService,
     ) {
         super();
         this._navbarActionService.registerActions([
@@ -42,6 +46,12 @@ export class ExercisesOverviewComponent extends SubscriptionHandler implements O
     }
 
     ngOnInit() {
+        this._statsService.saveStats({
+            uid: this._authService.user.uid,
+            userName: this._authService.user.displayName,
+            date: new Date(),
+            path: 'exercises-overview',
+        });
         this._subscriptions$.add(
             this._exercisesService.exercises$.subscribe((exercises: Exercise[]) => {
                 this._exercises = exercises;

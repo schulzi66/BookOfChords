@@ -1,3 +1,4 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
@@ -10,6 +11,7 @@ import { translate, TranslocoModule } from '@ngneat/transloco';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { INavbarAction } from 'src/app/models/navbar-action';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
+import { StatsService } from 'src/app/services/stats.service';
 import { DeletePopupDialogData } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog-data';
 import { DeletePopupDialogComponent } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog.component';
 import { SearchComponent } from 'src/app/shared/components/search/search.component';
@@ -21,12 +23,20 @@ import { SongService } from '../../songs/services/song.service';
 import { GigService } from '../services/gig.service';
 import { AuthService } from './../../services/auth.service';
 import { SnackbarService } from './../../services/snackbar.service';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-gig-edit',
     standalone: true,
-    imports: [MatListModule, CommonModule, SearchComponent, MatFormFieldModule, MatInputModule, FormsModule, TranslocoModule, ScrollingModule],
+    imports: [
+        MatListModule,
+        CommonModule,
+        SearchComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        TranslocoModule,
+        ScrollingModule,
+    ],
     templateUrl: './gig-edit.component.html',
     styleUrls: ['./gig-edit.component.scss'],
     animations: [fadeInOnEnterAnimation({ duration: 700 })],
@@ -60,6 +70,7 @@ export class GigEditComponent extends SubscriptionHandler implements OnInit {
         private _navbarActionService: NavbarActionService,
         private _activatedRoute: ActivatedRoute,
         private _snackbarService: SnackbarService,
+        private _statsService: StatsService,
     ) {
         super();
         this.gig = this._activatedRoute.snapshot.data['gig'];
@@ -71,6 +82,12 @@ export class GigEditComponent extends SubscriptionHandler implements OnInit {
     }
 
     ngOnInit() {
+        this._statsService.saveStats({
+            uid: this._authService.user.uid,
+            userName: this._authService.user.displayName,
+            date: new Date(),
+            path: `gig-edit-${this.isNewGig ? 'new-gig' : 'existing-gig'}`,
+        });
         this._currentUser = this._authService.user;
         this._subscriptions$.add(this._authService.user$.subscribe((user: User) => (this._currentUser = user)));
         this._subscriptions$.add(

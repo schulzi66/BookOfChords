@@ -1,3 +1,4 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -13,8 +14,10 @@ import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { filter } from 'rxjs/operators';
 import { ConfigurationService } from 'src/app/configuration/services/configuration.service';
 import { Exercise } from 'src/app/models/exercise';
+import { AuthService } from 'src/app/services/auth.service';
 import { NavbarActionService } from 'src/app/services/navbar-action.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { StatsService } from 'src/app/services/stats.service';
 import { DeletePopupDialogData } from 'src/app/shared/components/delete-popup-dialog/delete-popup-dialog-data';
 import { SubscriptionHandler } from 'src/app/shared/helper/subscription-handler';
 import { ExerciseModes } from './../../models/exercise-mode.enum';
@@ -27,7 +30,6 @@ import { EncodeUriPipe } from './../../shared/pipes/encode.pipe';
 import { ExercisesService } from './../services/exercises.service';
 import { SaveExerciseProgressData } from './save-exercise-progress-dialog/save-exercise-progress-data';
 import { SaveExerciseProgressDialogComponent } from './save-exercise-progress-dialog/save-exercise-progress-dialog.component';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-exercise-details',
@@ -45,7 +47,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         PinchZoomComponent,
         SaveExerciseProgressDialogComponent,
         TranslocoModule,
-        ScrollingModule
+        ScrollingModule,
     ],
     templateUrl: './exercise-details.component.html',
     styleUrls: ['./exercise-details.component.scss'],
@@ -84,6 +86,8 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
         private readonly _exercisesService: ExercisesService,
         private readonly _snackbarService: SnackbarService,
         private readonly _drawerActionService: DrawerActionService,
+        private readonly _statsService: StatsService,
+        private readonly _authService: AuthService,
         public readonly configurationService: ConfigurationService,
     ) {
         super();
@@ -105,6 +109,12 @@ export class ExerciseDetailsComponent extends SubscriptionHandler implements OnI
     }
 
     public ngOnInit(): void {
+        this._statsService.saveStats({
+            uid: this._authService.user.uid,
+            userName: this._authService.user.displayName,
+            date: new Date(),
+            path: 'exercises-details',
+        });
         this.exercise = this._activatedRoute.snapshot.data['exercise'];
         this.currentMode = Number.parseInt(this._activatedRoute.snapshot.params['mode']) as ExerciseModes;
         this.initialStartBpm = this.exercise.currentBpm;
